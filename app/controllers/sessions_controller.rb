@@ -10,6 +10,7 @@ class SessionsController < ApplicationController
     else
       session[:user_id] = user.id if not user.nil?
       redirect_to user, notice: "Tervetuloa #{params[:username]}!"
+    end
   end
 
   def destroy
