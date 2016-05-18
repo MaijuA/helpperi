@@ -36,11 +36,15 @@ gem 'bootstrap-sass'
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
-  gem 'web-console', '~> 2.0'
   gem 'rails_layout'
   gem 'byebug'
   gem 'sqlite3'
   gem 'spring'
+end
+
+group :development do
+  # Call 'byebug' anywhere in the code to stop execution and get a debugger console
+  gem 'web-console', '~> 2.0'
 end
 
 group :production do
@@ -49,4 +53,4 @@ group :production do
    gem 'rails_12factor'
 end
 
-ruby '2.3.0'
+ruby '2.3.1'
