@@ -36,7 +36,7 @@ gem 'bootstrap-sass'
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
-  gem 'web-console', '~> 2.0', group: :development
+  gem 'web-console', '~> 2.0', :group => :development
   gem 'rails_layout'
   gem 'byebug'
   gem 'sqlite3'
