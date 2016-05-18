@@ -1,0 +1,7 @@
+\select@language {finnish}
+\contentsline {section}{\numberline {1}Dokumentin tarkoitus}{1}
+\contentsline {section}{\numberline {2}J\IeC {\"a}rjestelm\IeC {\"a}n yleiskuvaus}{1}
+\contentsline {section}{\numberline {3}Relaatiotietokantakaavio}{1}
+\contentsline {section}{\numberline {4}J\IeC {\"a}rjestelm\IeC {\"a}n yleisrakenne}{1}
+\contentsline {section}{\numberline {5}K\IeC {\"a}ytt\IeC {\"o}liittym\IeC {\"a} ja j\IeC {\"a}rjestelm\IeC {\"a}n komponentit}{1}
+\contentsline {section}{\numberline {6}Liitteet}{1}

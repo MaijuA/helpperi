@@ -1,0 +1,6 @@
+\select@language {finnish}
+\contentsline {section}{\numberline {1}Dokumentin tarkoitus}{1}
+\contentsline {section}{\numberline {2}Testaus suunnitelma}{1}
+\contentsline {section}{\numberline {3}Test Case}{1}
+\contentsline {section}{\numberline {4}Test Suite}{1}
+\contentsline {section}{\numberline {5}Liitteet}{1}
