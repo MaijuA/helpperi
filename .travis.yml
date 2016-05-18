@@ -11,6 +11,7 @@ script:
 
 deploy:
   provider: heroku
+  skip_cleanup: true
   api_key:
    secure: $heroku_apikey
          
