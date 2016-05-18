@@ -5,11 +5,11 @@ class SessionsController < ApplicationController
 
   def create
     user = User.find_by username: params[:username]
-    if user.nil?
-      redirect_to :back, notice: "Käyttäjää #{params[:username]} ei löydy!"
+    if user && user.authenticate(params[:password])
+      session[:user_id] = user.id
+      redirect_to user_path(user), notice: "Tervetuloa takaisin!"
     else
-      session[:user_id] = user.id if not user.nil?
-      redirect_to user, notice: "Tervetuloa #{params[:username]}!"
+      redirect_to :back, notice: "Käyttäjätunnus tai salasana väärin"
     end
   end
 
