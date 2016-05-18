@@ -11,11 +11,11 @@ script:
 
 deploy:
   provider: heroku
-    api_key:
-        secure: $heroku_apikey
+  api_key:
+   secure: $heroku_apikey
          
-    app: helpperi
+  app: xjoxjox-helpperi
            
-    run:
-     - "rake db:migrate"
-     - restart
+  run:
+    - "rake db:migrate"
+    - restart
