@@ -14,7 +14,7 @@ deploy:
   api_key:
    secure: $heroku_apikey
          
-  app: xjoxjox-helpperi
+  app: helpperi
            
   run:
     - "rake db:migrate"
