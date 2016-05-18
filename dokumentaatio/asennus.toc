@@ -1,0 +1,3 @@
+\select@language {finnish}
+\contentsline {section}{\numberline {1}Dokumentin tarkoitus}{1}
+\contentsline {section}{\numberline {2}Liitteet}{1}
