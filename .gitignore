@@ -42,7 +42,6 @@ bower.json
 .byebug_history
 
 *~
-*.lock
 
 /config/application.yml
 
