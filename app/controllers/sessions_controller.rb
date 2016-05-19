@@ -9,7 +9,7 @@ class SessionsController < ApplicationController
       session[:user_id] = user.id
       redirect_to user_path(user), notice: "Tervetuloa takaisin!"
     else
-      redirect_to :back, notice: "Käyttäjätunnus tai salasana väärin"
+      redirect_to :back, alert: "Käyttäjätunnus tai salasana väärin"
     end
   end
 
