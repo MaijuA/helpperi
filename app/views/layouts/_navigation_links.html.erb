@@ -1,2 +1,6 @@
-<li><%= link_to 'Kirjaudu', signin_path %></li>
-<li><%= link_to 'Rekisteröidy', signup_path %></li>
+<% if not current_user.nil? %>
+    <li><%= link_to 'Kirjaudu ulos', signout_path %></li>
+<% else %>
+    <li><%= link_to 'Kirjaudu', signin_path %></li>
+    <li><%= link_to 'Rekisteröidy', signup_path %></li>
+<% end %>

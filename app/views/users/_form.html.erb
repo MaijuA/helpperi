@@ -19,7 +19,13 @@
     <%= f.label :'salasana' %><br>
     <%= f.password_field :password %>
   </div>
-  <div class="actions">
-    <%= f.submit %>
-  </div>
+  <% if current_user.nil? %>
+    <div class="actions">
+      <%= f.submit 'Rekisteröi käyttäjä' %>
+    </div>
+  <% else %>
+    <div class="actions">
+      <%= f.submit 'Tallenna muutokset' %>
+    </div>
+  <% end %>
 <% end %>
