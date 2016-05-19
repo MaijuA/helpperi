@@ -1,7 +1,13 @@
 <%= form_for(@user) do |f| %>
   <% if @user.errors.any? %>
     <div id="error_explanation">
-      <h2><%= pluralize(@user.errors.count, "error") %> prohibited this user from being saved:</h2>
+      <h2><%= @user.errors.count %>
+        <% if @user.errors.count == 1 %>
+             virhe
+        <% else %>
+            virhettä
+        <% end %>
+             esti käyttäjän tallentamisen:</h2>
 
       <ul>
       <% @user.errors.full_messages.each do |message| %>
@@ -19,6 +25,10 @@
     <%= f.label :'salasana' %><br>
     <%= f.password_field :password %>
   </div>
+    <div class="field">
+      <%= f.label :'salasana uudestaan' %><br>
+      <%= f.password_field :password_confirmation %>
+    </div>
   <% if current_user.nil? %>
     <div class="actions">
       <%= f.submit 'Rekisteröi käyttäjä' %>
