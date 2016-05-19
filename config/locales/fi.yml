@@ -101,7 +101,7 @@ fi:
       second: sekunti
       year: vuosi
   errors:
-    format: "%{attribute} %{message}"
+    format: "%{message}"
     messages:
       accepted: täytyy olla hyväksytty
       blank: ei voi olla sisällötön
