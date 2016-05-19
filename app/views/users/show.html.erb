@@ -6,4 +6,6 @@
 </p>
 
 <%= link_to 'Muokkaa', edit_user_path(@user) %> |
+<%= link_to('Poista', @user, method: :delete,
+            data: {confirm: 'Haluatko varmasti poistaa käyttäjän?' }, class:"btn btn-danger") %>
 <%= link_to 'Takaisin', users_path %>
