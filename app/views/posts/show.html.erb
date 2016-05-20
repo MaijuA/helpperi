@@ -8,7 +8,5 @@
   <%= @post.description %>
 </p>
 
-<% if current_user %>
-  <%= link_to 'Muokkaa', edit_post_path(@post) %>
-  <%= link_to 'Poista', @post, method: :delete, data: { confirm: 'Haluatko varmasti poistaa ilmoituksen?' } %></td>
-<% end %>
+<%= link_to 'Muokkaa', edit_post_path(@post) %>
+<td><%= link_to 'Poista', post, method: :delete, data: { confirm: 'Haluatko varmasti poistaa ilmoituksen?' } %></td>
