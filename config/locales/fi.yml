@@ -1,11 +1,16 @@
 ---
 fi:
+  sign_up_form: 'Rekisteröidy'
   activerecord:
     attributes:
       user:
         password: 'salasana'
         password_confirmation: 'salasanan varmistus'
         username: 'käyttäjätunnus'
+    attributes:
+      post:
+        title: 'otsikko'
+        description: 'kuvaus'
     errors:
       messages:
         record_invalid: 'Validointi epäonnistui: %{errors}'
