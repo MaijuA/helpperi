@@ -1,6 +1,11 @@
 ---
 fi:
   activerecord:
+    attributes:
+      user:
+        password: 'salasana'
+        password_confirmation: 'salasanan varmistus'
+        username: 'käyttäjätunnus'
     errors:
       messages:
         record_invalid: 'Validointi epäonnistui: %{errors}'
