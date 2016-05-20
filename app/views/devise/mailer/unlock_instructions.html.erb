@@ -1,7 +1,7 @@
-<p>Hello <%= @resource.email %>!</p>
+<p>Hei <%= @resource.email %>!</p>
 
-<p>Your account has been locked due to an excessive number of unsuccessful sign in attempts.</p>
+<p>Tilisi on lukittu liian monen epäonnistuneen kirjautumisyrityksen johdosta.</p>
 
-<p>Click the link below to unlock your account:</p>
+<p>Klikkaa alla olevaa linkkiä poistaaksesi tilisi lukituksen:</p>
 
-<p><%= link_to 'Unlock my account', unlock_url(@resource, unlock_token: @token) %></p>
+<p><%= link_to 'Poista tilini lukitus', unlock_url(@resource, unlock_token: @token) %></p>
