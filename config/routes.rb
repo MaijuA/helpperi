@@ -1,13 +1,14 @@
 Rails.application.routes.draw do
+  devise_for :users
   resources :users
 
   resource :session, only: [:new, :create, :destroy]
 
   root 'users#index'
 
-  get 'signin', to: 'sessions#new'
-  get 'signup', to: 'users#new'
-  get 'signout', to: 'sessions#destroy'
+  #get 'signin', to: 'sessions#new'
+  #get 'signup', to: 'users#new'
+  #get 'signout', to: 'sessions#destroy'
 
 
 
