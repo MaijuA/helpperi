@@ -56,4 +56,4 @@ end
 
 gem 'devise'
 
-ruby '2.3.1'
+ruby '2.2.4'

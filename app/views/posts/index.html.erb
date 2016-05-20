@@ -22,4 +22,5 @@
 
 <br>
 
-<%= link_to 'Uusi ilmoitus', new_post_path %>
+
+<%= link_to 'Uusi ilmoitus', new_post_path if current_user %>

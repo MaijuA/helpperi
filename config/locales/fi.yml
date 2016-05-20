@@ -3,9 +3,13 @@ fi:
   activerecord:
     attributes:
       user:
+        email: 'sähköpostiosoite'
         password: 'salasana'
         password_confirmation: 'salasanan varmistus'
         username: 'käyttäjätunnus'
+      post:
+        title: 'otsikko'
+        description: 'kuvaus'
     errors:
       messages:
         record_invalid: 'Validointi epäonnistui: %{errors}'
