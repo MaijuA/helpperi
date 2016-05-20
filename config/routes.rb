@@ -6,9 +6,9 @@ Rails.application.routes.draw do
 
   root 'users#index'
 
-  #get 'signin', to: 'sessions#new'
-  #get 'signup', to: 'users#new'
-  #get 'signout', to: 'sessions#destroy'
+  get 'signin', to: 'sessions#new'
+  get 'signup', to: 'users#new'
+  get 'signout', to: 'sessions#destroy'
 
 
 
