@@ -1,7 +1,0 @@
-<h1>Kirjaudu</h1>
-
-<%= form_tag session_path do %>
-    käyttäjätunnus <%= text_field_tag :username, params[:username] %>
-    salasana <%= password_field_tag :password, params[:password] %>
-    <%= submit_tag "Kirjaudu" %>
-<% end %>
