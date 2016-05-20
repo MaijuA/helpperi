@@ -9,14 +9,14 @@ script:
  - bundle exec rake db:test:prepare
  - bundle exec rspec -fd spec/
 
-deploy:
-  provider: heroku
-  skip_cleanup: true
-  api_key:
-   secure: $heroku_apikey
-         
-  app: helpperi
-           
-  run:
-    - "rake db:migrate"
-    - restart
+#deploy:
+#  provider: heroku
+#  skip_cleanup: true
+#  api_key:
+#   secure: $heroku_apikey
+#
+#  app: helpperi
+#           
+#  run:
+#    - "rake db:migrate"
+#    - restart
