@@ -1,0 +1,12 @@
+<h2>
+  <strong>Otsikko:</strong>
+  <%= @post.title %>
+</h2>
+
+<p>
+  <strong>Kuvaus:</strong>
+  <%= @post.description %>
+</p>
+
+<%= link_to 'Muokkaa', edit_post_path(@post) %>
+<td><%= link_to 'Poista', post, method: :delete, data: { confirm: 'Haluatko varmasti poistaa ilmoituksen?' } %></td>
