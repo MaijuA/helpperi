@@ -1,8 +1,8 @@
 <% if not current_user.nil? %>
     <li><%= link_to 'Omat ilmoitukset', user_path(current_user) %></li>
     <li><%= link_to 'Profiili', user_path(current_user) %></li>
-    <li><%= link_to 'Kirjaudu ulos', signout_path %></li>
+    <li><%= link_to 'Kirjaudu ulos', destroy_user_session_path %></li>
 <% else %>
-    <li><%= link_to 'Kirjaudu', signin_path %></li>
-    <li><%= link_to 'Rekisteröidy', signup_path %></li>
+    <li><%= link_to 'Kirjaudu', user_session_path %></li>
+    <li><%= link_to 'Rekisteröidy', new_user_registration_path %></li>
 <% end %>
