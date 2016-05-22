@@ -1,6 +1,8 @@
 ---
 fi:
   activerecord:
+    models:
+      user: 'käyttäjä'
     attributes:
       user:
         email: 'sähköpostiosoite'
