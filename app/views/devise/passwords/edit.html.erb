@@ -7,7 +7,7 @@
   <div class="field">
     <%= f.label :password, "Uusi salasana" %><br />
     <% if @minimum_password_length %>
-      <em>(<%= @minimum_password_length %> characters minimum)</em><br />
+      <em>(vähintään <%= @minimum_password_length %> merkkiä pitkä)</em><br />
     <% end %>
     <%= f.password_field :password, autofocus: true, autocomplete: "off" %>
   </div>

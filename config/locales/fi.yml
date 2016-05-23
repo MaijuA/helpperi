@@ -1,13 +1,14 @@
 ---
 fi:
-  sign_up_form: 'Rekisteröidy'
   activerecord:
+    models:
+      user: 'käyttäjä'
     attributes:
       user:
+        email: 'sähköpostiosoite'
         password: 'salasana'
         password_confirmation: 'salasanan varmistus'
         username: 'käyttäjätunnus'
-    attributes:
       post:
         title: 'otsikko'
         description: 'kuvaus'
