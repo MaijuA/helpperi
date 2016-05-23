@@ -1,4 +1,4 @@
-<h2>Lähetä varmistusviesti uudelleen</h2>
+<h2>Lähetä vahvistusohjeet uudelleen</h2>
 
 <%= form_for(resource, as: resource_name, url: confirmation_path(resource_name), html: { method: :post }) do |f| %>
   <%= devise_error_messages! %>
@@ -9,7 +9,7 @@
   </div>
 
   <div class="actions">
-    <%= f.submit "Lähetä varmistuksen ohjeet uudelleen" %>
+    <%= f.submit "Lähetä vahvistusohjeet uudelleen" %>
   </div>
 <% end %>
 
