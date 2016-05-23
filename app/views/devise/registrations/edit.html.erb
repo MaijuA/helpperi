@@ -9,11 +9,11 @@
   </div>
 
   <% if devise_mapping.confirmable? && resource.pending_reconfirmation? %>
-    <div>Odotetaan varmistusta: <%= resource.unconfirmed_email %></div>
+    <div>Odotetaan vahvistusta seuraavalle: <%= resource.unconfirmed_email %></div>
   <% end %>
 
   <div class="field">
-    <%= f.label :password %> <i>(Jätä tyhjäksi jos et halua vaihtaa salasanaasi)</i><br />
+    <%= f.label :password %> <i>(jätä tyhjäksi jos et halua vaihtaa salasanaasi)</i><br />
     <%= f.password_field :password, autocomplete: "off" %>
   </div>
 
@@ -23,17 +23,17 @@
   </div>
 
   <div class="field">
-    <%= f.label :current_password %> <i>(Tarvtsemme nykyisen salasanasi tietojen muokkauksen vahvistamiseksi)</i><br />
+    <%= f.label :current_password %> <i>(tarvitsemme nykyisen salasanasi muutosten vahvistamiseksi)</i><br />
     <%= f.password_field :current_password, autocomplete: "off" %>
   </div>
 
   <div class="actions">
-    <%= f.submit "Muokkaa" %>
+    <%= f.submit "Update" %>
   </div>
 <% end %>
 
-<h3>Tuhoa käyttäjätilini</h3>
+<h3>Poista tilini</h3>
 
-<p>Tyytymätön? <%= button_to "Tuhoa tilini", registration_path(resource_name), data: { confirm: "Oletko varma?" }, method: :delete %></p>
+<p>Tyytymätön? <%= button_to "Poista tilini", registration_path(resource_name), data: { confirm: "Oletko varma?" }, method: :delete %></p>
 
 <%= link_to "Takaisin", :back %>
