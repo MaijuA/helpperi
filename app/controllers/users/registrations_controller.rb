@@ -1,4 +1,4 @@
-class User::RegistrationsController < Devise::RegistrationsController
+class Users::RegistrationsController < Devise::RegistrationsController
 # before_action :configure_sign_up_params, only: [:create]
 # before_action :configure_account_update_params, only: [:update]
 
@@ -37,6 +37,15 @@ class User::RegistrationsController < Devise::RegistrationsController
   # end
 
   # protected
+
+  # By default we want to require a password checks on update.
+  # You can overwrite this method in your own RegistrationsController.
+  #def update_resource(resource, params)
+    # skip custom validation if password is empty resource.set_custom if params[:pasword] == ""
+
+    # current password
+  #  resource.update_with_password(params)
+  #end
 
   # If you have extra params to permit, append them to the sanitizer.
   # def configure_sign_up_params
