@@ -16,8 +16,8 @@ if Rails.env.production?
   }
 else
   ActionMailer::Base.smtp_settings = {
-      #:address        => '',
-      #:port           => '',
+      :address        => '',
+      :port           => '',
       #:authentication => :plain,
       #:user_name      => ENV['SENDGRID_USERNAME'],
       #:password       => ENV['SENDGRID_PASSWORD'],
