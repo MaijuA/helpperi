@@ -1,16 +1,15 @@
-<h2><%= @user.first_name @user.last_name %></strong></h2><br>
+<h2><%= @user.first_name %> <%= @user.last_name %></strong></h2><br>
 <div class ="row">
   <div class="col-xs-12 col-sm-6 col-md-8">
-    <p>Sähköposti: <%= @user.email %></p><br>
+    <p><b>Sähköposti: </b> <%= @user.email %></p><br>
 
-    <p>Osoite: </p>
+    <p><b>Osoite: </b></p>
     <p><%= @user.address %></p>
-    <p><%= @user.zip_code %></p>
-    <p><%= @user.city %></p><br>
+    <p><%= @user.zip_code %> <%= @user.city %></p><br>
 
-    <p>Puhelinnumero: <%= @user.phone_number %></p><br>
+    <p><b>Puhelinnumero: </b> <%= @user.phone_number %></p><br>
 
-    <p>Kuvaus: <%= @user.phone_number %></p>
+    <p><b>Kuvaus: </b> <%= @user.phone_number %></p>
   </div>
   <div class="col-xs-6 col-md-4">
     <img src="http://cliparts.co/cliparts/6cr/oqz/6croqzAqi.jpg">
