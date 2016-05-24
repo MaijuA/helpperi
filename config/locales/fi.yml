@@ -12,6 +12,7 @@ fi:
         zip_code: 'postinumero'
         city: 'kaupunki'
         personal_code: 'henkilötunnus tai passinumero'
+        description: 'kuvaus'
         password: 'salasana'
         password_confirmation: 'salasanan varmistus'
         current_password: 'nykyinen salasana'
