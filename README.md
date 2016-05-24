@@ -1,4 +1,4 @@
-[![Build Status](https://travis-ci.com/xjoxjox/helpperi.svg?token=UWChi6bujvuhqU9BqQPD&branch=master)](https://travis-ci.com/xjoxjox/helpperi)  
+[![Build Status](https://travis-ci.com/xjoxjox/helpperi.svg?token=UWChi6bujvuhqU9BqQPD&branch=master)](https://travis-ci.com/xjoxjox/helpperi)  [![Coverage Status](https://coveralls.io/repos/github/xjoxjox/helpperi/badge.svg?branch=master)](https://coveralls.io/github/xjoxjox/helpperi?branch=master)
 
 # [helpperi](http://helpperi.herokuapp.com/)
 
