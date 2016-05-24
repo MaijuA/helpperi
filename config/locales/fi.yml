@@ -9,6 +9,7 @@ fi:
         password: 'salasana'
         password_confirmation: 'salasanan varmistus'
         username: 'käyttäjätunnus'
+        current_password: 'nykyinen salasana'
       post:
         title: 'otsikko'
         description: 'kuvaus'
