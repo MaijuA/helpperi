@@ -34,6 +34,8 @@ gem 'bcrypt', '~> 3.1.7'
 gem 'figaro'
 gem 'bootstrap-sass'
 gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw]
+gem 'devise'
+gem 'phonelib'
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
@@ -54,7 +56,5 @@ group :production do
    gem 'pg'
    gem 'rails_12factor'
 end
-
-gem 'devise'
 
 ruby '2.3.1'
