@@ -41,6 +41,7 @@ group :development, :test do
   gem 'byebug'
   gem 'sqlite3'
   gem 'spring'
+  gem 'factory_girl_rails', :group => :test
 end
 
 group :development do
