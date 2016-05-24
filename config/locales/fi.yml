@@ -10,6 +10,13 @@ fi:
         password_confirmation: 'salasanan varmistus'
         username: 'käyttäjätunnus'
         current_password: 'nykyinen salasana'
+        first_name: 'etunimi'
+        last_name: 'sukunimi'
+        personal_code: 'hetu tai passinumero'
+        phone_number: 'puhelinnumero'
+        address: 'katuosoite'
+        zip_code: 'postinumero'
+        city: 'kaupunki'
       post:
         title: 'otsikko'
         description: 'kuvaus'
