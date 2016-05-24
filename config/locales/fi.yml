@@ -11,6 +11,7 @@ fi:
         address: 'osoite'
         zip_code: 'postinumero'
         city: 'kaupunki'
+        phone_number: 'puhelinnumero'
         personal_code: 'henkilötunnus tai passinumero'
         description: 'kuvaus'
         password: 'salasana'
