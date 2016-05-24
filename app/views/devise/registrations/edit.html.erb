@@ -20,8 +20,23 @@
   </div>
 
     <div class="field">
-      <%= f.label :personal_code %><br />
-      <%= f.text_field :personal_code %>
+      <%= f.label :address %><br />
+      <%= f.text_field :address %>
+    </div>
+
+    <div class="field">
+      <%= f.label :zip_code %><br />
+      <%= f.text_field :zip_code %>
+    </div>
+
+    <div class="field">
+      <%= f.label :city %><br />
+      <%= f.text_field :city %>
+    </div>
+
+    <div class="field">
+      <%= f.label :description %><br />
+      <%= f.text_area :description, :cols => "10", :rows => "10" %>
     </div>
 
   <% if devise_mapping.confirmable? && resource.pending_reconfirmation? %>

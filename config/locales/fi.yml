@@ -6,9 +6,14 @@ fi:
     attributes:
       user:
         email: 'sähköpostiosoite'
+        first_name: 'etunimi'
+        last_name: 'sukunimi'
+        address: 'osoite'
+        zip_code: 'postinumero'
+        city: 'kaupunki'
+        personal_code: 'henkilötunnus tai passinumero'
         password: 'salasana'
         password_confirmation: 'salasanan varmistus'
-        username: 'käyttäjätunnus'
         current_password: 'nykyinen salasana'
       post:
         title: 'otsikko'
