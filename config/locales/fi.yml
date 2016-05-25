@@ -13,6 +13,7 @@ fi:
         city: 'kaupunki'
         phone_number: 'puhelinnumero'
         personal_code: 'henkilötunnus tai passinumero'
+        passport_number: 'minulla ei ole suomalaista henkilötunnusta, joten täytin passinumeron'
         description: 'kuvaus'
         password: 'salasana'
         password_confirmation: 'salasanan varmistus'

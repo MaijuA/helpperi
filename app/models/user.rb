@@ -13,10 +13,10 @@ class User < ActiveRecord::Base
   validate :hetu
 
   def hetu
-    if !hetu_valid? personal_code
-      errors.add(:personal_code, "ei ole validi") unless hetu_valid? personal_code
-    else
-      errors.add(:personal_code, "- Palveluun voivat rekisteröityä vain yli 15 vuotiaat") if hetu_too_young? personal_code
+    if passport_number == false and !hetu_valid? personal_code
+      errors.add(:personal_code, "ei ole validi")
+    elsif passport_number == false and hetu_too_young? personal_code
+      errors.add(:personal_code, "- palveluun voivat rekisteröityä vain yli 15 vuotiaat")
     end
   end
 end
