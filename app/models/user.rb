@@ -1,16 +1,22 @@
 class User < ActiveRecord::Base
-  # Include default devise modules. Others available are:
-  # :confirmable, :lockable, :timeoutable and :omniauthable
+  include CustomValidations
+
   devise :confirmable, :database_authenticatable, :registerable,
          :recoverable, :rememberable, :trackable, :validatable
 
   validates :password, format: {
                 with: /\d.*[A-Z]|[A-Z].*\d/,
-                message: "has to contain one number and one upper case letter"
+                message: "täytyy sisältää"
             }, if: :password_required?
   validates :first_name, :last_name, :personal_code, :phone_number, :address, :zip_code, :city, presence: true
   validates :phone_number, phone: { possible: true}
-  #def is_req?
-  #  !persisted? || !password.nil? || !password_confirmation.nil?
-  #end
+  validate :hetu
+
+  def hetu
+    if !hetu_valid? personal_code
+      errors.add(:personal_code, "ei ole validi") unless hetu_valid? personal_code
+    else
+      errors.add(:personal_code, "- Palveluun voivat rekisteröityä vain yli 15 vuotiaat") if hetu_too_young? personal_code
+    end
+  end
 end
