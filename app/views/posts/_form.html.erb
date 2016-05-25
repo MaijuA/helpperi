@@ -19,12 +19,16 @@
   <% end %>
 
   <div class="field">
-    <%= f.label :'Otsikko' %><br>
+    <%= f.label :title %><br>
     <%= f.text_field :title %>
   </div>
   <div class="field">
-    <%= f.label :'Kuvaus' %><br>
+    <%= f.label :description %><br>
     <%= f.text_field :description %>
+  </div>
+  <div class="field">
+    <%= f.label :price %><br>
+    <%= f.number_field :price %>
   </div>
   <% if @edit %>
     <div class="actions">

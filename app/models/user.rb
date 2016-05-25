@@ -16,6 +16,11 @@ class User < ActiveRecord::Base
   }
   validate :hetu
 
+  has_many :posts, dependent: :destroy
+
+  scope :active, -> { where deleted:false }
+  scope :deleted, -> { where deleted:true }
+
   def hetu
     if passport_number == false and !hetu_valid? personal_code
       errors.add(:personal_code, "ei ole validi")

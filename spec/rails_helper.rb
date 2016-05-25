@@ -1,10 +1,10 @@
 require 'simplecov'
 require 'coveralls'
 
-SimpleCov.formatter = SimpleCov::Formatter::MultiFormatter[
+SimpleCov.formatter = SimpleCov::Formatter::MultiFormatter.new(Array[
     Coveralls::SimpleCov::Formatter,
     SimpleCov::Formatter::HTMLFormatter
-]
+])
 SimpleCov.start 'rails'
 
 ENV['RAILS_ENV'] ||= 'test'
@@ -67,8 +67,4 @@ RSpec.configure do |config|
   config.include Devise::TestHelpers, :type => :controller
   config.extend ControllerMacros, :type => :controller
   config.include Warden::Test::Helpers, :type => :feature
-
-  config.after do
-    Warden.test_reset!
-  end
 end

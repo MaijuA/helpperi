@@ -20,8 +20,9 @@ fi:
         password_confirmation: 'Salasana uudelleen'
         current_password: 'Nykyinen salasana'
       post:
-        title: 'otsikko'
-        description: 'kuvaus'
+        title: 'Otsikko'
+        description: 'Kuvaus'
+        price: 'Hinta'
     errors:
       messages:
         record_invalid: 'Validointi epäonnistui: %{errors}'

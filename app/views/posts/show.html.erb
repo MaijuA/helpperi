@@ -1,12 +1,23 @@
 <h2>
-  <strong>Otsikko:</strong>
-  <%= @post.title %>
+  <strong><%= @post.title %></strong><br>
+
 </h2>
 
 <p>
-  <strong>Kuvaus:</strong>
+  <strong>Kuvaus:</strong><br>
   <%= @post.description %>
 </p>
 
-<%= link_to 'Muokkaa', edit_post_path(@post) if current_user %>
-<%= link_to 'Poista', @post, method: :delete, data: { confirm: 'Haluatko varmasti poistaa ilmoituksen?' } if current_user %>
+<p>
+  <strong>Hinta:</strong><br>
+  <%= @post.price %>
+</p>
+
+<p>
+  <strong>Ilmoittaja:</strong><br>
+  <%= @post.user.first_name %> <%= @post.user.last_name %>
+</p>
+
+<%= link_to 'Muokkaa', edit_post_path(@post) if @post.user_id == current_user.id %>
+<%= link_to "Poista", post_delete_post_path, data:
+    { confirm: 'Haluatko varmasti poistaa ilmoituksen?' } if @post.user_id == current_user.id %>

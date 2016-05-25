@@ -11,13 +11,16 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160525120337) do
+ActiveRecord::Schema.define(version: 20160525201433) do
 
   create_table "posts", force: :cascade do |t|
     t.string   "title"
     t.string   "description"
     t.datetime "created_at",  null: false
     t.datetime "updated_at",  null: false
+    t.integer  "user_id"
+    t.integer  "price"
+    t.boolean  "deleted"
   end
 
   create_table "users", force: :cascade do |t|
@@ -46,6 +49,7 @@ ActiveRecord::Schema.define(version: 20160525120337) do
     t.string   "zip_code"
     t.text     "description"
     t.boolean  "passport_number"
+    t.boolean  "deleted"
   end
 
   add_index "users", ["confirmation_token"], name: "index_users_on_confirmation_token", unique: true
