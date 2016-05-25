@@ -21,7 +21,7 @@ module CustomValidations
 
     begin
       Date.new(year, month, date)
-    rescue StandardError
+    rescue ArgumentError
       return false
     end
 
@@ -45,6 +45,7 @@ module CustomValidations
     month = hetu[2..3].to_i
     year = hetu[4..5].to_i
     century = hetu[6]
+
     if century == "+"
       year += 1800
     elsif century == "-"
@@ -52,6 +53,8 @@ module CustomValidations
     elsif century == "A"
       year += 2000
     end
+
+    # Date.new(year, month, date) + 15.years >= Date.today
     if (DateTime.now.to_date - Date.new(year, month, date)).to_i/365.25 < 15
       return true
     else

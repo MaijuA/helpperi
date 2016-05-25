@@ -22,10 +22,12 @@ class User < ActiveRecord::Base
   scope :deleted, -> { where deleted:true }
 
   def hetu
-    if passport_number == false and !hetu_valid? personal_code
-      errors.add(:personal_code, "ei ole validi")
-    elsif passport_number == false and hetu_too_young? personal_code
-      errors.add(:personal_code, "- palveluun voivat rekisteröityä vain yli 15 vuotiaat")
+    if passport_number.nil? || passport_number == false
+      if hetu_valid? personal_code
+        errors.add(:personal_code, "palveluun voivat rekisteröityä vain yli 15 vuotiaat") if hetu_too_young? personal_code
+      else
+        errors.add(:personal_code, "ei ole validi")
+      end
     end
   end
 end
