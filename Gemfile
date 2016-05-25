@@ -44,6 +44,10 @@ group :development, :test do
   gem 'sqlite3'
   gem 'spring'
   gem 'factory_girl_rails', :group => :test
+  gem 'capybara', :group => :test
+  gem 'launchy', :group => :test
+  gem 'faker', :group => :test
+  gem 'simplecov', :group => :test
 end
 
 group :development do
