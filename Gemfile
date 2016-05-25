@@ -47,7 +47,8 @@ group :development, :test do
   gem 'capybara', :group => :test
   gem 'launchy', :group => :test
   gem 'faker', :group => :test
-  gem 'simplecov', :group => :test
+  gem 'simplecov', require: false, :group => :test
+  # gem 'coveralls', require: false, :group => :test
 end
 
 group :development do

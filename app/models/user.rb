@@ -8,10 +8,8 @@ class User < ActiveRecord::Base
                 with: /\d.*[A-Z]|[A-Z].*\d/,
                 message: "has to contain one number and one upper case letter"
             }, if: :password_required?
-  #validates :phone_number,:presence => true,
-            #:numericality => true,
-            #:length => { :minimum => 6, :maximum => 15 }
-  validates :first_name, :last_name, :personal_code, :address, :zip_code, :city, presence: true
+  validates :first_name, :last_name, :personal_code, :phone_number, :address, :zip_code, :city, presence: true
+  validates :phone_number, phone: { possible: true}
   #def is_req?
   #  !persisted? || !password.nil? || !password_confirmation.nil?
   #end
