@@ -52,6 +52,10 @@ module CustomValidations
     elsif century == "A"
       year += 2000
     end
-    return false
+    if (DateTime.now.to_date - Date.new(year, month, date)).to_i/365.25 < 15
+      return true
+    else
+      return false
+    end
   end
 end
