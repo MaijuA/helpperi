@@ -1,39 +1,83 @@
-<h2>Muokkaa <%= resource_name.to_s.humanize %></h2>
+<!--<h2>Muokkaa <%= resource_name.to_s.humanize %></h2>-->
+<h2>Muokkaa profiilia</h2>
 
 <%= form_for(resource, as: resource_name, url: registration_path(resource_name), html: { method: :put }) do |f| %>
   <%= devise_error_messages! %>
+<div class ="row">
+  <div class="col-xs-8 col-sm-4 col-md-6">
 
-  <div class="field">
-    <%= f.label :email %><br />
-    <%= f.email_field :email, autofocus: true %>
-  </div>
+    <div class="field">
+      <%= f.label :email %><br />
+      <%= f.email_field :email, autofocus: true %>
+    </div>
+
+    <div class="field">
+      <%= f.label :first_name %><br />
+      <%= f.text_field :first_name %>
+    </div>
+
+    <div class="field">
+      <%= f.label :last_name %><br />
+      <%= f.text_field :last_name %>
+    </div>
+
+    <div class="field">
+      <%= f.label :address %><br />
+      <%= f.text_field :address %>
+    </div>
+
+    <div class="field">
+      <%= f.label :zip_code %><br />
+      <%= f.text_field :zip_code %>
+    </div>
+
+    <div class="field">
+      <%= f.label :city %><br />
+      <%= f.text_field :city %>
+    </div>
+
+    <div class="field">
+      <%= f.label :phone_number %><br />
+      <%= f.text_field :phone_number %>
+    </div>
+
+    <div class="field">
+      <%= f.label :description %><br />
+      <%= f.text_area :description, :cols => "30", :rows => "5" %>
+    </div>
 
   <% if devise_mapping.confirmable? && resource.pending_reconfirmation? %>
     <div>Odotetaan vahvistusta seuraavalle: <%= resource.unconfirmed_email %></div>
   <% end %>
 
-  <div class="field">
-    <%= f.label :password %> <i>(jätä tyhjäksi jos et halua vaihtaa salasanaasi)</i><br />
-    <%= f.password_field :password, autocomplete: "off" %>
+    <div class="field">
+      <%= f.label :password %> <i>(jätä tyhjäksi jos et halua vaihtaa salasanaasi)</i><br />
+      <%= f.password_field :password, autocomplete: "off" %>
+    </div>
+
+    <div class="field">
+      <%= f.label :password_confirmation %><br />
+      <%= f.password_field :password_confirmation, autocomplete: "off" %>
+    </div>
+
+    <div class="field">
+      <%= f.label :current_password %> <i>(tarvitsemme nykyisen salasanasi muutosten vahvistamiseksi)</i><br />
+      <%= f.password_field :current_password, autocomplete: "off" %>
+    </div>
+
+    <div class="actions">
+      <%= f.submit "Päivitä", class:"btn btn-success"%>
+      <%= link_to "Peruuta", user_path(resource_name), class:"btn"%>
+    </div>
   </div>
 
-  <div class="field">
-    <%= f.label :password_confirmation %><br />
-    <%= f.password_field :password_confirmation, autocomplete: "off" %>
+  <div class="col-xs-6 col-md-4">
+    <img src="http://cliparts.co/cliparts/6cr/oqz/6croqzAqi.jpg">
   </div>
-
-  <div class="field">
-    <%= f.label :current_password %> <i>(tarvitsemme nykyisen salasanasi muutosten vahvistamiseksi)</i><br />
-    <%= f.password_field :current_password, autocomplete: "off" %>
-  </div>
-
-  <div class="actions">
-    <%= f.submit "Update" %>
-  </div>
+</div>
 <% end %>
 
 <h3>Poista tilini</h3>
 
-<p>Tyytymätön? <%= button_to "Poista tilini", registration_path(resource_name), data: { confirm: "Oletko varma?" }, method: :delete %></p>
+<p>Tyytymätön? <%= button_to "Poista tilini", registration_path(resource_name), data: { confirm: "Oletko varma?" }, method: :delete, :class => 'btn-mini btn-danger btn' %></p>
 
-<%= link_to "Takaisin", :back %>

@@ -28,16 +28,17 @@ class PostsController < ApplicationController
   def create
     if current_user
       @post = Post.new(post_params)
-       respond_to do |format|
+
+      respond_to do |format|
         if @post.save
-          format.html { redirect_to @post, notice: 'Ilmoitus luotiin onnistuneesti.' }
+          format.html { redirect_to @post, notice: 'Ilmoitus luotu onnistuneesti.' }
           format.json { render :show, status: :created, location: @post }
         else
-          format.html { render :new}
+          format.html { render :new }
           format.json { render json: @post.errors, status: :unprocessable_entity }
         end
-       end
-     end
+      end
+    end
   end
 
   # PATCH/PUT /posts/1
@@ -46,7 +47,7 @@ class PostsController < ApplicationController
     if current_user
       respond_to do |format|
         if @post.update(post_params)
-          format.html { redirect_to @post, notice: 'Ilmoitus muokattiin onnistuneesti.' }
+          format.html { redirect_to @post, notice: 'Ilmoitus muokattu onnistuneesti.' }
           format.json { render :show, status: :ok, location: @post }
         else
           format.html { render :edit }
@@ -62,7 +63,7 @@ class PostsController < ApplicationController
     if current_user
       @post.destroy
       respond_to do |format|
-        format.html { redirect_to posts_url, notice: 'Ilmoitus poistettiin onnistuneesti.' }
+        format.html { redirect_to posts_url, notice: 'Ilmoitus poistettu onnistuneesti.' }
         format.json { head :no_content }
       end
     end

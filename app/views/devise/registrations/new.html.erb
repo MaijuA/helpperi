@@ -8,6 +8,41 @@
     <%= f.email_field :email, autofocus: true %>
   </div>
 
+    <div class="field">
+      <%= f.label :first_name %><br />
+      <%= f.text_field :first_name %>
+    </div>
+
+    <div class="field">
+      <%= f.label :last_name %><br />
+      <%= f.text_field :last_name %>
+    </div>
+
+    <div class="field">
+      <%= f.label :personal_code %><br />
+      <%= f.text_field :personal_code %>
+    </div>
+
+    <div class="field">
+      <%= f.label :phone_number %><br />
+      <%= f.telephone_field :phone_number %>
+    </div>
+
+    <div class="field">
+      <%= f.label :address %><br />
+      <%= f.text_field :address %>
+    </div>
+
+    <div class="field">
+      <%= f.label :zip_code %><br />
+      <%= f.text_field :zip_code %>
+    </div>
+
+    <div class="field">
+      <%= f.label :city %><br />
+      <%= f.text_field :city %>
+    </div>
+
   <div class="field">
     <%= f.label :password %>
     <% if @minimum_password_length %>
@@ -22,7 +57,7 @@
   </div>
 
   <div class="actions">
-    <%= f.submit t(:sign_up_form) %>
+    <%= f.submit "Rekisteröidy" %>
   </div>
 <% end %>
 

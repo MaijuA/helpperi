@@ -81,4 +81,6 @@ Rails.application.configure do
   config.secret_token = ENV["SECRET_TOKEN"]
 
   config.assets.initialize_on_precompile = false
+  config.action_mailer.default_url_options = { :host => 'helpperi.herokuapp.com' }
+
 end

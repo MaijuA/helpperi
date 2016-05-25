@@ -1,13 +1,29 @@
 ---
 fi:
-  sign_up_form: 'Rekisteröidy'
   activerecord:
+    models:
+      user: 'käyttäjä'
     attributes:
       user:
+        email: 'sähköpostiosoite'
+        first_name: 'etunimi'
+        last_name: 'sukunimi'
+        address: 'osoite'
+        zip_code: 'postinumero'
+        city: 'kaupunki'
+        phone_number: 'puhelinnumero'
+        personal_code: 'henkilötunnus tai passinumero'
+        description: 'kuvaus'
         password: 'salasana'
         password_confirmation: 'salasanan varmistus'
-        username: 'käyttäjätunnus'
-    attributes:
+        current_password: 'nykyinen salasana'
+        first_name: 'etunimi'
+        last_name: 'sukunimi'
+        personal_code: 'hetu tai passinumero'
+        phone_number: 'puhelinnumero'
+        address: 'katuosoite'
+        zip_code: 'postinumero'
+        city: 'kaupunki'
       post:
         title: 'otsikko'
         description: 'kuvaus'

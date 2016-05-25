@@ -2,11 +2,12 @@
   <% if @post.errors.any? %>
     <div id="error_explanation">
       <h2><%= @post.errors.count %>
-        <% if @post.errors.count == 1 %>
-            virhe:
-        <% else %>
-            virhettä:
-        <% end %>
+          <% if @post.errors.count == 1 %>
+            virhe
+          <% else %>
+            virhettä
+          <% end %>
+            esti tallentamasta tämän ilmoituksen:
       </h2>
 
       <ul>
@@ -25,13 +26,13 @@
     <%= f.label :'Kuvaus' %><br>
     <%= f.text_field :description %>
   </div>
-  <%if not @edit %>
+  <% if @edit %>
     <div class="actions">
-      <%= f.submit 'Luo ilmoitus' %>
+      <%= f.submit 'Muokkaa ilmoitusta' %>
     </div>
   <% else %>
     <div class="actions">
-      <%= f.submit 'Muokkaa ilmoitusta' %>
+      <%= f.submit 'Luo ilmoitus' %>
     </div>
   <% end %>
 <% end %>
