@@ -20,4 +20,15 @@ describe 'Edit post' do
 
     expect(page).to have_content 'kauppareissu2'
   end
+
+  it 'edits description' do
+    post = FactoryGirl.create(:post)
+
+    visit edit_post_path(post)
+    fill_in('post_description', with:'tarjoan apua')
+
+    click_button('Muokkaa ilmoitusta')
+
+    expect(page).to have_content 'tarjoan apua'
+  end
 end
