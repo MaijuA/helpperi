@@ -5,11 +5,15 @@ class User < ActiveRecord::Base
          :recoverable, :rememberable, :trackable, :validatable
 
   validates :password, format: {
-                with: /\d.*[A-Z]|[A-Z].*\d/,
-                message: "täytyy sisältää"
-            }, if: :password_required?
+      with: /\d.*[A-Z]|[A-Z].*\d/,
+      message: "täytyy sisältää"
+  }, if: :password_required?
   validates :first_name, :last_name, :personal_code, :phone_number, :address, :zip_code, :city, presence: true
   validates :phone_number, phone: { possible: true}
+  validates :zip_code, format: {
+      with: /\A(FI-)?[0-9]{5}\z/,
+      message: "ei ole Suomessa kelvollinen"
+  }
   validate :hetu
 
   def hetu
