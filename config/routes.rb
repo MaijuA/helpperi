@@ -18,7 +18,7 @@ Rails.application.routes.draw do
   root 'posts#index'
 
   resources :posts do
-    get 'delete_post'
+    post 'delete_post'
   end
 
   resources :users, only: [:delete_user] do

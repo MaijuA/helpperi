@@ -19,5 +19,5 @@
 </p>
 
 <%= link_to 'Muokkaa', edit_post_path(@post) if @post.user_id == current_user.id %>
-<%= link_to "Poista", post_delete_post_path, data:
+<%= link_to "Poista", post_delete_post_path(@post.id), data:
     { confirm: 'Haluatko varmasti poistaa ilmoituksen?' } if @post.user_id == current_user.id %>
