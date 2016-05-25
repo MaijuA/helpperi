@@ -13,4 +13,9 @@ FactoryGirl.define do
     password_confirmation "Ihanmitavaan1"
     confirmed_at Date.today
   end
+
+  factory :post do
+    title "Otsikko"
+    description "kuvaus"
+  end
 end
