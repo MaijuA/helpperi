@@ -1,8 +1,6 @@
 module CustomValidations
   extend ActiveSupport::Concern
 
-  require 'date'
-
   def hetu_valid? hetu
     return false if hetu.length != 11
     date = hetu[0..1].to_i
@@ -32,5 +30,20 @@ module CustomValidations
     else
       return false
     end
+  end
+
+  def hetu_too_young? hetu
+    date = hetu[0..1].to_i
+    month = hetu[2..3].to_i
+    year = hetu[4..5].to_i
+    century = hetu[6]
+    if century == "+"
+      year += 1800
+    elsif century == "-"
+      year += 1900
+    elsif century == "A"
+      year += 2000
+    end
+    return false
   end
 end
