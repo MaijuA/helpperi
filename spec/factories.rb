@@ -9,8 +9,8 @@ FactoryGirl.define do
     phone_number "0501234567"
     personal_code "010191-123W"
     description "oon kiva"
-    password "ihanmitavaan"
-    password_confirmation "ihanmitavaan"
+    password "Ihanmitavaan1"
+    password_confirmation "Ihanmitavaan1"
     confirmed_at Date.today
   end
 end
