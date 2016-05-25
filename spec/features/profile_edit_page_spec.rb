@@ -1,4 +1,3 @@
-require 'rspec'
 require 'rails_helper'
 
 include Warden::Test::Helpers
@@ -33,6 +32,36 @@ it 'edits address' do
   expect(page).to have_content 'Siilitie 4 00100 Vantaa'
 end
 
+it 'edits phone number' do
+  visit edit_user_registration_path
+  fill_in('puhelinnumero', with:'0100001111')
+  fill_in('nykyinen salasana', with:'Ihanmitavaan1')
+
+  click_button('Päivitä')
+
+  expect(page).to have_content '0100001111'
+end
+
+it 'edits description' do
+  visit edit_user_registration_path
+  fill_in('kuvaus', with:'olen luotettava')
+  fill_in('nykyinen salasana', with:'Ihanmitavaan1')
+
+  click_button('Päivitä')
+
+  expect(page).to have_content 'olen luotettava'
+end
+
+it 'does not edit password' do
+  visit edit_user_registration_path
+  fill_in('salasana', with:'Pallo123')
+  fill_in('salasanan varmistus', with:'Pallo1234')
+  fill_in('nykyinen salasana', with:'Ihanmitavaan1')
+
+  click_button('Päivitä')
+
+  expect(page).to have_content 'salasanan varmistus ei vastaa varmennusta'
+end
 
 
 end
