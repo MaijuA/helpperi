@@ -8,7 +8,7 @@ class User < ActiveRecord::Base
       with: /\d.*[A-Z]|[A-Z].*\d/,
       message: "täytyy sisältää"
   }, if: :password_required?
-  validates :first_name, :last_name, :personal_code, :phone_number, :address, :zip_code, :city, :personal_code, presence: true
+  validates :first_name, :last_name, :personal_code, :phone_number, :address, :zip_code, :city, presence: true
   validates :phone_number, phone: { possible: true}
   validates :zip_code, format: {
       with: /\A(FI-)?[0-9]{5}\z/,
@@ -24,10 +24,5 @@ class User < ActiveRecord::Base
         errors.add(:personal_code, "ei ole validi")
       end
     end
-    #if passport_number == false and !hetu_valid? personal_code
-    #  errors.add(:personal_code, "ei ole validi")
-    #elsif passport_number == false and hetu_too_young? personal_code
-    #  errors.add(:personal_code, "- palveluun voivat rekisteröityä vain yli 15 vuotiaat")
-    #end
   end
 end
