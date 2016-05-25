@@ -9,8 +9,8 @@ module DevisePermittedParameters
 
   def configure_permitted_parameters
     parameters = [:first_name, :last_name, :personal_code, :passport_number, :phone_number, :address, :zip_code, :city, :description]
-    devise_parameter_sanitizer.for(:sign_up) << parameters
-    devise_parameter_sanitizer.for(:account_update) << parameters
+    devise_parameter_sanitizer.permit(:sign_up, keys: parameters)
+    devise_parameter_sanitizer.permit(:account_update, keys: parameters)
   end
 
 end

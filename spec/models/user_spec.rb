@@ -198,7 +198,7 @@ RSpec.describe User, type: :model do
                        zip_code: "02340",
                        city: "Espoo",
                        phone_number: "0501234567",
-                       personal_code: "010115A943R",
+                       personal_code: "180616A7603",
                        description: "oon kiva",
                        password: "Ihanmitavaan1",
                        password_confirmation: "Ihanmitavaan1"
