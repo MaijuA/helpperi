@@ -2,7 +2,7 @@ class User < ActiveRecord::Base
   include CustomValidations
 
   devise :confirmable, :database_authenticatable, :registerable,
-         :recoverable, :rememberable, :trackable, :validatable
+         :recoverable, :rememberable, :trackable, :validatable, :lockable
 
   validates :email, format: {
       with: /\A([^@\s]+)@((?:[-a-z0-9]+\.)+[a-z]{2,})\z/i,
