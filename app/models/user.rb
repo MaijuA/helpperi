@@ -4,11 +4,17 @@ class User < ActiveRecord::Base
   devise :confirmable, :database_authenticatable, :registerable,
          :recoverable, :rememberable, :trackable, :validatable
 
-  validates :password, format: {
-      with: /\d.*[A-Z]|[A-Z].*\d/,
-      message: "täytyy sisältää"
-  }, if: :password_required?
+  validates :password, length: { in: 8..72 }, if: :password_required?
+  validate :password_black_list, if: :password_required?
   validates :first_name, :last_name, :personal_code, :phone_number, :address, :zip_code, :city, presence: true
+  validates :first_name, :last_name, :city, length: { maximum: 50 }
+  validates :description, length: { maximum: 2000 }
+  validates :address, length: { in: 3..200 }
+
+  validates :first_name, :last_name, :city, format: {
+      with: /\A\p{L}+((\s|-)\p{L}+)*\z/,
+      message: "saa sisältää vain kirjaimia sekä väliliviivan tai välin nimien välissä"
+  }
   validates :phone_number, phone: { possible: true}
   validates :zip_code, format: {
       with: /\A(FI-)?[0-9]{5}\z/,
@@ -44,4 +50,16 @@ class User < ActiveRecord::Base
       end
     end
   end
+
+  def password_black_list
+    blacklist = []
+    file = File.join(Rails.root, 'app', 'models', 'concerns', 'blacklist')
+    File.open(file) do |f|
+      f.each_line do |line|
+        blacklist << line[0..(line.size-2)]
+      end
+    end
+    errors.add(:password, "on mustalistattu") if blacklist.include? password
+  end
+
 end
