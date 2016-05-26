@@ -4,15 +4,19 @@ class User < ActiveRecord::Base
   devise :confirmable, :database_authenticatable, :registerable,
          :recoverable, :rememberable, :trackable, :validatable
 
+  validates :email, format: {
+      with: /\A([^@\s]+)@((?:[-a-z0-9]+\.)+[a-z]{2,})\z/i,
+      message: "ei ole mahdollinen."
+  }
   validates :password, length: { in: 8..72 }, if: :password_required?
   validate :password_black_list, if: :password_required?
-  validates :first_name, :last_name, :personal_code, :phone_number, :address, :zip_code, :city, presence: true
+  validates :email, :first_name, :last_name, :personal_code, :phone_number, :address, :zip_code, :city, presence: true
   validates :first_name, :last_name, :city, length: { maximum: 50 }
   validates :description, length: { maximum: 2000 }
   validates :address, length: { in: 3..200 }
 
   validates :first_name, :last_name, :city, format: {
-      with: /\A\p{L}+((\s|-)\p{L}+)*\z/,
+      with: /\A\p{L}+((\s|-)\p{L}+){,3}\z/,
       message: "saa sisältää vain kirjaimia sekä väliliviivan tai välin nimien välissä"
   }
   validates :phone_number, phone: { possible: true}
@@ -44,9 +48,9 @@ class User < ActiveRecord::Base
   def hetu
     if passport_number.nil? || passport_number == false
       if hetu_valid? personal_code
-        errors.add(:personal_code, "palveluun voivat rekisteröityä vain yli 15 vuotiaat") if hetu_too_young? personal_code
+        errors.add(:personal_code, "- palveluun voivat rekisteröityä vain yli 15 vuotiaat") if hetu_too_young? personal_code
       else
-        errors.add(:personal_code, "ei ole validi")
+        errors.add(:personal_code, "on virheellinen")
       end
     end
   end
