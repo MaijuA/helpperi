@@ -49,6 +49,7 @@ group :development, :test do
   gem 'faker', :group => :test
   gem 'simplecov', require: false, :group => :test
   gem 'coveralls', require: false, :group => :test
+  gem 'selenium-webdriver', :group => :test
 end
 
 group :development do
