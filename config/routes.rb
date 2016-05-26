@@ -1,15 +1,4 @@
 Rails.application.routes.draw do
-  # devise_for :users, skip: :registrations
-  # devise_scope :user do
-  #  resource :registration,
-  #           only: [:new, :create, :edit, :update],
-  #           path: 'users',
-  #           path_names: { new: 'sign_up' },
-  #           controller: 'devise/registrations',
-  #           as: :user_registration do
-  #    get :cancel
-  #  end
-  # end
 
   devise_for :users, :controllers => {:registrations => "registrations"}
 
@@ -21,10 +10,6 @@ Rails.application.routes.draw do
 
   resources :posts do
     post 'delete_post'
-  end
-
-  resources :users, only: [:delete_user] do
-    post 'delete_user'
   end
 
   # The priority is based upon order of creation: first created -> highest priority.

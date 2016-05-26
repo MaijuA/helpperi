@@ -79,6 +79,6 @@
 
 <h3>Poista tilini</h3>
 
-<p>Tyytymätön? <%= button_to "Poista tilini", user_delete_user_path(current_user.id), data:
-    { confirm: "Oletko varma?" }, :class => 'btn-mini btn-danger btn' if current_user %></p>
+<p>Tyytymätön? <%= button_to "Poista tilini", registration_path(resource_name), data: { confirm: "Oletko varma?" },
+                             method: :delete, :class => 'btn-mini btn-danger btn' if current_user %></p>
 

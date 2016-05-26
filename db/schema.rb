@@ -49,7 +49,7 @@ ActiveRecord::Schema.define(version: 20160525201433) do
     t.string   "zip_code"
     t.text     "description"
     t.boolean  "passport_number"
-    t.boolean  "deleted"
+    t.datetime "deleted_at"
   end
 
   add_index "users", ["confirmation_token"], name: "index_users_on_confirmation_token", unique: true
