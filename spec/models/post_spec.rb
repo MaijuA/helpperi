@@ -26,9 +26,20 @@ RSpec.describe Post, type: :model do
 
   it "doesn´t save the post if user id not present" do
     post_count = Post.count
-    post = Post.create title: "",
+    post = Post.create title: "kissat",
                        description: "kuvaus",
                        price: 10
+
+    expect(post.valid?).to be(false)
+    expect(Post.count).to eq(post_count)
+  end
+
+  it "doesn´t save the post if price includes letters" do
+    post_count = Post.count
+    post = Post.create title: "kissat",
+                       description: "kuvaus",
+                       price: "k",
+                       user_id: 1
 
     expect(post.valid?).to be(false)
     expect(Post.count).to eq(post_count)

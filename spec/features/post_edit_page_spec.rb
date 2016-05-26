@@ -17,7 +17,6 @@ describe 'Edit post' do
     fill_in('post_title', with:'kauppareissu2')
 
     click_button('Muokkaa ilmoitusta')
-
     expect(page).to have_content 'kauppareissu2'
   end
 
@@ -30,5 +29,16 @@ describe 'Edit post' do
     click_button('Muokkaa ilmoitusta')
 
     expect(page).to have_content 'tarjoan apua'
+  end
+
+  it 'edits price' do
+    post = FactoryGirl.create(:post)
+
+    visit edit_post_path(post)
+    fill_in('post_price', with:'12')
+
+    click_button('Muokkaa ilmoitusta')
+
+    expect(page).to have_content '12'
   end
 end
