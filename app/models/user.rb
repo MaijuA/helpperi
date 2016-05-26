@@ -18,8 +18,8 @@ class User < ActiveRecord::Base
 
   has_many :posts, dependent: :destroy
 
-  scope :active, -> { where deleted:false }
-  scope :deleted, -> { where deleted:true }
+  scope :active, -> { where deleted_at:false }
+  scope :deleted, -> { where deleted_at:true }
 
   def soft_delete
     update_attribute(:deleted_at, Time.current)
