@@ -1,5 +1,6 @@
 FactoryGirl.define do
   factory :user do
+    id "1"
     email { Faker::Internet.email }
     first_name "Matti"
     last_name "Mallikas"
@@ -15,7 +16,9 @@ FactoryGirl.define do
   end
 
   factory :post do
+    user_id "1"
     title "Otsikko"
     description "kuvaus"
+    price "10"
   end
 end
