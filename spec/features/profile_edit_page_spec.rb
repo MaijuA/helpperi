@@ -14,7 +14,7 @@ describe 'Profile edit' do
     visit edit_user_registration_path
     fill_in('Etunimi', with:'Pekka')
     fill_in('Sukunimi', with:'Pekkanen')
-    fill_in('Nykyinen salasana', with:'Ihanmitavaan1')
+    fill_in('Nykyinen salasana', with:'ihanmitavaan')
 
     click_button('Päivitä')
 
@@ -26,7 +26,7 @@ describe 'Profile edit' do
     fill_in('Osoite', with:'Siilitie 4')
     fill_in('Postinumero', with:'00100')
     fill_in('Kaupunki', with:'Vantaa')
-    fill_in('Nykyinen salasana', with:'Ihanmitavaan1')
+    fill_in('Nykyinen salasana', with:'ihanmitavaan')
 
     click_button('Päivitä')
 
@@ -36,7 +36,7 @@ describe 'Profile edit' do
   it 'edits phone number' do
     visit edit_user_registration_path
     fill_in('Puhelinnumero', with:'0100001111')
-    fill_in('Nykyinen salasana', with:'Ihanmitavaan1')
+    fill_in('Nykyinen salasana', with:'ihanmitavaan')
 
     click_button('Päivitä')
 
@@ -46,18 +46,18 @@ describe 'Profile edit' do
   it 'edits description' do
     visit edit_user_registration_path
     fill_in('Kuvaus', with:'olen luotettava')
-    fill_in('Nykyinen salasana', with:'Ihanmitavaan1')
+    fill_in('Nykyinen salasana', with:'ihanmitavaan')
 
     click_button('Päivitä')
 
     expect(page).to have_content 'olen luotettava'
   end
 
-  it 'does not edit password' do
+  it 'does not edit password if confirmation is wrong' do
     visit edit_user_registration_path
     fill_in('Salasana', with:'Pallo123')
     fill_in('Salasana uudelleen', with:'Pallo1234')
-    fill_in('Nykyinen salasana', with:'Ihanmitavaan1')
+    fill_in('Nykyinen salasana', with:'ihanmitavaan')
 
     click_button('Päivitä')
 
