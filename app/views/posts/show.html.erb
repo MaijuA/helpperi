@@ -16,8 +16,9 @@
 <p>
   <strong>Ilmoittaja:</strong><br>
   <%= @post.user.first_name %> <%= @post.user.last_name %>
-</p>
+</p><br>
 
-<%= link_to 'Muokkaa', edit_post_path(@post) if @post.user_id == current_user.id %>
+<%= link_to('Muokkaa', edit_post_path(@post), class:"btn btn-primary") if @post.user_id == current_user.id %>
 <%= link_to "Poista", post_delete_post_path(@post.id), data:
-    { confirm: 'Haluatko varmasti poistaa ilmoituksen?' } if @post.user_id == current_user.id %>
+    { confirm: 'Haluatko varmasti poistaa ilmoituksen?' } if @post.user_id == current_user.id %><br><br>
+<%= link_to "Takaisin", posts_path %>
