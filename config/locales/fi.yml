@@ -19,6 +19,8 @@ fi:
         password: 'Salasana'
         password_confirmation: 'Salasana uudelleen'
         current_password: 'Nykyinen salasana'
+        image: 'Lataa uusi profiilikuva'
+        remove_image: 'Poista nykyinen kuva'
       post:
         title: 'Otsikko'
         description: 'Kuvaus'
