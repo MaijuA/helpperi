@@ -24,12 +24,15 @@ class User < ActiveRecord::Base
       with: /\A(FI-)?[0-9]{5}\z/,
       message: "ei ole Suomessa kelvollinen"
   }
-  validate :hetu
-
+  validates :personal_code, hetu: true, :unless => :passport_number_is_used?
   has_many :posts, dependent: :destroy
 
   scope :active, -> { where deleted_at:false }
   scope :deleted, -> { where deleted_at:true }
+
+  def passport_number_is_used?
+    !passport_number.nil? && passport_number == true
+  end
 
   def soft_delete
     update_attribute(:deleted_at, Time.current)
@@ -45,6 +48,7 @@ class User < ActiveRecord::Base
     !deleted_at ? super : :deleted_account
   end
 
+=begin
   def hetu
     if passport_number.nil? || passport_number == false
       if hetu_valid? personal_code
@@ -54,6 +58,7 @@ class User < ActiveRecord::Base
       end
     end
   end
+=end
 
   def password_black_list
     blacklist = []
