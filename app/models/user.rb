@@ -3,7 +3,7 @@ class User < ActiveRecord::Base
   mount_uploader :image, ImageUploader
 
   devise :confirmable, :database_authenticatable, :registerable,
-         :recoverable, :rememberable, :trackable, :validatable#, :lockable
+         :recoverable, :rememberable, :trackable, :validatable, :lockable
 
   validates :email, format: {
       with: /\A([^@\s]+)@((?:[-a-z0-9]+\.)+[a-z]{2,})\z/i,
