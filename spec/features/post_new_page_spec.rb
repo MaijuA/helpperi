@@ -33,4 +33,15 @@ describe 'New post' do
 
   end
 
+  it 'adds price' do
+    visit new_post_path
+    fill_in('post_title', with:'kauppareissu')
+    fill_in('post_price', with:'12')
+
+    click_button('Luo ilmoitus')
+
+    expect(page).to have_content '12'
+
+  end
+
 end

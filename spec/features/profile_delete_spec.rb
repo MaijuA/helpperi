@@ -23,7 +23,7 @@ describe 'Delete profile' do
     fill_in('Salasana', with:'Ihanmitavaan1')
     click_button('Kirjaudu')
 
-    expect(page).to have_content 'Olet poistanut tilisi. Kiitos!'
+    expect(page).to have_content 'Olet poistanut tilisi. Jos haluat palauttaa tilisi, ota yhteyttä asiakaspalveluun.'
   end
 
 end

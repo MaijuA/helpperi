@@ -36,7 +36,8 @@
     </div>
   <% else %>
     <div class="actions">
-      <%= f.submit 'Luo ilmoitus' %>
+      <%= f.submit 'Luo ilmoitus', class:"btn btn-success" %>
+      <%= link_to "Peruuta", user_path(current_user), class:"btn"%>
     </div>
   <% end %>
 <% end %>

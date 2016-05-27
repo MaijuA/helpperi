@@ -14,7 +14,7 @@
       timeout: "Istuntosi on vanhentunut, ole hyvä ja kirjaudu sisään jatkaaksesi."
       unauthenticated: "Sinun pitää kirjautua sisään tai rekisteröityä ennen kuin voit jatkaa."
       unconfirmed: "Sinun täytyy vahvistaa tunnuksesi ennen kuin voit jatkaa."
-      deleted_account: "Olet poistanut tilisi. Kiitos!"
+      deleted_account: "Olet poistanut tilisi. Jos haluat palauttaa tilisi, ota yhteyttä asiakaspalveluun."
     mailer:
       confirmation_instructions:
         subject: "Vahvistusohjeet"
