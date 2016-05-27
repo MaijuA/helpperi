@@ -18,6 +18,12 @@ class User < ActiveRecord::Base
   validates :first_name, :last_name, :city, length: { maximum: 50 }, :on => :update
   validates :description, length: { maximum: 2000 }, :on => :update
   validates :address, length: { in: 3..200 }, :on => :update
+  validates :email, :first_name, :last_name, presence: true
+  validates :personal_code, :phone_number, :address,
+            :zip_code, :city, presence: true
+  validates :first_name, :last_name, :city, length: { maximum: 50 }
+  validates :description, length: { maximum: 2000 }
+  validates :address, length: { in: 3..200 }
 
   validates :first_name, :last_name, :city, format: {
       with: /\A\p{L}+((\s|-)\p{L}+){,3}\z/,
@@ -116,6 +122,14 @@ class User < ActiveRecord::Base
 
   def is_social?
     !provider.nil?
+  end
+
+  def self.new_with_session(params, session)
+    super.tap do |user|
+      if data = session["devise.facebook_data"] && session["devise.facebook_data"]["extra"]["raw_info"]
+        user.email = data["email"] if user.email.blank?
+      end
+    end
   end
 
 end
