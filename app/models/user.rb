@@ -1,5 +1,6 @@
 class User < ActiveRecord::Base
   include CustomValidations
+  mount_uploader :image, ImageUploader
 
   devise :confirmable, :database_authenticatable, :registerable,
          :recoverable, :rememberable, :trackable, :validatable, :lockable
