@@ -41,4 +41,15 @@ describe 'Edit post' do
 
     expect(page).to have_content '12'
   end
+
+  it 'doesn´t edit if title empty' do
+    post = FactoryGirl.create(:post)
+
+    visit edit_post_path(post)
+    fill_in('post_title', with:'')
+
+    click_button('Muokkaa ilmoitusta')
+
+    expect(page).to have_content 'Otsikko ei voi olla sisällötön'
+  end
 end

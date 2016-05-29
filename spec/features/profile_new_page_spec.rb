@@ -85,6 +85,13 @@ describe 'Sign in' do
     expect(page).to have_content 'Henkilötunnus tai passin numero on virheellinen'
 
     visit new_user_registration_path
+    fill_in('Henkilötunnus tai passin numero', with: '010191+123V')
+
+    click_button('Rekisteröidy')
+
+    expect(page).to have_content 'Henkilötunnus tai passin numero on virheellinen'
+
+    visit new_user_registration_path
     fill_in('Henkilötunnus tai passin numero', with: '010106A235K')
 
     click_button('Rekisteröidy')

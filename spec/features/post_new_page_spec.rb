@@ -1,4 +1,3 @@
-
 require 'rails_helper'
 
 include Warden::Test::Helpers
@@ -41,6 +40,18 @@ describe 'New post' do
     click_button('Luo ilmoitus')
 
     expect(page).to have_content '12'
+
+  end
+
+  it 'doesn´t add post if title empty' do
+    visit new_post_path
+    fill_in('post_title', with:'')
+    fill_in('post_description', with:'kauppareissuun apua')
+    fill_in('post_price', with:'12')
+
+    click_button('Luo ilmoitus')
+
+    expect(page).to have_content 'Otsikko ei voi olla sisällötön'
 
   end
 

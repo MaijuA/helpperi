@@ -62,13 +62,13 @@ class PostsController < ApplicationController
 
   def delete_post
     post = Post.find(params[:post_id])
-    if post.user.id == current_user.id
+    if current_user && post.user.id == current_user.id
       post.update_attribute(:deleted, true)
     end
     if post.deleted
       redirect_to posts_url, notice: 'Ilmoitus on poistettu onnistuneesti.'
     else
-      redirect_to back, notice: 'Ilmoitusta ei voitu poistaa. Ole yhteydessä asiakaspalveluun.'
+      redirect_to post_path(post), notice: 'Ilmoitusta ei voitu poistaa. Ole yhteydessä asiakaspalveluun.'
     end
   end
 
