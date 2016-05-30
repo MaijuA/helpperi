@@ -10,7 +10,9 @@
 
 <p>
   <strong>Hinta:</strong><br>
-  <%= @post.price %>
+  <% if @post.price %>
+      <%= @post.price %> €
+  <% end %>
 </p>
 
 <p>
