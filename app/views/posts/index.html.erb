@@ -15,7 +15,9 @@
       <tr>
         <td><%= link_to truncate(post.title, :length => 30), post %></td>
         <td><%= truncate(post.description, :length => 30) %></td>
-        <td><%= post.price %> €</td>
+        <td><% if post.price %>
+              <%= post.price %> €
+              <% end %></td>
       </tr>
     <% end %>
   </tbody>
