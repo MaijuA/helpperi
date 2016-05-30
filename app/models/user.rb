@@ -26,6 +26,12 @@ class User < ActiveRecord::Base
       message: "ei ole Suomessa kelvollinen"
   }
   validates :personal_code, hetu: true, :unless => :passport_number_is_used?
+
+  if :image.present?
+    validates_integrity_of :image
+    validates_processing_of :image
+  end
+
   has_many :posts, dependent: :destroy
 
   scope :active, -> { where deleted_at:false }
