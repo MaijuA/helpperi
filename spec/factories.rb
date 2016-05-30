@@ -57,4 +57,12 @@ FactoryGirl.define do
     price "10"
     deleted false
   end
+
+  factory :post2, class: Post do
+    user_id "1"
+    title "Poistettu ilmoitus"
+    description "kuvaus"
+    price "10"
+    deleted true
+  end
 end

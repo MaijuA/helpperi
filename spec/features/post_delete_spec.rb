@@ -41,4 +41,16 @@ describe 'Delete Post' do
     expect(page).to have_content 'Ilmoitusta ei voitu poistaa. Ole yhteydessä asiakaspalveluun.'
     expect(post.deleted).to be false
   end
+
+  it 'won´t show deleted post to users' do
+    user = FactoryGirl.create(:user)
+    login_as(user)
+    post = FactoryGirl.create(:post2)
+
+    visit users_path
+
+    expect(page).not_to have_content 'Poistettu ilmoitus'
+  end
+
+
 end

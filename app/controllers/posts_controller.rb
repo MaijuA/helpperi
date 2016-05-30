@@ -6,7 +6,7 @@ class PostsController < ApplicationController
   def index
     @posts = Post.active
     if current_user
-      @user_posts = current_user.posts
+      @user_posts = current_user.posts.active
     end
   end
 
