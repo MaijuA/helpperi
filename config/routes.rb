@@ -6,7 +6,7 @@ Rails.application.routes.draw do
 
   resources :posts
 
-  root 'posts#index'
+  root 'users#index'
 
   resources :posts do
     post 'delete_post'
