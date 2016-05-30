@@ -147,6 +147,7 @@ fi:
       too_long: on liian pitkä (saa olla enintään %{count} merkkiä)
       too_short: on liian lyhyt (oltava vähintään %{count} merkkiä)
       wrong_length: on väärän pituinen (täytyy olla täsmälleen %{count} merkkiä)
+      file_size: on liian suuri (max. 5 MB)
       carrierwave_processing_error: prosessointi epäonnistui
       carrierwave_integrity_error: ei ole sallittua tiedostotyyppiä
     template:

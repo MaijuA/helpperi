@@ -30,6 +30,7 @@ class User < ActiveRecord::Base
   if :image.present?
     validates_integrity_of :image
     validates_processing_of :image
+    validates :image, file_size: { less_than: 5.megabytes }
   end
 
   has_many :posts, dependent: :destroy
