@@ -16,7 +16,6 @@ describe 'Delete Post' do
 
     expect(page).to have_content 'Ilmoitus on poistettu onnistuneesti.'
     expect(post_count).to eq(post_count)
-
   end
 
   it 'won´t delete post if not signed in' do
@@ -28,7 +27,6 @@ describe 'Delete Post' do
 
     expect(page).to have_content 'Ilmoitusta ei voitu poistaa. Ole yhteydessä asiakaspalveluun.'
     expect(post.deleted).to be false
-
   end
 
   it 'won´t delete other users posts' do
@@ -43,5 +41,4 @@ describe 'Delete Post' do
     expect(page).to have_content 'Ilmoitusta ei voitu poistaa. Ole yhteydessä asiakaspalveluun.'
     expect(post.deleted).to be false
   end
-
 end
