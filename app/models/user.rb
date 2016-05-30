@@ -1,5 +1,4 @@
 class User < ActiveRecord::Base
-  include CustomValidations
   mount_uploader :image, ImageUploader
 
   devise :confirmable, :database_authenticatable, :registerable,
@@ -30,7 +29,9 @@ class User < ActiveRecord::Base
   if :image.present?
     validates_integrity_of :image
     validates_processing_of :image
-    validates :image, file_size: { less_than: 5.megabytes }
+    validates :image, :file_size => {
+        :maximum => 5.megabytes.to_i
+    }
   end
 
   has_many :posts, dependent: :destroy
