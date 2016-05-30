@@ -46,6 +46,11 @@ section {
   }
 // Helpperi
 
+.navbar-inverse {
+  background-color: #c5d5cb;
+  Border-color: #c5d5cb;
+}
+
 // Lomakkeiden virheilmoitukset
 #error_explanation {
   @extend .alert;
