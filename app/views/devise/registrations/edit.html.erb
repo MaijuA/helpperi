@@ -1,98 +1,99 @@
-<!--<h2>Muokkaa <%= resource_name.to_s.humanize %></h2>-->
-<h2>Muokkaa profiilia</h2>
+<div class="row">
+  <div class="col-md-6 col-md-offset-3">
+    <h1 class="text-center login-title">Muokkaa profiilia</h1>
+    <div class="account-wall">
+      <%= form_for(resource, as: resource_name, url: registration_path(resource_name), html: {method: :put, :class => "form-edit-registration"}) do |f| %>
 
-<%= form_for(resource, as: resource_name, url: registration_path(resource_name), html: { method: :put }) do |f| %>
-    <%= devise_error_messages! %>
-    <div class ="row">
-      <div class="col-xs-8 col-sm-4 col-md-6">
-
-        <div class="field">
-          <%= f.label :email %><br />
-          <%= f.email_field :email, autofocus: true %>
-        </div>
-
-        <div class="field">
-          <%= f.label :first_name %><br />
-          <%= f.text_field :first_name %>
-        </div>
-
-        <div class="field">
-          <%= f.label :last_name %><br />
-          <%= f.text_field :last_name %>
-        </div>
-
-        <div class="field">
-          <%= f.label :address %><br />
-          <%= f.text_field :address %>
-        </div>
-
-        <div class="field">
-          <%= f.label :zip_code %><br />
-          <%= f.text_field :zip_code %>
-        </div>
-
-        <div class="field">
-          <%= f.label :city %><br />
-          <%= f.text_field :city %>
-        </div>
-
-        <div class="field">
-          <%= f.label :phone_number %><br />
-          <%= f.text_field :phone_number %>
-        </div>
-
-        <div class="field"> <i>(max. 2000 merkkiä)</i><br />
-          <%= f.label :description %><br />
-          <%= f.text_area :description, :cols => "30", :rows => "5" %>
-        </div>
-
-        <% if devise_mapping.confirmable? && resource.pending_reconfirmation? %>
-            <div>Odotetaan vahvistusta seuraavalle: <%= resource.unconfirmed_email %></div>
-        <% end %>
-
-        <div class="field">
-          <%= f.label :password %> <i>(jätä tyhjäksi jos et halua vaihtaa salasanaasi)</i><br />
-          <%= f.password_field :password, autocomplete: "off" %>
-        </div>
-
-        <div class="field">
-          <%= f.label :password_confirmation %><br />
-          <%= f.password_field :password_confirmation, autocomplete: "off" %>
-        </div>
-
-        <div class="field">
-          <%= f.label :current_password %> <i>(tarvitsemme nykyisen salasanasi muutosten vahvistamiseksi)</i><br />
-          <%= f.password_field :current_password, autocomplete: "off" %>
-        </div>
-
-        <div class="actions">
-          <%= f.submit "Päivitä", class:"btn btn-success"%>
-          <%= link_to "Peruuta", user_path(resource_name), class:"btn"%>
-        </div>
-      </div>
-
-      <div class="col-xs-6 col-md-4" align="left">
-
-
-        <br>
-
-        <div class="field" align="left">
-          <%= image_tag f.object.image_url(:display) %>
-          <%= f.label :image %><br>
-          <%= f.hidden_field :image_cache %>
-          <%= f.file_field :image %>
           <% if f.object.image? %>
-              <%= f.label :remove_image %>
-              <%= f.check_box :remove_image %>
+              <%= image_tag f.object.image_url(:display), class: "profile-img" %>
+          <% else %>
+              <!-- placeholder -->
           <% end %>
-        </div>
 
-      </div>
+          <div class="form-group">
+            <%= f.label :image, class: "control-label" %>
+            <%= f.hidden_field :image_cache %>
+            <%= f.file_field :image %>
+            <% if f.object.image? %>
+                <%= f.label :remove_image, class: "control-label" %>
+                <%= f.check_box :remove_image %>
+            <% end %>
+          </div>
+
+          <%= devise_error_messages! %>
+
+          <div class="form-group">
+            <%= f.label :email, class: "control-label" %>
+            <%= f.email_field :email, autofocus: true, class: "form-control" %>
+          </div>
+
+          <div class="form-group">
+            <%= f.label :first_name, class: "control-label" %>
+            <%= f.text_field :first_name, class: "form-control" %>
+          </div>
+
+          <div class="form-group">
+            <%= f.label :last_name, class: "control-label" %>
+            <%= f.text_field :last_name, class: "form-control" %>
+          </div>
+
+          <div class="form-group">
+            <%= f.label :address, class: "control-label" %>
+            <%= f.text_field :address, class: "form-control" %>
+          </div>
+
+          <div class="form-group">
+            <%= f.label :zip_code, class: "control-label" %>
+            <%= f.text_field :zip_code, class: "form-control" %>
+          </div>
+
+          <div class="form-group">
+            <%= f.label :city, class: "control-label" %>
+            <%= f.text_field :city, class: "form-control" %>
+          </div>
+
+          <div class="form-group">
+            <%= f.label :phone_number, class: "control-label" %>
+            <%= f.text_field :phone_number, class: "form-control" %>
+          </div>
+
+          <div class="form-group">
+            <%= f.label :description, class: "control-label" %>
+            <%= f.text_area :description, :cols => "30", :rows => "5", class: "form-control" %>
+            <i>(max. 2000 merkkiä)</i>
+          </div>
+
+          <% if devise_mapping.confirmable? && resource.pending_reconfirmation? %>
+              <div>Odotetaan vahvistusta seuraavalle: <%= resource.unconfirmed_email %></div>
+          <% end %>
+
+          <div class="form-group">
+            <%= f.label :password, class: "control-label" %>
+            <%= f.password_field :password, autocomplete: "off", class: "form-control" %>
+            <i>(jätä tyhjäksi jos et halua vaihtaa salasanaasi)</i>
+          </div>
+
+          <div class="form-group">
+            <%= f.label :password_confirmation, class: "control-label" %>
+            <%= f.password_field :password_confirmation, autocomplete: "off", class: "form-control" %>
+          </div>
+
+          <div class="form-group">
+            <%= f.label :current_password, class: "control-label" %>
+            <%= f.password_field :current_password, autocomplete: "off", class: "form-control" %>
+            <i>(tarvitsemme nykyisen salasanasi muutosten vahvistamiseksi)</i>
+          </div>
+
+          <div class="form-group">
+            <%= f.submit "Päivitä", class: "btn btn-success" %>
+            <%= link_to "Peruuta", user_path(resource_name), class: "btn" %>
+          </div>
+      <% end %>
     </div>
-<% end %>
 
-<h3>Poista tilini</h3>
+    <h3>Poista tilini</h3>
 
-<p>Tyytymätön? <%= button_to "Poista tilini", registration_path(resource_name), data: { confirm: "Oletko varma?" },
-                             method: :delete, :class => 'btn-mini btn-danger btn' if current_user %></p>
-
+    <p>Tyytymätön? <%= button_to "Poista tilini", registration_path(resource_name), data: {confirm: "Oletko varma?"},
+                                 method: :delete, :class => 'btn-mini btn-danger btn' if current_user %></p>
+  </div>
+</div>
