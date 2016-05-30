@@ -7,16 +7,6 @@
       <div class="col-xs-8 col-sm-4 col-md-6">
 
         <div class="field">
-          <%= f.label :image %><br>
-          <%= f.hidden_field :image_cache %>
-          <%= f.file_field :image %>
-          <% if f.object.image? %>
-              <%= f.label :remove_image %>
-              <%= f.check_box :remove_image %>
-          <% end %>
-        </div>
-
-        <div class="field">
           <%= f.label :email %><br />
           <%= f.email_field :email, autofocus: true %>
         </div>
@@ -81,8 +71,22 @@
         </div>
       </div>
 
-      <div class="col-xs-6 col-md-4">
-        <%= image_tag f.object.image_url(:display) %>
+      <div class="col-xs-6 col-md-4" align="left">
+
+
+        <br>
+
+        <div class="field" align="left">
+          <%= image_tag f.object.image_url(:display) %>
+          <%= f.label :image %><br>
+          <%= f.hidden_field :image_cache %>
+          <%= f.file_field :image %>
+          <% if f.object.image? %>
+              <%= f.label :remove_image %>
+              <%= f.check_box :remove_image %>
+          <% end %>
+        </div>
+
       </div>
     </div>
 <% end %>
