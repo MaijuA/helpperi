@@ -17,7 +17,7 @@ class Post < ActiveRecord::Base
       message: "ei ole Suomessa kelvollinen"
   }
 
-  validates :ending_date, dateinfuture: true
+  validates :ending_date, date_in_future: true
   validates :description, length: { maximum: 2000 }
   validates :radius, numericality: {greater_than_or_equal_to: 0, less_than: 200 } if :type == "myynti"
 
