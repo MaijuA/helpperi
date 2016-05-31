@@ -1,22 +1,22 @@
 <h2>
-  <strong><%= @post.title %></strong><br>
+  <%= @post.title %><br>
 
 </h2>
 
 <p>
-  <strong>Kuvaus:</strong><br>
+  <strong>Kuvaus</strong><br>
   <%= @post.description %>
 </p>
 
 <p>
-  <strong>Hinta:</strong><br>
+  <strong>Hinta</strong><br>
   <% if @post.price %>
       <%= @post.price %> €
   <% end %>
 </p>
 
 <p>
-  <strong>Ilmoittaja:</strong><br>
+  <strong>Ilmoittaja</strong><br>
   <%= @post.user.first_name %> <%= @post.user.last_name %>
 </p><br>
 
