@@ -2,9 +2,9 @@ class Post < ActiveRecord::Base
   belongs_to :user
   mount_uploader :image, ImageUploader
 
-  validates :user_id, :type, :title, :zip_code, :city, :price, :ending_date, presence: true
+  validates :user_id, :post_type, :title, :zip_code, :city, :price, :ending_date, presence: true
   validates :price, numericality: {greater_than_or_equal_to: 0, less_than: 500 }
-  validates :type, :inclusion=> { :in => ["myynti", "osto"] }
+  validates :post_type, :inclusion=> { :in => ["Myynti", "Osto"] }
   validates :title, length: { in: 4..50 }
   validates :address, length: { in: 3..200 }, if: :buyer?
 
@@ -29,15 +29,15 @@ class Post < ActiveRecord::Base
   end
 
   def seller?
-    type == "myynti"
+    post_type == "myynti"
   end
 
   def buyer?
-    type == "osto"
+    post_type == "osto"
   end
 
   scope :active, -> { where deleted:false }
   scope :deleted, -> { where deleted:true }
-  scope :buying, -> { where type:"osto"}
-  scope :selling, -> { where type:"myynti"}
+  scope :buying, -> { where post_type:"Osto"}
+  scope :selling, -> { where post_type:"Myynti"}
 end

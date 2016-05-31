@@ -4,11 +4,11 @@ class User < ActiveRecord::Base
   devise :confirmable, :database_authenticatable, :registerable,
          :recoverable, :rememberable, :trackable, :validatable, :lockable
 
-  validates :email, format: {
-      with: /\A([^@\s]+)@((?:[-a-z0-9]+\.)+[a-z]{2,})\z/i,
-      message: "ei ole mahdollinen."
-  }
-  validates :password, length: { in: 8..72 }, if: :password_required?
+  # validates :email, format: {
+  #     with: /\A([^@\s]+)@((?:[-a-z0-9]+\.)+[a-z]{2,})\z/i,
+  #     message: "ei ole mahdollinen."
+  # }
+  # validates :password, length: { in: 8..72 }, if: :password_required?
   validate :password_black_list, if: :password_required?
   validates :first_name, :last_name, :personal_code, :phone_number, :address, :zip_code, :city, presence: true
   validates :first_name, :last_name, :city, length: { maximum: 50 }

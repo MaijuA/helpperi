@@ -4,20 +4,38 @@
 </h2>
 
 <p>
-  <strong>Kuvaus</strong><br>
+  <strong>[kategoria]</strong><br>
+  <%=  %>
+</p>
+
+<p>
   <%= @post.description %>
 </p>
 
 <p>
-  <strong>Hinta</strong><br>
   <% if @post.price %>
       <%= @post.price %> €
   <% end %>
 </p>
 
 <p>
+<p><%= @post.address %></p>
+<p><%= @post.zip_code %> <%= @post.city %></p><br>
+</p>
+
+<p>
+  <strong>Säde</strong><br>
+  <%= @post.radius %>
+</p>
+
+<p>
+  <strong>Päättymispäivä</strong><br>
+  <%= @post.ending_date %>
+</p>
+
+<p>
   <strong>Ilmoittaja</strong><br>
-  <%= @post.user.first_name %> <%= @post.user.last_name %>
+  <%= link_to(@post.user.first_name, user_path) %>
 </p><br>
 
 <%= link_to('Muokkaa', edit_post_path(@post), class:"btn btn-primary") if @post.user == current_user %>
