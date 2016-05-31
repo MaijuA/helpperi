@@ -2,11 +2,11 @@ class Post < ActiveRecord::Base
   belongs_to :user
   mount_uploader :image, ImageUploader
 
-  validates :user_id, :type, :title, :zip_code, :city, :price, :ending_date, presence: true
+  validates :user_id, :title, :zip_code, :city, :price, :ending_date, presence: true
   validates :price, numericality: {greater_than_or_equal_to: 0, less_than: 500 }
-  validates :type, :inclusion=> { :in => ["myynti", "osto"] }
+  #validates :type, :inclusion=> { :in => ["myynti", "osto"] }
   validates :title, length: { in: 4..50 }
-  validates :address, length: { in: 3..200 } if :type == "osto"
+  #validates :address, length: { in: 3..200 } if :type == "osto"
 
   validates :city, format: {
       with: /\A\p{L}+((\s|-)\p{L}+){,3}\z/,

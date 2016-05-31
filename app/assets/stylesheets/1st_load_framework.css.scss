@@ -46,9 +46,13 @@ section {
   }
 // Helpperi
 
+body {
+  background-color: #f2efe8;
+}
+
 .navbar-inverse {
   background-color: #c5d5cb;
-  Border-color: #c5d5cb;
+  border-color: #c5d5cb;
 }
 
 // Lomakkeiden virheilmoitukset
@@ -74,6 +78,7 @@ section {
   margin: -16px auto 10px;
 }
 
+.lomake,
 .form-signin,
 .form-signup,
 .form-edit-registration {
@@ -100,7 +105,7 @@ section {
 
 .login-title, .signup-title {
   color: #555;
-  font-size: 18px;
+  font-size: 30px;
   font-weight: 400;
   display: block;
 }

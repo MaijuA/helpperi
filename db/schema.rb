@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160531090458) do
+ActiveRecord::Schema.define(version: 20160531120850) do
 
   create_table "posts", force: :cascade do |t|
     t.string   "title"
@@ -21,13 +21,13 @@ ActiveRecord::Schema.define(version: 20160531090458) do
     t.integer  "user_id"
     t.integer  "price"
     t.boolean  "deleted"
-    t.string   "type"
     t.datetime "ending_date"
     t.string   "address"
     t.string   "zip_code"
     t.string   "city"
     t.integer  "radius"
     t.string   "image"
+    t.string   "post_type"
   end
 
   create_table "users", force: :cascade do |t|
