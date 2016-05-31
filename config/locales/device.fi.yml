@@ -1,7 +1,7 @@
  fi:
   devise:
     confirmations:
-      confirmed: "Tunnuksesi on nyt vahvistettu. Olet kirjautuneena sisälle."
+      confirmed: "Sähköpostiosoitteesi on nyt vahvistettu."
       send_instructions: "Saat hetken kuluttua sähköpostiisi ohjeet tunnuksen vahvistamiseen."
       send_paranoid_instructions: "Jos sähköpostiosoitteesi on tietokannassamme, saat hetken kuluttua sähköpostiisi ohjeet tunnuksen vahvistamiseen."
     failure:
