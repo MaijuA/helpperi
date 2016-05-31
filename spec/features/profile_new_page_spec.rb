@@ -24,20 +24,20 @@ describe 'Sign in' do
     expect(page).to have_content 'Tervetuloa!'
   end
 
-  it 'rejects password' do
+  it 'rejects email' do
     visit new_user_registration_path
     fill_in('Sähköpostiosoite', with: 'jarmo@pekkarinen')
 
     click_button('Rekisteröidy')
 
-    expect(page).to have_content 'ei ole mahdollinen.'
+    expect(page).to have_content 'Sähköpostiosoite ei ole mahdollinen'
 
     visit new_user_registration_path
     fill_in('Sähköpostiosoite', with: 'jarmo[at]pekkarinen.net')
 
     click_button('Rekisteröidy')
 
-    expect(page).to have_content 'Sähköpostiosoite ei ole mahdollinen.'
+    expect(page).to have_content 'Sähköpostiosoite ei ole mahdollinen'
   end
 
   it 'accepts first name' do
@@ -115,7 +115,7 @@ describe 'Sign in' do
 
     click_button('Rekisteröidy')
 
-    expect(page).to have_content 'Puhelinnumero on kelvoton'
+    expect(page).to have_content 'Puhelinnumero ei ole mahdollinen'
   end
 
   it 'rejects address' do

@@ -16,7 +16,7 @@ describe 'Edit post' do
     visit edit_post_path(post)
     fill_in('post_title', with:'kauppareissu2')
 
-    click_button('Muokkaa ilmoitusta')
+    click_button('Päivitä')
     expect(page).to have_content 'kauppareissu2'
   end
 
@@ -26,7 +26,7 @@ describe 'Edit post' do
     visit edit_post_path(post)
     fill_in('post_description', with:'tarjoan apua')
 
-    click_button('Muokkaa ilmoitusta')
+    click_button('Päivitä')
 
     expect(page).to have_content 'tarjoan apua'
   end
@@ -37,7 +37,7 @@ describe 'Edit post' do
     visit edit_post_path(post)
     fill_in('post_price', with:'12')
 
-    click_button('Muokkaa ilmoitusta')
+    click_button('Päivitä')
 
     expect(page).to have_content '12'
   end
@@ -48,7 +48,7 @@ describe 'Edit post' do
     visit edit_post_path(post)
     fill_in('post_title', with:'')
 
-    click_button('Muokkaa ilmoitusta')
+    click_button('Päivitä')
 
     expect(page).to have_content 'Otsikko ei voi olla sisällötön'
   end

@@ -7,6 +7,12 @@ RSpec.describe Post, type: :model do
     post = Post.create title: "otsikko",
                        description: "kuvaus",
                        price: 10,
+                       post_type: "Osto",
+                       ending_date: DateTime.now + 1.month,
+                       address: "Kumpulanmäki 1",
+                       zip_code: 99999,
+                       city: "Helsinki",
+                       radius: 3,
                        user_id: 1
 
     expect(post.valid?).to be(true)
@@ -18,6 +24,12 @@ RSpec.describe Post, type: :model do
     post = Post.create title: "",
                        description: "kuvaus",
                        price: 10,
+                       post_type: "Osto",
+                       ending_date: DateTime.now + 1.month,
+                       address: "Kumpulanmäki 1",
+                       zip_code: 99999,
+                       city: "Helsinki",
+                       radius: 3,
                        user_id: 1
 
     expect(post.valid?).to be(false)
@@ -28,7 +40,13 @@ RSpec.describe Post, type: :model do
     post_count = Post.count
     post = Post.create title: "kissat",
                        description: "kuvaus",
-                       price: 10
+                       price: 10,
+                       post_type: "Osto",
+                       ending_date: DateTime.now + 1.month,
+                       address: "Kumpulanmäki 1",
+                       zip_code: 99999,
+                       city: "Helsinki",
+                       radius: 3
 
     expect(post.valid?).to be(false)
     expect(Post.count).to eq(post_count)
@@ -39,6 +57,12 @@ RSpec.describe Post, type: :model do
     post = Post.create title: "kissat",
                        description: "kuvaus",
                        price: "k",
+                       post_type: "Osto",
+                       ending_date: DateTime.now + 1.month,
+                       address: "Kumpulanmäki 1",
+                       zip_code: 99999,
+                       city: "Helsinki",
+                       radius: 3,
                        user_id: 1
 
     expect(post.valid?).to be(false)

@@ -54,6 +54,12 @@ FactoryGirl.define do
     user_id "1"
     title "Otsikko"
     description "kuvaus"
+    post_type "Osto"
+    ending_date DateTime.now + 1.month
+    address "Kumpulanmäki 1"
+    zip_code 99999
+    city "Helsinki"
+    radius 3
     price "10"
     deleted false
   end
@@ -62,6 +68,12 @@ FactoryGirl.define do
     user_id "1"
     title "Poistettu ilmoitus"
     description "kuvaus"
+    post_type "Osto"
+    ending_date DateTime.now + 1.month
+    address "Kumpulanmäki 1"
+    zip_code 99999
+    city "Helsinki"
+    radius 3
     price "10"
     deleted true
   end

@@ -19,7 +19,7 @@ class User < ActiveRecord::Base
       with: /\A\p{L}+((\s|-)\p{L}+){,3}\z/,
       message: "saa sisältää vain kirjaimia sekä väliliviivan tai välin nimien välissä"
   }
-  validates :phone_number, phone: { possible: true}
+  validates :phone_number, phone: { possible: true }
   validates :zip_code, format: {
       with: /\A(FI-)?[0-9]{5}\z/,
       message: "ei ole Suomessa kelvollinen"

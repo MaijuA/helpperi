@@ -143,7 +143,7 @@ fi:
       greater_than: täytyy olla suurempi kuin %{count}
       greater_than_or_equal_to: täytyy olla suurempi tai yhtä suuri kuin %{count}
       inclusion: ei löydy listasta
-      invalid: on kelvoton
+      invalid:  ei ole mahdollinen
       less_than: täytyy olla pienempi kuin %{count}
       less_than_or_equal_to: täytyy olla pienempi tai yhtä suuri kuin %{count}
       not_a_number: ei ole luku
