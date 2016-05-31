@@ -4,7 +4,7 @@
 </h2>
 
 <p>
-  <strong>[kategoria]</strong><br>
+  [kategoria]<br>
   <%=  %>
 </p>
 
@@ -19,8 +19,7 @@
 </p>
 
 <p>
-<p><%= @post.address %></p>
-<p><%= @post.zip_code %> <%= @post.city %></p><br>
+<%= @post.address if @post.user == current_user %>, <%= @post.zip_code %> <%= @post.city %>
 </p>
 
 <p>
