@@ -6,7 +6,7 @@ class Post < ActiveRecord::Base
   validates :price, numericality: {greater_than_or_equal_to: 0, less_than: 500 }
   validates :type, :inclusion=> { :in => ["myynti", "osto"] }
   validates :title, length: { in: 4..50 }
-  validates :address, length: { in: 3..200 } if :type == "osto"
+  validates :address, length: { in: 3..200 }, if: :buyer?
 
   validates :city, format: {
       with: /\A\p{L}+((\s|-)\p{L}+){,3}\z/,
@@ -19,7 +19,7 @@ class Post < ActiveRecord::Base
 
   validates :ending_date, date_in_future: true
   validates :description, length: { maximum: 2000 }
-  validates :radius, numericality: {greater_than_or_equal_to: 0, less_than: 200 } if :type == "myynti"
+  validates :radius, numericality: {greater_than_or_equal_to: 0, less_than: 200 }, if: :seller?
 
   if :image.present?
     validates_processing_of :image
@@ -28,7 +28,16 @@ class Post < ActiveRecord::Base
     }
   end
 
+  def seller?
+    type == "myynti"
+  end
+
+  def buyer?
+    type == "osto"
+  end
 
   scope :active, -> { where deleted:false }
   scope :deleted, -> { where deleted:true }
+  scope :buying, -> { where type:"osto"}
+  scope :selling, -> { where type:"myynti"}
 end

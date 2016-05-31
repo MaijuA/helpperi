@@ -26,17 +26,20 @@ class User < ActiveRecord::Base
   }
   validates :personal_code, hetu: true, :unless => :passport_number_is_used?
 
-  if :image.present?
-    validates_processing_of :image
-    validates :image, :file_size => {
-        :maximum => 5.megabytes.to_i
-    }
-  end
+  validates_processing_of :image, if: :image_is_set?
+  validates_integrity_of :image, if: :image_is_set?
+  validates :image, :file_size => {
+      :maximum => 5.megabytes.to_i
+  }, if: :image_is_set?
 
   has_many :posts, dependent: :destroy
 
   scope :active, -> { where deleted_at:false }
   scope :deleted, -> { where deleted_at:true }
+
+  def image_is_set?
+    image.present?
+  end
 
   def passport_number_is_used?
     !passport_number.nil? && passport_number == true
