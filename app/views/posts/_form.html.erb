@@ -8,6 +8,7 @@
                 virhettä
             <% end %>
             esti tallentamasta tämän ilmoituksen:
+
           </h2>
 
           <ul>
@@ -43,7 +44,7 @@
     <br>
     <div class="field">
       <%= f.label :price %><br>
-      <%= f.number_field :price %>
+      <%= f.number_field :price, min: 0 %>
     </div>
 
     <br>
@@ -93,4 +94,5 @@
           <%= link_to "Peruuta", user_path(current_user), class:"btn"%>
         </div>
     <% end %>
+
 <% end %>
