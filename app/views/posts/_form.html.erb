@@ -24,20 +24,21 @@
   </div>
   <div class="field">
     <%= f.label :description %><br>
-    <%= f.text_field :description %>
+    <%= f.text_area :description, :cols => "40", :rows => "5" %>
   </div>
   <div class="field">
     <%= f.label :price %><br>
     <%= f.number_field :price %>
-  </div>
+  </div><br>
   <% if @edit %>
     <div class="actions">
-      <%= f.submit 'Muokkaa ilmoitusta' %>
+      <%= f.submit 'Päivitä', class:"btn btn-success" %>
+      <%= f.submit 'Peruuta', class:"btn" %>
     </div>
   <% else %>
     <div class="actions">
       <%= f.submit 'Luo ilmoitus', class:"btn btn-success" %>
-      <%= link_to "Peruuta", user_path(current_user), class:"btn"%>
+      <%= link_to "Peruuta", posts_path, class:"btn"%>
     </div>
   <% end %>
 <% end %>
