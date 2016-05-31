@@ -10,6 +10,16 @@
               <!-- placeholder -->
           <% end %>
 
+<<<<<<< HEAD
+      </div>
+    </div>
+<% end %>
+<br>
+<h5><b>Haluatko lopettaa palvelun käytön?</b></h5>
+
+<%= button_to "Poista tilini", registration_path(resource_name), data: { confirm: "Oletko varma?" },
+                             method: :delete, :class => 'btn-mini btn-danger btn' if current_user %>
+=======
           <div class="form-group">
             <%= f.label :image, class: "control-label" %>
             <%= f.hidden_field :image_cache %>
@@ -92,6 +102,7 @@
     </div>
 
     <h3>Poista tilini</h3>
+>>>>>>> 9edbdef7aa2023fbf82a61bb309ebf0cb99a8606
 
     <p>Tyytymätön? <%= button_to "Poista tilini", registration_path(resource_name), data: {confirm: "Oletko varma?"},
                                  method: :delete, :class => 'btn-mini btn-danger btn' if current_user %></p>
