@@ -25,6 +25,11 @@ fi:
         title: 'Otsikko'
         description: 'Kuvaus'
         price: 'Hinta'
+        ending_date: 'Ilmoitus sulkeutuu'
+        address: 'Osoite'
+        zip_code: 'Postinumero'
+        city: 'Kaupunki'
+        radius: 'Säde'
     errors:
       messages:
         record_invalid: 'Validointi epäonnistui: %{errors}'
