@@ -19,7 +19,7 @@ fi:
         password: 'Salasana'
         password_confirmation: 'Salasana uudelleen'
         current_password: 'Nykyinen salasana'
-        image: 'Lataa uusi profiilikuva'
+        image: 'Profiilikuva'
         remove_image: 'Poista nykyinen kuva'
       post:
         title: 'Otsikko'
@@ -147,6 +147,10 @@ fi:
       too_long: on liian pitkä (saa olla enintään %{count} merkkiä)
       too_short: on liian lyhyt (oltava vähintään %{count} merkkiä)
       wrong_length: on väärän pituinen (täytyy olla täsmälleen %{count} merkkiä)
+      file_size: on liian suuri (max. 5 MB)
+      carrierwave_processing_error: prosessointi epäonnistui
+      carrierwave_integrity_error: ei ole sallittua tiedostotyyppiä
+      extension_white_list_error: "ei ole sallittua tiedostotyyppiä, sallitut tyypit: %{allowed_types}"
     template:
       body: 'Seuraavat kentät aiheuttivat ongelmia:'
       header:

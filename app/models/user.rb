@@ -1,5 +1,4 @@
 class User < ActiveRecord::Base
-  include CustomValidations
   mount_uploader :image, ImageUploader
 
   devise :confirmable, :database_authenticatable, :registerable,
@@ -11,7 +10,7 @@ class User < ActiveRecord::Base
   }
   validates :password, length: { in: 8..72 }, if: :password_required?
   validate :password_black_list, if: :password_required?
-  validates :email, :first_name, :last_name, :personal_code, :phone_number, :address, :zip_code, :city, presence: true
+  validates :first_name, :last_name, :personal_code, :phone_number, :address, :zip_code, :city, presence: true
   validates :first_name, :last_name, :city, length: { maximum: 50 }
   validates :description, length: { maximum: 2000 }
   validates :address, length: { in: 3..200 }
@@ -26,6 +25,15 @@ class User < ActiveRecord::Base
       message: "ei ole Suomessa kelvollinen"
   }
   validates :personal_code, hetu: true, :unless => :passport_number_is_used?
+
+  if :image.present?
+    validates_integrity_of :image
+    validates_processing_of :image
+    validates :image, :file_size => {
+        :maximum => 5.megabytes.to_i
+    }
+  end
+
   has_many :posts, dependent: :destroy
 
   scope :active, -> { where deleted_at:false }
