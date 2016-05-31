@@ -1,25 +1,25 @@
 <h2>
-  <strong><%= @post.title %></strong><br>
+  <%= @post.title %><br>
 
 </h2>
 
 <p>
-  <strong>Kuvaus:</strong><br>
+  <strong>Kuvaus</strong><br>
   <%= @post.description %>
 </p>
 
 <p>
-  <strong>Hinta:</strong><br>
+  <strong>Hinta</strong><br>
   <% if @post.price %>
       <%= @post.price %> €
   <% end %>
 </p>
 
 <p>
-  <strong>Ilmoittaja:</strong><br>
+  <strong>Ilmoittaja</strong><br>
   <%= @post.user.first_name %> <%= @post.user.last_name %>
 </p><br>
 
-<%= link_to('Muokkaa', edit_post_path(@post), class:"btn btn-primary") if @post.user == current_user %>
+<%= link_to('Muokkaa', edit_post_path(@post), class:"btn btn-info") if @post.user == current_user %>
 <%= link_to "Poista", post_delete_post_path(@post.id), data:
     { confirm: 'Haluatko varmasti poistaa ilmoituksen?' }, method: :post if @post.user == current_user %>

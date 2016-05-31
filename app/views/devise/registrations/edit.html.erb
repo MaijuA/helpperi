@@ -90,9 +90,9 @@
       </div>
     </div>
 <% end %>
+<br>
+<h5><b>Haluatko lopettaa palvelun käytön?</b></h5>
 
-<h3>Poista tilini</h3>
-
-<p>Tyytymätön? <%= button_to "Poista tilini", registration_path(resource_name), data: { confirm: "Oletko varma?" },
-                             method: :delete, :class => 'btn-mini btn-danger btn' if current_user %></p>
+<%= button_to "Poista tilini", registration_path(resource_name), data: { confirm: "Oletko varma?" },
+                             method: :delete, :class => 'btn-mini btn-danger btn' if current_user %>
 
