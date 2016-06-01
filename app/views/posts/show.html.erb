@@ -4,46 +4,48 @@
     <div class="account-wall">
       <%= form_for(@post, :html => {:class => "lomake"}) do |f| %>
 
-<p>
-  [kategoria]<br>
-  <%=  %>
-</p>
+          <%= image_tag @post.image_url(:display), width: 200, align: 'right' %>
 
-<p>
-  <%= @post.description %>
-</p>
+          <p>
+            [kategoria]<br>
+            <%=  %>
+          </p>
 
-<p>
-  <% if @post.price %>
-      <%= @post.price %> €
-  <% end %>
-</p>
+          <p>
+            <%= @post.description %>
+          </p>
 
-<p>
-<%= @post.address if @post.user == current_user %><br><%= @post.zip_code %> <%= @post.city %>
-</p>
+          <p>
+            <% if @post.price %>
+                <%= @post.price %> €
+            <% end %>
+          </p>
 
-<p>
-  <strong>Säde</strong><br>
-  <%= @post.radius %>
-</p>
+          <p>
+            <%= @post.address if @post.user == current_user %><br><%= @post.zip_code %> <%= @post.city %>
+          </p>
 
-<p>
-  <strong>Päättymispäivä</strong><br>
-  <%= @post.ending_date %>
-</p>
+          <p>
+            <strong>Säde</strong><br>
+            <%= @post.radius %>
+          </p>
 
-<p>
-  <strong>Ilmoittaja</strong><br>
-  <%= link_to(@post.user.first_name, user_path) %>
-</p><br>
+          <p>
+            <strong>Päättymispäivä</strong><br>
+            <%= @post.ending_date %>
+          </p>
+
+          <p>
+            <strong>Ilmoittaja</strong><br>
+            <%= link_to(@post.user.first_name, user_path) %>
+          </p><br>
 
 
-<%= link_to('Muokkaa', edit_post_path(@post), class:"btn btn-primary") if @post.user == current_user %>
-<%= link_to("Poista", post_delete_post_path(@post.id), class:"btn btn-danger", data:
-    { confirm: 'Haluatko varmasti poistaa ilmoituksen?' }, method: :post) if @post.user == current_user %><br><br>
-<%= link_to "Takaisin selaukseen", posts_path if @post.user == current_user %>
-          <% end %>
-      </div>
+          <%= link_to('Muokkaa', edit_post_path(@post), class:"btn btn-primary") if @post.user == current_user %>
+          <%= link_to("Poista", post_delete_post_path(@post.id), class:"btn btn-danger", data:
+              { confirm: 'Haluatko varmasti poistaa ilmoituksen?' }, method: :post) if @post.user == current_user %><br><br>
+          <%= link_to "Takaisin selaukseen", posts_path if @post.user == current_user %>
+      <% end %>
     </div>
   </div>
+</div>
