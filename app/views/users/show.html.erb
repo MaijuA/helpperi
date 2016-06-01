@@ -1,18 +1,25 @@
-<h2><%= @user.first_name %> <%= @user.last_name %></strong></h2><br>
+<h2><%= @user.first_name %> <%= @user.last_name if current_user == @user %></strong></h2><br>
 <div class ="row">
   <div class="col-xs-12 col-sm-6 col-md-8">
-    <p><b>Sähköposti</b></p>
-    <p><%= @user.email %></p><br>
 
+    <% if current_user == @user %>
+    <p><b>Sähköposti</b></p>
+    <p><%= @user.email if current_user == @user %></p><br>
+    <% end %>
+
+    <% if current_user == @user %>
     <p><b>Henkilötunnus tai passin numero </b></p>
-    <p><%= @user.personal_code %></p><br>
+    <p><%= @user.personal_code if current_user == @user %></p><br>
+    <% end %>
 
     <p><b>Osoite </b></p>
-    <p><%= @user.address %></p>
+    <p><%= @user.address if current_user == @user %></p>
     <p><%= @user.zip_code %> <%= @user.city %></p><br>
 
-    <p><b>Puhelinnumero </b></p>
-    <p><%= @user.phone_number %></p><br>
+    <% if current_user == @user %>
+        <p><b>Puhelinnumero </b></p>
+        <p><%= @user.phone_number %></p><br>
+    <% end %>
 
     <p><b>Kuvaus </b></p>
     <p><%= @user.description %></p>
