@@ -1,6 +1,7 @@
 class Post < ActiveRecord::Base
   belongs_to :user
-  has_many :categories, through: :post_categories
+  has_many :post_categories
+  has_many :categories, -> {distinct}, through: :post_categories
   mount_uploader :image, ImageUploader
 
   validates :user_id, :post_type, :title, :zip_code, :city, :price, :ending_date, presence: true

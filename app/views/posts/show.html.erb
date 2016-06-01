@@ -7,8 +7,9 @@
           <%= image_tag @post.image_url(:display), width: 200, align: 'right' %>
 
           <p>
-            [kategoria]<br>
-            <%=  %>
+            <% @post.categories.each do |category| %>
+                    <span class="badge"><%= " #{category.name} " %></span>
+            <% end %>
           </p>
 
           <p>

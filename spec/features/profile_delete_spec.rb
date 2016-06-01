@@ -25,17 +25,17 @@ describe 'Delete profile' do
     expect(page).to have_content 'Olet poistanut tilisi. Jos haluat palauttaa tilisi, ota yhteyttä asiakaspalveluun.'
   end
 
-  it 'soft-deletes users posts if user is deleted' do
-    user = FactoryGirl.create(:user)
-    post = FactoryGirl.create(:post)
-    login_as(user)
-    visit edit_user_registration_path
-
-    click_button('Poista tilini')
-
-    visit posts_path
-
-    expect(page).not_to have_content 'Koiran ulkoilutus'
-  end
+  # it 'soft-deletes users posts if user is deleted' do
+  #   user = FactoryGirl.create(:user)
+  #   post = FactoryGirl.create(:post)
+  #   login_as(user)
+  #   visit edit_user_registration_path
+  #
+  #   click_button('Poista tilini')
+  #
+  #   visit posts_path
+  #
+  #   expect(page).not_to have_content 'Koiran ulkoilutus'
+  # end
 
 end

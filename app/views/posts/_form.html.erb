@@ -51,16 +51,8 @@
       <% end %>
     </div>
 
-    <br>
     <div class='form-group'>
-      <%= f.label :category %>
-
-      <select class='form-control' id='category_select' multiple>
-        <% Category.all.each do |c| %>
-        <option><%= c.name %> </option>
-        <% end %>
-
-      </select>
+      <%= f.select :category_ids, Category.all.collect {|x| [x.name, x.id]}, {}, :multiple => true %>
     </div>
 
     <br>
