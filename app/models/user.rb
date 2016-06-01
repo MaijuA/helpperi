@@ -6,7 +6,7 @@ class User < ActiveRecord::Base
 
   # validates :email, format: {
   #     with: /\A([^@\s]+)@((?:[-a-z0-9]+\.)+[a-z]{2,})\z/i,
-  #     message: "ei ole mahdollinen."
+  #     message: 'ei ole mahdollinen.'
   # }
   # validates :password, length: { in: 8..72 }, if: :password_required?
   validate :password_black_list, if: :password_required?
@@ -17,12 +17,12 @@ class User < ActiveRecord::Base
 
   validates :first_name, :last_name, :city, format: {
       with: /\A\p{L}+((\s|-)\p{L}+){,3}\z/,
-      message: "saa sisältää vain kirjaimia sekä väliliviivan tai välin nimien välissä"
+      message: 'saa sisältää vain kirjaimia sekä väliliviivan tai välin nimien välissä'
   }
   validates :phone_number, phone: { possible: true }
   validates :zip_code, format: {
       with: /\A(FI-)?[0-9]{5}\z/,
-      message: "ei ole Suomessa kelvollinen"
+      message: 'ei ole Suomessa kelvollinen'
   }
   validates :personal_code, hetu: true, :unless => :passport_number_is_used?
 
@@ -63,9 +63,9 @@ class User < ActiveRecord::Base
   def hetu
     if passport_number.nil? || passport_number == false
       if hetu_valid? personal_code
-        errors.add(:personal_code, "- palveluun voivat rekisteröityä vain yli 15 vuotiaat") if hetu_too_young? personal_code
+        errors.add(:personal_code, '- palveluun voivat rekisteröityä vain yli 15 vuotiaat') if hetu_too_young? personal_code
       else
-        errors.add(:personal_code, "on virheellinen")
+        errors.add(:personal_code, 'on virheellinen')
       end
     end
   end
@@ -79,7 +79,7 @@ class User < ActiveRecord::Base
         blacklist << line[0..(line.size-2)]
       end
     end
-    errors.add(:password, "on mustalistattu") if blacklist.include? password
+    errors.add(:password, 'on mustalistattu') if blacklist.include? password
   end
 
 end
