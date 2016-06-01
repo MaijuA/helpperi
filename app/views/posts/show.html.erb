@@ -5,11 +5,10 @@
       <%= form_for(@post, :html => {:class => "lomake"}) do |f| %>
 
           <%= image_tag @post.image_url(:display), width: 200, align: 'right' %>
-
           <p>
-            <% @post.categories.each do |category| %>
-                    <span class="badge"><%= " #{category.name} " %></span>
-            <% end %>
+          <% @post.categories.each do |category| %>
+              <span class="label label-default"><%= "#{category.name}" %></span>
+          <% end %>
           </p>
 
           <p>
