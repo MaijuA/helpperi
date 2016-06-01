@@ -1,7 +1,7 @@
 class RegistrationsController < Devise::RegistrationsController
 
   def destroy
-    current_user.posts.each do |p|
+    resource.posts.each do |p|
       p.update_attribute(:deleted, true)
     end
     resource.soft_delete

@@ -56,7 +56,7 @@ FactoryGirl.define do
 
   factory :post do
     user_id '1'
-    title 'Otsikko'
+    title 'Koiran ulkoilutus'
     description 'kuvaus'
     post_type 'Osto'
     ending_date DateTime.now + 1.month
@@ -66,7 +66,6 @@ FactoryGirl.define do
     radius 3
     price '10'
     deleted false
-    association :category, factory: :category
   end
 
   factory :post2, class: Post do
@@ -81,7 +80,6 @@ FactoryGirl.define do
     radius 3
     price '10'
     deleted true
-    association :category, factory: :category
   end
 
 end
