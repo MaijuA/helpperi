@@ -109,12 +109,11 @@
         <div class='actions'>
           <%= f.submit 'Päivitä', class:'btn btn-success' %>
           <%= link_to 'Peruuta', post_path, class:'btn' %>
-        </div>
+        </div><br>
     <% else %>
-        <br>
-        <div class='actions'>
-          <%= f.submit 'Luo ilmoitus', class:'btn btn-success' %>
-          <%= link_to 'Peruuta', user_path(current_user), class:'btn'%>
+        <div class="actions">
+          <%= f.submit 'Luo ilmoitus', class:"btn btn-success" %>
+          <%= link_to "Peruuta", posts_path, class:"btn"%>
         </div>
     <% end %>
 
