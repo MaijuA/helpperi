@@ -1,5 +1,6 @@
 class Post < ActiveRecord::Base
   belongs_to :user
+  has_many :categories, through: :post_categories
   mount_uploader :image, ImageUploader
 
   validates :user_id, :post_type, :title, :zip_code, :city, :price, :ending_date, presence: true
@@ -7,6 +8,7 @@ class Post < ActiveRecord::Base
   validates :post_type, :inclusion=> { :in => ["Myynti", "Osto"] }
   validates :title, length: { in: 4..50 }
   validates :address, length: { in: 3..200 }, if: :buyer?
+  validates :category, presence: true
 
   validates :city, format: {
       with: /\A\p{L}+((\s|-)\p{L}+){,3}\z/,
