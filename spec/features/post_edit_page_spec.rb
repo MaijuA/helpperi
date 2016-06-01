@@ -86,9 +86,6 @@ describe 'Edit post' do
     expect(page).to have_content '20'
   end
 
-  it 'edits ending date' do
-  end
-
   it 'doesn´t edit if title empty' do
     post = FactoryGirl.create(:post)
 

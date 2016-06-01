@@ -1,27 +1,55 @@
-<h1>Ilmoitukset</h1>
-<br>
-<h5><b>Etsitään helpperiä</b></h5>
-<table class="table table-striped">
+<h1>Ilmoitukset</h1><br>
 
-  <tbody>
+<h5><b>Etsitään helpperiä</b></h5>
+
+<table class="table table-striped">
+  <thread>
   <tr>
-    <td>Otsikko</td>
-    <td>Hinta</td>
-    <td>Kategoria?</td>
-    <td>Rating</td>
+    <th class="col-md-1">Kategoria</th>
+    <th class="col-md-2">Otsikko</th>
+    <th class="col-md-1">Hinta</th>
+    <th class="col-md-1">Rating</th>
   </tr>
+  </thread>
+
+  <tbody class="form-group">
+  <% @posts_selling.each do |post| %>
+      <tr>
+        <td>[kuva]</td>
+        <td><%= link_to truncate(post.title, :length => 30), post %></td>
+        <td><% if post.price %>
+              <%= post.price %> €
+          <% end %>
+        </td>
+        <td>[tähdet]</td>
+      </tr>
+  <% end %>
   </tbody>
-</table>
-<br>
+</table><br>
 
 <h5><b>Halutaan helpperiksi</b></h5>
+
 <table class="table table-striped">
-  <tbody>
+  <thead>
   <tr>
-    <td>Otsikko</td>
-    <td>Hinta</td>
-    <td>Kategoria?</td>
-    <td>Rating</td>
+    <th class="col-md-1">Kategoria</th>
+    <th class="col-md-2">Otsikko</th>
+    <th class="col-md-1">Hinta</th>
+    <th class="col-md-1">Rating</th>
   </tr>
+  </thead>
+
+  <tbody class="form-group">
+  <% @posts_buying.each do |post| %>
+      <tr>
+        <td>[kuva]</td>
+        <td><%= link_to truncate(post.title, :length => 30), post %></td>
+        <td><% if post.price %>
+              <%= post.price %> €
+          <% end %>
+        </td>
+        <td>[tähdet]</td>
+      </tr>
+  <% end %>
   </tbody>
 </table>

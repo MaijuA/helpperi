@@ -9,6 +9,9 @@ class UsersController < ApplicationController
     if current_user
       @user_posts = current_user.posts
     end
+    @posts = Post.all.active
+    @posts_selling = Post.all.selling
+    @posts_buying = Post.all.buying
   end
 
 end
