@@ -7,7 +7,6 @@ describe 'Edit post' do
   before :each do
     user = FactoryGirl.create(:user)
     login_as(user)
-
   end
 
   it 'edits title' do
@@ -90,6 +89,7 @@ describe 'Edit post' do
     post = FactoryGirl.create(:post)
 
     visit edit_post_path(post)
+
     fill_in('post_title', with:'')
 
     click_button('Päivitä')
