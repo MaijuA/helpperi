@@ -42,6 +42,53 @@ describe 'Edit post' do
     expect(page).to have_content '12'
   end
 
+  it 'edits address' do
+    post = FactoryGirl.create(:post)
+
+    visit edit_post_path(post)
+    fill_in('post_address', with:'Tämätie 2')
+
+    click_button('Päivitä')
+
+    expect(page).to have_content 'Tämätie 2'
+  end
+
+  it 'edits zip code' do
+    post = FactoryGirl.create(:post)
+
+    visit edit_post_path(post)
+    fill_in('post_zip_code', with:'02220')
+
+    click_button('Päivitä')
+
+    expect(page).to have_content '02220'
+  end
+
+  it 'edits city' do
+    post = FactoryGirl.create(:post)
+
+    visit edit_post_path(post)
+    fill_in('post_city', with:'Kouvola')
+
+    click_button('Päivitä')
+
+    expect(page).to have_content 'Kouvola'
+  end
+
+  it 'edits radius' do
+    post = FactoryGirl.create(:post)
+
+    visit edit_post_path(post)
+    fill_in('post_radius', with:'20')
+
+    click_button('Päivitä')
+
+    expect(page).to have_content '20'
+  end
+
+  it 'edits ending date' do
+  end
+
   it 'doesn´t edit if title empty' do
     post = FactoryGirl.create(:post)
 
@@ -52,4 +99,16 @@ describe 'Edit post' do
 
     expect(page).to have_content 'Otsikko ei voi olla sisällötön'
   end
+
+  it 'doesn´t edit if price empty' do
+    post = FactoryGirl.create(:post)
+
+    visit edit_post_path(post)
+    fill_in('post_price', with:'')
+
+    click_button('Päivitä')
+
+    expect(page).to have_content 'Hinta ei voi olla sisällötön'
+  end
+
 end
