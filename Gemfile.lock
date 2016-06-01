@@ -132,6 +132,7 @@ GEM
     orm_adapter (0.5.0)
     pg (0.18.4)
     phonelib (0.6.0)
+    puma (3.4.0)
     rack (1.6.4)
     rack-test (0.6.3)
       rack (>= 1.0)
@@ -266,6 +267,7 @@ DEPENDENCIES
   launchy
   pg
   phonelib
+  puma
   rails (= 4.2.6)
   rails_12factor
   rails_layout

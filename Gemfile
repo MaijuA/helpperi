@@ -40,8 +40,9 @@ gem 'carrierwave'
 gem 'cloudinary'
 
 group :development, :test do
-  # Call 'byebug' anywhere in the code to stop execution and get a debugger console
+  gem 'rspec-rails', '~> 3.0'
   gem 'rails_layout'
+  # Call 'byebug' anywhere in the code to stop execution and get a debugger console
   gem 'byebug'
   gem 'sqlite3'
   gem 'spring'
@@ -60,9 +61,9 @@ group :development do
 end
 
 group :production do
-   gem 'rspec-rails', '~> 3.0'
    gem 'pg'
    gem 'rails_12factor'
+   gem 'puma'
 end
 
 ruby '2.3.1'
