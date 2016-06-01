@@ -18,6 +18,7 @@ class PostsController < ApplicationController
   # GET /posts/new
   def new
     @post = Post.new
+    @categories = Category.all
     @edit = false
   end
 

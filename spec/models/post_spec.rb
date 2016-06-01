@@ -65,6 +65,7 @@ RSpec.describe Post, type: :model do
                        radius: 3,
                        user_id: 1
 
+
     expect(post.valid?).to be(false)
     expect(Post.count).to eq(post_count)
   end

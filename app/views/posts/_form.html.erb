@@ -19,29 +19,36 @@
         </div>
     <% end %>
 
-    <div class="form-group">
-      <%= f.label :post_type %><br>
-      <%= f.text_field :post_type, class: "form-control" %>
+    <div class="radio">
+      <label>
+        <%= f.radio_button :post_type, "Myynti" %> Etsin helpperiä
+      </label>
+    </div>
+    <div class="radio">
+      <label>
+        <%= f.radio_button :post_type, "Osto" %> Haluan helpperiski
+      </label>
     </div>
 
-    <div class="radio">
-      <label><input type="radio" name="optradio">Option 1</label>
-    </div>
-    <div class="radio">
-      <label><input type="radio" name="optradio">Option 2</label>
-    </div>
-<br>
     <div class="form-group">
       <%= f.label :title %><br>
       <%= f.text_field :title, class: "form-control" %>
     </div>
 
     <br>
-    <p><b>Kategoria</b></p>
-    <label class="checkbox-inline"><input type="checkbox" value="">Option 1</label>
-    <label class="checkbox-inline"><input type="checkbox" value="">Option 2</label>
-    <label class="checkbox-inline"><input type="checkbox" value="">Option 3</label>
-    <br>
+    <div class="form-group">
+      <%= f.label :category %>
+
+      <select class="form-control" id="sel1" multiple>
+        <% Category.all.each do |c| %>
+        <option><%= c.name %> </option>
+        <% end %>
+
+      </select>
+    </div>
+
+
+
     <br>
     <div class="field">
       <%= f.label :price %><br>

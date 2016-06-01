@@ -37,7 +37,7 @@
 
           <p>
             <strong>Ilmoittaja</strong><br>
-            <%= link_to(@post.user.first_name, user_path) %>
+            <%= link_to(@post.user.first_name, user_path(@post.user)) %>
           </p><br>
 
 
