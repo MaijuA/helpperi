@@ -19,18 +19,17 @@
         </div>
     <% end %>
 
-    <div class="form-group">
-      <%= f.label :post_type %><br>
-      <%= f.text_field :post_type, class: "form-control" %>
+    <div class="radio">
+      <label>
+        <%= f.radio_button :post_type, "Myynti" %> Etsin helpperiä
+      </label>
+    </div>
+    <div class="radio">
+      <label>
+        <%= f.radio_button :post_type, "Osto" %> Haluan helpperiski
+      </label>
     </div>
 
-    <div class="radio">
-      <label><input type="radio" name="optradio">Option 1</label>
-    </div>
-    <div class="radio">
-      <label><input type="radio" name="optradio">Option 2</label>
-    </div>
-<br>
     <div class="form-group">
       <%= f.label :title %><br>
       <%= f.text_field :title, class: "form-control" %>
@@ -93,7 +92,7 @@
     <% if @edit %>
         <div class="actions">
           <%= f.submit 'Päivitä', class:"btn btn-success" %>
-          <%= f.submit 'Peruuta', class:"btn" %>
+          <%= link_to 'Peruuta', post_path, class:"btn" %>
         </div>
     <% else %>
         <br>

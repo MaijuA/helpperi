@@ -31,11 +31,11 @@ class Post < ActiveRecord::Base
   end
 
   def seller?
-    post_type == "myynti"
+    post_type == "Myynti"
   end
 
   def buyer?
-    post_type == "osto"
+    post_type == "Osto"
   end
 
   scope :active, -> { where deleted:false }
