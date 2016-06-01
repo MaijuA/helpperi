@@ -1,7 +1,8 @@
-<h2>
-  <%= @post.title %><br>
-
-</h2>
+<div class="row">
+  <div class="col-md-6 col-md-offset-3">
+    <h1 class="text-center login-title"><%= @post.title %></h1>
+    <div class="account-wall">
+      <%= form_for(@post, :html => {:class => "lomake"}) do |f| %>
 
 <p>
   [kategoria]<br>
@@ -19,7 +20,7 @@
 </p>
 
 <p>
-<%= @post.address if @post.user == current_user %>, <%= @post.zip_code %> <%= @post.city %>
+<%= @post.address if @post.user == current_user %><br><%= @post.zip_code %> <%= @post.city %>
 </p>
 
 <p>
@@ -37,7 +38,12 @@
   <%= link_to(@post.user.first_name, user_path) %>
 </p><br>
 
+
 <%= link_to('Muokkaa', edit_post_path(@post), class:"btn btn-primary") if @post.user == current_user %>
 <%= link_to("Poista", post_delete_post_path(@post.id), class:"btn btn-danger", data:
     { confirm: 'Haluatko varmasti poistaa ilmoituksen?' }, method: :post) if @post.user == current_user %><br><br>
 <%= link_to "Takaisin selaukseen", posts_path if @post.user == current_user %>
+          <% end %>
+      </div>
+    </div>
+  </div>
