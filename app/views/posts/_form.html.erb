@@ -26,13 +26,29 @@
     </div>
     <div class="radio">
       <label>
-        <%= f.radio_button :post_type, "Osto" %> Haluan helpperiski
+        <%= f.radio_button :post_type, "Osto" %> Haluan helpperiksi
       </label>
     </div>
 
     <div class="form-group">
       <%= f.label :title %><br>
       <%= f.text_field :title, class: "form-control" %>
+    </div>
+
+    <div class="form-group">
+      <%= f.label :image, class: "control-label" %>
+      <%= f.hidden_field :image_cache %>
+      <%= f.file_field :image %>
+      <% if f.object.image? %>
+          <%= f.label :remove_image, class: "control-label" %>
+          <%= f.check_box :remove_image %>
+      <% end %>
+    </div>
+
+    <div class="container">
+      <% if f.object.image? %>
+          <%= image_tag @post.image_url(:thumb), style: "float:left" %>
+      <% end %>
     </div>
 
     <br>

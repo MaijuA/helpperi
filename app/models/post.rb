@@ -2,6 +2,12 @@ class Post < ActiveRecord::Base
   belongs_to :user
   has_many :categories, through: :post_categories
   mount_uploader :image, ImageUploader
+  #before_validation :default_image
+
+  #private
+  #def default_image
+  #  self.image = 'http://res.cloudinary.com/helpperi/image/upload/v1464594387/sjunnwld4cmc3nawoowb.jpg'
+  #end
 
   validates :user_id, :post_type, :title, :zip_code, :city, :price, :ending_date, presence: true
   validates :price, numericality: {greater_than_or_equal_to: 0, less_than: 500 }

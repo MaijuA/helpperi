@@ -30,6 +30,8 @@ fi:
         zip_code: 'Postinumero'
         city: 'Kaupunki'
         radius: 'Säde'
+        image: 'Kuva'
+        remove_image: 'Poista kuva'
         post_type: 'Ilmoituksen tyyppi'
     errors:
       messages:
