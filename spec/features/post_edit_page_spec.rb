@@ -7,7 +7,6 @@ describe 'Edit post' do
   before :each do
     user = FactoryGirl.create(:user)
     login_as(user)
-
   end
 
   it 'edits title' do
@@ -86,13 +85,11 @@ describe 'Edit post' do
     expect(page).to have_content '20'
   end
 
-  it 'edits ending date' do
-  end
-
   it 'doesn´t edit if title empty' do
     post = FactoryGirl.create(:post)
 
     visit edit_post_path(post)
+
     fill_in('post_title', with:'')
 
     click_button('Päivitä')
