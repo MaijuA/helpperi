@@ -1,6 +1,6 @@
-<%= form_for(@post, :html => {:class => "lomake"}) do |f| %>
+<%= form_for(@post, :html => {:class => 'lomake'}) do |f| %>
     <% if @post.errors.any? %>
-        <div id="error_explanation">
+        <div id='error_explanation'>
           <h2><%= @post.errors.count %>
             <% if @post.errors.count == 1 %>
                 virhe
@@ -19,27 +19,27 @@
         </div>
     <% end %>
 
-    <div class="radio">
+    <div class='radio'>
       <label>
-        <%= f.radio_button :post_type, "Myynti" %> Etsin helpperiä
+        <%= f.radio_button :post_type, 'Myynti' %> Etsin helpperiä
       </label>
     </div>
-    <div class="radio">
+    <div class='radio'>
       <label>
-        <%= f.radio_button :post_type, "Osto" %> Haluan helpperiski
+        <%= f.radio_button :post_type, 'Osto' %> Haluan helpperiksi
       </label>
     </div>
 
-    <div class="form-group">
+    <div class='form-group'>
       <%= f.label :title %><br>
-      <%= f.text_field :title, class: "form-control" %>
+      <%= f.text_field :title, class: 'form-control' %>
     </div>
 
     <br>
-    <div class="form-group">
+    <div class='form-group'>
       <%= f.label :category %>
 
-      <select class="form-control" id="sel1" multiple>
+      <select class='form-control' id='category_select' multiple>
         <% Category.all.each do |c| %>
         <option><%= c.name %> </option>
         <% end %>
@@ -50,57 +50,57 @@
 
 
     <br>
-    <div class="field">
+    <div class='field'>
       <%= f.label :price %><br>
       <%= f.number_field :price, value: 0, min: 0 %>
     </div>
 
     <br>
-    <div class="form-group">
-      <%= f.label :description, class: "control-label" %>
+    <div class='form-group'>
+      <%= f.label :description, class: 'control-label' %>
       <br>
       <i>(max. 2000 merkkiä)</i>
       <br>
-      <%= f.text_area :description, :rows => "5", class: "form-control"%>
+      <%= f.text_area :description, :rows => '5', class: 'form-control'%>
     </div>
     <br>
-    <div class="form-group">
-      <%= f.label :address, class: "control-label" %>
-      <%= f.text_field :address, value: current_user.address, class: "form-control" %>
+    <div class='form-group'>
+      <%= f.label :address, class: 'control-label' %>
+      <%= f.text_field :address, value: current_user.address, class: 'form-control' %>
     </div>
 
-    <div class="form-group">
-      <%= f.label :zip_code, class: "control-label" %>
-      <%= f.text_field :zip_code, value: current_user.zip_code, class: "form-control" %>
+    <div class='form-group'>
+      <%= f.label :zip_code, class: 'control-label' %>
+      <%= f.text_field :zip_code, value: current_user.zip_code, class: 'form-control' %>
     </div>
 
-    <div class="form-group">
-      <%= f.label :city, class: "control-label" %>
-      <%= f.text_field :city, value: current_user.city, class: "form-control" %>
+    <div class='form-group'>
+      <%= f.label :city, class: 'control-label' %>
+      <%= f.text_field :city, value: current_user.city, class: 'form-control' %>
     </div>
 
-    <div class="field">
+    <div class='field'>
       <%= f.label :radius %><br>
       <%= f.number_field :radius %>
     </div>
 
     <br>
-    <div class="field">
+    <div class='field'>
       <%= f.label :ending_date %><br>
       <%= f.datetime_select :ending_date %>
     </div>
     <br>
 
     <% if @edit %>
-        <div class="actions">
-          <%= f.submit 'Päivitä', class:"btn btn-success" %>
-          <%= link_to 'Peruuta', post_path, class:"btn" %>
+        <div class='actions'>
+          <%= f.submit 'Päivitä', class:'btn btn-success' %>
+          <%= link_to 'Peruuta', post_path, class:'btn' %>
         </div>
     <% else %>
         <br>
-        <div class="actions">
-          <%= f.submit 'Luo ilmoitus', class:"btn btn-success" %>
-          <%= link_to "Peruuta", user_path(current_user), class:"btn"%>
+        <div class='actions'>
+          <%= f.submit 'Luo ilmoitus', class:'btn btn-success' %>
+          <%= link_to 'Peruuta', user_path(current_user), class:'btn'%>
         </div>
     <% end %>
 
