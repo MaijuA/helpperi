@@ -6,6 +6,13 @@
 
           <%= image_tag @post.image_url(:display), width: 200, align: 'right' %>
           <p>
+          <% if @post.seller? %>
+            Haluan helpperiksi
+                <% else %>
+            Etsin helpperiä
+                <% end %>
+            </p>
+          <p>
           <% @post.categories.each do |category| %>
               <span class="label label-default"><%= "#{category.name}" %></span>
           <% end %>

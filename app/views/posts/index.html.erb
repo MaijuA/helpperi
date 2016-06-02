@@ -1,49 +1,28 @@
 <h1>Ilmoitukset</h1><br>
 
 <h5><b>Etsitään helpperiä</b></h5>
-
 <table class="table table-striped">
+  <tbody class="form-group">
   <thead>
   <tr>
-    <th class="col-md-1">Kategoria</th>
-    <th class="col-md-2">Otsikko</th>
-    <th class="col-md-1">Hinta</th>
-    <th class="col-md-1">Rating</th>
+    <th class="col-md-1"></th>
+    <th class="col-md-2"></th>
+    <th class="col-md-1"></th>
+    <th class="col-md-1"></th>
   </tr>
   </thead>
-
-  <tbody class="form-group">
   <% @posts_buying.each do |post| %>
+
       <tr>
-        <td><%= image_tag post.image_url(:display), width: 100, align: 'left' %></td>
-        <td><%= link_to truncate(post.title, :length => 30), post %></td>
-        <td><% if post.price %>
-              <%= post.price %> €
-          <% end %>
+        <td ><%= image_tag post.image_url(:display), width: 100, align: 'left' %></td>
+        <td>
+          <p><%= link_to truncate(post.title, :length => 30), post %></p>
+          <p>
+            <% post.categories.each do |category| %>
+                <span class="category-badge"><%= "#{category.name}" %></span>
+            <% end %>
+          </p>
         </td>
-        <td>[tähdet]</td>
-      </tr>
-  <% end %>
-  </tbody>
-</table><br>
-
-<h5><b>Halutaan helpperiksi</b></h5>
-
-<table class="table table-striped">
-  <thead>
-  <tr>
-    <th class="col-md-1">Kategoria</th>
-    <th class="col-md-2">Otsikko</th>
-    <th class="col-md-1">Hinta</th>
-    <th class="col-md-1">Rating</th>
-  </tr>
-  </thead>
-
-  <tbody class="form-group">
-  <% @posts_selling.each do |post| %>
-      <tr>
-        <td><%= image_tag post.image_url(:display), width: 100, align: 'left' %></td>
-        <td><%= link_to truncate(post.title, :length => 30), post %></td>
         <td><% if post.price %>
               <%= post.price %> €
           <% end %>
@@ -54,3 +33,34 @@
   </tbody>
 </table>
 
+<h5><b>Halutaan helpperiksi</b></h5>
+<table class="table table-striped">
+  <tbody class="form-group">
+  <thead>
+  <tr>
+    <th class="col-md-1"></th>
+    <th class="col-md-2"></th>
+    <th class="col-md-1"></th>
+    <th class="col-md-1"></th>
+  </tr>
+  </thead>
+  <% @posts_selling.each do |post| %>
+      <tr>
+        <td><%= image_tag post.image_url(:display), width: 100, align: 'left' %></td>
+        <td>
+          <p><%= link_to truncate(post.title, :length => 30), post %></p>
+          <p>
+            <% post.categories.each do |category| %>
+                <span class="category-badge"><%= "#{category.name}" %></span>
+            <% end %>
+          </p>
+        </td>
+        <td><% if post.price %>
+              <%= post.price %> €
+          <% end %>
+        </td>
+        <td>[tähdet]</td>
+      </tr>
+  <% end %>
+  </tbody>
+</table>
