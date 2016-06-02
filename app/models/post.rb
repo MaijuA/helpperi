@@ -1,5 +1,6 @@
 class Post < ActiveRecord::Base
-  #before_save :default_image
+  before_save :default_image
+  after_initialize :default_image
   belongs_to :user
   has_many :post_categories
   has_many :categories, -> {distinct}, through: :post_categories
@@ -45,8 +46,15 @@ class Post < ActiveRecord::Base
   scope :buying, -> { where post_type:'Osto'}
   scope :selling, -> { where post_type:'Myynti'}
 
-  # private
-  # def default_image
-  #    zip_code ||= "11710"
-  # end
+  private
+  def default_image
+    url = ""
+    if self.categories != nil && self.categories.size == 1 && self.categories[0].image != nil
+      url = categories[0].image.to_s
+    else
+      misc = Category.select { |category| category.name == 'Muu' }[0]
+      url = misc.image.to_s if misc.present?
+    end
+    self.remote_image_url = url
+  end
 end
