@@ -47,7 +47,6 @@ fi:
     - pe
     - la
     abbr_month_names:
-    -
     - tammi
     - helmi
     - maalis
@@ -61,19 +60,18 @@ fi:
     - marras
     - joulu
     day_names:
-    - sunnuntai
-    - maanantai
-    - tiistai
-    - keskiviikko
-    - torstai
-    - perjantai
-    - lauantai
+    - Sunnuntai
+    - Maanantai
+    - Tiistai
+    - Keskiviikko
+    - Torstai
+    - Perjantai
+    - Lauantai
     formats:
-      default: "%-d.%-m.%Y"
-      long: "%A %e. %Bta %Y"
+      default: "%A %e. %Bta %Y"
+      long: "%-d.%-m.%Y"
       short: "%d. %b"
     month_names:
-    -
     - tammikuu
     - helmikuu
     - maaliskuu
