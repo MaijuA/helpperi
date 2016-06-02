@@ -27,6 +27,7 @@ FactoryGirl.define do
    end
 
   factory :category do
+    id 1
     name 'Remontti'
   end
 
@@ -68,6 +69,19 @@ FactoryGirl.define do
 
     factory :deleted_post do
       deleted true
+    end
+  end
+
+  factory :post_category do
+    post_id 1
+    category_id 1
+
+    factory :post_category2 do
+      post_id 2
+    end
+
+    factory :post_category3 do
+      post_id 3
     end
   end
 end
