@@ -33,7 +33,7 @@
 
           <p>
             <strong>Päättymispäivä</strong><br>
-            <%= @post.ending_date %>
+            <%= l(@post.ending_date, format: '%A %e. %Bta %Y') %>
           </p>
 
           <p>
