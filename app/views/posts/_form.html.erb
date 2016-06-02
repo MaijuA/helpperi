@@ -21,7 +21,7 @@
 
     <div class='radio'>
       <label>
-        <%= f.radio_button :post_type, 'Myynti' %> Etsin helpperiä
+        <%= f.radio_button :post_type, 'Myynti', checked: true %> Etsin helpperiä
       </label>
     </div>
     <div class='radio'>
@@ -52,6 +52,8 @@
     </div>
 
     <div class='form-group'>
+      <%= f.label :category %><br>
+      <i>Desktop-versiossa pidä ctrl/cmd pohjassa valitaksesi useamman kategorian</i><br>
       <%= f.select :category_ids, Category.all.collect {|x| [x.name, x.id]}, {}, :multiple => true %>
     </div>
 
@@ -87,7 +89,7 @@
 
     <div class='field'>
       <%= f.label :radius %><br>
-      <%= f.number_field :radius %>
+      <%= f.number_field :radius, value: 0, min: 0 %>
     </div>
 
     <br>
