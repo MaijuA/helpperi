@@ -10,7 +10,7 @@ describe 'Edit post' do
   end
 
   it 'edits title' do
-    post = FactoryGirl.create(:post)
+    post = FactoryGirl.create(:post_with_category)
 
     visit edit_post_path(post)
     fill_in('post_title', with:'kauppareissu2')
@@ -20,7 +20,7 @@ describe 'Edit post' do
   end
 
   it 'edits description' do
-    post = FactoryGirl.create(:post)
+    post = FactoryGirl.create(:post_with_category)
 
     visit edit_post_path(post)
     fill_in('post_description', with:'tarjoan apua')
@@ -31,7 +31,7 @@ describe 'Edit post' do
   end
 
   it 'edits price' do
-    post = FactoryGirl.create(:post)
+    post = FactoryGirl.create(:post_with_category)
 
     visit edit_post_path(post)
     fill_in('post_price', with:'12')
@@ -42,7 +42,7 @@ describe 'Edit post' do
   end
 
   it 'edits address' do
-    post = FactoryGirl.create(:post)
+    post = FactoryGirl.create(:post_with_category)
 
     visit edit_post_path(post)
     fill_in('post_address', with:'Tämätie 2')
@@ -53,7 +53,7 @@ describe 'Edit post' do
   end
 
   it 'edits zip code' do
-    post = FactoryGirl.create(:post)
+    post = FactoryGirl.create(:post_with_category)
 
     visit edit_post_path(post)
     fill_in('post_zip_code', with:'02220')
@@ -64,7 +64,7 @@ describe 'Edit post' do
   end
 
   it 'edits city' do
-    post = FactoryGirl.create(:post)
+    post = FactoryGirl.create(:post_with_category)
 
     visit edit_post_path(post)
     fill_in('post_city', with:'Kouvola')
@@ -75,7 +75,7 @@ describe 'Edit post' do
   end
 
   it 'edits radius' do
-    post = FactoryGirl.create(:post)
+    post = FactoryGirl.create(:post_with_category)
 
     visit edit_post_path(post)
     fill_in('post_radius', with:'20')
@@ -86,7 +86,7 @@ describe 'Edit post' do
   end
 
   it 'doesn´t edit if title empty' do
-    post = FactoryGirl.create(:post)
+    post = FactoryGirl.create(:post_with_category)
 
     visit edit_post_path(post)
 
@@ -98,7 +98,7 @@ describe 'Edit post' do
   end
 
   it 'doesn´t edit if price empty' do
-    post = FactoryGirl.create(:post)
+    post = FactoryGirl.create(:post_with_category)
 
     visit edit_post_path(post)
     fill_in('post_price', with:'')
