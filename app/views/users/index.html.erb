@@ -1,6 +1,8 @@
 <h1>Omat ilmoitukset</h1>
-
-<table class="table table-striped">
+<br>
+<%= link_to('Uusi ilmoitus', new_post_path, class:"btn btn-success") if current_user %>
+<br>
+<br><table class="table table-striped">
   <thead>
   <tr>
     <th class="col-md-2">Kuva</th>
@@ -30,4 +32,3 @@
 </table>
 <br>
 
-<%= link_to('Uusi ilmoitus', new_post_path, class:"btn btn-success") if current_user %>
