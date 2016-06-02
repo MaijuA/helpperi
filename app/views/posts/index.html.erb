@@ -14,7 +14,11 @@
   <% @posts_buying.each do |post| %>
 
       <tr>
-        <td ><%= image_tag post.image_url(:display), width: 100, align: 'left' %></td>
+        <% if post.has_image? %>
+            <td ><%= image_tag post.image_url(:display), width: 100, align: 'left' %></td>
+        <% else %>
+            <td ><%= image_tag post.category_to_take_image_from.image_url(:display), width: 100, align: 'left' %></td>
+        <% end %>
         <td>
           <p><%= link_to truncate(post.title, :length => 30), post %></p>
           <p>
@@ -46,7 +50,11 @@
   </thead>
   <% @posts_selling.each do |post| %>
       <tr>
-        <td><%= image_tag post.image_url(:display), width: 100, align: 'left' %></td>
+        <% if post.has_image? %>
+            <td ><%= image_tag post.image_url(:display), width: 100, align: 'left' %></td>
+        <% else %>
+            <td ><%= image_tag post.category_to_take_image_from.image_url(:display), width: 100, align: 'left' %></td>
+        <% end %>
         <td>
           <p><%= link_to truncate(post.title, :length => 30), post %></p>
           <p>

@@ -1,6 +1,4 @@
 class Post < ActiveRecord::Base
-  before_save :default_image
-  after_initialize :default_image
   belongs_to :user
   has_many :post_categories
   has_many :categories, -> {distinct}, through: :post_categories
@@ -48,15 +46,17 @@ class Post < ActiveRecord::Base
   scope :valid, lambda{ where("ending_date >= ?", Date.today) }
   scope :expired, lambda{ where("ending_date < ?", Date.today) }
 
-  private
-  def default_image
-    url = ""
-    if self.categories != nil && self.categories.size == 1 && self.categories[0].image != nil
-      url = categories[0].image.to_s
+  def has_image?
+    self.remote_image_url != nil
+  end
+
+  def category_to_take_image_from
+    if self.categories != nil && self.categories.size == 1
+      return categories[0]
     else
       misc = Category.select { |category| category.name == 'Muu' }[0]
-      url = misc.image.to_s if misc.present?
+      return misc if misc.present?
     end
-    self.remote_image_url = url
+    return nil
   end
 end
