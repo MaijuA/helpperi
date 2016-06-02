@@ -37,11 +37,11 @@
 
     <div class="form-group">
       <%= f.label :image, class: "control-label" %>
-      <%= f.hidden_field :image_cache %>
-      <%= f.file_field :image %>
+      <%= f.hidden_field :image_cache, class: "form-control" %>
+      <%= f.file_field :image, class: "form-control" %>
       <% if f.object.image? %>
           <%= f.label :remove_image, class: "control-label" %>
-          <%= f.check_box :remove_image %>
+          <%= f.check_box :remove_image, class: "form-control" %>
       <% end %>
     </div>
 

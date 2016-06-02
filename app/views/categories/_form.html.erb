@@ -4,26 +4,31 @@
       <h2><%= pluralize(@category.errors.count, "error") %> prohibited this category from being saved:</h2>
 
       <ul>
-      <% @category.errors.full_messages.each do |message| %>
-        <li><%= message %></li>
-      <% end %>
+        <% @category.errors.full_messages.each do |message| %>
+            <li><%= message %></li>
+        <% end %>
       </ul>
     </div>
-  <% end %>
+    <% end %>
 
-  <div class="field">
-    <%= f.label :name %><br>
-    <%= f.text_field :name %>
-  </div>
-  <div class="field">
-    <%= f.label :image %><br>
-    <%= f.text_field :image %>
-  </div>
-  <div class="field">
-    <%= f.label :description %><br>
-    <%= f.text_field :description %>
-  </div>
-  <div class="actions">
-    <%= f.submit %>
-  </div>
+    <div class="form-group">
+      <%= f.label :name %><br>
+      <%= f.text_field :name %>
+    </div>
+    <div class="form-group">
+      <%= f.label :image, class: "control-label" %>
+      <%= f.hidden_field :image_cache, class: "form-control" %>
+      <%= f.file_field :image, class: "form-control" %>
+      <% if f.object.image? %>
+          <%= f.label :remove_image, class: "control-label" %>
+          <%= f.check_box :remove_image, class: "form-control" %>
+      <% end %>
+    </div>
+    <div class="form-group">
+      <%= f.label :description %><br>
+      <%= f.text_field :description %>
+    </div>
+    <div class="actions">
+      <%= f.submit %>
+    </div>
 <% end %>

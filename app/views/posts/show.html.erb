@@ -4,13 +4,18 @@
     <div class="account-wall">
       <%= form_for(@post, :html => {:class => "lomake"}) do |f| %>
 
-          <%= image_tag @post.image_url(:display), width: 200, align: 'right' %>
-          <p><% if @post.seller? %>
-                HALUAN HELPPERIKSI
-            <% else %>
-                ETSIN HELPPERIÄ
-            <% end %></p>
-
+          <% if @post.has_image? %>
+              <%= image_tag @post.image_url(:display), width: 200, align: 'right' %>
+          <% else %>
+              <%= image_tag @post.category_to_take_image_from.image_url(:display), width: 200, align: 'right' %>
+          <% end %>
+          <p>
+          <% if @post.seller? %>
+            HALUAN HELPPERIKSI
+                <% else %>
+            ETSIN HELPPERIÄ
+                <% end %>
+            </p>
           <p>
             <% if @post.price %>
                 <b><%= @post.price %> €</b>
