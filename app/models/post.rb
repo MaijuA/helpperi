@@ -57,6 +57,6 @@ class Post < ActiveRecord::Base
       misc = Category.select { |category| category.name == 'Muu' }
       return misc[0] unless misc.empty?
     end
-    return nil
+    return self
   end
 end
