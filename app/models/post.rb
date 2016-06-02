@@ -40,10 +40,16 @@ class Post < ActiveRecord::Base
     post_type == 'Osto'
   end
 
+  def has_expired?
+    ending_date < Date.today
+  end
+
   scope :active, -> { where deleted:false }
   scope :deleted, -> { where deleted:true }
   scope :buying, -> { where post_type:'Osto'}
   scope :selling, -> { where post_type:'Myynti'}
+  scope :valid, -> { where ending_date:!has_expired?}
+  scope :expired, -> { where ending_date:has_expired?}
 
   # private
   # def default_image

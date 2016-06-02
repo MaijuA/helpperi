@@ -7,9 +7,10 @@ class UsersController < ApplicationController
   # GET /posts
   # GET /posts.json
   def index
-    @posts = Post.active
+    @user = User.find params[:id]
+    @user_posts = @user.posts.active.valid
     if current_user
-      @user_posts = current_user.posts.active
+      @user_expired_posts = @user.posts.active.expired
     end
   end
 end
