@@ -47,7 +47,7 @@ class Post < ActiveRecord::Base
   scope :expired, lambda{ where("ending_date < ?", Date.today) }
 
   def has_image?
-    self.remote_image_url != nil
+    self.image_url != "http://res.cloudinary.com/helpperi/image/upload/c_scale,w_500/v1464593337/unkown_zavdgs.jpg"
   end
 
   def category_to_take_image_from
