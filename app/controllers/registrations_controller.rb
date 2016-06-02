@@ -1,8 +1,10 @@
 class RegistrationsController < Devise::RegistrationsController
 
   def destroy
-    resource.posts.each do |p|
-      p.update_attribute(:deleted, true)
+    if !resource.posts.nil?
+      resource.posts.each do |p|
+        p.update_attribute(:deleted, true)
+      end
     end
     resource.soft_delete
     Devise.sign_out_all_scopes ? sign_out : sign_out(resource_name)
