@@ -1,4 +1,5 @@
 class Post < ActiveRecord::Base
+  #before_save :default_image
   belongs_to :user
   has_many :post_categories
   has_many :categories, -> {distinct}, through: :post_categories
@@ -43,4 +44,9 @@ class Post < ActiveRecord::Base
   scope :deleted, -> { where deleted:true }
   scope :buying, -> { where post_type:'Osto'}
   scope :selling, -> { where post_type:'Myynti'}
+
+  # private
+  # def default_image
+  #    zip_code ||= "11710"
+  # end
 end

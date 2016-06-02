@@ -1,27 +1,56 @@
-<h1>Omat ilmoitukset</h1>
+<h1>Ilmoitukset</h1><br>
+
+<h5><b>Etsitään helpperiä</b></h5>
 
 <table class="table table-striped">
   <thead>
-    <tr>
-      <th class="col-md-2">Otsikko</th>
-      <th class="col-md-2">Kuvaus</th>
-      <th class="col-md-1">Hinta</th>
-    </tr>
+  <tr>
+    <th class="col-md-1">Kategoria</th>
+    <th class="col-md-2">Otsikko</th>
+    <th class="col-md-1">Hinta</th>
+    <th class="col-md-1">Rating</th>
+  </tr>
   </thead>
 
   <tbody class="form-group">
-    <% @user_posts.each do |post| %>
+  <% @posts_buying.each do |post| %>
       <tr>
+        <td><%= image_tag post.image_url(:display), width: 100, align: 'left' %></td>
         <td><%= link_to truncate(post.title, :length => 30), post %></td>
-        <td><%= truncate(post.description, :length => 30) %></td>
         <td><% if post.price %>
               <%= post.price %> €
-              <% end %>
+          <% end %>
         </td>
+        <td>[tähdet]</td>
       </tr>
-    <% end %>
+  <% end %>
+  </tbody>
+</table><br>
+
+<h5><b>Halutaan helpperiksi</b></h5>
+
+<table class="table table-striped">
+  <thead>
+  <tr>
+    <th class="col-md-1">Kategoria</th>
+    <th class="col-md-2">Otsikko</th>
+    <th class="col-md-1">Hinta</th>
+    <th class="col-md-1">Rating</th>
+  </tr>
+  </thead>
+
+  <tbody class="form-group">
+  <% @posts_selling.each do |post| %>
+      <tr>
+        <td><%= image_tag post.image_url(:display), width: 100, align: 'left' %></td>
+        <td><%= link_to truncate(post.title, :length => 30), post %></td>
+        <td><% if post.price %>
+              <%= post.price %> €
+          <% end %>
+        </td>
+        <td>[tähdet]</td>
+      </tr>
+  <% end %>
   </tbody>
 </table>
-<br>
 
-<%= link_to('Uusi ilmoitus', new_post_path, class:"btn btn-success") if current_user %>
