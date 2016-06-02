@@ -54,8 +54,8 @@ class Post < ActiveRecord::Base
     if self.categories != nil && self.categories.size == 1
       return categories[0]
     else
-      misc = Category.select { |category| category.name == 'Muu' }[0]
-      return misc if misc.present?
+      misc = Category.select { |category| category.name == 'Muu' }
+      return misc[0] unless misc.empty?
     end
     return nil
   end
