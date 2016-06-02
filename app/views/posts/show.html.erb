@@ -11,15 +11,15 @@
           <% end %>
           <p>
           <% if @post.seller? %>
-            Haluan helpperiksi
+            HALUAN HELPPERIKSI
                 <% else %>
-            Etsin helpperiä
+            ETSIN HELPPERIÄ
                 <% end %>
             </p>
           <p>
-          <% @post.categories.each do |category| %>
-              <span class="label label-default"><%= "#{category.name}" %></span>
-          <% end %>
+            <% if @post.price %>
+                <b><%= @post.price %> €</b>
+            <% end %>
           </p>
 
           <p>
@@ -27,8 +27,8 @@
           </p>
 
           <p>
-            <% if @post.price %>
-                <%= @post.price %> €
+            <% @post.categories.each do |category| %>
+                <span class="category-badge"><%= "#{category.name}" %></span>
             <% end %>
           </p>
 
