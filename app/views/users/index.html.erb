@@ -15,7 +15,7 @@
   <tbody class="form-group">
   <% @user_posts.each do |post| %>
       <tr>
-        <% if post.has_image? %>
+        <% if post.image_is_set? %>
             <td><%= image_tag post.image_url(:display), width: 100, align: 'left' %></td>
         <% else %>
             <td><%= image_tag post.category_to_take_image_from.image_url(:display), width: 100, align: 'left' %></td>

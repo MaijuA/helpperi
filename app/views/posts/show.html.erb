@@ -4,7 +4,7 @@
     <div class="account-wall">
       <%= form_for(@post, :html => {:class => "lomake"}) do |f| %>
 
-          <% if @post.has_image? %>
+          <% if @post.image_is_set? %>
               <%= image_tag @post.image_url(:display), width: 200, align: 'right' %>
           <% else %>
               <%= image_tag @post.category_to_take_image_from.image_url(:display), width: 200, align: 'right' %>

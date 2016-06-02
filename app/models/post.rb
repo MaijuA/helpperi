@@ -24,12 +24,11 @@ class Post < ActiveRecord::Base
   validates :description, length: { maximum: 2000 }
   validates :radius, numericality: {greater_than_or_equal_to: 0, less_than: 200 }, if: :seller?
 
-  if :image.present?
-    validates_processing_of :image
-    validates :image, :file_size => {
-        :maximum => 5.megabytes.to_i
-    }
-  end
+  validates_processing_of :image, if: :image_is_set?
+  validates_integrity_of :image, if: :image_is_set?
+  validates :image, :file_size => {
+      :maximum => 5.megabytes.to_i
+  }, if: :image_is_set?
 
   def seller?
     post_type == 'Myynti'
@@ -39,16 +38,16 @@ class Post < ActiveRecord::Base
     post_type == 'Osto'
   end
 
+  def image_is_set?
+    self.image.file != nil
+  end
+
   scope :active, -> { where deleted:false }
   scope :deleted, -> { where deleted:true }
   scope :buying, -> { where post_type:'Osto'}
   scope :selling, -> { where post_type:'Myynti'}
   scope :valid, lambda{ where("ending_date >= ?", Date.today) }
   scope :expired, lambda{ where("ending_date < ?", Date.today) }
-
-  def has_image?
-    self.image_url != "http://res.cloudinary.com/helpperi/image/upload/c_scale,w_500/v1464593337/unkown_zavdgs.jpg"
-  end
 
   def category_to_take_image_from
     if self.categories != nil && self.categories.size == 1
