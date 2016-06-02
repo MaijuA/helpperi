@@ -4,14 +4,12 @@ class UsersController < ApplicationController
     @user = User.find params[:id]
   end
 
+  # GET /posts
+  # GET /posts.json
   def index
-    @user_posts
+    @posts = Post.active
     if current_user
-      @user_posts = current_user.posts
+      @user_posts = current_user.posts.active
     end
-    @posts = Post.all.active
-    @posts_selling = Post.all.selling
-    @posts_buying = Post.all.buying
   end
-
 end

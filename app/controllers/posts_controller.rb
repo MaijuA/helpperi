@@ -1,14 +1,18 @@
 class PostsController < ApplicationController
   before_action :set_post, only: [:show, :edit, :update]
 
-  # GET /posts
-  # GET /posts.json
+
+
   def index
-    @posts = Post.active
+    @user_posts
     if current_user
-      @user_posts = current_user.posts.active
+      @user_posts = current_user.posts
     end
+    @posts = Post.all.active
+    @posts_selling = Post.all.active.selling
+    @posts_buying = Post.all.active.buying
   end
+
 
   # GET /posts/1
   # GET /posts/1.json
