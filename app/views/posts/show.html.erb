@@ -47,7 +47,7 @@
           <p>
             <strong>Ilmoittaja</strong><br>
             <%= link_to(@post.user.first_name, user_path(@post.user)) %><br>
-            <%= @post.address if @post.user == current_user %><% if current_user %><br><% end %>
+            <%= @post.address if @post.user == current_user %><% if @post.user ==current_user %><br><% end %>
             <%= @post.zip_code %> <%= @post.city %>
           </p><br>
 
