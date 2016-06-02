@@ -3,6 +3,7 @@
 <table class="table table-striped">
   <thead>
   <tr>
+    <th class="col-md-2">Kuva</th>
     <th class="col-md-2">Otsikko</th>
     <th class="col-md-2">Kuvaus</th>
     <th class="col-md-1">Hinta</th>
@@ -12,6 +13,7 @@
   <tbody class="form-group">
   <% @user_posts.each do |post| %>
       <tr>
+        <td><%= image_tag post.image_url(:display), width: 100, align: 'left' %></td>
         <td><%= link_to truncate(post.title, :length => 30), post %></td>
         <td><%= truncate(post.description, :length => 30) %></td>
         <td><% if post.price %>

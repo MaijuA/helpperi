@@ -21,12 +21,12 @@
 
     <div class='radio'>
       <label>
-        <%= f.radio_button :post_type, 'Myynti', checked: true %> Etsin helpperiä
+        <%= f.radio_button :post_type, 'Myynti', checked: true %> Haluan helpperiksi
       </label>
     </div>
     <div class='radio'>
       <label>
-        <%= f.radio_button :post_type, 'Osto' %> Haluan helpperiksi
+        <%= f.radio_button :post_type, 'Osto' %> Etsin helpperiä
       </label>
     </div>
 
@@ -60,7 +60,7 @@
     <br>
     <div class='field'>
       <%= f.label :price %><br>
-      <%= f.number_field :price, value: 0, min: 0 %>
+      <%= f.number_field :price, value: f.object.price || 0, min: 0 %>
     </div>
 
     <br>
@@ -89,7 +89,7 @@
 
     <div class='field'>
       <%= f.label :radius %><br>
-      <%= f.number_field :radius, value: 0, min: 0 %>
+      <%= f.number_field :radius, value: f.object.radius || 0, min: 0 %>
     </div>
 
     <br>

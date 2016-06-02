@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160601073311) do
+ActiveRecord::Schema.define(version: 20160602084955) do
 
   create_table "categories", force: :cascade do |t|
     t.string   "name"
@@ -36,7 +36,7 @@ ActiveRecord::Schema.define(version: 20160601073311) do
     t.integer  "user_id"
     t.integer  "price"
     t.boolean  "deleted"
-    t.datetime "ending_date"
+    t.date     "ending_date"
     t.string   "address"
     t.string   "zip_code"
     t.string   "city"
@@ -56,15 +56,15 @@ ActiveRecord::Schema.define(version: 20160601073311) do
     t.datetime "last_sign_in_at"
     t.string   "current_sign_in_ip"
     t.string   "last_sign_in_ip"
-    t.string   "confirmation_token"
-    t.datetime "confirmed_at"
-    t.datetime "confirmation_sent_at"
-    t.string   "unconfirmed_email"
     t.integer  "failed_attempts",        default: 0,  null: false
     t.string   "unlock_token"
     t.datetime "locked_at"
     t.datetime "created_at",                          null: false
     t.datetime "updated_at",                          null: false
+    t.string   "confirmation_token"
+    t.datetime "confirmed_at"
+    t.datetime "confirmation_sent_at"
+    t.string   "unconfirmed_email"
     t.string   "first_name"
     t.string   "last_name"
     t.string   "personal_code"

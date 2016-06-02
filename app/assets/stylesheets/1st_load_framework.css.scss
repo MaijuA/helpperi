@@ -2,6 +2,9 @@
 @import "bootstrap-sprockets";
 @import "bootstrap";
 
+//fontti
+@import url(https://fonts.googleapis.com/css?family=Open+Sans);
+
 // make all images responsive by default
 img {
   @extend .img-responsive;
@@ -35,7 +38,7 @@ img {
 // to make views framework-neutral
 main {
   @extend .container;
-  background-color: #f2efe8;
+  //background-color: #f2efe8;
   padding-bottom: 80px;
   width: 100%;
   margin-top: 51px; // accommodate the navbar
@@ -47,12 +50,15 @@ section {
 // Helpperi
 
 body {
-  background-color: #f2efe8;
+  //background-color: #f2efe8;
+  font-family: 'Open Sans', sans-serif;
 }
 
-.navbar-inverse {
-  background-color: #c5d5cb;
-  border-color: #c5d5cb;
+.navbar-default {
+  background-color: #b7d8b4;
+  border-color: #b7d8b4;
+  //background-color: #c5d5cb;
+  //border-color: #c5d5cb;
 }
 
 // Lomakkeiden virheilmoitukset
@@ -110,3 +116,20 @@ body {
   font-weight: 400;
   display: block;
 }
+
+.category-badge {
+  //@extend .badge;
+  background-color: #d3d3d3;
+  border-radius: 10px;
+  color: #fff;
+  display: inline-block;
+  font-size: 12px;
+  //font-weight: bold;
+  line-height: 1;
+  min-width: 10px;
+  padding: 3px 7px;
+  text-align: center;
+  vertical-align: middle;
+  white-space: nowrap;
+}
+

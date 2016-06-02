@@ -45,6 +45,8 @@ class Post < ActiveRecord::Base
   scope :deleted, -> { where deleted:true }
   scope :buying, -> { where post_type:'Osto'}
   scope :selling, -> { where post_type:'Myynti'}
+  scope :valid, lambda{ where("ending_date >= ?", Date.today) }
+  scope :expired, lambda{ where("ending_date < ?", Date.today) }
 
   private
   def default_image
