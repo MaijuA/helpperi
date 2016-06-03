@@ -17,11 +17,23 @@ class PostsController < ApplicationController
     @post = Post.new
     @categories = Category.all
     @edit = false
+    # Kuvaukset editointilomakkeen "Hae kategorian kuvausehdotus" -toiminnallisuutta varten
+    gon.clear
+    gon.default_description = ""
+    misc = Category.select { |category| category.name == 'Muu' }
+    gon.default_description = misc[0].description unless misc.empty?
+    gon.descriptions = Hash[Category.all.map {|a| [a.id, a.description]}]
   end
 
   # GET /posts/1/edit
   def edit
     @edit = true
+    # Kuvaukset editointilomakkeen "Hae kategorian kuvausehdotus" -toiminnallisuutta varten
+    gon.clear
+    gon.default_description = ""
+    misc = Category.select { |category| category.name == 'Muu' }
+    gon.default_description = misc[0].description unless misc.empty?
+    gon.descriptions = Hash[Category.all.map {|a| [a.id, a.description]}]
   end
 
   # POST /posts

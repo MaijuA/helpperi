@@ -35,13 +35,18 @@
       <%= f.text_field :title, class: 'form-control' %>
     </div>
 
+    <% content_for(:head) do %>
+        <%= javascript_include_tag 'post.js', 'data-turbolinks-track' => true  %>
+    <% end %>
     <div class="form-group">
-      <%= f.label :image, class: "control-label" %>
-      <%= f.hidden_field :image_cache, class: "form-control" %>
-      <%= f.file_field :image, class: "form-control" %>
+      <%= f.label :image%>
+      <%= f.hidden_field :image_cache %>
+      <%= f.file_field :image %>
       <% if f.object.image? %>
-          <%= f.label :remove_image, class: "control-label" %>
-          <%= f.check_box :remove_image, class: "form-control" %>
+          <%= f.label :remove_image do %>
+              <%= f.check_box :remove_image%>
+              Poista nykyinen kuva
+          <% end %>
       <% end %>
     </div>
 
@@ -50,6 +55,8 @@
           <%= image_tag @post.image_url(:thumb), style: "float:left" %>
       <% end %>
     </div>
+
+    </br>
 
     <div class='form-group'>
       <%= f.label :category %><br>
@@ -66,6 +73,8 @@
     <br>
     <div class='form-group'>
       <%= f.label :description, class: 'control-label' %>
+      <br>
+      <%= link_to 'Hae kategorian kuvausehdotus', "#" , onclick: "defaultDescription();return false;"%> (Huom. kentän tulee olla tyhjä)
       <br>
       <i>(max. 2000 merkkiä)</i>
       <br>
