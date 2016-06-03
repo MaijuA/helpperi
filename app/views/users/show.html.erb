@@ -12,12 +12,7 @@
                   <p><%= @user.email if current_user == @user %></p><br>
               <% end %>
 
-              <% if current_user == @user %>
-                  <p><b>Henkilötunnus tai passin numero </b></p>
-                  <p><%= @user.personal_code if current_user == @user %></p><br>
-              <% end %>
-
-              <p><b>Osoite </b></p>
+              <p><b>Sijainti </b></p>
               <p><%= @user.address if current_user == @user %></p>
               <p><%= @user.zip_code %> <%= @user.city %></p><br>
 
@@ -26,7 +21,7 @@
                   <p><%= @user.phone_number %></p><br>
               <% end %>
 
-              <p><b>Kuvaus </b></p>
+              <p><% if @user.description? %><b>Kuvaus </b><% end %></p>
               <p><%= @user.description %></p>
             </div><br>
             <div class="col-xs-6 col-md-4">

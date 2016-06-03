@@ -9,11 +9,11 @@
 img {
   @extend .img-responsive;
   margin: 0 auto;
-  }
+}
 // override for the 'Home' navigation link
 .navbar-brand {
   font-size: inherit;
-  }
+}
 
 // THESE ARE EXAMPLES YOU CAN MODIFY
 // create your own classes
@@ -21,19 +21,19 @@ img {
 .column {
   @extend .col-md-6;
   @extend .text-center;
-  }
+}
 .form {
   @extend .col-md-6;
-  }
+}
 .form-centered {
   @extend .col-md-6;
   @extend .text-center;
-  }
+}
 .submit {
   @extend .btn;
   @extend .btn-primary;
   @extend .btn-lg;
-  }
+}
 // apply styles to HTML elements
 // to make views framework-neutral
 main {
@@ -42,11 +42,11 @@ main {
   padding-bottom: 80px;
   width: 100%;
   margin-top: 51px; // accommodate the navbar
-  }
+}
 section {
   @extend .row;
   margin-top: 20px;
-  }
+}
 // Helpperi
 
 body {
@@ -57,8 +57,42 @@ body {
 .navbar-default {
   background-color: #b7d8b4;
   border-color: #b7d8b4;
-  //background-color: #c5d5cb;
-  //border-color: #c5d5cb;
+}
+
+.navbar .nav > li > a {
+  color: #555;
+}
+
+footer {
+  background-color: #e6e6e6;
+  border-color: #e6e6e6;
+  color: #777;
+  bottom: 0;
+  margin-top: 15px;
+  padding-top: 5px;
+  padding-bottom: 5px;
+  //background: linear-gradient(to bottom, #e6e6e6 0%,#ffffff 100%);
+  //border-top: 1px solid #eaeaea;
+  overflow: auto;
+}
+
+footer a {
+  color: #555;
+  align: centre;
+}
+
+footer ul {
+list-style: none;
+}
+
+footer ul li {
+ margin-top:5px;
+  float: none;
+  text-align:center;
+}
+
+footer p {
+  text-align: center;
 }
 
 // Lomakkeiden virheilmoitukset
