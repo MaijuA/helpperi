@@ -1,8 +1,6 @@
 class PostsController < ApplicationController
   before_action :set_post, only: [:show, :edit, :update]
 
-
-
   def index
     @posts = Post.all.valid.active
     @posts_selling = Post.all.active.valid.selling
