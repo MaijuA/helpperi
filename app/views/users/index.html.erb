@@ -20,7 +20,13 @@
         <% else %>
             <td><%= image_tag post.category_to_take_image_from.image_url(:display), width: 100, align: 'left' %></td>
         <% end %>
-        <td><%= link_to truncate(post.title, :length => 30), post %></td>
+        <td><%= link_to truncate(post.title, :length => 30), post %>
+          <p>
+            <% post.categories.each do |category| %>
+                <span class="category-badge"><%= "#{category.name}" %></span>
+            <% end %>
+          </p></td>
+
         <td><%= truncate(post.description, :length => 30) %></td>
         <td><% if post.price %>
               <%= post.price %> €

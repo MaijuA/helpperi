@@ -53,7 +53,7 @@
 
     <div class='form-group'>
       <%= f.label :category %><br>
-      <i>Desktop-versiossa pidä ctrl/cmd pohjassa valitaksesi useamman kategorian</i><br>
+      <i>(desktop-versiossa pidä ctrl/cmd pohjassa valitaksesi useamman kategorian)</i><br>
       <%= f.select :category_ids, Category.all.collect {|x| [x.name, x.id]}, {}, :multiple => true %>
     </div>
 
@@ -72,8 +72,10 @@
       <%= f.text_area :description, :rows => '5', class: 'form-control'%>
     </div>
     <br>
+
     <div class='form-group'>
       <%= f.label :address, class: 'control-label' %>
+      <br><i>(ei näy muille käyttäjille)</i>
       <%= f.text_field :address, value: current_user.address, class: 'form-control' %>
     </div>
 
@@ -89,6 +91,7 @@
 
     <div class='field'>
       <%= f.label :radius %><br>
+      <i>(millä säteellä (km) osoitteestasi olet valmis tarjoamaan apuasi? Helpperin etsijä, jätä vain arvoksi nolla)</i>
       <%= f.number_field :radius, value: f.object.radius || 0, min: 0 %>
     </div>
 

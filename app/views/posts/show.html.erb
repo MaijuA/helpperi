@@ -52,7 +52,7 @@
           </p><br>
 
 
-          <%= link_to('Muokkaa', edit_post_path(@post), class:"btn btn-primary") if @post.user == current_user %>
+          <%= link_to('Muokkaa', edit_post_path(@post), class:"btn btn-info") if @post.user == current_user %>
           <%= link_to("Poista", post_delete_post_path(@post.id), class:"btn btn-danger", data:
               { confirm: 'Haluatko varmasti poistaa ilmoituksen?' }, method: :post) if @post.user == current_user %><br><br>
       <% end %>

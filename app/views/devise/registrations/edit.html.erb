@@ -59,8 +59,8 @@
 
           <div class="form-group">
             <%= f.label :description, class: "control-label" %>
+            <br><i>(max. 2000 merkkiä)</i>
             <%= f.text_area :description, :cols => "30", :rows => "5", class: "form-control" %>
-            <i>(max. 2000 merkkiä)</i>
           </div>
 
           <% if devise_mapping.confirmable? && resource.pending_reconfirmation? %>
@@ -69,8 +69,8 @@
 
           <div class="form-group">
             <%= f.label :password, class: "control-label" %>
+            <br><i>(jätä tyhjäksi, jos et halua vaihtaa salasanaasi)</i>
             <%= f.password_field :password, autocomplete: "off", class: "form-control" %>
-            <i>(jätä tyhjäksi jos et halua vaihtaa salasanaasi)</i>
           </div>
 
           <div class="form-group">
@@ -80,8 +80,8 @@
 
           <div class="form-group">
             <%= f.label :current_password, class: "control-label" %>
+            <br><i>(tarvitsemme nykyisen salasanasi muutosten vahvistamiseksi)</i>
             <%= f.password_field :current_password, autocomplete: "off", class: "form-control" %>
-            <i>(tarvitsemme nykyisen salasanasi muutosten vahvistamiseksi)</i>
           </div>
 
           <div class="form-group">
