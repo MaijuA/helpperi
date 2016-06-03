@@ -1,5 +1,9 @@
 class RegistrationsController < Devise::RegistrationsController
 
+  def after_sign_up_path_for(resource)
+    'posts#index' # Or :prefix_to_your_route
+  end
+
   def destroy
     if !resource.posts.nil?
       resource.posts.each do |p|
