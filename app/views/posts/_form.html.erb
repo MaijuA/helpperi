@@ -91,7 +91,7 @@
 
     <div class='field'>
       <%= f.label :radius %><br>
-      <i>(millä säteellä (km) osoitteestasi olet valmis tarjoamaan apuasi? Helpperin etsijä, jätä vain arvoksi nolla)</i>
+      <i>(millä säteellä (km) osoitteestasi olet valmis tarjoamaan apuasi? Helpperin etsijä, jätä vain arvoksi nolla)</i><br>
       <%= f.number_field :radius, value: f.object.radius || 0, min: 0 %>
     </div>
 
