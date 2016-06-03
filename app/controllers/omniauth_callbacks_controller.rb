@@ -4,10 +4,18 @@ class OmniauthCallbacksController < Devise::OmniauthCallbacksController
     auth_user("Google")
   end
 
+  def facebook
+    auth_user("Facebook")
+  end
+
+  def linkedin
+    auth_user("LinkedIn")
+  end
+
 
   def auth_user(provider)
     # You need to implement the method below in your model (e.g. app/models/user.rb)
-    @user = User.from_omniauth(request.env["omniauth.auth"])
+    @user = User.find_for_oauth(request.env["omniauth.auth"])
 
     if @user.persisted?
       sign_in_and_redirect @user, :event => :authentication

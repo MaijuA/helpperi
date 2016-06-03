@@ -3,7 +3,9 @@ class User < ActiveRecord::Base
 
   devise :confirmable, :database_authenticatable, :registerable,
          :recoverable, :rememberable, :trackable, :validatable, :lockable,
-         :omniauthable, :omniauth_providers => [:google_oauth2]
+         :omniauthable, :omniauth_providers => Devise.omniauth_providers
+
+  TEMP_EMAIL_PREFIX = 'change@me'
 
   # validates :email, format: {
   #     with: /\A([^@\s]+)@((?:[-a-z0-9]+\.)+[a-z]{2,})\z/i,
@@ -11,21 +13,22 @@ class User < ActiveRecord::Base
   # }
   # validates :password, length: { in: 8..72 }, if: :password_required?
   validate :password_black_list, if: :password_required?
-  validates :first_name, :last_name, :personal_code, :phone_number, :address, :zip_code, :city, presence: true
-  validates :first_name, :last_name, :city, length: { maximum: 50 }
-  validates :description, length: { maximum: 2000 }
-  validates :address, length: { in: 3..200 }
+  validates :first_name, :last_name, :personal_code, :phone_number, :address,
+            :zip_code, :city, presence: true, :on => :update
+  validates :first_name, :last_name, :city, length: { maximum: 50 }, :on => :update
+  validates :description, length: { maximum: 2000 }, :on => :update
+  validates :address, length: { in: 3..200 }, :on => :update
 
   validates :first_name, :last_name, :city, format: {
       with: /\A\p{L}+((\s|-)\p{L}+){,3}\z/,
       message: 'saa sisältää vain kirjaimia sekä väliliviivan tai välin nimien välissä'
-  }
-  validates :phone_number, phone: { possible: true }
+  }, :on => :update
+  validates :phone_number, phone: { possible: true }, :on => :update
   validates :zip_code, format: {
       with: /\A(FI-)?[0-9]{5}\z/,
       message: 'ei ole Suomessa kelvollinen'
-  }
-  validates :personal_code, hetu: true, :unless => :passport_number_is_used?
+  }, :on => :update
+  validates :personal_code, hetu: true, :unless => :passport_number_is_used?, :on => :update
 
   validates_processing_of :image, if: :image_is_set?
   validates_integrity_of :image, if: :image_is_set?
@@ -81,6 +84,39 @@ class User < ActiveRecord::Base
       end
     end
     errors.add(:password, 'on mustalistattu') if blacklist.include? password
+  end
+
+
+  def self.find_for_oauth(auth)
+    if !where(email: auth.info.email).empty?
+      user = find_by(email: auth.info.email)
+      user.provider = auth.provider
+      user.uid = auth.uid
+      user.save!
+      user
+    else
+      if where(provider: auth.provider, uid: auth.uid).first.nil?
+        user = User.new provider:auth.provider,
+                        uid:auth.uid,
+                        first_name:auth.info.first_name.present? ? auth.info.first_name : '',
+                        last_name:auth.info.last_name.present? ? auth.info.last_name : '',
+                        email: auth.info.email.present? ? auth.info.email : u.temp_email(auth),
+                        image:auth.info.image,
+                        password:Devise.friendly_token[0,20]
+        user.save!
+        user
+      else
+        where(provider: auth.provider, uid: auth.uid).first
+      end
+    end
+  end
+
+  def temp_email(auth)
+    "#{TEMP_EMAIL_PREFIX}-#{auth.uid}-#{auth.provider}.com"
+  end
+
+  def is_social?
+    !provider.nil?
   end
 
 end
