@@ -38,6 +38,7 @@ gem 'devise'
 gem 'phonelib'
 gem 'carrierwave'
 gem 'cloudinary'
+gem 'gon'
 
 group :development, :test do
   gem 'rspec-rails', '~> 3.0'
