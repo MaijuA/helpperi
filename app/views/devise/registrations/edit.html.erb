@@ -1,7 +1,15 @@
 <div class="row">
   <div class="col-md-6 col-md-offset-3">
-    <h1 class="text-center login-title">Muokkaa profiilia</h1>
+    <h1 class="text-center login-title">
+      <% if current_user.valid? %>
+        Muokkaa profiilia
+      <% else %>
+        Viimeistele rekisteröitymisesi
+      <% end %>
+    </h1>
     <div class="account-wall">
+      <%= devise_error_messages! %>
+      
       <%= form_for(resource, as: resource_name, url: registration_path(resource_name), html: {method: :put, :class => "form-edit-registration"}) do |f| %>
 
           <% if f.object.image? %>
@@ -19,8 +27,6 @@
                 <%= f.check_box :remove_image, class: "form-control" %>
             <% end %>
           </div>
-
-          <%= devise_error_messages! %>
 
           <div class="form-group">
             <%= f.label :email, class: "control-label" %>

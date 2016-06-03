@@ -13,8 +13,8 @@ class User < ActiveRecord::Base
   # }
   # validates :password, length: { in: 8..72 }, if: :password_required?
   validate :password_black_list, if: :password_required?
-  validates :first_name, :last_name, :personal_code, :phone_number, :address,
-            :zip_code, :city, presence: true, :on => :update
+  # validates :first_name, :last_name, :personal_code, :phone_number, :address,
+  #           :zip_code, :city, presence: true, :on => :update
   validates :first_name, :last_name, :city, length: { maximum: 50 }, :on => :update
   validates :description, length: { maximum: 2000 }, :on => :update
   validates :address, length: { in: 3..200 }, :on => :update
@@ -90,9 +90,8 @@ class User < ActiveRecord::Base
   def self.find_for_oauth(auth)
     if !where(email: auth.info.email).empty?
       user = find_by(email: auth.info.email)
-      user.provider = auth.provider
-      user.uid = auth.uid
-      user.save!
+      user.update_attribute(:provider, auth.provider)
+      user.update_attribute(:uid, auth.uid)
       user
     else
       if where(provider: auth.provider, uid: auth.uid).first.nil?
