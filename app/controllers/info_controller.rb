@@ -1,6 +1,12 @@
 class InfoController < ApplicationController
 
-  def index
+  def info
+  end
+
+  def cooperation
+  end
+
+  def contact
   end
 
 end

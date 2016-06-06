@@ -2,18 +2,18 @@
 
 <h4>"En saanut tunnusten vahvistusohjeita sähköpostiini"</h4>
 <p>- Voit tilata uudet vahvistusohjeet
-  <a href="https://helpperi.herokuapp.com/users/confirmation/new">tästä linkistä</a> syöttämällä
+  <%= link_to "tästä linkistä", new_user_confirmation_path %> syöttämällä
   rekisteröintivaiheessa antamasi sähköpostiosoitteen.<br>
   Muistathan tarkistaa roskaposti-kansiosi. Mikäli epäilet antaneesi rekisteröityessä väärän sähköpostiosoitteen, <br>
   olethan yhteydessä asiakaspalveluumme.
 </p><br>
 
 <h4>"Olen unohtanut salasanani"</h4>
-<p>- Salasanan pääset uusimaan <a href="https://helpperi.herokuapp.com/users/password/new">tästä linkistä</a>.</p><br>
+<p>- Salasanan pääset uusimaan <%= link_to "tästä linkistä", new_user_password_path %>.</p><br>
 
 <h4>"Tunnukseni on lukittu"</h4>
 <p>- Mikäli kirjoitit salasanasi väärin liian monta kertaa, pääset avaamaan tunnuksesi
-  <a href="https://helpperi.herokuapp.com/users/unlock/new">tästä linkistä</a>.<br>
+  <%= link_to "tästä linkistä", new_user_unlock_path %>.<br>
   Muussa tapauksessa ota yhteyttä asiakaspalveluumme.
 </p><br>
 
