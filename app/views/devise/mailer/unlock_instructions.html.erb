@@ -1,8 +1,11 @@
 <p>Hei <%= @resource.email %>!</p>
 
-<p>Tilisi on lukittu liian monen epäonnistuneen kirjautumisyrityksen johdosta.</p>
+<p>Tilisi on lukittu liian monen epäonnistuneen kirjautumisyrityksen johdosta. </p>
+<p>Klikkaa alla olevaa linkkiä poistaaksesi tilisi lukituksen: </p>
 
-<p>Klikkaa alla olevaa linkkiä poistaaksesi tilisi lukituksen:</p>
 
 <p><%= link_to 'Poista tilini lukitus', unlock_url(@resource, unlock_token: @token) %></p>
 
+
+<p>Ystävällisin terveisin, </p><br>
+<p>Helpperi-tiimi</p>

@@ -1,5 +1,8 @@
-<p>Tervetuloa <%= @email %>!</p>
+<p>Tervetuloa Helpperin käyttäjäksi <%= @email %>!</p>
 
-<p>Voit varmistaa tilisi sähköpostiosoitteen alla olevan linkin kautta:</p>
+<p>Vahvistathan tilisi sähköpostiosoitteen alla olevan linkin kautta.</p>
 
 <p><%= link_to 'Varmenna tilini', confirmation_url(@resource, confirmation_token: @token) %></p>
+
+<p>Ystävällisin terveisin, </p><br>
+<p>Helpperi-tiimi</p>
