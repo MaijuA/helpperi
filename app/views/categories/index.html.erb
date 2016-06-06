@@ -19,7 +19,7 @@
     <% @categories.each do |category| %>
       <tr>
         <td><%= category.name %></td>
-        <td><%= category.image %></td>
+        <td><%= image_tag category.image_url(:list), align: 'left' %></td>
         <td><%= category.description %></td>
         <td><%= link_to 'Show', category %></td>
         <td><%= link_to 'Edit', edit_category_path(category) %></td>
