@@ -663,5 +663,25 @@ RSpec.describe User, type: :model do
     expect(User.count).to eq(user_count + 1)
   end
 
+  it 'doesnt save user if language is too long' do
+    user_count = User.count
+    a = 'a'
+    user = User.create email: Faker::Internet.email,
+                       first_name: 'Mätti',
+                       last_name: 'Mallikas',
+                       address: 'Mallitie 3',
+                       zip_code: '02340',
+                       city: 'Espoo',
+                       phone_number: '0501234567',
+                       personal_code: '010191-123W',
+                       description: 'oon kiva',
+                       password: 'ihanmitavaan',
+                       password_confirmation: 'ihanmitavaan',
+                       language: a*250
+
+    expect(user.valid?).to be(false)
+    expect(User.count).to eq(user_count)
+  end
+
 end
 

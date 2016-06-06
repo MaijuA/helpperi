@@ -3,7 +3,7 @@
     <h1 class="text-center login-title"><%= @user.first_name %> <%= @user.last_name if current_user == @user %></strong></h1>
     <div class="account-wall">
       <%= form_for(@user, :html => {:class => "lomake"}) do |f| %>
-      <div class ="row">
+          <div class ="row">
 
             <div class="col-xs-12 col-sm-6 col-md-8">
 
@@ -21,17 +21,22 @@
                   <p><%= @user.phone_number %></p><br>
               <% end %>
 
+
+              <p><% if @user.language? %><b>Kielitaito </b><% end %></p>
+              <p><%= @user.language %></p><br>
+
+
               <p><% if @user.description? %><b>Kuvaus </b><% end %></p>
               <p><%= @user.description %></p>
             </div><br>
             <div class="col-xs-6 col-md-4">
               <%= image_tag @user.image_url(:display) %>
             </div>
-            </div>
+          </div>
           <br>
-            <%= link_to('Muokkaa', edit_user_registration_path(@user), class:"btn btn-info") if current_user == @user %>
+          <%= link_to('Muokkaa', edit_user_registration_path(@user), class:"btn btn-info") if current_user == @user %>
 
-            </div><br>
-        <% end %>
-        </div>
+          </div><br>
+      <% end %>
+      </div>
 </div>

@@ -64,5 +64,15 @@ describe 'Profile edit' do
     expect(page).to have_content 'Salasana uudelleen ei vastaa varmennusta'
   end
 
+  it 'edits language' do
+    visit edit_user_registration_path
+    fill_in('Kielitaito', with:'suomi')
+    fill_in('Nykyinen salasana', with:'ihanmitavaan')
+
+    click_button('Päivitä')
+
+    expect(page).to have_content 'suomi'
+  end
+
 
 end
