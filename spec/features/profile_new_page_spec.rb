@@ -21,7 +21,7 @@ describe 'Sign in' do
 
     click_button('Rekisteröidy')
 
-    expect(page).to have_content 'Tervetuloa!'
+    expect(page).to have_content 'Rekisteröintisi onnistui'
   end
 
   it 'rejects email' do
