@@ -39,6 +39,7 @@ gem 'phonelib'
 gem 'carrierwave'
 gem 'cloudinary'
 gem 'gon'
+gem 'sunspot_rails'
 
 group :development, :test do
   gem 'rspec-rails', '~> 3.0'
