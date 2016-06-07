@@ -16,4 +16,8 @@ class UsersController < ApplicationController
       @user_expired_posts = current_user.posts.active.expired
     end
   end
+
+
+
+
 end

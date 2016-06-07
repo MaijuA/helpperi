@@ -1,0 +1,31 @@
+
+<br><table class="table table-striped">
+  <thead>
+  <tr>
+    <th class="col-md-2">Image</th>
+    <th class="col-md-2">First name</th>
+    <th class="col-md-2">Last name</th>
+    <th class="col-md-2">Description</th>
+    <th></th>
+    <th></th>
+    <th></th>
+  </tr>
+  </thead>
+
+  <tbody class="form-group">
+  <% @users.each do |user| %>
+      <tr>
+            <td><%= image_tag user.image_url(:thumb), align: 'left' %></td>
+        <td><%= user.first_name %></td>
+        <td><%= user.last_name %></td>
+
+        <td><%= truncate(user.description, :length => 30) %></td>
+        <td><%= link_to 'Show', user %></td>
+        <td><%= link_to 'Edit', edit_user_registration_path(user) %></td>
+        <td><%= link_to "Delete", registration_path(user), data: { confirm: "Are you sure?" },
+                          method: :delete %></td>
+
+      </tr>
+  <% end %>
+  </tbody>
+</table>
