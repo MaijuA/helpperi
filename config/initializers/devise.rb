@@ -7,7 +7,7 @@ Devise.setup do |config|
   # Devise will use the `secret_key_base` as its `secret_key`
   # by default. You can change it below and use your own secret key.
   # config.secret_key = 'df5d6ff2a4012962735129639dd7293ccf3f3693d19af464bb8a331bfd6a0c513fd3631c2a565411bdcab24f10f9b544aae3b51252d89c9757af9a00b38447c3'
-  config.secret_key = ENV['CONFIG_SECRET_KEY']
+  # config.secret_key = ENV['CONFIG_SECRET_KEY']
 
   # ==> Mailer Configuration
   # Configure the e-mail address which will be shown in Devise::Mailer,
@@ -245,8 +245,7 @@ Devise.setup do |config|
 
   config.omniauth :google_oauth2, ENV['GOOGLE_KEY'], ENV['GOOGLE_SECRET']
   config.omniauth :facebook, ENV['FACEBOOK_KEY'], ENV['FACEBOOK_SECRET']
-  config.omniauth :linkedin, ENV['LINKEDIN_KEY'], ENV['LINKEDIN_SECRET'],
-                  :scope => 'r_emailaddress'
+  config.omniauth :linkedin, ENV['LINKEDIN_KEY'], ENV['LINKEDIN_SECRET']
 
   # ==> Warden configuration
   # If you want to use other strategies, that are not supported by Devise, or
