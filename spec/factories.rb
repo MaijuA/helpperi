@@ -24,6 +24,7 @@ FactoryGirl.define do
     factory :user2 do
       id 2
     end
+
    end
 
   factory :category do

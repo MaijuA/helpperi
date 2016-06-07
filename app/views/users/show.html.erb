@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 <div class="row">
   <div class="col-md-6 col-md-offset-3">
     <h1 class="text-center login-title"><%= @user.first_name %> <%= @user.last_name if current_user == @user %></strong></h1>
@@ -34,7 +35,8 @@
             </div>
           </div>
           <br>
-          <%= link_to('Muokkaa', edit_user_registration_path(@user), class:"btn btn-info") if current_user == @user %>
+          <%= link_to('Muokkaa', edit_user_registration_path(@user), class:"btn btn-info") if current_user == @user && current_user.valid? %>
+          <%= link_to('Muokkaa', edit_user_registration_path(@user, :finishing => 1), class:"btn btn-info") if current_user == @user && !current_user.valid? %>
 
           </div><br>
       <% end %>

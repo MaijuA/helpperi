@@ -13,6 +13,15 @@ class RegistrationsController < Devise::RegistrationsController
     respond_with_navigational(resource){ redirect_to after_sign_out_path_for(resource_name) }
   end
 
+  def update_resource(resource, params)
+    unless current_user.provider.nil?
+      params.delete("current_password")
+      resource.update_without_password(params)
+    else
+      resource.update_with_password(params)
+    end
+  end
+
   protected
 
   def after_update_path_for(resource)
