@@ -9,13 +9,6 @@ describe 'Sign in' do
   it 'registers new user' do
     visit new_user_registration_path
     fill_in('Sähköpostiosoite', with:Faker::Internet.email)
-    fill_in('Etunimi', with:'Pekka')
-    fill_in('Sukunimi', with:'Pekkanen')
-    fill_in('Henkilötunnus tai passin numero', with:'010191-123W')
-    fill_in('Puhelinnumero', with:'0501234567')
-    fill_in('Osoite', with:'Mallitie 3')
-    fill_in('Postinumero', with:'02340')
-    fill_in('Kaupunki', with:'Espoo')
     fill_in('Salasana', with:'Ihanmitavaan1')
     fill_in('Salasana uudelleen', with:'Ihanmitavaan1')
 
@@ -40,24 +33,24 @@ describe 'Sign in' do
     expect(page).to have_content 'Sähköpostiosoite ei ole mahdollinen'
   end
 
-  it 'accepts first name' do
-    visit new_user_registration_path
-    fill_in('Etunimi', with: 'Ville-Veikko')
-
-    click_button('Rekisteröidy')
-
-    expect(page).to have_no_content 'Etunimi saa sisältää vain kirjaimia sekä väliliviivan tai välin nimien välissä'
-  end
-
-  it 'accepts last name' do
-    visit new_user_registration_path
-    fill_in('Sukunimi', with: 'Von Hertzen')
-
-    click_button('Rekisteröidy')
-
-    expect(page).to have_no_content 'Sukunimi saa sisältää vain kirjaimia sekä väliliviivan tai välin nimien välissä'
-  end
-
+  # it 'accepts first name' do
+  #   visit new_user_registration_path
+  #   fill_in('Etunimi', with: 'Ville-Veikko')
+  #
+  #   click_button('Rekisteröidy')
+  #
+  #   expect(page).to have_no_content 'Etunimi saa sisältää vain kirjaimia sekä väliliviivan tai välin nimien välissä'
+  # end
+  #
+  # it 'accepts last name' do
+  #   visit new_user_registration_path
+  #   fill_in('Sukunimi', with: 'Von Hertzen')
+  #
+  #   click_button('Rekisteröidy')
+  #
+  #   expect(page).to have_no_content 'Sukunimi saa sisältää vain kirjaimia sekä väliliviivan tai välin nimien välissä'
+  # end
+  #
   # it 'rejects first name' do
   #   visit new_user_registration_path
   #   fill_in('Etunimi', with: 'V1ll3')

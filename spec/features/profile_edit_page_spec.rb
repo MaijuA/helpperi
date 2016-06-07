@@ -64,5 +64,4 @@ describe 'Profile edit' do
     expect(page).to have_content 'Salasana uudelleen ei vastaa varmennusta'
   end
 
-
 end
