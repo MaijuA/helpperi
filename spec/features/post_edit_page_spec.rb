@@ -16,6 +16,7 @@ describe 'Edit post' do
     fill_in('post_title', with:'kauppareissu2')
 
     click_button('Päivitä')
+
     expect(page).to have_content 'kauppareissu2'
   end
 

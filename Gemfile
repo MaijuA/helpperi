@@ -42,7 +42,6 @@ gem 'gon'
 gem 'omniauth-facebook'
 gem 'omniauth-linkedin'
 gem 'omniauth-google-oauth2'
->>>>>>> oauth
 
 group :development, :test do
   gem 'rspec-rails', '~> 3.0'

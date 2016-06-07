@@ -11,21 +11,11 @@ class User < ActiveRecord::Base
   # }
   # validates :password, length: { in: 8..72 }, if: :password_required?
   validate :password_black_list, if: :password_required?
-<<<<<<< HEAD
   validates :first_name, :last_name, :personal_code, :phone_number, :address, :zip_code,
             :city, presence: true, :on => :update
   validates :first_name, :last_name, :city, length: { maximum: 50 }
   validates :description, length: { maximum: 2000 }
   validates :language, length: { maximum: 200 }
-=======
-  validates :first_name, :last_name, :personal_code, :phone_number, :address,
-             :zip_code, :city, presence: true, :on => :update
-  validates :first_name, :last_name, :city, length: { maximum: 50 }, :on => :update
-  validates :description, length: { maximum: 2000 }
-  validates :address, length: { in: 3..200 }, :on => :update
-  validates :email, presence: true
-  validates :first_name, :last_name, :city, length: { maximum: 50 }
->>>>>>> oauth
   validates :address, length: { in: 3..200 }, :on => :update
 
   validates :first_name, :last_name, :city, format: {
