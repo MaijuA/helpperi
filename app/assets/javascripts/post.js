@@ -17,9 +17,9 @@ function defaultDescription() {
             description.value = gon.default_description;
         }
     } else {
-        description.className.replace("field_with_errors");
-        label.className.replace("field_with_errors");
-        alert(description.className);
+        //description.className.replace("field_with_errors");
+        //label.className.replace("field_with_errors");
+        //alert(description.className);
         alert("Kuvaus-kenttä ei ole tyhjä!");
     }
 }

@@ -21,6 +21,7 @@ fi:
         current_password: 'Nykyinen salasana'
         image: 'Profiilikuva'
         remove_image: 'Poista nykyinen kuva'
+        language: 'Kielitaito'
       post:
         title: 'Otsikko'
         description: 'Kuvaus'

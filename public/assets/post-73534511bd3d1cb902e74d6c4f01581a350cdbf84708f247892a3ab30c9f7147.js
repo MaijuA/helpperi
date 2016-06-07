@@ -1,0 +1,1 @@
+function defaultDescription(){var e=document.getElementById("post_description");if(""==e.value){for(var t=document.getElementById("post_category_ids"),o=[],n=0;n<t.options.length;n++)1==t.options[n].selected&&o.push(t.options[n].value);1==o.length?e.value=gon.descriptions[o[0]]:e.value=gon.default_description}else alert("Kuvaus-kentt\xe4 ei ole tyhj\xe4!")}

@@ -13,6 +13,7 @@ class User < ActiveRecord::Base
   validates :first_name, :last_name, :personal_code, :phone_number, :address, :zip_code, :city, presence: true
   validates :first_name, :last_name, :city, length: { maximum: 50 }
   validates :description, length: { maximum: 2000 }
+  validates :language, length: { maximum: 200 }
   validates :address, length: { in: 3..200 }
 
   validates :first_name, :last_name, :city, format: {

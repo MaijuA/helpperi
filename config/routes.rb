@@ -13,11 +13,15 @@ Rails.application.routes.draw do
     post 'delete_post'
   end
 
-  resources :contact, only: [:index]
+  get '/info' => 'info#info', as: :info_info
+  get '/contact' => 'info#contact', as: :info_contact
+  get '/cooperation' => 'info#cooperation', as: :info_cooperation
 
-  resources :cooperation, only: [:index]
+  #resources :contact, only: [:index]
 
-  resources :info, only: [:index]
+  #resources :cooperation, only: [:index]
+
+  #resources :info, only: [:index]
 
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".

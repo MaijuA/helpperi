@@ -63,7 +63,12 @@ body {
   color: #555;
 }
 
-footer {
+html {
+  position: relative;
+  min-height: 100%;
+}
+
+.footer {
   background-color: #e6e6e6;
   border-color: #e6e6e6;
   color: #777;
@@ -72,6 +77,8 @@ footer {
   padding-top: 5px;
   padding-bottom: 5px;
   width:100%;
+  position:absolute;
+  height:100px;
 
   //background: linear-gradient(to bottom, #e6e6e6 0%,#ffffff 100%);
   //border-top: 1px solid #eaeaea;
