@@ -92,8 +92,8 @@ class User < ActiveRecord::Base
   def self.find_for_oauth(auth)
     if !where(email: auth.info.email).empty?
       user = find_by(email: auth.info.email)
-      user.update_attribute(:provider, auth.info.provider)
-      user.update_attribute(:uid, auth.info.uid)
+      user.update_attribute(:provider, auth.provider)
+      user.update_attribute(:uid, auth.uid)
       user.update_attribute(:image, auth.info.image)
       user
     else
