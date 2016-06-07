@@ -15,9 +15,9 @@
 
       <tr>
         <% if post.image_is_set? %>
-            <td ><%= image_tag post.image_url(:display), width: 100, align: 'left' %></td>
+            <td ><%= image_tag post.image_url(:thumb), align: 'left' %></td>
         <% else %>
-            <td ><%= image_tag post.category_to_take_image_from.image_url(:display), width: 100, align: 'left' %></td>
+            <td ><%= image_tag post.category_to_take_image_from.image_url(:thumb), width: 100, align: 'left' %></td>
         <% end %>
         <td>
           <p><%= link_to truncate(post.title, :length => 30), post %></p>
@@ -51,9 +51,9 @@
   <% @posts_selling.each do |post| %>
       <tr>
         <% if post.image_is_set? %>
-            <td ><%= image_tag post.image_url(:display), width: 100, align: 'left' %></td>
+            <td ><%= image_tag post.image_url(:thumb), align: 'left' %></td>
         <% else %>
-            <td ><%= image_tag post.category_to_take_image_from.image_url(:display), width: 100, align: 'left' %></td>
+            <td ><%= image_tag post.category_to_take_image_from.image_url(:thumb), align: 'left' %></td>
         <% end %>
         <td>
           <p><%= link_to truncate(post.title, :length => 30), post %></p>

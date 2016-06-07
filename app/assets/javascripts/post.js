@@ -1,5 +1,8 @@
 function defaultDescription() {
     var description = document.getElementById("post_description");
+    var label = document.getElementById("description_label");
+    description.className = "form-control";
+    label.className = "control-label";
     if (description.value == "") {
         var categories = document.getElementById("post_category_ids");
         var categoryIds = [];
@@ -14,6 +17,9 @@ function defaultDescription() {
             description.value = gon.default_description;
         }
     } else {
-        alert("Kuvaus-kenttä ei ole tyhjä!")
+        description.className.replace("field_with_errors");
+        label.className.replace("field_with_errors");
+        alert(description.className);
+        alert("Kuvaus-kenttä ei ole tyhjä!");
     }
 }

@@ -72,13 +72,13 @@
 
     <br>
     <div class='form-group'>
-      <%= f.label :description, class: 'control-label' %>
+      <%= f.label :description, class: 'control-label', id: 'description_label' %>
       <br>
       <%= link_to 'Hae kategorian kuvausehdotus', "#" , onclick: "defaultDescription();return false;"%> (Huom. kentän tulee olla tyhjä)
       <br>
       <i>(max. 2000 merkkiä)</i>
       <br>
-      <%= f.text_area :description, :rows => '5', class: 'form-control'%>
+      <%= f.text_area :description, :rows => '5',class: 'form-control'%>
     </div>
     <br>
 
