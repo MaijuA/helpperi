@@ -40,6 +40,7 @@ gem 'carrierwave'
 gem 'cloudinary'
 gem 'gon'
 gem 'sunspot_rails'
+gem 'sunspot_solr'
 
 group :development, :test do
   gem 'rspec-rails', '~> 3.0'

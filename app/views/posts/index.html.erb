@@ -1,17 +1,14 @@
 <h1>Ilmoitukset</h1><br>
 
-<h5><b>Etsitään helpperiä</b></h5>
+<%= form_tag search_path do %>
+    Kaupunki <%= text_field_tag :city, params[:city] %>
+    <%= submit_tag "Hae" %>
+<% end %>
+
 <table class="table table-striped">
   <tbody class="form-group">
-  <thead>
-  <tr>
-    <th class="col-md-1"></th>
-    <th class="col-md-2"></th>
-    <th class="col-md-1"></th>
-    <th class="col-md-1"></th>
-  </tr>
-  </thead>
-  <% @posts_buying.each do |post| %>
+
+  <% @posts.each do |post| %>
 
       <tr>
         <% if post.image_is_set? %>
@@ -39,40 +36,3 @@
   </tbody>
 </table>
 
-<h5><b>Halutaan helpperiksi</b></h5>
-<table class="table table-striped">
-  <tbody class="form-group">
-  <thead>
-  <tr>
-    <th class="col-md-1"></th>
-    <th class="col-md-2"></th>
-    <th class="col-md-1"></th>
-    <th class="col-md-1"></th>
-  </tr>
-  </thead>
-  <% @posts_selling.each do |post| %>
-      <tr>
-        <% if post.image_is_set? %>
-
-            <td ><%= image_tag post.image_url(:list), align: 'left' %></td>
-        <% else %>
-            <td ><%= image_tag post.category_to_take_image_from.image_url(:list), align: 'left' %></td>
-
-        <% end %>
-        <td>
-          <p><%= link_to truncate(post.title, :length => 30), post %></p>
-          <p>
-            <% post.categories.each do |category| %>
-                <span class="category-badge"><%= "#{category.name}" %></span>
-            <% end %>
-          </p>
-        </td>
-        <td><% if post.price %>
-              <%= post.price %> €
-          <% end %>
-        </td>
-        <td>[tähdet]</td>
-      </tr>
-  <% end %>
-  </tbody>
-</table>

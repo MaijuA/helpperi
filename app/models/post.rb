@@ -50,9 +50,17 @@ class Post < ActiveRecord::Base
   scope :expired, lambda{ where("ending_date < ?", Date.today) }
 
   searchable do
-    text :title, :description, :post_type, :zip_code, :city
-    integer :price, :user_id, :radius
-    time    :created_at, :ending_date
+    text :title
+    text :description
+    text :post_type
+    text :zip_code
+    text :city
+    integer :price
+    integer :user_id
+    integer :radius
+    time :created_at
+    time :ending_date
+    boolean :deleted
   end
 
   def category_to_take_image_from

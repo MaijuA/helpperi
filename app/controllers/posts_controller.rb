@@ -2,9 +2,28 @@ class PostsController < ApplicationController
   before_action :set_post, only: [:show, :edit, :update]
 
   def index
-    @posts = Post.all.valid.active
-    @posts_selling = Post.all.active.valid.selling
-    @posts_buying = Post.all.active.valid.buying
+    @search = Post.search do
+      order_by :created_at, :desc
+      with(:ending_date).greater_than(Date.today)
+      with(:deleted, false)
+    end
+    @posts = @search.results
+
+  end
+
+
+  def search
+    @search = Post.search do
+      fulltext params[:city] do
+        fields(:city)
+      end
+      order_by :created_at, :desc
+      with(:ending_date).greater_than(Date.today)
+      with(:deleted, false)
+    end
+    @posts = @search.results
+
+    render :index
   end
 
   # GET /posts/1
