@@ -1,7 +1,7 @@
 <h1>Omat ilmoitukset</h1>
 <br>
 <%= link_to('Uusi ilmoitus', new_post_path, class:"btn btn-success") if current_user && current_user.valid? %>
-<%= link_to('Uusi ilmoitus', edit_user_registration_path(current_user),
+<%= link_to('Uusi ilmoitus', edit_user_registration_path(current_user, :finishing => 1),
             class:"btn btn-success") if current_user && !current_user.valid? %>
 <br>
 

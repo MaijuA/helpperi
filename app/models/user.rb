@@ -5,25 +5,20 @@ class User < ActiveRecord::Base
          :recoverable, :rememberable, :trackable, :validatable, :lockable,
          :omniauthable, :omniauth_providers => Devise.omniauth_providers
 
-  TEMP_EMAIL_PREFIX = 'change@me'
-
   # validates :email, format: {
   #     with: /\A([^@\s]+)@((?:[-a-z0-9]+\.)+[a-z]{2,})\z/i,
   #     message: 'ei ole mahdollinen.'
   # }
   # validates :password, length: { in: 8..72 }, if: :password_required?
   validate :password_black_list, if: :password_required?
-  # validates :first_name, :last_name, :personal_code, :phone_number, :address,
-  #           :zip_code, :city, presence: true, :on => :update
+  validates :first_name, :last_name, :personal_code, :phone_number, :address,
+             :zip_code, :city, presence: true, :on => :update
   validates :first_name, :last_name, :city, length: { maximum: 50 }, :on => :update
-  validates :description, length: { maximum: 2000 }, :on => :update
-  validates :address, length: { in: 3..200 }, :on => :update
-  validates :email, :first_name, :last_name, presence: true
-  validates :personal_code, :phone_number, :address,
-            :zip_code, :city, presence: true
-  validates :first_name, :last_name, :city, length: { maximum: 50 }
   validates :description, length: { maximum: 2000 }
-  validates :address, length: { in: 3..200 }
+  validates :address, length: { in: 3..200 }, :on => :update
+  validates :email, presence: true
+  validates :first_name, :last_name, :city, length: { maximum: 50 }
+  validates :address, length: { in: 3..200 }, :on => :update
 
   validates :first_name, :last_name, :city, format: {
       with: /\A\p{L}+((\s|-)\p{L}+){,3}\z/,
@@ -69,6 +64,10 @@ class User < ActiveRecord::Base
     !deleted_at ? super : :deleted_account
   end
 
+  def is_social?
+    !provider.nil?
+  end
+
 =begin
   def hetu
     if passport_number.nil? || passport_number == false
@@ -92,12 +91,12 @@ class User < ActiveRecord::Base
     errors.add(:password, 'on mustalistattu') if blacklist.include? password
   end
 
-
   def self.find_for_oauth(auth)
     if !where(email: auth.info.email).empty?
       user = find_by(email: auth.info.email)
-      user.update_attribute(:provider, auth.provider)
-      user.update_attribute(:uid, auth.uid)
+      user.update_attribute(:provider, auth.info.provider)
+      user.update_attribute(:uid, auth.info.uid)
+      user.update_attribute(:image, auth.info.image)
       user
     else
       if where(provider: auth.provider, uid: auth.uid).first.nil?
@@ -105,29 +104,13 @@ class User < ActiveRecord::Base
                         uid:auth.uid,
                         first_name:auth.info.first_name.present? ? auth.info.first_name : '',
                         last_name:auth.info.last_name.present? ? auth.info.last_name : '',
-                        email: auth.info.email.present? ? auth.info.email : u.temp_email(auth),
+                        email: auth.info.email.present? ? auth.info.email : 'vaihda@minut.com',
                         image:auth.info.image,
                         password:Devise.friendly_token[0,20]
         user.save!
         user
       else
         where(provider: auth.provider, uid: auth.uid).first
-      end
-    end
-  end
-
-  def temp_email(auth)
-    "#{TEMP_EMAIL_PREFIX}-#{auth.uid}-#{auth.provider}.com"
-  end
-
-  def is_social?
-    !provider.nil?
-  end
-
-  def self.new_with_session(params, session)
-    super.tap do |user|
-      if data = session["devise.facebook_data"] && session["devise.facebook_data"]["extra"]["raw_info"]
-        user.email = data["email"] if user.email.blank?
       end
     end
   end
