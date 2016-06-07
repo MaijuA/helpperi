@@ -1,19 +1,17 @@
+<div class="row">
 <p id="notice"><%= notice %></p>
 
-<p>
-  <strong>Name:</strong>
-  <%= @category.name %>
-</p>
+  <div class="col-md-3">
+    <%= image_tag @category.image_url(:display), align: 'left'%>
+  </div>
 
-<p>
-  <strong>Image:</strong>
-  <%= @category.image %>
-</p>
+<div class="col-md-3">
+  <p><strong>Name:</strong>
+  <%= @category.name %></p>
+  <p><strong>Description:</strong></p>
+  <p><%= @category.description %></p>
+  <p><%= link_to 'Edit', edit_category_path(@category) %> |
+  <%= link_to 'Back', categories_path %></p>
+</div>
 
-<p>
-  <strong>Description:</strong>
-  <%= @category.description %>
-</p>
-
-<%= link_to 'Edit', edit_category_path(@category) %> |
-<%= link_to 'Back', categories_path %>
+</div>

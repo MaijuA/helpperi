@@ -3,7 +3,7 @@ Rails.application.routes.draw do
   resources :categories
   devise_for :users, :controllers => {:registrations => "registrations"}
 
-  resources :users, only: [:show, :index]
+  resources :users, only: [:show, :index, :list]
 
   resources :posts
 
@@ -12,6 +12,8 @@ Rails.application.routes.draw do
   resources :posts do
     post 'delete_post'
   end
+
+  get '/list' => 'admin#list', as: :admin_list
 
   get '/info' => 'info#info', as: :info_info
   get '/contact' => 'info#contact', as: :info_contact
