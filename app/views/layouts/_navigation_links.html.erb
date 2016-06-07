@@ -2,6 +2,7 @@
 <% if user_signed_in? %>
     <li><%= link_to 'Omat ilmoitukset', users_path %></li>
     <li><%= link_to 'Profiili', user_path(current_user) %></li>
+    <li><%= link_to 'Postilaatikko', conversations_path %></li>
     <li><%= link_to 'Kirjaudu ulos', destroy_user_session_path, :method => :delete %></li>
 <% else %>
     <li><%= link_to 'Kirjaudu', user_session_path %></li>
