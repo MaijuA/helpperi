@@ -25,7 +25,7 @@ describe 'OAuth' do
   it 'redirects to registration edit page if registration not complete and user wants to create new post' do
     visit new_user_session_path
 
-    click_link 'Kirjaudu sisään LinkedIn'
+    click_link 'Kirjaudu LinkedIn'
 
     click_link 'Uusi ilmoitus'
 
