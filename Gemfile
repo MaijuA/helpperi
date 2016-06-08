@@ -41,6 +41,9 @@ gem 'cloudinary'
 gem 'gon'
 gem 'sunspot_rails'
 gem 'sunspot_solr'
+gem 'omniauth-facebook'
+gem 'omniauth-linkedin'
+gem 'omniauth-google-oauth2'
 
 group :development, :test do
   gem 'rspec-rails', '~> 3.0'

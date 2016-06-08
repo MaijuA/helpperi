@@ -58,7 +58,7 @@ class PostsController < ApplicationController
   # POST /posts
   # POST /posts.json
   def create
-    if current_user
+    if current_user && current_user.valid?
       @post = Post.new(post_params)
       @post.user_id = current_user.id
       @post.deleted = false

@@ -46,7 +46,16 @@ bower.json
 /.idea
 /public/uploads/tmp/*
 
-/config/application.yml
-
 # Ignore application configuration
 /config/application.yml
+
+# Sunspot & Solr
+solr/data
+solr/test
+solr/development
+solr/default/data
+/log/*.log.lck
+solr/pids
+
+/config/local_env.yml
+

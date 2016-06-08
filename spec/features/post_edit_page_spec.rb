@@ -16,6 +16,7 @@ describe 'Edit post' do
     fill_in('post_title', with:'kauppareissu2')
 
     click_button('Päivitä')
+
     expect(page).to have_content 'kauppareissu2'
   end
 
@@ -94,7 +95,7 @@ describe 'Edit post' do
 
     click_button('Päivitä')
 
-    expect(page).to have_content 'Otsikko ei voi olla sisällötön'
+    expect(page).to have_content 'Otsikko on liian lyhyt'
   end
 
   it 'doesn´t edit if price empty' do

@@ -2,6 +2,27 @@
   <div class="col-md-6 col-md-offset-3">
     <h1 class="text-center login-title">Kirjaudu sisään</h1>
     <div class="account-wall">
+
+      <div class="text-center">
+        <link href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css" rel="stylesheet">
+
+        <div class="btn-group">
+          <a class='btn btn-danger disabled'><i class="fa fa-google-plus" style="width:16px; height:10px; margin-bottom:5px"></i></a>
+          <%= link_to 'Kirjaudu sisään Google-tunnuksilla', user_google_oauth2_omniauth_authorize_path,
+                      :class => 'btn btn-danger', :style => "width:18em; margin-bottom:5px" %>
+        </div>
+        <div class="btn-group">
+          <a class='btn btn-primary disabled'><i class="fa fa-facebook" style="width:16px; height:10px; margin-bottom:5px"></i></a>
+          <%= link_to 'Kirjaudu sisään Facebook-tunnuksilla', user_facebook_omniauth_authorize_path,
+                      :class => 'btn btn-primary', :style => "width:18em; margin-bottom:5px" %>
+        </div>
+        <div class="btn-group">
+          <a class='btn btn-info disabled'><i class="fa fa-linkedin" style="width:16px; height:10px; margin-bottom:5px"></i></a>
+          <%= link_to 'Kirjaudu sisään LinkedIn-tunnuksilla', user_linkedin_omniauth_authorize_path,
+                      :class => 'btn btn-info', :style => "width:18em; margin-bottom:5px" %>
+        </div>
+      </div>
+
       <%= form_for(resource, as: resource_name, url: session_path(resource_name), :html => {:class => "form-signin"}) do |f| %>
           <div class="form-group">
             <%= f.label :email, class: "control-label" %>

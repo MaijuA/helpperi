@@ -18,7 +18,6 @@ describe 'New post' do
     fill_in('post_address', with:'Huuhaakatu 1')
     fill_in('post_zip_code', with:99999)
     fill_in('post_city', with:'Utsjoki')
-    fill_in('post_description', with:'kauppareissuun apua')
     fill_in('post_radius', with:3)
 
     click_button('Luo ilmoitus')
@@ -33,7 +32,7 @@ describe 'New post' do
 
     click_button('Luo ilmoitus')
 
-    expect(page).to have_content 'Otsikko ei voi olla sisällötön'
+    expect(page).to have_content 'Otsikko on liian lyhyt'
   end
 
   it 'doesn´t add post if price is empty' do

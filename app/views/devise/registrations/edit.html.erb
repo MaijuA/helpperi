@@ -1,7 +1,13 @@
 <div class="row">
   <div class="col-md-6 col-md-offset-3">
-    <h1 class="text-center login-title">Muokkaa profiilia</h1>
+    <% if current_user.valid? %>
+      <h1 class="text-center login-title">Muokkaa profiilia</h1>
+    <% else %>
+      <h1 class="text-center login-title">Viimeistele rekisteröitymisesi</h1>
+    <% end %>
     <div class="account-wall">
+      <%= devise_error_messages! %>
+      
       <%= form_for(resource, as: resource_name, url: registration_path(resource_name), html: {method: :put, :class => "form-edit-registration"}) do |f| %>
 
           <% if f.object.image? %>
@@ -22,8 +28,6 @@
             <% end %>
           </div>
 
-          <%= devise_error_messages! %>
-
           <div class="form-group">
             <%= f.label :email, class: "control-label" %>
             <%= f.email_field :email, autofocus: true, class: "form-control" %>
@@ -38,6 +42,18 @@
             <%= f.label :last_name, class: "control-label" %>
             <%= f.text_field :last_name, class: "form-control" %>
           </div>
+
+          <% unless resource.valid? %>
+            <div class="form-group">
+              <%= f.label :personal_code, class: "control-label" %>
+              <%= f.text_field :personal_code, class: "form-control" %>
+            </div>
+
+            <div class="form-group">
+              <%= f.check_box :passport_number %>
+              <%= f.label :passport_number, class: "control-label" %>
+            </div>
+          <% end %>
 
           <div class="form-group">
             <%= f.label :address, class: "control-label" %>
@@ -75,6 +91,7 @@
               <div>Odotetaan vahvistusta seuraavalle: <%= resource.unconfirmed_email %></div>
           <% end %>
 
+          <% unless resource.is_social? %>
           <div class="form-group">
             <%= f.label :password, class: "control-label" %>
             <br><i>(jätä tyhjäksi, jos et halua vaihtaa salasanaasi)</i>
@@ -91,11 +108,13 @@
             <br><i>(tarvitsemme nykyisen salasanasi muutosten vahvistamiseksi)</i>
             <%= f.password_field :current_password, autocomplete: "off", class: "form-control" %>
           </div>
+          <% end %>
 
           <div class="form-group">
             <%= f.submit "Päivitä", class: "btn btn-success" %>
             <%= link_to "Peruuta", user_path(resource_name), class: "btn" %>
           </div>
+
       <% end %>
     </div>
 
