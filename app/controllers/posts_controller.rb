@@ -20,6 +20,7 @@ class PostsController < ApplicationController
       fulltext params[:word] do
         fields(:title, :description)
       end
+      with(:category_ids, params[:category_ids]) unless params[:category_ids] == nil
       order_by :created_at, :desc
       with(:ending_date).greater_than(Date.today)
       with(:deleted, false)

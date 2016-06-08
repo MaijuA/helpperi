@@ -55,6 +55,7 @@ class Post < ActiveRecord::Base
     text :post_type
     text :zip_code
     text :city
+    integer :category_ids, :multiple => true
     integer :price
     integer :user_id
     integer :radius

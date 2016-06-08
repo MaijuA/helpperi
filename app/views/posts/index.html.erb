@@ -2,8 +2,8 @@
 
 <%= form_tag search_path do %>
     Hakusana <%= text_field_tag :word, params[:word] %>
-    <%= submit_tag "Hae" %>
     Kaupunki <%= text_field_tag :city, params[:city] %>
+    Kategoria <%= select_tag :category_ids, options_for_select(Category.all.collect {|x| [x.name, x.id]}), :multiple => true %>
     <%= submit_tag "Hae" %>
 <% end %>
 
