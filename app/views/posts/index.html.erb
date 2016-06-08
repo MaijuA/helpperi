@@ -1,9 +1,13 @@
 <h1>Ilmoitukset</h1><br>
 
 <%= form_tag search_path do %>
+    Hakusana <%= text_field_tag :word, params[:word] %>
+    <%= submit_tag "Hae" %>
     Kaupunki <%= text_field_tag :city, params[:city] %>
     <%= submit_tag "Hae" %>
 <% end %>
+
+</br>
 
 <table class="table table-striped">
   <tbody class="form-group">

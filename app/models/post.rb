@@ -50,8 +50,8 @@ class Post < ActiveRecord::Base
   scope :expired, lambda{ where("ending_date < ?", Date.today) }
 
   searchable do
-    text :title
-    text :description
+    text :title, :as => :title_textp
+    text :description, :as => :description_textp
     text :post_type
     text :zip_code
     text :city

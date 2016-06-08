@@ -17,6 +17,9 @@ class PostsController < ApplicationController
       fulltext params[:city] do
         fields(:city)
       end
+      fulltext params[:word] do
+        fields(:title, :description)
+      end
       order_by :created_at, :desc
       with(:ending_date).greater_than(Date.today)
       with(:deleted, false)
