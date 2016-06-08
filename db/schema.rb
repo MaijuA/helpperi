@@ -76,9 +76,9 @@ ActiveRecord::Schema.define(version: 20160606081230) do
     t.boolean  "passport_number"
     t.datetime "deleted_at"
     t.string   "image"
-    t.string   "language"
     t.string   "provider"
     t.string   "uid"
+    t.string   "language"
   end
 
   add_index "users", ["confirmation_token"], name: "index_users_on_confirmation_token", unique: true

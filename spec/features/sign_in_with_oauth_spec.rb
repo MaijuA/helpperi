@@ -9,7 +9,7 @@ describe 'OAuth' do
   it 'should signs in' do
     visit new_user_session_path
 
-    click_link 'Kirjaudu sisään LinkedIn-tunnuksilla'
+    click_link 'Kirjaudu LinkedIn-tunnuksilla'
 
     expect(page).to have_content 'Onnistuneesti valtuutettu käyttäen palvelua'
   end
@@ -25,7 +25,7 @@ describe 'OAuth' do
   it 'redirects to registration edit page if registration not complete and user wants to create new post' do
     visit new_user_session_path
 
-    click_link 'Kirjaudu sisään LinkedIn'
+    click_link 'Kirjaudu LinkedIn'
 
     click_link 'Uusi ilmoitus'
 
