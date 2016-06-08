@@ -36,6 +36,8 @@ class User < ActiveRecord::Base
   }, if: :image_is_set?
 
   has_many :posts, dependent: :destroy
+  has_many :interesteds, dependent: :destroy
+  has_many :tasks, -> {distinct}, through: :interesteds, source: :post
 
   scope :active, -> { where deleted_at:false }
   scope :deleted, -> { where deleted_at:true }

@@ -12,6 +12,8 @@ Rails.application.routes.draw do
 
   resources :posts do
     post 'delete_post'
+    post 'add_interested'
+    post 'deny_interested'
   end
 
   get '/list' => 'admin#list', as: :admin_list

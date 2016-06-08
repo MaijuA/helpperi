@@ -1,4 +1,9 @@
 FactoryGirl.define do
+  factory :interested do
+    post_id "MyString"
+    user_id "MyString"
+    denyed false
+  end
   factory :user do
     id 1
     email { Faker::Internet.email }

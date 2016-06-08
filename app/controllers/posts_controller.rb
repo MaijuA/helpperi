@@ -72,13 +72,38 @@ class PostsController < ApplicationController
 
   def delete_post
     post = Post.find(params[:post_id])
-    if current_user && post.user.id == current_user.id
+    if current_user && post.user.id == current_user.id && !current_user == post.user
       post.update_attribute(:deleted, true)
     end
     if post.deleted
       redirect_to posts_url, notice: 'Ilmoitus on poistettu onnistuneesti.'
     else
       redirect_to post_path(post), notice: 'Ilmoitusta ei voitu poistaa. Ole yhteydessä asiakaspalveluun.'
+    end
+  end
+
+  def add_interested
+    post = Post.find(params[:post_id])
+    if current_user && !post.helpers.include?(current_user) && current_user != post.user
+      inte = Interested.create post_id:post.id, user_id:current_user.id, denyed:false
+    end
+    if inte.save
+      redirect_to :back, notice: 'Sinut on lisätty kiinnostuneeksi.'
+    else
+      redirect_to :back, alert: 'Kiinnostuneeksi ilmoittautuminen ei onnistunut.'
+    end
+  end
+
+  def deny_interested
+    post = Post.find(params[:post_id])
+    if current_user && current_user == post.user
+      inte = Interested.find_by post_id:post.id, user_id:params[:user_id]
+      inte.update_attribute(:denyed, true)
+    end
+    if inte.save
+      redirect_to :back, notice: 'Kiinnostunut on hylätty onnistuneesti.'
+    else
+      redirect_to :back, alert: 'Kiinnostuneen hylkääminen ei onnistunut.'
     end
   end
 

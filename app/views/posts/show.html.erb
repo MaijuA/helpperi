@@ -2,6 +2,25 @@
   <div class="col-md-6 col-md-offset-3">
     <h1 class="text-center login-title"> <%= @post.title %></h1>
     <div class="account-wall">
+
+      <div class="text-center" >
+      <% if current_user && @post.helpers.include?(current_user) && current_user != @post.user %>
+         <a class='btn btn-warning disabled ' >Olet ilmoittaunut kiinnostuneeksi</a>
+      <% elsif current_user && current_user.valid? && current_user != @post.user %>
+          <%= link_to('Ilmoittaudu kiinnostuneeksi', post_add_interested_path(@post.id), class:"btn btn-info", method: :post) %>
+          <%= link_to('Lähetä viesti ilmoittajalle', root_path, class:"btn btn-info") %>
+      <% else %>
+          <% if current_user == @post.user %>
+          <% elsif current_user %>
+            <%= link_to 'Ilmoittaudu kiinnostuneeksi', edit_user_registration_path(current_user, :finishing => 1), class:"btn btn-info" %>
+            <%= link_to 'Lähetä viesti ilmoittajalle', edit_user_registration_path(current_user, :finishing => 1), class:"btn btn-info" %>
+          <% else  %>
+            <%= link_to 'Ilmoittaudu kiinnostuneeksi', new_user_registration_path, class:"btn btn-info" %>
+            <%= link_to 'Lähetä viesti ilmoittajalle', new_user_registration_path, class:"btn btn-info" %>
+      <% end %>
+       <% end %>
+      </div>
+
       <%= form_for(@post, :html => {:class => "lomake"}) do |f| %>
 
           <% if @post.image_is_set? %>
@@ -55,6 +74,43 @@
           <%= link_to('Muokkaa', edit_post_path(@post), class:"btn btn-info") if @post.user == current_user %>
           <%= link_to("Poista", post_delete_post_path(@post.id), class:"btn btn-danger", data:
               { confirm: 'Haluatko varmasti poistaa ilmoituksen?' }, method: :post) if @post.user == current_user %><br><br>
+      <% end %>
+
+      <% if current_user == @post.user %>
+      <h5><b>Kiinnostuneet</b></h5>
+      <table class="table table-striped">
+        <tbody class="form-group">
+        <thead>
+        <tr>
+          <th class="col-md-1"></th>
+          <th class="col-md-2"></th>
+          <th class="col-md-1"></th>
+          <th class="col-md-1"></th>
+          <th class="col-md-1"></th>
+          <th class="col-md-1"></th>
+          <th class="col-md-1">Linkki keskusteluun</th>
+        </tr>
+        </thead>
+        <% @post.helpers.each do |helper| %>
+
+            <tr>
+              <td >
+              <% if helper.image_is_set? %>
+                <%= image_tag helper.image_url(:thumbnail), align: 'left' %>
+              <% end %>
+              </td>
+              <td>
+                <%= link_to helper.first_name, user_path(helper) %>
+              </td>
+              <td>[tähdet]</td>
+              <td>Hyväksy</td>
+              <td><%= link_to('Hylkää', post_deny_interested_path(@post.id, user_id: helper.id), class:"btn btn-warning", method: :post) %></td>
+              <td>Lähetä viesti</td>
+              <td>Linkki keskusteluun</td>
+            </tr>
+        <% end %>
+        </tbody>
+      </table>
       <% end %>
     </div>
   </div>
