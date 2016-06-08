@@ -94,7 +94,7 @@ class User < ActiveRecord::Base
       user = find_by(email: auth.info.email)
       user.update_attribute(:provider, auth.provider)
       user.update_attribute(:uid, auth.uid)
-      user.update_attribute(:image, auth.info.image)
+      user.update_attribute(:remote_image_url, auth.info.image)
       user
     else
       if where(provider: auth.provider, uid: auth.uid).first.nil?
@@ -103,7 +103,7 @@ class User < ActiveRecord::Base
                         first_name:auth.info.first_name.present? ? auth.info.first_name : '',
                         last_name:auth.info.last_name.present? ? auth.info.last_name : '',
                         email: auth.info.email.present? ? auth.info.email : 'vaihda@minut.com',
-                        image:auth.info.image,
+                        remote_image_url: auth.info.image,
                         password:Devise.friendly_token[0,20]
         user.save!
         user
