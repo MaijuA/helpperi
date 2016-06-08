@@ -107,6 +107,21 @@ class PostsController < ApplicationController
     end
   end
 
+  def accept_interested
+    post = Post.find(params[:post_id])
+    if current_user && current_user == post.user
+      Interested.where(post_id:post.id).each do |i|
+        i.update_attribute(:denyed, true)
+      end
+      post.update_attribute(:doer_id, params[:user_id])
+    end
+    unless post.doer_id.nil?
+      redirect_to :back, notice: 'Kiinnostunut on hyväksytty onnistuneesti.'
+    else
+      redirect_to :back, alert: 'Kiinnostuneen hyväksyminen ei onnistunut.'
+    end
+  end
+
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_post

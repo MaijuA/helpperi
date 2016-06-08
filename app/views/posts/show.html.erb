@@ -11,6 +11,7 @@
           <%= link_to('Lähetä viesti ilmoittajalle', root_path, class:"btn btn-info") %>
       <% else %>
           <% if current_user == @post.user %>
+            <%= link_to 'Ilmoituksen tekijä', user_path(@post.doer_id) unless @post.doer_id.nil? %>
           <% elsif current_user %>
             <%= link_to 'Ilmoittaudu kiinnostuneeksi', edit_user_registration_path(current_user, :finishing => 1), class:"btn btn-info" %>
             <%= link_to 'Lähetä viesti ilmoittajalle', edit_user_registration_path(current_user, :finishing => 1), class:"btn btn-info" %>
@@ -103,8 +104,10 @@
                 <%= link_to helper.first_name, user_path(helper) %>
               </td>
               <td>[tähdet]</td>
-              <td>Hyväksy</td>
-              <td><%= link_to('Hylkää', post_deny_interested_path(@post.id, user_id: helper.id), class:"btn btn-warning", method: :post) %></td>
+              <td><%= link_to('Hyväksy', post_accept_interested_path(@post.id, user_id: helper.id), class:"btn btn-warning", data:
+                  { confirm: 'Haluatko varmasti hyväksyä käyttäjän?' }, method: :post) %></td>
+              <td><%= link_to('Hylkää', post_deny_interested_path(@post.id, user_id: helper.id), class:"btn btn-danger", data:
+                  { confirm: 'Haluatko varmasti hylätä käyttäjän?' }, method: :post) %></td>
               <td>Lähetä viesti</td>
               <td>Linkki keskusteluun</td>
             </tr>
