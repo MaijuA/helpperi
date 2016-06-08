@@ -95,6 +95,8 @@ ActiveRecord::Schema.define(version: 20160607104625) do
     t.boolean  "passport_number"
     t.datetime "deleted_at"
     t.string   "image"
+    t.string   "provider"
+    t.string   "uid"
     t.string   "language"
   end
 
