@@ -46,8 +46,6 @@ bower.json
 /.idea
 /public/uploads/tmp/*
 
-/config/application.yml
-
 # Ignore application configuration
 /config/application.yml
 
@@ -58,3 +56,6 @@ solr/development
 solr/default/data
 /log/*.log.lck
 solr/pids
+
+/config/local_env.yml
+

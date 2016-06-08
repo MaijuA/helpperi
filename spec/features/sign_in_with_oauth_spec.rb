@@ -1,0 +1,27 @@
+require 'rails_helper'
+
+describe 'OAuth' do
+  before do
+    Rails.application.env_config["devise.mapping"] = Devise.mappings[:user]
+    Rails.application.env_config["omniauth.auth"] = OmniAuth.config.mock_auth[:linkedin]
+  end
+
+  it 'should signs in' do
+    visit new_user_session_path
+
+    click_link 'Kirjaudu sisään LinkedIn'
+
+    expect(page).to have_content 'Onnistuneesti valtuutettu käyttäen palvelua'
+  end
+
+  it 'redirects to registration edit page if registration not complete and user wants to create new post' do
+    visit new_user_session_path
+
+    click_link 'Kirjaudu sisään LinkedIn'
+
+    click_link 'Uusi ilmoitus'
+
+    expect(page).to have_content 'Viimeistele rekisteröitymisesi'
+  end
+
+end

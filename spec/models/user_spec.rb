@@ -1,7 +1,7 @@
 require 'rails_helper'
 
 RSpec.describe User, type: :model do
-  it 'saves the user' do
+  it 'validates the user' do
     user_count = User.count
     user = FactoryGirl.create(:user)
 
@@ -9,8 +9,7 @@ RSpec.describe User, type: :model do
     expect(User.count).to eq(user_count + 1)
   end
 
-  it 'doesn´t save user if email is not valid' do
-    user_count = User.count
+  it 'doesn´t validate user if email is not valid' do
     user = User.create email: 'jkhksajhdka',
                        first_name: 'Matti',
                        last_name: 'Mallikas',
@@ -24,11 +23,9 @@ RSpec.describe User, type: :model do
                        password_confirmation: 'Ihanmitavaan1'
 
     expect(user.valid?).to be(false)
-    expect(User.count).to eq(user_count)
   end
 
-  it 'doesn´t save user if first name is empty' do
-    user_count = User.count
+  it 'doesn´t validate user if first name is empty' do
     user = User.create email: Faker::Internet.email,
                        first_name: '',
                        last_name: 'Mallikas',
@@ -42,11 +39,9 @@ RSpec.describe User, type: :model do
                        password_confirmation: 'Ihanmitavaan1'
 
     expect(user.valid?).to be(false)
-    expect(User.count).to eq(user_count)
   end
 
-  it 'doesn´t save user if last name is empty' do
-    user_count = User.count
+  it 'doesn´t validate user if last name is empty' do
     user = User.create email: Faker::Internet.email,
                        first_name: 'Matti',
                        last_name: '',
@@ -60,11 +55,9 @@ RSpec.describe User, type: :model do
                        password_confirmation: 'Ihanmitavaan1'
 
     expect(user.valid?).to be(false)
-    expect(User.count).to eq(user_count)
   end
 
-  it 'doesn´t save user if address is empty' do
-    user_count = User.count
+  it 'doesn´t validate user if address is empty' do
     user = User.create email: Faker::Internet.email,
                        first_name: 'Matti',
                        last_name: 'Mallikas',
@@ -78,11 +71,9 @@ RSpec.describe User, type: :model do
                        password_confirmation: 'Ihanmitavaan1'
 
     expect(user.valid?).to be(false)
-    expect(User.count).to eq(user_count)
   end
 
-  it 'doesn´t save user if zip code is empty' do
-    user_count = User.count
+  it 'doesn´t validate user if zip code is empty' do
     user = User.create email: Faker::Internet.email,
                        first_name: 'Matti',
                        last_name: 'Mallikas',
@@ -96,11 +87,9 @@ RSpec.describe User, type: :model do
                        password_confirmation: 'Ihanmitavaan1'
 
     expect(user.valid?).to be(false)
-    expect(User.count).to eq(user_count)
   end
 
-  it 'doesn´t save user if city is empty' do
-    user_count = User.count
+  it 'doesn´t validate user if city is empty' do
     user = User.create email: Faker::Internet.email,
                        first_name: 'Matti',
                        last_name: 'Mallikas',
@@ -114,11 +103,9 @@ RSpec.describe User, type: :model do
                        password_confirmation: 'Ihanmitavaan1'
 
     expect(user.valid?).to be(false)
-    expect(User.count).to eq(user_count)
   end
 
-  it 'doesn´t save user if phone number is empty' do
-    user_count = User.count
+  it 'doesn´t validate user if phone number is empty' do
     user = User.create email: Faker::Internet.email,
                        first_name: 'Matti',
                        last_name: 'Mallikas',
@@ -132,11 +119,9 @@ RSpec.describe User, type: :model do
                        password_confirmation: 'Ihanmitavaan1'
 
     expect(user.valid?).to be(false)
-    expect(User.count).to eq(user_count)
   end
 
-  it 'doesn´t save user if phone number is too long' do
-    user_count = User.count
+  it 'doesn´t validate user if phone number is too long' do
     user = User.create email: Faker::Internet.email,
                        first_name: 'Matti',
                        last_name: 'Mallikas',
@@ -150,11 +135,9 @@ RSpec.describe User, type: :model do
                        password_confirmation: 'Ihanmitavaan1'
 
     expect(user.valid?).to be(false)
-    expect(User.count).to eq(user_count)
   end
 
-  it 'doesn´t save user if phone number is too short' do
-    user_count = User.count
+  it 'doesn´t validate user if phone number is too short' do
     user = User.create email: Faker::Internet.email,
                        first_name: 'Matti',
                        last_name: 'Mallikas',
@@ -168,11 +151,9 @@ RSpec.describe User, type: :model do
                        password_confirmation: 'Ihanmitavaan1'
 
     expect(user.valid?).to be(false)
-    expect(User.count).to eq(user_count)
   end
 
-  it 'doesn´t save user if phone number includes letters in wrong places' do
-    user_count = User.count
+  it 'doesn´t validate user if phone number includes letters in wrong places' do
     user = User.create email: Faker::Internet.email,
                        first_name: 'Matti',
                        last_name: 'Mallikas',
@@ -186,11 +167,9 @@ RSpec.describe User, type: :model do
                        password_confirmation: 'Ihanmitavaan1'
 
     expect(user.valid?).to be(false)
-    expect(User.count).to eq(user_count)
   end
 
-  it 'doesn´t save user if s/he is under 15 yeas old' do
-    user_count = User.count
+  it 'doesn´t validate user if s/he is under 15 yeas old' do
     user = User.create email: Faker::Internet.email,
                        first_name: 'Matti',
                        last_name: 'Mallikas',
@@ -204,11 +183,9 @@ RSpec.describe User, type: :model do
                        password_confirmation: 'Ihanmitavaan1'
 
     expect(user.valid?).to be(false)
-    expect(User.count).to eq(user_count)
   end
 
-  it 'doesn´t save user if zip code is too short' do
-    user_count = User.count
+  it 'doesn´t validate user if zip code is too short' do
     user = User.create email: Faker::Internet.email,
                        first_name: 'Matti',
                        last_name: 'Mallikas',
@@ -222,11 +199,9 @@ RSpec.describe User, type: :model do
                        password_confirmation: 'Ihanmitavaan1'
 
     expect(user.valid?).to be(false)
-    expect(User.count).to eq(user_count)
   end
 
-  it 'doesn´t save user if zip code is too long' do
-    user_count = User.count
+  it 'doesn´t validate user if zip code is too long' do
     user = User.create email: Faker::Internet.email,
                        first_name: 'Matti',
                        last_name: 'Mallikas',
@@ -240,11 +215,9 @@ RSpec.describe User, type: :model do
                        password_confirmation: 'Ihanmitavaan1'
 
     expect(user.valid?).to be(false)
-    expect(User.count).to eq(user_count)
   end
 
-  it 'doesn´t save user if zip code includes a letter' do
-    user_count = User.count
+  it 'doesn´t validate user if zip code includes a letter' do
     user = User.create email: Faker::Internet.email,
                        first_name: 'Matti',
                        last_name: 'Mallikas',
@@ -258,11 +231,9 @@ RSpec.describe User, type: :model do
                        password_confirmation: 'Ihanmitavaan1'
 
     expect(user.valid?).to be(false)
-    expect(User.count).to eq(user_count)
   end
 
-  it 'doesn´t save user if zip code includes special character' do
-    user_count = User.count
+  it 'doesn´t validate user if zip code includes special character' do
     user = User.create email: Faker::Internet.email,
                        first_name: 'Matti',
                        last_name: 'Mallikas',
@@ -276,11 +247,9 @@ RSpec.describe User, type: :model do
                        password_confirmation: 'Ihanmitavaan1'
 
     expect(user.valid?).to be(false)
-    expect(User.count).to eq(user_count)
   end
 
-  it 'doesn´t save user if social security number is too short' do
-    user_count = User.count
+  it 'doesn´t validate user if social security number is too short' do
     user = User.create email: Faker::Internet.email,
                        first_name: 'Matti',
                        last_name: 'Mallikas',
@@ -294,11 +263,9 @@ RSpec.describe User, type: :model do
                        password_confirmation: 'Ihanmitavaan1'
 
     expect(user.valid?).to be(false)
-    expect(User.count).to eq(user_count)
   end
 
-  it 'doesn´t save user if social security number is too long' do
-    user_count = User.count
+  it 'doesn´t validate user if social security number is too long' do
     user = User.create email: Faker::Internet.email,
                        first_name: 'Matti',
                        last_name: 'Mallikas',
@@ -312,11 +279,9 @@ RSpec.describe User, type: :model do
                        password_confirmation: 'Ihanmitavaan1'
 
     expect(user.valid?).to be(false)
-    expect(User.count).to eq(user_count)
   end
 
-  it 'doesn´t save user if social security number has wrong check number' do
-    user_count = User.count
+  it 'doesn´t validate user if social security number has wrong check number' do
     user = User.create email: Faker::Internet.email,
                        first_name: 'Matti',
                        last_name: 'Mallikas',
@@ -330,11 +295,9 @@ RSpec.describe User, type: :model do
                        password_confirmation: 'Ihanmitavaan1'
 
     expect(user.valid?).to be(false)
-    expect(User.count).to eq(user_count)
   end
 
-  it 'doesn´t save user if social security number has invalid date' do
-    user_count = User.count
+  it 'doesn´t validate user if social security number has invalid date' do
     user = User.create email: Faker::Internet.email,
                        first_name: 'Matti',
                        last_name: 'Mallikas',
@@ -348,11 +311,9 @@ RSpec.describe User, type: :model do
                        password_confirmation: 'Ihanmitavaan1'
 
     expect(user.valid?).to be(false)
-    expect(User.count).to eq(user_count)
   end
 
-  it 'doesn´t save user if password is on the black list' do
-    user_count = User.count
+  it 'doesn´t validate user if password is on the black list' do
     user = User.create email: Faker::Internet.email,
                        first_name: 'Matti',
                        last_name: 'Mallikas',
@@ -366,11 +327,9 @@ RSpec.describe User, type: :model do
                        password_confirmation: 'password'
 
     expect(user.valid?).to be(false)
-    expect(User.count).to eq(user_count)
   end
 
-  it 'doesn´t save user if password is on the black list' do
-    user_count = User.count
+  it 'doesn´t validate user if password is on the black list' do
     user = User.create email: Faker::Internet.email,
                        first_name: 'Matti',
                        last_name: 'Mallikas',
@@ -384,11 +343,9 @@ RSpec.describe User, type: :model do
                        password_confirmation: 'password'
 
     expect(user.valid?).to be(false)
-    expect(User.count).to eq(user_count)
   end
 
-  it 'doesn´t save user if password is less than 8 characters long' do
-    user_count = User.count
+  it 'doesn´t validate user if password is less than 8 characters long' do
     user = User.create email: Faker::Internet.email,
                        first_name: 'Matti',
                        last_name: 'Mallikas',
@@ -402,12 +359,10 @@ RSpec.describe User, type: :model do
                        password_confirmation: 'passwor'
 
     expect(user.valid?).to be(false)
-    expect(User.count).to eq(user_count)
   end
 
-  it 'doesn´t save user if password is more than 72 characters long' do
+  it 'doesn´t validate user if password is more than 72 characters long' do
     k = 'k'
-    user_count = User.count
     user = User.create email: Faker::Internet.email,
                        first_name: 'Matti',
                        last_name: 'Mallikas',
@@ -421,12 +376,10 @@ RSpec.describe User, type: :model do
                        password_confirmation: k*73
 
     expect(user.valid?).to be(false)
-    expect(User.count).to eq(user_count)
   end
 
-  it 'doesn´t save user if first name more than 50 letters' do
+  it 'doesn´t validate user if first name more than 50 letters' do
     k = 'k'
-    user_count = User.count
     user = User.create email: Faker::Internet.email,
                        first_name: k*51,
                        last_name: 'Mallikas',
@@ -440,12 +393,10 @@ RSpec.describe User, type: :model do
                        password_confirmation: 'ihanmitavaan'
 
     expect(user.valid?).to be(false)
-    expect(User.count).to eq(user_count)
   end
 
-  it 'doesn´t save user if last name more than 50 letters' do
+  it 'doesn´t validate user if last name more than 50 letters' do
     k = 'k'
-    user_count = User.count
     user = User.create email: Faker::Internet.email,
                        first_name: 'Matti',
                        last_name: k*51,
@@ -459,12 +410,10 @@ RSpec.describe User, type: :model do
                        password_confirmation: 'ihanmitavaan'
 
     expect(user.valid?).to be(false)
-    expect(User.count).to eq(user_count)
   end
 
-  it 'doesn´t save user if city more than 50 letters' do
+  it 'doesn´t validate user if city more than 50 letters' do
     k = 'k'
-    user_count = User.count
     user = User.create email: Faker::Internet.email,
                        first_name: 'Matti',
                        last_name: 'Mallikas',
@@ -478,12 +427,10 @@ RSpec.describe User, type: :model do
                        password_confirmation: 'ihanmitavaan'
 
     expect(user.valid?).to be(false)
-    expect(User.count).to eq(user_count)
   end
 
-  it 'doesn´t save user if description more than 2000 letters' do
+  it 'doesn´t validate user if description more than 2000 letters' do
     k = 'k'
-    user_count = User.count
     user = User.create email: Faker::Internet.email,
                        first_name: 'Matti',
                        last_name: 'Mallikas',
@@ -497,12 +444,10 @@ RSpec.describe User, type: :model do
                        password_confirmation: 'ihanmitavaan'
 
     expect(user.valid?).to be(false)
-    expect(User.count).to eq(user_count)
   end
 
-  it 'doesn´t save user if address more than 500 letters' do
+  it 'doesn´t validate user if address more than 500 letters' do
     k = 'k'
-    user_count = User.count
     user = User.create email: Faker::Internet.email,
                        first_name: 'Matti',
                        last_name: 'Mallikas',
@@ -516,11 +461,9 @@ RSpec.describe User, type: :model do
                        password_confirmation: 'ihanmitavaan'
 
     expect(user.valid?).to be(false)
-    expect(User.count).to eq(user_count)
   end
 
-  it 'doesn´t save user if address less than 3 letters' do
-    user_count = User.count
+  it 'doesn´t validate user if address less than 3 letters' do
     user = User.create email: Faker::Internet.email,
                        first_name: 'Matti',
                        last_name: 'Mallikas',
@@ -534,11 +477,9 @@ RSpec.describe User, type: :model do
                        password_confirmation: 'ihanmitavaan'
 
     expect(user.valid?).to be(false)
-    expect(User.count).to eq(user_count)
   end
 
-  it 'doesn´t save user if first name includes a number' do
-    user_count = User.count
+  it 'doesn´t validate user if first name includes a number' do
     user = User.create email: Faker::Internet.email,
                        first_name: 'Matti1',
                        last_name: 'Mallikas',
@@ -552,11 +493,9 @@ RSpec.describe User, type: :model do
                        password_confirmation: 'ihanmitavaan'
 
     expect(user.valid?).to be(false)
-    expect(User.count).to eq(user_count)
   end
 
-  it 'doesn´t save user if last name includes a number' do
-    user_count = User.count
+  it 'doesn´t validate user if last name includes a number' do
     user = User.create email: Faker::Internet.email,
                        first_name: 'Matti',
                        last_name: 'Mallikas1',
@@ -570,11 +509,9 @@ RSpec.describe User, type: :model do
                        password_confirmation: 'ihanmitavaan'
 
     expect(user.valid?).to be(false)
-    expect(User.count).to eq(user_count)
   end
 
-  it 'doesn´t save user if city includes a number' do
-    user_count = User.count
+  it 'doesn´t validate user if city includes a number' do
     user = User.create email: Faker::Internet.email,
                        first_name: 'Matti',
                        last_name: 'Mallikas',
@@ -588,10 +525,9 @@ RSpec.describe User, type: :model do
                        password_confirmation: 'ihanmitavaan'
 
     expect(user.valid?).to be(false)
-    expect(User.count).to eq(user_count)
   end
 
-  it 'saves user if first name includes ääkköset' do
+  it 'validates user if first name includes ääkköset' do
     user_count = User.count
     user = User.create email: Faker::Internet.email,
                        first_name: 'Mätti',
@@ -609,7 +545,7 @@ RSpec.describe User, type: :model do
     expect(User.count).to eq(user_count + 1)
   end
 
-  it 'saves user if first name includes includes å' do
+  it 'validates user if first name includes includes å' do
     user_count = User.count
     user = User.create email: Faker::Internet.email,
                        first_name: 'Måtti',
@@ -627,7 +563,7 @@ RSpec.describe User, type: :model do
     expect(User.count).to eq(user_count + 1)
   end
 
-  it 'saves user if first name includes includes á' do
+  it 'validates user if first name includes includes á' do
     user_count = User.count
     user = User.create email: Faker::Internet.email,
                        first_name: 'Mátti',
@@ -645,7 +581,7 @@ RSpec.describe User, type: :model do
     expect(User.count).to eq(user_count + 1)
   end
 
-  it 'saves user if first name includes includes â' do
+  it 'validates user if first name includes includes â' do
     user_count = User.count
     user = User.create email: Faker::Internet.email,
                        first_name: 'Mätti',

@@ -39,6 +39,9 @@ gem 'phonelib'
 gem 'carrierwave'
 gem 'cloudinary'
 gem 'gon'
+gem 'omniauth-facebook'
+gem 'omniauth-linkedin'
+gem 'omniauth-google-oauth2'
 
 group :development, :test do
   gem 'rspec-rails', '~> 3.0'

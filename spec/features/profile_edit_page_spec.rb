@@ -74,5 +74,4 @@ describe 'Profile edit' do
     expect(page).to have_content 'suomi'
   end
 
-
 end
