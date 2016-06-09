@@ -97,7 +97,6 @@
                     <thead>
                     <tr>
                       <th class="col-md-1"></th>
-                      <th class="col-md-2"></th>
                       <th class="col-md-1"></th>
                       <th class="col-md-1"></th>
                       <th class="col-md-1"></th>
@@ -107,11 +106,6 @@
                     <% @post.helpers.each do |helper| %>
 
                         <tr>
-                          <td >
-                            <% if helper.image_is_set? %>
-                                <%= image_tag helper.image_url(:thumbnail), align: 'left' %>
-                            <% end %>
-                          </td>
                           <td>
                             <%= link_to helper.first_name, user_path(helper) %>
                           </td>
