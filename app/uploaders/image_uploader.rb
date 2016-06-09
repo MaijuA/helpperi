@@ -23,7 +23,7 @@ class ImageUploader < CarrierWave::Uploader::Base
   #   # ActionController::Base.helpers.asset_path("fallback/" + [version_name, "default.png"].compact.join('_'))
   #
   #   "/images/fallback/" + [version_name, "default.png"].compact.join('_')
-    "http://res.cloudinary.com/helpperi/image/upload/c_scale,w_500/v1464593337/unkown_zavdgs.jpg"
+  #  "http://res.cloudinary.com/helpperi/image/upload/c_scale,w_500/v1464593337/unkown_zavdgs.jpg"
   end
 
   # Process files as they are uploaded:
