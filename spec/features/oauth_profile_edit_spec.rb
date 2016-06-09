@@ -8,7 +8,7 @@ describe 'OAuth profile edit page' do
 
   it 'shouldn´t require current password' do
     visit new_user_session_path
-    click_link 'Kirjaudu sisään LinkedIn-tunnuksilla'
+    click_link 'Kirjaudu LinkedIn-tunnuksilla'
     visit edit_user_registration_path
 
     fill_in('Henkilötunnus tai passin numero', with:'010191-123W')
