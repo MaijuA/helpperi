@@ -18,6 +18,7 @@ describe 'Delete Post' do
     expect(post_count).to eq(post_count)
   end
 
+
   it 'won´t delete post if not signed in' do
     visit root_path
     user = FactoryGirl.create(:user)

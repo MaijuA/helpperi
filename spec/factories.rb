@@ -25,6 +25,11 @@ FactoryGirl.define do
       id 2
     end
 
+    factory :user3 do
+      id 3
+      first_name 'Maija'
+    end
+
    end
 
   factory :category do
@@ -59,6 +64,7 @@ FactoryGirl.define do
     radius 3
     price '10'
     deleted false
+    doer_id nil
 
     factory :post2 do
       id 2
@@ -125,6 +131,20 @@ FactoryGirl.define do
 
     factory :post_category3 do
       post_id 3
+    end
+  end
+
+  factory :candidate do
+    post_id 3
+    user_id 2
+
+    factory :candidate2 do
+      post_id 3
+      user_id 3
+    end
+
+    factory :candidate3 do
+      post_id 4
     end
   end
 end

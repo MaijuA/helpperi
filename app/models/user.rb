@@ -36,6 +36,8 @@ class User < ActiveRecord::Base
   }, if: :image_is_set?
 
   has_many :posts, dependent: :destroy
+  has_many :candidates, -> { where denied:false }, dependent: :destroy
+  has_many :tasks, through: :candidates, source: :post
 
   scope :active, -> { where deleted_at:false }
   scope :deleted, -> { where deleted_at:true }
@@ -64,6 +66,10 @@ class User < ActiveRecord::Base
 
   def is_social?
     !provider.nil?
+  end
+
+  def denied_tasks
+    Post.joins(:candidates).where(:candidates => {denied:true})
   end
 
 =begin

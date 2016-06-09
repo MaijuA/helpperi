@@ -21,8 +21,8 @@
                 <span class="category-badge"><%= "#{category.name}" %></span>
             <% end %>
           </p></td>
-
-        <td><%= truncate(post.description, :length => 30) %></td>
+        <td><% if post.helpers.empty? %>Ei kiinnostuneita
+          <% else %><span class="label interest-badge"><%= post.helpers.count %> kiinnostunutta</span><% end %></td>
         <td><% if post.price %>
               <%= post.price %> €
           <% end %>
@@ -30,6 +30,7 @@
       </tr>
   <% end %>
   </tbody>
+
 </table>
 <%= will_paginate @user_posts %>
 <br>

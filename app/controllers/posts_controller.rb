@@ -140,6 +140,46 @@ class PostsController < ApplicationController
     end
   end
 
+  def add_candidate
+    post = Post.find(params[:post_id])
+    if current_user && !post.helpers.include?(current_user) && current_user != post.user
+      candi = Candidate.create post_id:post.id, user_id:current_user.id, denied:false
+    end
+    if candi.save
+      redirect_to :back, notice: 'Sinut on lisätty kiinnostuneeksi.'
+    else
+      redirect_to :back, alert: 'Kiinnostuneeksi ilmoittautuminen ei onnistunut.'
+    end
+  end
+
+  def deny_candidate
+    post = Post.find(params[:post_id])
+    if current_user && current_user == post.user
+      candi = Candidate.find_by post_id:post.id, user_id:params[:user_id]
+      candi.update_attribute(:denied, true)
+    end
+    if candi.save
+      redirect_to :back, notice: 'Kiinnostunut on hylätty onnistuneesti.'
+    else
+      redirect_to :back, alert: 'Kiinnostuneen hylkääminen ei onnistunut.'
+    end
+  end
+
+  def accept_candidate
+    post = Post.find(params[:post_id])
+    if current_user && current_user == post.user
+      post.accepted_candidates.each do |c|
+        c.update_attribute(:denied, true)
+      end
+      post.update_attribute(:doer_id, params[:user_id])
+    end
+    if !post.doer_id.nil?
+      redirect_to :back, notice: 'Kiinnostunut on hyväksytty onnistuneesti.'
+    else
+      redirect_to :back, alert: 'Kiinnostuneen hyväksyminen ei onnistunut.'
+    end
+  end
+
   private
   # Use callbacks to share common setup or constraints between actions.
   def set_post

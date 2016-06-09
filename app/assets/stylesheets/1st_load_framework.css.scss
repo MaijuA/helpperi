@@ -176,6 +176,7 @@ footer p {
   white-space: nowrap;
 }
 
+<<<<<<< HEAD
 .Row
 {
   display: table;
@@ -186,3 +187,19 @@ footer p {
   display: table-cell;
 }
 
+=======
+.interest-badge {
+  background-color: #FFBF00;
+  border-radius: 10px;
+  color: #fff;
+  display: inline-block;
+  font-size: 12px;
+  //font-weight: bold;
+  line-height: 1;
+  min-width: 10px;
+  padding: 3px 7px;
+  text-align: center;
+  vertical-align: middle;
+  white-space: nowrap;
+}
+>>>>>>> origin/master
