@@ -4,8 +4,8 @@ class Post < ActiveRecord::Base
   has_many :categories, -> {distinct}, through: :post_categories
   has_many :accepted_candidates, -> { where denied: false }, class_name: 'Candidate'
   has_many :denied_candidates, -> { where denied: true }, class_name: 'Candidate'
-  has_many :helpers, -> {distinct}, through: :accepted_candidates, source: :user
-  has_many :denied_helpers, -> {distinct}, through: :denied_candidates, source: :user
+  has_many :helpers, through: :accepted_candidates, source: :user
+  has_many :denied_helpers, through: :denied_candidates, source: :user
 
   mount_uploader :image, ImageUploader
 
