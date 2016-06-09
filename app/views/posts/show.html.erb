@@ -60,7 +60,7 @@
 
           <% if current_user && @post.doer_id == current_user.id && current_user != @post.user %>
              <a class='btn btn-warning disabled ' >Olet sitoutunut tähän ilmoitukseen.</a>
-          <% elsif current_user && @post.helpers.include?(current_user) && current_user != @post.user %>
+          <% elsif current_user && @post.helpers.include?(current_user) && current_user.id != @post.user.id %>
               <a class='btn btn-warning disabled ' >Olet ilmoittaunut kiinnostuneeksi</a>
           <% elsif current_user && @post.denied_helpers.include?(current_user) && current_user != @post.user %>
              <a class='btn btn-danger disabled ' >Ilmoittaja ei ole hyväksynyt sinua tällä kertaa.</a>
@@ -68,7 +68,7 @@
               <%= link_to('Ilmoittaudu kiinnostuneeksi', post_add_candidate_path(@post.id), class:"btn btn-success", method: :post) %>
               <%= link_to('Lähetä viesti ilmoittajalle', root_path, class:"btn btn-info") %>
           <% else %>
-              <% if current_user == @post.user %>
+              <% if current_user && current_user.id == @post.user.id %>
                   <%= link_to 'Ilmoituksen tekijä', user_path(@post.doer_id) unless @post.doer_id.nil? %>
               <% elsif current_user %>
                   <%= link_to 'Ilmoittaudu kiinnostuneeksi', edit_user_registration_path(current_user, :finishing => 1), class:"btn btn-success" %>
