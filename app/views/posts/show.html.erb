@@ -3,7 +3,6 @@
     <h1 class="text-center login-title"> <%= @post.title %></h1>
     <div class="account-wall">
 
-
       <%= form_for(@post, :html => {:class => "lomake"}) do |f| %>
 
           <% if @post.image_is_set? %>
