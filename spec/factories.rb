@@ -1,9 +1,4 @@
 FactoryGirl.define do
-  factory :interested do
-    post_id "MyString"
-    user_id "MyString"
-    denyed false
-  end
   factory :user do
     id 1
     email { Faker::Internet.email }
@@ -28,6 +23,11 @@ FactoryGirl.define do
 
     factory :user2 do
       id 2
+    end
+
+    factory :user3 do
+      id 3
+      first_name 'Maija'
     end
 
    end
@@ -64,6 +64,7 @@ FactoryGirl.define do
     radius 3
     price '10'
     deleted false
+    doer_id nil
 
     factory :post2 do
       id 2
@@ -130,6 +131,20 @@ FactoryGirl.define do
 
     factory :post_category3 do
       post_id 3
+    end
+  end
+
+  factory :interested do
+    post_id 3
+    user_id 2
+
+    factory :interested2 do
+      post_id 3
+      user_id 3
+    end
+
+    factory :interested3 do
+      post_id 4
     end
   end
 end
