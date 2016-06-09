@@ -21,6 +21,13 @@ ActiveRecord::Schema.define(version: 20160608122830) do
     t.datetime "updated_at",  null: false
   end
 
+  create_table "conversations", force: :cascade do |t|
+    t.integer  "sender_id"
+    t.integer  "recipient_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
   create_table "interesteds", force: :cascade do |t|
     t.string   "post_id"
     t.string   "user_id"
@@ -28,6 +35,18 @@ ActiveRecord::Schema.define(version: 20160608122830) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
+
+  create_table "messages", force: :cascade do |t|
+    t.text     "body"
+    t.integer  "conversation_id"
+    t.integer  "user_id"
+    t.boolean  "read",            default: false
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "messages", ["conversation_id"], name: "index_messages_on_conversation_id"
+  add_index "messages", ["user_id"], name: "index_messages_on_user_id"
 
   create_table "post_categories", force: :cascade do |t|
     t.integer  "post_id"
