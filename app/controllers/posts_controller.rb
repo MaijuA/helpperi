@@ -72,7 +72,7 @@ class PostsController < ApplicationController
 
   def delete_post
     post = Post.find(params[:post_id])
-    if current_user && post.user.id == current_user.id && !current_user == post.user
+    if current_user && post.user.id == current_user.id
       post.update_attribute(:deleted, true)
     end
     if post.deleted

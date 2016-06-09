@@ -5,7 +5,6 @@ Warden.test_mode!
 
 describe 'Delete Post' do
 
-=begin
   it 'soft-deletes post' do
     user = FactoryGirl.create(:user)
     login_as(user)
@@ -15,10 +14,10 @@ describe 'Delete Post' do
     rack_test_session_wrapper.submit :post, post_delete_post_path(post.id), nil
 
 
-   # expect(page).to have_content 'Ilmoitus on poistettu onnistuneesti.'
-   # expect(post_count).to eq(post_count)
+    expect(page).to have_content 'Ilmoitus on poistettu onnistuneesti.'
+    expect(post_count).to eq(post_count)
   end
-=end
+
 
   it 'won´t delete post if not signed in' do
     visit root_path
