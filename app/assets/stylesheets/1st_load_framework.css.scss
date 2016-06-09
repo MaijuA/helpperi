@@ -176,3 +176,13 @@ footer p {
   white-space: nowrap;
 }
 
+.Row
+{
+  display: table;
+  border-spacing: 10px; /*Optional*/
+}
+.Column
+{
+  display: table-cell;
+}
+

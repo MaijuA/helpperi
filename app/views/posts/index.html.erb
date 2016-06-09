@@ -1,13 +1,43 @@
 <h1>Ilmoitukset</h1><br>
 
 <%= form_tag search_path do %>
-    Hakusana <%= text_field_tag :word, params[:word] %>
-    Kaupunki <%= text_field_tag :city, params[:city] %>
-    Kategoria <%= select_tag :category_ids, options_for_select(Category.all.collect {|x| [x.name, x.id]}), :multiple => true %>
-    <%= submit_tag "Hae" %>
+
+    <div class="Row">
+      <div class="Column">
+        <%= check_box_tag :post_type_buying_value, 'Osto', params[:post_type_buying] %> Etsitään helpperiä
+      </div>
+      <div class="Column">
+        <%= check_box_tag :post_type_selling_value, 'Myynti', params[:post_type_selling] %> Halutaan helpperiksi
+      </div>
+    </div>
+    <div class="Row">
+      <div class="Column">
+        Hakusana
+        <br>
+        <%= text_field_tag :word, params[:word] %>
+      </div>
+      <div class="Column">
+        Kaupunki
+        <br>
+        <%= text_field_tag :city, params[:city] %>
+      </div>
+      <div class="Column">
+        Postinumero
+        <br>
+        <%= text_field_tag :zip_code, params[:zip_code] %>
+      </div>
+    </div>
+    <div class="Row">
+      Kategoria
+      <br>
+      <%= select_tag :category_ids, options_for_select(Category.all.collect {|x| [x.name, x.id]}, params[:category_ids]), :multiple => true %>
+    </div>
+    <div class="Row">
+      <%= submit_tag "Hae" %>
+    </div>
 <% end %>
 
-</br>
+<br>
 
 <table class="table table-striped">
   <tbody class="form-group">

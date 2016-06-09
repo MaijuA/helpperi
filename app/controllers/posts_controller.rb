@@ -8,7 +8,8 @@ class PostsController < ApplicationController
       with(:deleted, false)
     end
     @posts = @search.results
-
+    params[:post_type_buying] = true
+    params[:post_type_selling] = true
   end
 
 
@@ -20,11 +21,23 @@ class PostsController < ApplicationController
       fulltext params[:word] do
         fields(:title, :description)
       end
+      fulltext params[:zip_code].to_s do
+        fields(:zip_code)
+      end
       with(:category_ids, params[:category_ids]) unless params[:category_ids] == nil
+      types = []
+      types << params[:post_type_buying_value]
+      types << params[:post_type_selling_value]
+      fulltext types do
+        fields(:post_type)
+      end
       order_by :created_at, :desc
       with(:ending_date).greater_than(Date.today)
       with(:deleted, false)
     end
+    params[:post_type_buying] = true if params[:post_type_buying_value]
+    params[:post_type_selling] = true if params[:post_type_selling_value]
+
     @posts = @search.results
 
     render :index
