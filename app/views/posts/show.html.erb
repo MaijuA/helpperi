@@ -56,14 +56,16 @@
           <%= link_to('Muokkaa', edit_post_path(@post), class:"btn btn-info") if @post.user == current_user %>
           <%= link_to("Poista", post_delete_post_path(@post.id), class:"btn btn-danger", data:
               { confirm: 'Haluatko varmasti poistaa ilmoituksen?' }, method: :post) if @post.user == current_user %>
+
+
           <% if current_user && @post.doer_id == current_user.id && current_user != @post.user %>
              <a class='btn btn-warning disabled ' >Olet sitoutunut tähän ilmoitukseen.</a>
           <% elsif current_user && @post.helpers.include?(current_user) && current_user != @post.user %>
               <a class='btn btn-warning disabled ' >Olet ilmoittaunut kiinnostuneeksi</a>
-          <% elsif current_user && @post.denyed_helpers.include?(current_user) && current_user != @post.user %>
+          <% elsif current_user && @post.denied_helpers.include?(current_user) && current_user != @post.user %>
              <a class='btn btn-danger disabled ' >Ilmoittaja ei ole hyväksynyt sinua tällä kertaa.</a>
-          <% elsif current_user && current_user.valid? && current_user != @post.user && !@post.denyed_helpers.include?(current_user) %>
-              <%= link_to('Ilmoittaudu kiinnostuneeksi', post_add_interested_path(@post.id), class:"btn btn-success", method: :post) %>
+          <% elsif current_user && current_user.valid? && current_user != @post.user && !@post.denied_helpers.include?(current_user) %>
+              <%= link_to('Ilmoittaudu kiinnostuneeksi', post_add_candidate_path(@post.id), class:"btn btn-success", method: :post) %>
               <%= link_to('Lähetä viesti ilmoittajalle', root_path, class:"btn btn-info") %>
           <% else %>
               <% if current_user == @post.user %>
@@ -77,7 +79,6 @@
               <% end %>
           <% end %><br><br>
       <% end %>
-
     </div>
   </div>
 </div>
@@ -112,9 +113,9 @@
                             <%= link_to helper.first_name, user_path(helper) %>
                           </td>
                           <td>[tähdet]</td>
-                          <td><%= link_to('Hyväksy', post_accept_interested_path(@post.id, user_id: helper.id), class:"btn btn-warning", data:
+                          <td><%= link_to('Hyväksy', post_accept_candidate_path(@post.id, user_id: helper.id), class:"btn btn-warning", data:
                               { confirm: 'Haluatko varmasti hyväksyä käyttäjän?' }, method: :post) %></td>
-                          <td><%= link_to('Hylkää', post_deny_interested_path(@post.id, user_id: helper.id), class:"btn btn-danger", data:
+                          <td><%= link_to('Hylkää', post_deny_candidate_path(@post.id, user_id: helper.id), class:"btn btn-danger", data:
                               { confirm: 'Haluatko varmasti hylätä käyttäjän?' }, method: :post) %></td>
                           <td>Linkki keskusteluun</td>
                         </tr>

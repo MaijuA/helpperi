@@ -82,40 +82,40 @@ class PostsController < ApplicationController
     end
   end
 
-  def add_interested
+  def add_candidate
     post = Post.find(params[:post_id])
     if current_user && !post.helpers.include?(current_user) && current_user != post.user
-      inte = Interested.create post_id:post.id, user_id:current_user.id, denyed:false
+      candi = Candidate.create post_id:post.id, user_id:current_user.id, denied:false
     end
-    if inte.save
+    if candi.save
       redirect_to :back, notice: 'Sinut on lisätty kiinnostuneeksi.'
     else
       redirect_to :back, alert: 'Kiinnostuneeksi ilmoittautuminen ei onnistunut.'
     end
   end
 
-  def deny_interested
+  def deny_candidate
     post = Post.find(params[:post_id])
     if current_user && current_user == post.user
-      inte = Interested.find_by post_id:post.id, user_id:params[:user_id]
-      inte.update_attribute(:denyed, true)
+      candi = Candidate.find_by post_id:post.id, user_id:params[:user_id]
+      candi.update_attribute(:denied, true)
     end
-    if inte.save
+    if candi.save
       redirect_to :back, notice: 'Kiinnostunut on hylätty onnistuneesti.'
     else
       redirect_to :back, alert: 'Kiinnostuneen hylkääminen ei onnistunut.'
     end
   end
 
-  def accept_interested
+  def accept_candidate
     post = Post.find(params[:post_id])
     if current_user && current_user == post.user
-      Interested.where(post_id:post.id).each do |i|
-        i.update_attribute(:denyed, true)
+      post.accepted_candidates.each do |c|
+        c.update_attribute(:denied, true)
       end
       post.update_attribute(:doer_id, params[:user_id])
     end
-    unless post.doer_id.nil?
+    if !post.doer_id.nil?
       redirect_to :back, notice: 'Kiinnostunut on hyväksytty onnistuneesti.'
     else
       redirect_to :back, alert: 'Kiinnostuneen hyväksyminen ei onnistunut.'

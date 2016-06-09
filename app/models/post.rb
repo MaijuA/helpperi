@@ -2,8 +2,10 @@ class Post < ActiveRecord::Base
   belongs_to :user
   has_many :post_categories
   has_many :categories, -> {distinct}, through: :post_categories
-  has_many :interesteds, -> { where denyed: false }
-  has_many :helpers, -> {distinct}, through: :interesteds, source: :user
+  has_many :accepted_candidates, -> { where denied: false }, class_name: 'Candidate'
+  has_many :denied_candidates, -> { where denied: true }, class_name: 'Candidate'
+  has_many :helpers, -> {distinct}, through: :accepted_candidates, source: :user
+  has_many :denied_helpers, -> {distinct}, through: :denied_candidates, source: :user
 
   mount_uploader :image, ImageUploader
 
@@ -43,10 +45,6 @@ class Post < ActiveRecord::Base
 
   def image_is_set?
     self.image.file != nil
-  end
-
-  def denyed_helpers
-    User.joins(:interesteds).where(:interesteds => {denyed:true})
   end
 
   scope :active, -> { where('deleted IS ? AND doer_id IS NULL', false) }

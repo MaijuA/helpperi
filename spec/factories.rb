@@ -134,16 +134,16 @@ FactoryGirl.define do
     end
   end
 
-  factory :interested do
+  factory :candidate do
     post_id 3
     user_id 2
 
-    factory :interested2 do
+    factory :candidate2 do
       post_id 3
       user_id 3
     end
 
-    factory :interested3 do
+    factory :candidate3 do
       post_id 4
     end
   end

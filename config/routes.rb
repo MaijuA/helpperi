@@ -12,9 +12,9 @@ Rails.application.routes.draw do
 
   resources :posts do
     post 'delete_post'
-    post 'add_interested'
-    post 'deny_interested'
-    post 'accept_interested'
+    post 'add_candidate'
+    post 'deny_candidate'
+    post 'accept_candidate'
   end
 
   get '/list' => 'admin#list', as: :admin_list

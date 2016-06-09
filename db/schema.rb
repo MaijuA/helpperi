@@ -11,7 +11,15 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160608122830) do
+ActiveRecord::Schema.define(version: 20160609120027) do
+
+  create_table "candidates", force: :cascade do |t|
+    t.string   "post_id"
+    t.string   "user_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.boolean  "denied"
+  end
 
   create_table "categories", force: :cascade do |t|
     t.string   "name"
@@ -19,14 +27,6 @@ ActiveRecord::Schema.define(version: 20160608122830) do
     t.string   "description"
     t.datetime "created_at",  null: false
     t.datetime "updated_at",  null: false
-  end
-
-  create_table "interesteds", force: :cascade do |t|
-    t.string   "post_id"
-    t.string   "user_id"
-    t.boolean  "denyed"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
   end
 
   create_table "post_categories", force: :cascade do |t|

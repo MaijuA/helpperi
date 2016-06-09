@@ -1,11 +1,11 @@
 require 'rails_helper'
 
-describe 'Post interested' do
+describe 'Post candidate' do
     let!(:user) { FactoryGirl.create :user }
     let!(:user3) { FactoryGirl.create :user3 }
     let!(:post) { FactoryGirl.create :post_with_category }
 
-  it 'should add user as interested' do
+  it 'should add user as candidate' do
     login_as(user3)
     visit post_path(post)
 
@@ -14,7 +14,7 @@ describe 'Post interested' do
     expect(page).to have_content 'Sinut on lisätty kiinnostuneeksi.'
   end
 
-  it 'should add user as interested and show to user that he is interested' do
+  it 'should add user as candidate and show to user that he is candidate' do
     login_as(user3)
     visit post_path(post)
 
@@ -26,7 +26,7 @@ describe 'Post interested' do
     expect(page).to have_content 'Olet ilmoittaunut kiinnostuneeksi'
   end
 
-  it 'should show interested users to post owner' do
+  it 'should show candidates to post owner' do
     login_as(user3)
     visit post_path(post)
 
@@ -38,7 +38,7 @@ describe 'Post interested' do
     expect(page).to have_content 'Maija'
   end
 
-  it 'post owner can deny interested user and denying shows to user' do
+  it 'post owner can deny user and denying shows to user' do
     login_as(user3)
     visit post_path(post)
 
@@ -48,7 +48,7 @@ describe 'Post interested' do
     visit post_path(post)
 
     click_link 'Hylkää'
-
+    expect(page).to have_content 'Kiinnostunut on hylätty onnistuneesti.'
     expect(page).not_to have_content 'Maija'
 
     login_as(user3)
@@ -58,7 +58,7 @@ describe 'Post interested' do
     expect(page).to have_content 'Ilmoittaja ei ole hyväksynyt sinua tällä kertaa.'
   end
 
-  it 'post owner can accept interested user and it shows to user' do
+  it 'post owner can accept candidate and it shows to user' do
     login_as(user3)
     visit post_path(post)
 
