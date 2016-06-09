@@ -26,10 +26,22 @@ class PostsController < ApplicationController
       end
       with(:category_ids, params[:category_ids]) unless params[:category_ids] == nil
       types = []
-      types << params[:post_type_buying_value]
-      types << params[:post_type_selling_value]
-      fulltext types do
-        fields(:post_type)
+      if params[:post_type_buying_value] && params[:post_type_selling_value]
+        types << params[:post_type_buying_value]
+      else
+        types << params[:post_type_buying_value]
+        types << params[:post_type_selling_value]
+        fulltext types do
+          fields(:post_type)
+        end
+      end
+
+      if params[:min] != '' && params[:max] != ''
+        with(:price, params[:min]..params[:max])
+      elsif params[:min] != ''
+        with(:price).greater_than_or_equal_to(params[:min])
+      elsif params[:max] != ''
+        with(:price).less_than_or_equal_to(params[:max])
       end
       order_by :created_at, :desc
       with(:ending_date).greater_than(Date.today)
@@ -119,13 +131,13 @@ class PostsController < ApplicationController
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_post
-      @post = Post.find(params[:id])
-    end
+  # Use callbacks to share common setup or constraints between actions.
+  def set_post
+    @post = Post.find(params[:id])
+  end
 
-    # Never trust parameters from the scary internet, only allow the white list through.
-    def post_params
-      params.require(:post).permit(:title, :description, :price, :post_type, :ending_date, :address, :zip_code, :city, :radius, :image, :remove_image, :image_cache, category_ids: [])
-    end
+  # Never trust parameters from the scary internet, only allow the white list through.
+  def post_params
+    params.require(:post).permit(:title, :description, :price, :post_type, :ending_date, :address, :zip_code, :city, :radius, :image, :remove_image, :image_cache, category_ids: [])
+  end
 end

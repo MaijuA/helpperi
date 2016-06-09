@@ -28,6 +28,18 @@
       </div>
     </div>
     <div class="Row">
+      <div class="Column">
+        Hinta vähintään
+        <br>
+        <%= number_field_tag :min, params[:min] %>
+      </div>
+      <div class="Column">
+        Hinta enintään
+        <br>
+        <%= number_field_tag :max, params[:max] %>
+      </div>
+    </div>
+    <div class="Row">
       Kategoria
       <br>
       <%= select_tag :category_ids, options_for_select(Category.all.collect {|x| [x.name, x.id]}, params[:category_ids]), :multiple => true %>
