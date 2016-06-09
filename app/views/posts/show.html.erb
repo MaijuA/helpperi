@@ -6,7 +6,9 @@
       <div class="text-center" >
       <% if current_user && @post.helpers.include?(current_user) && current_user != @post.user %>
          <a class='btn btn-warning disabled ' >Olet ilmoittaunut kiinnostuneeksi</a>
-      <% elsif current_user && current_user.valid? && current_user != @post.user %>
+      <% elsif current_user && @post.denyed_helpers.include?(current_user) && current_user != @post.user %>
+         <a class='btn btn-danger disabled ' >Ilmoittaja ei ole hyväksynyt sinua tällä kertaa.</a>
+      <% elsif current_user && current_user.valid? && current_user != @post.user && !@post.denyed_helpers.include?(current_user) %>
           <%= link_to('Ilmoittaudu kiinnostuneeksi', post_add_interested_path(@post.id), class:"btn btn-info", method: :post) %>
           <%= link_to('Lähetä viesti ilmoittajalle', root_path, class:"btn btn-info") %>
       <% else %>

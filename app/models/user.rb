@@ -37,7 +37,8 @@ class User < ActiveRecord::Base
 
   has_many :posts, dependent: :destroy
   has_many :interesteds, dependent: :destroy
-  has_many :tasks, -> {distinct}, through: :interesteds, source: :post
+  has_many :tasks, -> { where denyed:false }, through: :interesteds, source: :post
+  has_many :denyed_tasks, -> { where denyed:true }, through: :interesteds, source: :post
 
   scope :active, -> { where deleted_at:false }
   scope :deleted, -> { where deleted_at:true }
