@@ -10,7 +10,7 @@ Rails.application.routes.draw do
 
   root 'posts#index'
 
-  post 'search', to:'posts#search', as: :search
+  get '/search', to:'posts#search', as: :search
 
   resources :posts do
     post 'delete_post'

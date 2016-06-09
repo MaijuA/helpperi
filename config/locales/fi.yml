@@ -38,6 +38,10 @@ fi:
     errors:
       messages:
         record_invalid: 'Validointi epäonnistui: %{errors}'
+  will_paginate:
+      previous_label: "&#8592; Edellinen"
+      next_label: "Seuraava &#8594;"
+      page_gap: "&hellip;"
   date:
     abbr_day_names:
     - su

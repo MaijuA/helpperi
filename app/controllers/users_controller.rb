@@ -12,7 +12,7 @@ class UsersController < ApplicationController
   # GET /posts.json
   def index
     if current_user
-      @user_posts = current_user.posts.active.valid
+      @user_posts = current_user.posts.active.valid.paginate(:page => params[:page], :per_page => 15)
       @user_expired_posts = current_user.posts.active.expired
     end
   end

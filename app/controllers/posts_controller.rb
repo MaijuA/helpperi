@@ -6,8 +6,10 @@ class PostsController < ApplicationController
       order_by :created_at, :desc
       with(:ending_date).greater_than(Date.today)
       with(:deleted, false)
+      paginate(:page => params[:page], :per_page => 15)
     end
     @posts = @search.results
+    params[:page] = 1
     params[:post_type_buying] = true
     params[:post_type_selling] = true
   end
@@ -46,6 +48,7 @@ class PostsController < ApplicationController
       order_by :created_at, :desc
       with(:ending_date).greater_than(Date.today)
       with(:deleted, false)
+      paginate(:page => params[:page], :per_page => 15)
     end
     params[:post_type_buying] = true if params[:post_type_buying_value]
     params[:post_type_selling] = true if params[:post_type_selling_value]
