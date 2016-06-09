@@ -96,7 +96,6 @@
               <p>Tässä näet ilmoituksestasi kiinnostuneet henkilöt</p>
           <% else %>
                   <table class="table table-striped">
-                    <tbody class="form-group">
                     <thead>
                     <tr>
                       <th class="col-md-1"></th>
@@ -106,12 +105,10 @@
                       <th class="col-md-1"></th>
                     </tr>
                     </thead>
+                    <tbody class="form-group">
                     <% @post.helpers.each do |helper| %>
-
                         <tr>
-                          <td>
-                            <%= link_to helper.first_name, user_path(helper) %>
-                          </td>
+                          <td><%= link_to helper.first_name, user_path(helper) %></td>
                           <td>[tähdet]</td>
                           <td><%= link_to('Hyväksy', post_accept_candidate_path(@post.id, user_id: helper.id), class:"btn btn-warning", data:
                               { confirm: 'Haluatko varmasti hyväksyä käyttäjän?' }, method: :post) %></td>
