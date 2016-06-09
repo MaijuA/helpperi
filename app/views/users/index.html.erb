@@ -10,7 +10,7 @@
   <tr>
     <th class="col-md-2">Kuva</th>
     <th class="col-md-2">Otsikko</th>
-    <th class="col-md-2">Kuvaus</th>
+    <th class="col-md-2">Kiinnostuneet</th>
     <th class="col-md-1">Hinta</th>
   </tr>
   </thead>
@@ -29,8 +29,8 @@
                 <span class="category-badge"><%= "#{category.name}" %></span>
             <% end %>
           </p></td>
-
-        <td><%= truncate(post.description, :length => 30) %></td>
+        <td><% if post.helpers.empty? %>Ei kiinnostuneita
+          <% else %><span class="label interest-badge"><%= post.helpers.count %> kiinnostunutta</span><% end %></td>
         <td><% if post.price %>
               <%= post.price %> €
           <% end %>
@@ -38,6 +38,7 @@
       </tr>
   <% end %>
   </tbody>
+
 </table>
 <br>
 

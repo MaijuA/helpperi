@@ -36,15 +36,15 @@
     </div>
 
     <% content_for(:head) do %>
-        <%= javascript_include_tag 'post.js', 'data-turbolinks-track' => true  %>
+        <%= javascript_include_tag 'post.js', 'data-turbolinks-track' => true %>
     <% end %>
     <div class="form-group">
-      <%= f.label :image%>
+      <%= f.label :image %>
       <%= f.hidden_field :image_cache %>
       <%= f.file_field :image %>
       <% if f.object.image? %>
           <%= f.label :remove_image do %>
-              <%= f.check_box :remove_image%>
+              <%= f.check_box :remove_image %>
               Poista nykyinen kuva
           <% end %>
       <% end %>
@@ -61,7 +61,7 @@
     <div class='form-group'>
       <%= f.label :category %><br>
       <i>(desktop-versiossa pidä ctrl/cmd pohjassa valitaksesi useamman kategorian)</i><br>
-      <%= f.select :category_ids, Category.all.collect {|x| [x.name, x.id]}, {}, :multiple => true %>
+      <%= f.select :category_ids, Category.all.collect { |x| [x.name, x.id] }, {}, :multiple => true %>
     </div>
 
     <br>
@@ -72,18 +72,18 @@
 
     <br>
     <div class='form-group'>
+    </div>
     <div id='label' class=''><%= f.label :description, class: 'control-label' %></div>
     <div id='desc_error' class='hidden'>
       <p>
         Kenttä ei ole tyhjä!
       </p>
     </div>
-    <%= link_to 'Hae kategorian kuvausehdotus', "#" , onclick: "defaultDescription();return false;"%> (Huom. kentän tulee olla tyhjä)
+    <%= link_to 'Hae kategorian kuvausehdotus', "#", onclick: "defaultDescription();return false;" %> (Huom. kentän tulee olla tyhjä)
     <br>
     <i>(max. 2000 merkkiä)</i>
     <br>
-    <div id='description' class='' ><%= f.text_area :description, :rows => '5',class: 'form-control'%></div>
-    </div>
+    <div id='description' class=''><%= f.text_area :description, :rows => '5', class: 'form-control' %></div>
     <br>
 
     <div class='form-group'>
@@ -104,7 +104,8 @@
 
     <div class='field'>
       <%= f.label :radius %><br>
-      <i>(millä säteellä (km) osoitteestasi olet valmis tarjoamaan apuasi? Helpperin etsijä, jätä vain arvoksi nolla)</i><br>
+      <i>(millä säteellä (km) osoitteestasi olet valmis tarjoamaan apuasi? Helpperin etsijä, jätä vain arvoksi
+        nolla)</i><br>
       <%= f.number_field :radius, value: f.object.radius || 0, min: 0 %>
     </div>
 
@@ -117,13 +118,13 @@
 
     <% if @edit %>
         <div class='actions'>
-          <%= f.submit 'Päivitä', class:'btn btn-success' %>
-          <%= link_to 'Peruuta', post_path, class:'btn' %>
+          <%= f.submit 'Päivitä', class: 'btn btn-success' %>
+          <%= link_to 'Peruuta', post_path, class: 'btn' %>
         </div><br>
     <% else %>
         <div class="actions">
-          <%= f.submit 'Luo ilmoitus', class:"btn btn-success" %>
-          <%= link_to "Peruuta", posts_path, class:"btn"%>
+          <%= f.submit 'Luo ilmoitus', class: "btn btn-success" %>
+          <%= link_to "Peruuta", posts_path, class: "btn" %>
         </div>
     <% end %>
 
