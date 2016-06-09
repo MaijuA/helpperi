@@ -12,6 +12,7 @@ class PostsController < ApplicationController
     params[:page] = 1
     params[:post_type_buying] = true
     params[:post_type_selling] = true
+    params[:order] = "Aika"
   end
 
 
@@ -45,10 +46,16 @@ class PostsController < ApplicationController
       elsif params[:max] != ''
         with(:price).less_than_or_equal_to(params[:max])
       end
-      order_by :created_at, :desc
       with(:ending_date).greater_than(Date.today)
       with(:deleted, false)
       paginate(:page => params[:page], :per_page => 15)
+      if params[params[:order]] == "Aika"
+        order_by :created_at, :desc
+        params[:order] = "Aika"
+      else
+        order_by :price, :asc
+        params[:order] = "Hinta"
+      end
     end
     params[:post_type_buying] = true if params[:post_type_buying_value]
     params[:post_type_selling] = true if params[:post_type_selling_value]

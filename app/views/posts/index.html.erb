@@ -1,52 +1,60 @@
+<% content_for(:head) do %>
+    <%= javascript_include_tag 'post.js', 'data-turbolinks-track' => true  %>
+<% end %>
+
 <h1>Ilmoitukset</h1><br>
 
-<%= form_tag search_path, :method => 'get' do%>
+<%= form_tag search_path, id: "search", :method => 'get' do%>
 
     <div class="Row">
       <div class="Column">
-        <%= check_box_tag :post_type_buying_value, 'Osto', params[:post_type_buying] %> Etsitään helpperiä
-      </div>
-      <div class="Column">
-        <%= check_box_tag :post_type_selling_value, 'Myynti', params[:post_type_selling] %> Halutaan helpperiksi
+        <div class="Column">
+          <%= check_box_tag :post_type_buying_value, 'Osto', params[:post_type_buying] %> Etsitään helpperiä
+        </div>
+        <div class="Column">
+          <%= check_box_tag :post_type_selling_value, 'Myynti', params[:post_type_selling] %> Halutaan helpperiksi
+        </div>
+
+        <div class="Row">
+          <div class="Column">
+            Hakusana
+            <br>
+            <%= text_field_tag :word, params[:word] %>
+          </div>
+          <div class="Column">
+            Kaupunki
+            <br>
+            <%= text_field_tag :city, params[:city] %>
+          </div>
+          <div class="Column">
+            Postinumero
+            <br>
+            <%= text_field_tag :zip_code, params[:zip_code] %>
+          </div>
+        </div>
+        <div class="Row">
+          <div class="Column">
+            Hinta vähintään
+            <br>
+            <%= number_field_tag :min, params[:min] %>
+          </div>
+          <div class="Column">
+            Hinta enintään
+            <br>
+            <%= number_field_tag :max, params[:max] %>
+          </div>
+        </div>
+        <div class="Row">
+          Kategoria
+          <br>
+          <%= select_tag :category_ids, options_for_select(Category.all.collect {|x| [x.name, x.id]}, params[:category_ids]), :multiple => true %>
+        </div>
+        <div class="Row">
+          <%= submit_tag "Hae" %>
+        </div>
       </div>
     </div>
-    <div class="Row">
-      <div class="Column">
-        Hakusana
-        <br>
-        <%= text_field_tag :word, params[:word] %>
-      </div>
-      <div class="Column">
-        Kaupunki
-        <br>
-        <%= text_field_tag :city, params[:city] %>
-      </div>
-      <div class="Column">
-        Postinumero
-        <br>
-        <%= text_field_tag :zip_code, params[:zip_code] %>
-      </div>
-    </div>
-    <div class="Row">
-      <div class="Column">
-        Hinta vähintään
-        <br>
-        <%= number_field_tag :min, params[:min] %>
-      </div>
-      <div class="Column">
-        Hinta enintään
-        <br>
-        <%= number_field_tag :max, params[:max] %>
-      </div>
-    </div>
-    <div class="Row">
-      Kategoria
-      <br>
-      <%= select_tag :category_ids, options_for_select(Category.all.collect {|x| [x.name, x.id]}, params[:category_ids]), :multiple => true %>
-    </div>
-    <div class="Row">
-      <%= submit_tag "Hae" %>
-    </div>
+    <div align="right"><%= collection_select(:params, :order, ["Aika", "Hinta"], :to_s, :to_s, {:selected => params[:order]}, { :onchange => "changeOrder();return false;"}) %></div>
 <% end %>
 
 <br>

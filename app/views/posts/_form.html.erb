@@ -1,3 +1,6 @@
+<% content_for(:head) do %>
+    <%= javascript_include_tag 'post.js', 'data-turbolinks-track' => true  %>
+<% end %>
 <%= form_for(@post, :html => {:class => 'lomake'}) do |f| %>
     <% if @post.errors.any? %>
         <div id='error_explanation'>
@@ -35,9 +38,6 @@
       <%= f.text_field :title, class: 'form-control' %>
     </div>
 
-    <% content_for(:head) do %>
-        <%= javascript_include_tag 'post.js', 'data-turbolinks-track' => true  %>
-    <% end %>
     <div class="form-group">
       <%= f.label :image%>
       <%= f.hidden_field :image_cache %>
