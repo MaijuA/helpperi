@@ -59,11 +59,11 @@
 
 
           <% if current_user && @post.doer_id == current_user.id && current_user != @post.user %>
-             <a class='btn btn-warning disabled ' >Olet sitoutunut tähän ilmoitukseen.</a>
+              <a class='btn btn-warning disabled ' >Olet sitoutunut tähän ilmoitukseen.</a>
           <% elsif current_user && @post.helpers.include?(current_user) && current_user.id != @post.user.id %>
               <a class='btn btn-warning disabled ' >Olet ilmoittaunut kiinnostuneeksi</a>
           <% elsif current_user && @post.denied_helpers.include?(current_user) && current_user != @post.user %>
-             <a class='btn btn-danger disabled ' >Ilmoittaja ei ole hyväksynyt sinua tällä kertaa.</a>
+              <a class='btn btn-danger disabled ' >Ilmoittaja ei ole hyväksynyt sinua tällä kertaa.</a>
           <% elsif current_user && current_user.valid? && current_user != @post.user && !@post.denied_helpers.include?(current_user) %>
               <%= link_to('Ilmoittaudu kiinnostuneeksi', post_add_candidate_path(@post.id), class:"btn btn-success", method: :post) %>
               <%= link_to('Lähetä viesti ilmoittajalle', root_path, class:"btn btn-info") %>
@@ -84,22 +84,20 @@
 </div>
 
 <% if current_user == @post.user %>
-<div class="row">
-  <div class="col-md-6 col-md-offset-3">
-    <h3 class="text-center title">Kiinnostuneet</h3>
-    <div class="account-wall">
+    <div class="row">
+      <div class="col-md-6 col-md-offset-3">
+        <h3 class="text-center title">Kiinnostuneet</h3>
+        <div class="account-wall">
 
 
-      <%= form_for(@post, :html => {:class => "lomake"}) do |f| %>
+          <%= form_for(@post, :html => {:class => "lomake"}) do |f| %>
 
-          <% if @post.helpers.empty? %>
-              <p>Tässä näet ilmoituksestasi kiinnostuneet henkilöt</p>
-          <% else %>
+              <% if @post.helpers.empty? %>
+                  <p>Tässä näet ilmoituksestasi kiinnostuneet henkilöt</p>
+              <% else %>
                   <table class="table table-striped">
                     <thead>
                     <tr>
-                      <th class="col-md-1"></th>
-                      <th class="col-md-1"></th>
                       <th class="col-md-1"></th>
                       <th class="col-md-1"></th>
                       <th class="col-md-1"></th>
@@ -108,20 +106,29 @@
                     <tbody class="form-group">
                     <% @post.helpers.each do |helper| %>
                         <tr>
-                          <td><%= link_to helper.first_name, user_path(helper) %></td>
-                          <td>[tähdet]</td>
-                          <td><%= link_to('Hyväksy', post_accept_candidate_path(@post.id, user_id: helper.id), class:"btn btn-warning", data:
-                              { confirm: 'Haluatko varmasti hyväksyä käyttäjän?' }, method: :post) %></td>
-                          <td><%= link_to('Hylkää', post_deny_candidate_path(@post.id, user_id: helper.id), class:"btn btn-danger", data:
-                              { confirm: 'Haluatko varmasti hylätä käyttäjän?' }, method: :post) %></td>
-                          <td>Linkki keskusteluun</td>
+                          <td><p align="center"><%= link_to helper.first_name, user_path(helper) %></p>
+                            <p align="center">[tähdet]</p></td>
+
+
+
+                          <td><p align="center">
+                            <a href="#" class="btn btn-info btn-xs">
+                              <span class="glyphicon glyphicon-envelope"></span> 0
+                            </a>
+                          </p></td>
+                          <td><p align="center"><%= link_to('Hyväksy', post_accept_candidate_path(@post.id, user_id: helper.id), class:"btn-sm btn-warning", data:
+                              { confirm: 'Haluatko varmasti hyväksyä käyttäjän?' }, method: :post) %></p>
+                            <p align="center"><%= link_to('Hylkää', post_deny_candidate_path(@post.id, user_id: helper.id), class:"btn-sm btn-danger", data:
+                                { confirm: 'Haluatko varmasti hylätä käyttäjän?' }, method: :post) %></p></td>
                         </tr>
                     <% end %>
                     </tbody>
                   </table>
               <% end %>
           <% end %>
-      <% end %>
-    </div>
-  </div>
+<% end %>
 </div>
+</div>
+</div>
+
+

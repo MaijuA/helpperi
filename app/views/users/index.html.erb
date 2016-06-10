@@ -33,7 +33,8 @@
           <% if post.helpers.empty? %>
               Ei kiinnostuneita
           <% else %>
-              <span class="label interest-badge"><%= post.helpers.count %> kiinnostunutta</span>
+              <%= link_to "#{post.helpers.count} kiinnostunutta", post_path(post), class:"label interest-badge"%>
+
           <% end %>
         </td>
         <td><% if post.price %>
