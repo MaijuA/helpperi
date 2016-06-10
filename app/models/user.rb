@@ -20,12 +20,12 @@ class User < ActiveRecord::Base
 
   validates :first_name, :last_name, :city, format: {
       with: /\A\p{L}+((\s|-)\p{L}+){,3}\z/,
-      messages: 'saa sisältää vain kirjaimia sekä väliliviivan tai välin nimien välissä'
+      message: 'saa sisältää vain kirjaimia sekä väliliviivan tai välin nimien välissä'
   }, :on => :update
   validates :phone_number, phone: { possible: true }, :on => :update
   validates :zip_code, format: {
       with: /\A(FI-)?[0-9]{5}\z/,
-      messages: 'ei ole Suomessa kelvollinen'
+      message: 'ei ole Suomessa kelvollinen'
   }, :on => :update
   validates :personal_code, hetu: true, :unless => :passport_number_is_used?, :on => :update
 

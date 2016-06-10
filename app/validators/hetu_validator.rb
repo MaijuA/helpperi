@@ -1,9 +1,9 @@
 class HetuValidator < ActiveModel::EachValidator
   def validate_each(record, attribute, value)
     if !hetu_valid? value
-      record.errors[attribute] << (options[:messages] || "on virheellinen")
+      record.errors[attribute] << (options[:message] || "on virheellinen")
     elsif hetu_too_young? value
-      record.errors[attribute] << (options[:messages] || " - palveluun voivat rekisteröityä vain yli 15 vuotiaat")
+      record.errors[attribute] << (options[:message] || " - palveluun voivat rekisteröityä vain yli 15 vuotiaat")
     end
   end
 
