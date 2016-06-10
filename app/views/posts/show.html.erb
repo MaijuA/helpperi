@@ -24,13 +24,13 @@
           </p>
 
           <p>
-            <%= @post.description %>
-          </p>
-
-          <p>
             <% @post.categories.each do |category| %>
                 <span class="category-badge"><%= "#{category.name}" %></span>
             <% end %>
+          </p>
+
+          <p>
+            <%= @post.description %>
           </p>
 
           <p>
