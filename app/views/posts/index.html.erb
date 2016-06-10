@@ -50,11 +50,16 @@
           <%= select_tag :category_ids, options_for_select(Category.all.collect {|x| [x.name, x.id]}, params[:category_ids]), :multiple => true %>
         </div>
         <div class="Row">
-          <%= submit_tag "Hae" %>
+          <div class="Column">
+            <%= submit_tag "Hae" %>
+          </div>
+          <div class="Column">
+            <%= check_box_tag :remember, true, false %> Muista valintani
+          </div>
         </div>
       </div>
     </div>
-    <div align="right"><%= collection_select(:params, :order, ["Aika", "Hinta"], :to_s, :to_s, {:selected => params[:order]}, { :onchange => "changeOrder();return false;"}) %></div>
+    <div align="right"><%= collection_select(:table, :id, ["Aika", "Hinta"], :to_s, :to_s, {:selected => params[:order]}, { :onchange => "changeOrder();return false;"}) %></div>
 <% end %>
 
 <br>
