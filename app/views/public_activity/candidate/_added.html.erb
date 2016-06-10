@@ -1,0 +1,6 @@
+<% if activity.trackable && activity.owner_id == post_id %>
+    <%= link_to 'Uusia kiinnostuneita', post_path(activity.trackable.post),
+                class:'btn btn-primary btn-sm'%><br>
+<% end %>
+
+<--! <%= render_activities(@activities, locals: {post_id: post.id} ) %> -->

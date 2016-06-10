@@ -11,7 +11,12 @@ class UsersController < ApplicationController
   # GET /posts
   # GET /posts.json
   def index
-    @activities = PublicActivity::Activity.all
+    @user_activities = []
+    PublicActivity::Activity.all.each do |p|
+      if p.key == 'candidate.added' && current_user.posts.active.include?(Post.find(p.owner_id))
+        @user_activities << p
+      end
+    end
     if current_user
       @user_posts = current_user.posts.active.valid
       @user_expired_posts = current_user.posts.active.expired

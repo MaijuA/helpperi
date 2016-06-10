@@ -5,14 +5,13 @@
             class:"btn btn-success") if current_user && !current_user.valid? %>
 <br>
 
-<%= render_activities(@activities) %>
-
 <br><table class="table table-striped">
   <thead>
   <tr>
     <th class="col-md-2">Kuva</th>
     <th class="col-md-2">Otsikko</th>
     <th class="col-md-2">Kiinnostuneet</th>
+    <th class="col-md-2">Viestit</th>
     <th class="col-md-1">Hinta</th>
   </tr>
   </thead>
@@ -36,7 +35,11 @@
               Ei kiinnostuneita
           <% else %>
               <span class="label interest-badge"><%= post.helpers.count %> kiinnostunutta</span>
+              <span class="label interest-badge"><%= @user_activities.count %> kiinnostunutta</span>
           <% end %>
+        </td>
+        <td>
+
         </td>
         <td><% if post.price %>
               <%= post.price %> €
