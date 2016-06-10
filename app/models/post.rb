@@ -18,11 +18,11 @@ class Post < ActiveRecord::Base
 
   validates :city, format: {
       with: /\A\p{L}+((\s|-)\p{L}+){,3}\z/,
-      message: 'saa sisältää vain kirjaimia sekä väliliviivan tai välin nimien välissä'
+      messages: 'saa sisältää vain kirjaimia sekä väliliviivan tai välin nimien välissä'
   }
   validates :zip_code, format: {
       with: /\A(FI-)?[0-9]{5}\z/,
-      message: 'ei ole Suomessa kelvollinen'
+      messages: 'ei ole Suomessa kelvollinen'
   }
 
   validates :ending_date, date_in_future: true
