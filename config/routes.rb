@@ -1,5 +1,9 @@
 Rails.application.routes.draw do
 
+  resources :conversations do
+    resources :messages
+  end
+
   resources :categories
   devise_for :users, :controllers => {:registrations => "registrations",
              :omniauth_callbacks => "omniauth_callbacks" }
