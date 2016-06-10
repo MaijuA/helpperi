@@ -3,6 +3,7 @@ class PostsController < ApplicationController
 
   def index
     @posts = Post.all.valid.active
+    @post_accepted = Post.all.valid.accepted
     @posts_selling = Post.all.active.valid.selling
     @posts_buying = Post.all.active.valid.buying
   end

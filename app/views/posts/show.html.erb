@@ -69,7 +69,7 @@
               <%= link_to('Lähetä viesti ilmoittajalle', root_path, class:"btn btn-info") %>
           <% else %>
               <% if current_user && current_user.id == @post.user.id %>
-                  <%= link_to 'Ilmoituksen tekijä', user_path(@post.doer_id) unless @post.doer_id.nil? %>
+
               <% elsif current_user %>
                   <%= link_to 'Ilmoittaudu kiinnostuneeksi', edit_user_registration_path(current_user, :finishing => 1), class:"btn btn-success" %>
                   <%= link_to 'Lähetä viesti ilmoittajalle', edit_user_registration_path(current_user, :finishing => 1), class:"btn btn-info" %>
@@ -92,8 +92,28 @@
 
           <%= form_for(@post, :html => {:class => "lomake"}) do |f| %>
 
-              <% if @post.helpers.empty? %>
+              <% if @post.helpers.empty? && !@post.performer %>
+
                   <p>Tässä näet ilmoituksestasi kiinnostuneet henkilöt</p>
+              <% elsif @post.performer %>
+                  <table class="table table-striped">
+                    <thead>
+                    <tr>
+                      <th class="col-md-1"></th>
+                      <th class="col-md-1"></th>
+                      <th class="col-md-1"></th>
+                    </tr>
+                    </thead>
+                    <tbody class="form-group">
+                    <tr>
+                      <td><span class="glyphicon glyphicon-ok"></span></td>
+                      <td> <p><%= link_to @post.performer.first_name, user_path(@post.performer) %></p>
+                        <p>[tähdet]</p></td>
+
+                      <td></td>
+                    </tr>
+                    </tbody>
+                    </table>
               <% else %>
                   <table class="table table-striped">
                     <thead>

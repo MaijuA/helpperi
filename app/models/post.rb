@@ -47,7 +47,14 @@ class Post < ActiveRecord::Base
     self.image.file != nil
   end
 
+  def performer
+    unless self.doer_id.nil?
+      User.find self.doer_id
+    end
+  end
+
   scope :active, -> { where(deleted:false).where(doer_id:nil) }
+  scope :accepted, -> { where(deleted:false).where('doer_id NOT NULL') }
   scope :deleted, -> { where deleted:true }
   scope :buying, -> { where post_type:'Osto'}
   scope :selling, -> { where post_type:'Myynti'}
