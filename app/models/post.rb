@@ -4,8 +4,8 @@ class Post < ActiveRecord::Base
   has_many :categories, -> {distinct}, through: :post_categories
   has_many :accepted_candidates, -> { where denied: false }, class_name: 'Candidate'
   has_many :denied_candidates, -> { where denied: true }, class_name: 'Candidate'
-  has_many :helpers, -> {distinct}, through: :accepted_candidates, source: :user
-  has_many :denied_helpers, -> {distinct}, through: :denied_candidates, source: :user
+  has_many :helpers, through: :accepted_candidates, source: :user
+  has_many :denied_helpers, through: :denied_candidates, source: :user
 
   mount_uploader :image, ImageUploader
 
@@ -47,7 +47,7 @@ class Post < ActiveRecord::Base
     self.image.file != nil
   end
 
-  scope :active, -> { where('deleted IS ? AND doer_id IS NULL', false) }
+  scope :active, -> { where(deleted:false).where(doer_id:nil) }
   scope :deleted, -> { where deleted:true }
   scope :buying, -> { where post_type:'Osto'}
   scope :selling, -> { where post_type:'Myynti'}
