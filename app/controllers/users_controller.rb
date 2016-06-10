@@ -11,13 +11,11 @@ class UsersController < ApplicationController
   # GET /posts
   # GET /posts.json
   def index
+    @activities = PublicActivity::Activity.all
     if current_user
       @user_posts = current_user.posts.active.valid
       @user_expired_posts = current_user.posts.active.expired
     end
   end
-
-
-
 
 end

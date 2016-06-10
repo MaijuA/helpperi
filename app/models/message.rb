@@ -1,4 +1,8 @@
 class Message < ActiveRecord::Base
+  include PublicActivity::Model
+  tracked
+  acts_as_readable :on => :created_at
+
   belongs_to :conversations
   belongs_to :user
 

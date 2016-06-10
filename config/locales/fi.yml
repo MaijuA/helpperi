@@ -38,6 +38,15 @@ fi:
     errors:
       messages:
         record_invalid: 'Validointi epäonnistui: %{errors}'
+  activity:
+    candidate:
+      create: 'Uusi kiinnostunut'
+      update: 'Kiinnostuneen status on muuttunut'
+      destroy: 'Kiinnostunut poistettu'
+    message:
+      create: 'Uusi viesti'
+      update: 'Viestiä muokattu'
+      destroy: 'Viesti poistettu'
   date:
     abbr_day_names:
     - su

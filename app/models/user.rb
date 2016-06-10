@@ -1,4 +1,5 @@
 class User < ActiveRecord::Base
+  acts_as_reader
   mount_uploader :image, ImageUploader
 
   devise :confirmable, :database_authenticatable, :registerable,
