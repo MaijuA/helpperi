@@ -37,7 +37,8 @@
               <%= link_to post.helpers.count, post_path(post), class:"label interest-badge" %>
               <% if Candidate.where(post_id:post.id).unread_by(current_user).count > 0 %>
                   <%= link_to post_path(post), class:"label label-primary" do %>
-                    Uusia <%= content_tag :span, Candidate.where(post_id:post.id).unread_by(current_user).count, class: 'badge' %>
+                    Uusia <%= content_tag :span, Candidate.where(post_id:post.id).unread_by(current_user).count,
+                                          class: 'badge', style:"background-color: #C42121;" %>
                   <% end %>
               <% end %>
           <% end %>
