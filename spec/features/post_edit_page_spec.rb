@@ -17,7 +17,7 @@ describe 'Edit post' do
 
     click_button('Päivitä')
 
-    expect(page).to have_content 'kauppareissu2'
+    expect(page).to have_content 'Kauppareissu2'
   end
 
   it 'edits description' do

@@ -5,6 +5,14 @@ class User < ActiveRecord::Base
          :recoverable, :rememberable, :trackable, :validatable, :lockable,
          :omniauthable, :omniauth_providers => Devise.omniauth_providers
 
+  before_save do
+    self.first_name = first_name.to_s.titleize
+    self.last_name = last_name.to_s.titleize
+    self.address = address.to_s.capitalize
+    self.city = city.to_s.capitalize
+    self.personal_code = personal_code.to_s.upcase
+  end
+
   # validates :email, format: {
   #     with: /\A([^@\s]+)@((?:[-a-z0-9]+\.)+[a-z]{2,})\z/i,
   #     message: 'ei ole mahdollinen.'
