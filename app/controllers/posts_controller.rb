@@ -27,6 +27,11 @@ class PostsController < ApplicationController
     params[:post_type_buying] = true if params[:post_type_buying_value]
     params[:post_type_selling] = true if params[:post_type_selling_value]
 
+    @posts = @posts.where('(title LIKE ? OR description LIKE ?)', "%#{params[:word]}%", "%#{params[:word]}%") unless params[:word] == '' || params[:word].length < 3
+
+    @posts = @posts.where('ltrim(rtrim(lower(city))) = ?', params[:city].downcase.strip) unless params[:city] == ''
+    @posts = @posts.where('ltrim(rtrim(lower(zip_code))) = ?', params[:zip_code].downcase.strip) unless params[:zip_code] == ''
+
     if params[:min] != '' && params[:max] != ''
       @posts = @posts.where(:price => params[:min]..params[:max])
     elsif params[:min] != ''
@@ -56,18 +61,9 @@ class PostsController < ApplicationController
     @posts = @posts.paginate(:page => params[:page], :per_page => 15)
 
 
-
-    #   fulltext params[:city] do
-    #     fields(:city)
-    #   end
     #   fulltext params[:word] do
     #     fields(:title, :description)
     #   end
-    #   fulltext params[:zip_code].to_s do
-    #     fields(:zip_code)
-    #   end
-    #   with(:category_ids, params[:category_ids]) unless params[:category_ids] == nil
-
 
     render :index
   end
