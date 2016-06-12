@@ -11,7 +11,7 @@ class PostsController < ApplicationController
   # GET /posts/1.json
   def show
     if current_user
-      Candidate.where(post_id:params[:id]).unread_by(current_user).each do |c|
+      Candidate.where(post_id:params[:id]).each do |c|
         c.mark_as_read! :for => current_user
       end
     end
@@ -91,6 +91,7 @@ class PostsController < ApplicationController
     post = Post.find(params[:post_id])
     if current_user && !post.helpers.include?(current_user) && current_user != post.user
       candi = Candidate.create post_id:post.id, user_id:current_user.id, denied:false
+      candi.mark_as_read! :for => current_user
       candi.create_activity key: 'candidate.added', owner: post, recipient:current_user
     end
     if candi.save
@@ -105,6 +106,7 @@ class PostsController < ApplicationController
     if current_user && current_user == post.user
       candi = Candidate.find_by post_id:post.id, user_id:params[:user_id]
       candi.update_attribute(:denied, true)
+      candi.mark_as_read! :for => current_user
       candi.create_activity key: 'candidate.denied', owner: post, recipient:User.find(params[:user_id])
     end
     if candi.save
@@ -123,6 +125,7 @@ class PostsController < ApplicationController
       end
       post.update_attribute(:doer_id, params[:user_id])
       candi = Candidate.find_by post_id:post.id, user_id:params[:user_id]
+      candi.mark_as_read! :for => current_user
       candi.create_activity key: 'candidate.accepted', owner: post, recipient:User.find(params[:user_id])
     end
     if !post.doer_id.nil?
