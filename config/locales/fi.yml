@@ -26,7 +26,7 @@ fi:
         title: 'Otsikko'
         description: 'Kuvaus'
         category: 'Kategoria'
-        price: 'Hinta'
+        price: 'Palkkio'
         ending_date: 'Ilmoitus sulkeutuu'
         address: 'Osoite'
         zip_code: 'Postinumero'

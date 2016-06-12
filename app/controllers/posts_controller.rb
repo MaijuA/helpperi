@@ -16,6 +16,25 @@ class PostsController < ApplicationController
   def search
     @posts = Post.all.valid.active
 
+    unless params[:post_type_buying_value] && params[:post_type_selling_value]
+      if params[:post_type_buying_value]
+        @posts = @posts.where(:post_type => 'Osto')
+      elsif params[:post_type_selling_value]
+        @posts = @posts.where(:post_type => 'Myynti')
+      end
+    end
+
+    params[:post_type_buying] = true if params[:post_type_buying_value]
+    params[:post_type_selling] = true if params[:post_type_selling_value]
+
+    if params[:min] != '' && params[:max] != ''
+      @posts = @posts.where(:price => params[:min]..params[:max])
+    elsif params[:min] != ''
+      @posts = @posts.where("price >= ?", params[:min])
+    elsif params[:max] != ''
+      @posts = @posts.where("price <= ?", params[:max])
+    end
+
     if params[:table][:id] == "Uusimmat"
       @posts = @posts.order(created_at: :desc)
       params[:order] = "Uusimmat"
@@ -33,7 +52,7 @@ class PostsController < ApplicationController
     @posts = @posts.paginate(:page => params[:page], :per_page => 15)
 
 
-    # @search = Post.search do
+
     #   fulltext params[:city] do
     #     fields(:city)
     #   end
@@ -44,40 +63,7 @@ class PostsController < ApplicationController
     #     fields(:zip_code)
     #   end
     #   with(:category_ids, params[:category_ids]) unless params[:category_ids] == nil
-    #   types = []
-    #   if params[:post_type_buying_value] && params[:post_type_selling_value]
-    #     types << params[:post_type_buying_value]
-    #   else
-    #     types << params[:post_type_buying_value]
-    #     types << params[:post_type_selling_value]
-    #     fulltext types do
-    #       fields(:post_type)
-    #     end
-    #   end
-    #
-    #   if params[:min] != '' && params[:max] != ''
-    #     with(:price, params[:min]..params[:max])
-    #   elsif params[:min] != ''
-    #     with(:price).greater_than_or_equal_to(params[:min])
-    #   elsif params[:max] != ''
-    #     with(:price).less_than_or_equal_to(params[:max])
-    #   end
-    #   with(:ending_date).greater_than(Date.today)
-    #   with(:deleted, false)
-    #   paginate(:page => params[:page], :per_page => 15)
-    #   if params[:table][:id] == "Aika"
-    #     order_by :created_at, :desc
-    #     params[:order] = "Aika"
-    #   else
-    #     order_by :price, :asc
-    #     params[:order] = "Hinta"
-    #   end
-    #   params[:table] = []
-    # end
-    # params[:post_type_buying] = true if params[:post_type_buying_value]
-    # params[:post_type_selling] = true if params[:post_type_selling_value]
-    #
-    # @posts = @search.results
+  
 
     render :index
   end
