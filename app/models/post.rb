@@ -10,9 +10,9 @@ class Post < ActiveRecord::Base
   mount_uploader :image, ImageUploader
 
   before_save do
-    self.title = title.capitalize
-    self.address = address.capitalize
-    self.city = city.capitalize
+    self.title = title.to_s.capitalize
+    self.address = address.to_s.capitalize
+    self.city = city.to_s.capitalize
   end
 
   validates :user_id, :post_type, :zip_code, :city, :price, :ending_date, presence: true

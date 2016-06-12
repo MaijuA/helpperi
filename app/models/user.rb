@@ -6,11 +6,11 @@ class User < ActiveRecord::Base
          :omniauthable, :omniauth_providers => Devise.omniauth_providers
 
   before_save do
-    self.first_name = first_name.titleize
-    self.last_name = last_name.titleize
-    self.address = address.capitalize
-    self.city = city.capitalize
-    self.personal_code = personal_code.upcase unless personal_code.to_s == ''
+    self.first_name = first_name.to_s.titleize
+    self.last_name = last_name.to_s.titleize
+    self.address = address.to_s.capitalize
+    self.city = city.to_s.capitalize
+    self.personal_code = personal_code.to_s.upcase
   end
 
   # validates :email, format: {
