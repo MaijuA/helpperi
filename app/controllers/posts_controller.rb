@@ -10,6 +10,11 @@ class PostsController < ApplicationController
   # GET /posts/1
   # GET /posts/1.json
   def show
+    if current_user
+      Candidate.where(post_id:params[:id]).unread_by(current_user).each do |c|
+        c.mark_as_read! :for => current_user
+      end
+    end
   end
 
   # GET /posts/new
@@ -117,7 +122,7 @@ class PostsController < ApplicationController
         c.create_activity key: 'candidate.denied', owner: post, recipient:User.find(c.user_id)
       end
       post.update_attribute(:doer_id, params[:user_id])
-      candi = Candidate.find(post_id:post.id, user_id:params[:user_id])
+      candi = Candidate.find_by post_id:post.id, user_id:params[:user_id]
       candi.create_activity key: 'candidate.accepted', owner: post, recipient:User.find(params[:user_id])
     end
     if !post.doer_id.nil?

@@ -1,4 +1,5 @@
 class Post < ActiveRecord::Base
+  acts_as_reader
   belongs_to :user
   has_many :post_categories
   has_many :categories, -> {distinct}, through: :post_categories
@@ -45,6 +46,10 @@ class Post < ActiveRecord::Base
 
   def image_is_set?
     self.image.file != nil
+  end
+
+  def new_candidates_count(id)
+    PublicActivity::Activity.where(owner_id: id , key:'candidate.added').count
   end
 
   scope :active, -> { where(deleted:false).where(doer_id:nil) }

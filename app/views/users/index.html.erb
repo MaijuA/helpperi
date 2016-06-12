@@ -10,8 +10,8 @@
   <tr>
     <th class="col-md-2">Kuva</th>
     <th class="col-md-2">Otsikko</th>
-    <th class="col-md-2">Kiinnostuneet</th>
-    <th class="col-md-2">Viestit</th>
+    <th class="col-md-2">Kiinnostuneita</th>
+    <th class="col-md-2">Viestejä</th>
     <th class="col-md-1">Hinta</th>
   </tr>
   </thead>
@@ -34,8 +34,12 @@
           <% if post.helpers.empty? %>
               Ei kiinnostuneita
           <% else %>
-              <span class="label interest-badge"><%= post.helpers.count %> kiinnostunutta</span>
-              <span class="label interest-badge"><%= @user_activities.count %> kiinnostunutta</span>
+              <%= link_to post.helpers.count, post_path(post), class:"label interest-badge" %>
+              <% if Candidate.where(post_id:post.id).unread_by(current_user).count > 0 %>
+                  <%= link_to post_path(post), class:"label label-primary" do %>
+                    Uusia <%= content_tag :span, Candidate.where(post_id:post.id).unread_by(current_user).count, class: 'badge' %>
+                  <% end %>
+              <% end %>
           <% end %>
         </td>
         <td>
