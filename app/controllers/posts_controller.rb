@@ -2,77 +2,92 @@ class PostsController < ApplicationController
   before_action :set_post, only: [:show, :edit, :update]
 
   def index
-    @search = Post.search do
-      order_by :created_at, :desc
-      with(:ending_date).greater_than(Date.today)
-      with(:deleted, false)
-      paginate(:page => params[:page], :per_page => 15)
-    end
-    @posts = @search.results
+    @posts = Post.all.valid.active
+    @posts = @posts.order(created_at: :desc)
+    @posts = @posts.paginate(:page => params[:page], :per_page => 15)
     params[:page] = 1
     params[:post_type_buying] = true
     params[:post_type_selling] = true
-    params[:order] = "Aika"
+    params[:order] = "Uusimmat"
     params[:table] = []
   end
 
 
   def search
-    @search = Post.search do
-      fulltext params[:city] do
-        fields(:city)
-      end
-      fulltext params[:word] do
-        fields(:title, :description)
-      end
-      fulltext params[:zip_code].to_s do
-        fields(:zip_code)
-      end
-      with(:category_ids, params[:category_ids]) unless params[:category_ids] == nil
-      types = []
-      if params[:post_type_buying_value] && params[:post_type_selling_value]
-        types << params[:post_type_buying_value]
-      else
-        types << params[:post_type_buying_value]
-        types << params[:post_type_selling_value]
-        fulltext types do
-          fields(:post_type)
-        end
-      end
+    @posts = Post.all.valid.active
 
-      if params[:min] != '' && params[:max] != ''
-        with(:price, params[:min]..params[:max])
-      elsif params[:min] != ''
-        with(:price).greater_than_or_equal_to(params[:min])
-      elsif params[:max] != ''
-        with(:price).less_than_or_equal_to(params[:max])
-      end
-      with(:ending_date).greater_than(Date.today)
-      with(:deleted, false)
-      paginate(:page => params[:page], :per_page => 15)
-      if params[:table][:id] == "Aika"
-        order_by :created_at, :desc
-        params[:order] = "Aika"
-      else
-        order_by :price, :asc
-        params[:order] = "Hinta"
-      end
-      params[:table] = []
+    if params[:table][:id] == "Uusimmat"
+      @posts = @posts.order(created_at: :desc)
+      params[:order] = "Uusimmat"
+    elsif params[:table][:id] == "Sulkeutumassa"
+      @posts = @posts.order(ending_date: :asc)
+      params[:order] = "Sulkeutumassa"
+    elsif params[:table][:id] == "Pienin palkkio"
+      @posts = @posts.order(price: :asc)
+      params[:order] = "Pienin palkkio"
+    elsif params[:table][:id] == "Suurin palkkio"
+      @posts = @posts.order(price: :desc)
+      params[:order] = "Suurin palkkio"
     end
-    params[:post_type_buying] = true if params[:post_type_buying_value]
-    params[:post_type_selling] = true if params[:post_type_selling_value]
 
-    @posts = @search.results
+    @posts = @posts.paginate(:page => params[:page], :per_page => 15)
+
+
+    # @search = Post.search do
+    #   fulltext params[:city] do
+    #     fields(:city)
+    #   end
+    #   fulltext params[:word] do
+    #     fields(:title, :description)
+    #   end
+    #   fulltext params[:zip_code].to_s do
+    #     fields(:zip_code)
+    #   end
+    #   with(:category_ids, params[:category_ids]) unless params[:category_ids] == nil
+    #   types = []
+    #   if params[:post_type_buying_value] && params[:post_type_selling_value]
+    #     types << params[:post_type_buying_value]
+    #   else
+    #     types << params[:post_type_buying_value]
+    #     types << params[:post_type_selling_value]
+    #     fulltext types do
+    #       fields(:post_type)
+    #     end
+    #   end
+    #
+    #   if params[:min] != '' && params[:max] != ''
+    #     with(:price, params[:min]..params[:max])
+    #   elsif params[:min] != ''
+    #     with(:price).greater_than_or_equal_to(params[:min])
+    #   elsif params[:max] != ''
+    #     with(:price).less_than_or_equal_to(params[:max])
+    #   end
+    #   with(:ending_date).greater_than(Date.today)
+    #   with(:deleted, false)
+    #   paginate(:page => params[:page], :per_page => 15)
+    #   if params[:table][:id] == "Aika"
+    #     order_by :created_at, :desc
+    #     params[:order] = "Aika"
+    #   else
+    #     order_by :price, :asc
+    #     params[:order] = "Hinta"
+    #   end
+    #   params[:table] = []
+    # end
+    # params[:post_type_buying] = true if params[:post_type_buying_value]
+    # params[:post_type_selling] = true if params[:post_type_selling_value]
+    #
+    # @posts = @search.results
 
     render :index
   end
 
-  # GET /posts/1
-  # GET /posts/1.json
+# GET /posts/1
+# GET /posts/1.json
   def show
   end
 
-  # GET /posts/new
+# GET /posts/new
   def new
     @post = Post.new
     @categories = Category.all
@@ -85,7 +100,7 @@ class PostsController < ApplicationController
     gon.descriptions = Hash[Category.all.map {|a| [a.id, a.description]}]
   end
 
-  # GET /posts/1/edit
+# GET /posts/1/edit
   def edit
     @edit = true
     # Kuvaukset editointilomakkeen "Hae kategorian kuvausehdotus" -toiminnallisuutta varten
@@ -96,8 +111,8 @@ class PostsController < ApplicationController
     gon.descriptions = Hash[Category.all.map {|a| [a.id, a.description]}]
   end
 
-  # POST /posts
-  # POST /posts.json
+# POST /posts
+# POST /posts.json
   def create
     if current_user && current_user.valid?
       @post = Post.new(post_params)
@@ -116,8 +131,8 @@ class PostsController < ApplicationController
     end
   end
 
-  # PATCH/PUT /posts/1
-  # PATCH/PUT /posts/1.json
+# PATCH/PUT /posts/1
+# PATCH/PUT /posts/1.json
   def update
     respond_to do |format|
       if @post.update(post_params) and @post.user == current_user
@@ -183,12 +198,12 @@ class PostsController < ApplicationController
   end
 
   private
-  # Use callbacks to share common setup or constraints between actions.
+# Use callbacks to share common setup or constraints between actions.
   def set_post
     @post = Post.find(params[:id])
   end
 
-  # Never trust parameters from the scary internet, only allow the white list through.
+# Never trust parameters from the scary internet, only allow the white list through.
   def post_params
     params.require(:post).permit(:title, :description, :price, :post_type, :ending_date, :address, :zip_code, :city, :radius, :image, :remove_image, :image_cache, category_ids: [])
   end

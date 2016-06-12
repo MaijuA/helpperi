@@ -67,21 +67,6 @@ class Post < ActiveRecord::Base
   scope :valid, lambda{ where("ending_date >= ?", Date.today) }
   scope :expired, lambda{ where("ending_date < ?", Date.today) }
 
-  searchable do
-    text :title
-    text :description
-    text :post_type
-    text :zip_code
-    text :city
-    integer :category_ids, :multiple => true
-    integer :price
-    integer :user_id
-    integer :radius
-    time :created_at
-    time :ending_date
-    boolean :deleted
-  end
-
   def category_to_take_image_from
     if self.categories != nil && self.categories.size == 1
       return categories[0]

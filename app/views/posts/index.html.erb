@@ -59,7 +59,7 @@
         </div>
       </div>
     </div>
-    <div align="right"><%= collection_select(:table, :id, ["Aika", "Hinta"], :to_s, :to_s, {:selected => params[:order]}, { :onchange => "changeOrder();return false;"}) %></div>
+    <div align="right"><%= collection_select(:table, :id, ["Uusimmat", "Sulkeutumassa", "Pienin palkkio", "Suurin palkkio"], :to_s, :to_s, {:selected => params[:order]}, { :onchange => "changeOrder();return false;"}) %></div>
 <% end %>
 
 <br>
@@ -99,5 +99,5 @@
 </table>
 
 <div class="pagination">
-  <%= will_paginate(@search.hits) %>
+  <%= will_paginate @posts %>
 </div>
