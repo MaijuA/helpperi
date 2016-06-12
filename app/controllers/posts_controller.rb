@@ -35,6 +35,10 @@ class PostsController < ApplicationController
       @posts = @posts.where("price <= ?", params[:max])
     end
 
+    if params[:category_ids] != nil
+      @posts = Post.where(:id => PostCategory.where(:category_id => params[:category_ids]).map { |x| x.post_id })
+    end
+
     if params[:table][:id] == "Uusimmat"
       @posts = @posts.order(created_at: :desc)
       params[:order] = "Uusimmat"
@@ -63,7 +67,7 @@ class PostsController < ApplicationController
     #     fields(:zip_code)
     #   end
     #   with(:category_ids, params[:category_ids]) unless params[:category_ids] == nil
-  
+
 
     render :index
   end
