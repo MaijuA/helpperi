@@ -78,6 +78,13 @@
 
         <% end %>
         <td>
+          <% if post.post_type == 'Osto'%>
+              <p>Etsitään helpperiä</p>
+          <% else %>
+              <p>Halutaan helpperiksi</p>
+          <% end %>
+        </td>
+        <td>
           <p><%= link_to truncate(post.title, :length => 30), post %></p>
           <p>
             <% post.categories.each do |category| %>
