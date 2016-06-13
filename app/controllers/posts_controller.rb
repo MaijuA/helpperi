@@ -3,17 +3,77 @@ class PostsController < ApplicationController
 
   def index
     @posts = Post.all.valid.active
-    @post_accepted = Post.all.valid.accepted
-    @posts_selling = Post.all.active.valid.selling
-    @posts_buying = Post.all.active.valid.buying
+    @posts = @posts.order(created_at: :desc)
+    @posts = @posts.paginate(:page => params[:page], :per_page => 15)
+    params[:page] = 1
+    params[:post_type_buying] = true
+    params[:post_type_selling] = true
+    params[:order] = "Uusimmat"
+    params[:table] = []
   end
 
-  # GET /posts/1
-  # GET /posts/1.json
+
+  def search
+    @posts = Post.all.valid.active
+
+    unless params[:post_type_buying_value] && params[:post_type_selling_value]
+      if params[:post_type_buying_value]
+        @posts = @posts.where(:post_type => 'Osto')
+      elsif params[:post_type_selling_value]
+        @posts = @posts.where(:post_type => 'Myynti')
+      end
+    end
+
+    params[:post_type_buying] = true if params[:post_type_buying_value]
+    params[:post_type_selling] = true if params[:post_type_selling_value]
+
+    @posts = @posts.where('(lower(title) LIKE ? OR lower(description) LIKE ?)', "%#{params[:word].downcase.strip}%", "%#{params[:word].downcase.strip}%") unless params[:word] == '' || params[:word].length < 3
+
+    @posts = @posts.where('ltrim(rtrim(lower(city))) = ?', params[:city].downcase.strip) unless params[:city] == ''
+    @posts = @posts.where('ltrim(rtrim(lower(zip_code))) = ?', params[:zip_code].downcase.strip) unless params[:zip_code] == ''
+
+    if params[:min] != '' && params[:max] != ''
+      @posts = @posts.where(:price => params[:min]..params[:max])
+    elsif params[:min] != ''
+      @posts = @posts.where("price >= ?", params[:min])
+    elsif params[:max] != ''
+      @posts = @posts.where("price <= ?", params[:max])
+    end
+
+    if params[:category_ids] != nil
+      @posts = Post.where(:id => PostCategory.where(:category_id => params[:category_ids]).map { |x| x.post_id })
+    end
+
+    if params[:table][:id] == "Uusimmat"
+      @posts = @posts.order(created_at: :desc)
+      params[:order] = "Uusimmat"
+    elsif params[:table][:id] == "Sulkeutumassa"
+      @posts = @posts.order(ending_date: :asc)
+      params[:order] = "Sulkeutumassa"
+    elsif params[:table][:id] == "Pienin palkkio"
+      @posts = @posts.order(price: :asc)
+      params[:order] = "Pienin palkkio"
+    elsif params[:table][:id] == "Suurin palkkio"
+      @posts = @posts.order(price: :desc)
+      params[:order] = "Suurin palkkio"
+    end
+
+    @posts = @posts.paginate(:page => params[:page], :per_page => 15)
+
+
+    #   fulltext params[:word] do
+    #     fields(:title, :description)
+    #   end
+
+    render :index
+  end
+
+# GET /posts/1
+# GET /posts/1.json
   def show
   end
 
-  # GET /posts/new
+# GET /posts/new
   def new
     @post = Post.new
     @categories = Category.all
@@ -26,7 +86,7 @@ class PostsController < ApplicationController
     gon.descriptions = Hash[Category.all.map {|a| [a.id, a.description]}]
   end
 
-  # GET /posts/1/edit
+# GET /posts/1/edit
   def edit
     @edit = true
     # Kuvaukset editointilomakkeen "Hae kategorian kuvausehdotus" -toiminnallisuutta varten
@@ -37,8 +97,8 @@ class PostsController < ApplicationController
     gon.descriptions = Hash[Category.all.map {|a| [a.id, a.description]}]
   end
 
-  # POST /posts
-  # POST /posts.json
+# POST /posts
+# POST /posts.json
   def create
     if current_user && current_user.valid?
       @post = Post.new(post_params)
@@ -57,8 +117,8 @@ class PostsController < ApplicationController
     end
   end
 
-  # PATCH/PUT /posts/1
-  # PATCH/PUT /posts/1.json
+# PATCH/PUT /posts/1
+# PATCH/PUT /posts/1.json
   def update
     respond_to do |format|
       if @post.update(post_params) and @post.user == current_user
@@ -124,13 +184,13 @@ class PostsController < ApplicationController
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_post
-      @post = Post.find(params[:id])
-    end
+# Use callbacks to share common setup or constraints between actions.
+  def set_post
+    @post = Post.find(params[:id])
+  end
 
-    # Never trust parameters from the scary internet, only allow the white list through.
-    def post_params
-      params.require(:post).permit(:title, :description, :price, :post_type, :ending_date, :address, :zip_code, :city, :radius, :image, :remove_image, :image_cache, category_ids: [])
-    end
+# Never trust parameters from the scary internet, only allow the white list through.
+  def post_params
+    params.require(:post).permit(:title, :description, :price, :post_type, :ending_date, :address, :zip_code, :city, :radius, :image, :remove_image, :image_cache, category_ids: [])
+  end
 end

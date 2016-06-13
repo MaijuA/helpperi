@@ -41,7 +41,7 @@ describe 'New post' do
 
     click_button('Luo ilmoitus')
 
-    expect(page).to have_content 'Hinta ei voi olla sisällötön'
+    expect(page).to have_content 'Palkkio ei voi olla sisällötön'
   end
 
   it 'doesn´t add post if price is too high' do
@@ -50,7 +50,7 @@ describe 'New post' do
 
     click_button('Luo ilmoitus')
 
-    expect(page).to have_content 'Hinta täytyy olla pienempi kuin 500'
+    expect(page).to have_content 'Palkkio täytyy olla pienempi kuin 500'
   end
 
   it 'doesn´t add post if description too long' do

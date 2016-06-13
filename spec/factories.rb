@@ -71,6 +71,36 @@ FactoryGirl.define do
       title 'Kaupassa käynti'
     end
 
+    factory :post_search do
+      user_id 1
+      title 'kattejaa'
+      description 'kiva homma'
+      post_type 'Osto'
+      ending_date Date.today + 3.month
+      address 'Kumpulanmäki 1'
+      zip_code '00100'
+      city 'Espoo'
+      radius 3
+      price '5'
+      deleted false
+      doer_id nil
+    end
+
+    factory :post_search2 do
+      user_id 1
+      title 'hehehe'
+      description 'nyt kyllä'
+      post_type 'Myynti'
+      ending_date Date.today + 2.month
+      address 'Kumpulanmäki 1'
+      zip_code 23456
+      city 'Kouvola'
+      radius 3
+      price '0'
+      deleted false
+      doer_id nil
+    end
+
     factory :post_with_category do
       id 3
       transient do

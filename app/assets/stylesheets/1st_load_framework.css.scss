@@ -176,6 +176,18 @@ footer p {
   white-space: nowrap;
 }
 
+
+.Row
+{
+  display: table;
+  border-spacing: 10px; /*Optional*/
+}
+.Column
+{
+  display: table-cell;
+}
+
+
 .interest-badge {
   background-color: #FFBF00;
   border-radius: 10px;

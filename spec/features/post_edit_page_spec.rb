@@ -106,7 +106,7 @@ describe 'Edit post' do
 
     click_button('Päivitä')
 
-    expect(page).to have_content 'Hinta ei voi olla sisällötön'
+    expect(page).to have_content 'Palkkio ei voi olla sisällötön'
   end
 
 end

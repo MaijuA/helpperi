@@ -14,6 +14,8 @@ Rails.application.routes.draw do
 
   root 'posts#index'
 
+  get '/search', to:'posts#search', as: :search
+
   resources :posts do
     post 'delete_post'
     post 'add_candidate'

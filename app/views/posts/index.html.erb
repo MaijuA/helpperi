@@ -1,56 +1,74 @@
+<% content_for(:head) do %>
+    <%= javascript_include_tag 'post.js', 'data-turbolinks-track' => true  %>
+<% end %>
+
 <h1>Ilmoitukset</h1><br>
 
-<h5><b>Etsitään helpperiä</b></h5>
+<%= form_tag search_path, id: "search", :method => 'get' do%>
+
+    <div class="Row">
+      <div class="Column">
+        <div class="Column">
+          <%= check_box_tag :post_type_buying_value, 'Osto', params[:post_type_buying] %> Etsitään helpperiä
+        </div>
+        <div class="Column">
+          <%= check_box_tag :post_type_selling_value, 'Myynti', params[:post_type_selling] %> Halutaan helpperiksi
+        </div>
+
+        <div class="Row">
+          <div class="Column">
+            Hakusana
+            <br>
+            <%= text_field_tag :word, params[:word] %>
+          </div>
+          <div class="Column">
+            Kaupunki
+            <br>
+            <%= text_field_tag :city, params[:city] %>
+          </div>
+          <div class="Column">
+            Postinumero
+            <br>
+            <%= text_field_tag :zip_code, params[:zip_code] %>
+          </div>
+        </div>
+        <div class="Row">
+          <div class="Column">
+            Palkkio vähintään
+            <br>
+            <%= number_field_tag :min, params[:min] %>
+          </div>
+          <div class="Column">
+            Palkkio enintään
+            <br>
+            <%= number_field_tag :max, params[:max] %>
+          </div>
+        </div>
+        <div class="Row">
+          Kategoria
+          <br>
+          <%= select_tag :category_ids, options_for_select(Category.all.collect {|x| [x.name, x.id]}, params[:category_ids]), :multiple => true %>
+        </div>
+        <div class="Row">
+          <div class="Column">
+            <%= submit_tag "Hae" %>
+          </div>
+          <div class="Column">
+            <%= check_box_tag :remember, true, false %> Muista valintani
+          </div>
+        </div>
+      </div>
+    </div>
+    <div align="right"><%= collection_select(:table, :id, ["Uusimmat", "Sulkeutumassa", "Pienin palkkio", "Suurin palkkio"], :to_s, :to_s, {:selected => params[:order]}, { :onchange => "changeOrder();return false;"}) %></div>
+<% end %>
+
+<br>
+
 <table class="table table-striped">
   <tbody class="form-group">
-  <thead>
-  <tr>
-    <th class="col-md-1"></th>
-    <th class="col-md-2"></th>
-    <th class="col-md-1" style=min-width:5em;></th>
-    <th class="col-md-1"></th>
-  </tr>
-  </thead>
-  <% @posts_buying.each do |post| %>
 
-      <tr>
-        <% if post.image_is_set? %>
 
-            <td ><%= image_tag post.image_url(:list), align: 'left' %></td>
-        <% else %>
-            <td ><%= image_tag post.category_to_take_image_from.image_url(:list), align: 'left' %></td>
-
-        <% end %>
-        <td>
-          <p><%= link_to truncate(post.title, :length => 30), post %></p>
-          <p>
-            <% post.categories.each do |category| %>
-                <span class="category-badge"><%= "#{category.name}" %></span>
-            <% end %>
-          </p>
-        </td>
-        <td><% if post.price %>
-              <%= post.price %> €
-          <% end %>
-        </td>
-        <td>[tähdet]</td>
-      </tr>
-  <% end %>
-  </tbody>
-</table>
-
-<h5><b>Halutaan helpperiksi</b></h5>
-<table class="table table-striped">
-  <tbody class="form-group">
-  <thead>
-  <tr>
-    <th class="col-md-1"></th>
-    <th class="col-md-2"></th>
-    <th class="col-md-1" style=min-width:5em;></th>
-    <th class="col-md-1"></th>
-  </tr>
-  </thead>
-  <% @posts_selling.each do |post| %>
+  <% @posts.each do |post| %>
       <tr>
         <% if post.image_is_set? %>
 
@@ -70,6 +88,9 @@
             <% end %>
           </p>
         </td>
+        <td>
+          <%= post.city %>
+        </td>
         <td><% if post.price %>
               <%= post.price %> €
           <% end %>
@@ -79,3 +100,7 @@
   <% end %>
   </tbody>
 </table>
+
+<div class="pagination">
+  <%= will_paginate @posts %>
+</div>
