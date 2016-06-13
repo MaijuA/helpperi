@@ -6,7 +6,7 @@ class CreateMessages < ActiveRecord::Migration
       t.references :user, index: true
       t.boolean :read, :default => false
       t.integer :post_id
-      t.timestamps null: false
+      t.timestamps
     end
   end
 end
