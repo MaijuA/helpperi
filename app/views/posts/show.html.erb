@@ -66,17 +66,14 @@
               <a class='btn btn-danger disabled ' >Ilmoittaja ei ole hyväksynyt sinua tällä kertaa.</a>
           <% elsif current_user && current_user.valid? && current_user != @post.user && !@post.denied_helpers.include?(current_user) %>
               <%= link_to('Ilmoittaudu kiinnostuneeksi', post_add_candidate_path(@post.id), class:"btn btn-success", method: :post) %>
-              <%= link_to 'Lähetä viesti ilmoittajalle', conversations_path(sender_id: current_user.id, recipient_id: @post.user.id), method: 'post', class:"btn btn-info" %>
     <% else %>
               <% if current_user && current_user.id == @post.user.id %>
 
               <% elsif current_user %>
                   <%= link_to 'Ilmoittaudu kiinnostuneeksi', edit_user_registration_path(current_user, :finishing => 1), class:"btn btn-success" %>
-                  <%= link_to 'Lähetä viesti ilmoittajalle', conversations_path(sender_id: current_user.id, recipient_id: @post.user.id), method: 'post', class:"btn btn-info" %>
-              <% else  %>
+                    <% else  %>
                   <%= link_to 'Ilmoittaudu kiinnostuneeksi', new_user_registration_path, class:"btn btn-success" %>
-                  <%= link_to 'Lähetä viesti ilmoittajalle', conversations_path(sender_id: current_user.id, recipient_id: @post.user.id), method: 'post', class:"btn btn-info" %>
-    <% end %>
+                     <% end %>
           <% end %><br><br>
       <% end %>
     </div>
