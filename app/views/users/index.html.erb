@@ -15,7 +15,10 @@
         <% else %>
             <td><%= image_tag post.category_to_take_image_from.image_url(:list), align: 'left' %></td>
         <% end %>
-        <td><%= link_to truncate(post.title, :length => 30), post %>
+        <td><b><%= link_to truncate(post.title, :length => 30), post %></b>
+          <% if post.buyer? %>
+              <p><span class="selling-badge">Helpperi</span></p>
+          <% end %>
           <p>
             <% post.categories.each do |category| %>
                 <span class="category-badge"><%= "#{category.name}" %></span>

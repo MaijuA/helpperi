@@ -25,6 +25,7 @@ describe 'Delete Post' do
     post = FactoryGirl.create(:post_with_category)
     rack_test_session_wrapper = Capybara.current_session.driver
     rack_test_session_wrapper.submit :post, post_delete_post_path(post.id), nil
+    
 
     expect(page).to have_content 'Ilmoitusta ei voitu poistaa. Ole yhteydessä asiakaspalveluun.'
     expect(post.deleted).to be false

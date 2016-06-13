@@ -1,33 +1,36 @@
-<% if @over_ten %>
-    <%= link_to 'Show Previous', '?m=all' %>
-<% end %>
-
-<div class="ui segment">
-  <% @messages.each do |message| %>
-      <% if message.body %>
-          <% user = User.find(message.user_id) %>
-          <div class="item">
-            <div class="content">
-              <div class="header"><strong><%= user.first_name %></strong> <%= message.message_time %></div>
-              <div class="list">
-                <div class="item">
-                  <i class="right triangle icon"></i>
-                  <%= message.body %>
-                </div>
+<div class="row">
+  <div class="col-md-5 col-md-offset-3">
+    <% if @over_ten %>
+        <p>10 uusinta viestiä. (<%= link_to 'Aikaisemmat viestit', '?m=all' %>)</p>
+    <% end %>
+    <% @messages.each do |message| %>
+        <% if message.body && current_user.id == message.user_id %>
+            <% user = User.find(message.user_id) %>
+            <div class="row" style="margin: 10px;">
+              <div class="bubble-left hyphenate">
+                <div class="header"><strong><%= user.first_name %></strong> <%= message.message_time %></div>
+                <%= message.body %>
               </div>
             </div>
-          </div>
-      <% end %>
-  <% end %>
+        <% elsif message.body %>
+            <% user = User.find(message.user_id) %>
+            <div class="row" style="margin: 10px;">
+              <div class="bubble-right hyphenate">
+                <div class="header"><strong><%= user.first_name %></strong> <%= message.message_time %></div>
+                <%= message.body %>
+              </div>
+            </div>
+        <% end %>
+    <% end %>
+
+    <%= form_for [@conversation, @message], html: {class: "lomake"} do |f| %>
+        <div class="form-group">
+          <%= f.text_area :body, class: "form-control" %>
+        </div>
+        <%= f.text_field :user_id, value: current_user.id, type: "hidden" %>
+        <div class="form-group">
+          <%= f.submit "Lähetä vastaus", class: "btn btn-info" %>
+        </div>
+    <% end %>
+  </div>
 </div>
-
-<%= form_for [@conversation, @message], html: {class: "ui reply form"} do |f| %>
-    <div class="field">
-      <%= f.text_area :body, class: "form-control" %>
-    </div>
-    <%= f.text_field :user_id, value: current_user.id, type: "hidden"  %>
-    <div>
-      <%= f.submit "Add Reply", class: "ui blue labeled submit icon button" %>
-    </div>
-
-<% end %>
