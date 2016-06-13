@@ -190,3 +190,77 @@ footer p {
   vertical-align: middle;
   white-space: nowrap;
 }
+
+//vasen
+.bubble-left
+{
+  position: relative;
+  width: 250px;
+  min-height: 60px;
+  padding: 8px 12px;
+  background: #e9ece5;
+  -webkit-border-radius: 5px;
+  -moz-border-radius: 5px;
+  border-radius: 5px;
+  float: left;
+  box-sizing: border-box;
+}
+
+.bubble-left:after
+{
+  content: '';
+  position: absolute;
+  border-style: solid;
+  border-width: 15px 15px 15px 0;
+  border-color: transparent #e9ece5;
+  display: block;
+  width: 0;
+  z-index: 1;
+  margin-top: -15px;
+  left: -15px;
+  top: 30px;
+  clear: both;
+}
+
+//oikea
+.bubble-right
+{
+  position: relative;
+  width: 250px;
+  min-height: 60px;
+  padding: 8px 12px;
+  background: #b3c2bf;
+  -webkit-border-radius: 5px;
+  -moz-border-radius: 5px;
+  border-radius: 5px;
+  float: right;
+  box-sizing: border-box;
+}
+
+.bubble-right:after
+{
+  content: '';
+  position: absolute;
+  border-style: solid;
+  border-width: 15px 0 15px 15px;
+  border-color: transparent #b3c2bf;
+  display: block;
+  width: 0;
+  z-index: 1;
+  margin-top: -15px;
+  right: -15px;
+  top: 30px;
+  clear: both;
+}
+
+.hyphenate {
+  /* Careful, this breaks the word wherever it is without a hyphen */
+  overflow-wrap: break-word;
+  word-wrap: break-word;
+
+  /* Adds a hyphen where the word breaks */
+  -webkit-hyphens: auto;
+  -ms-hyphens: auto;
+  -moz-hyphens: auto;
+  hyphens: auto;
+}
