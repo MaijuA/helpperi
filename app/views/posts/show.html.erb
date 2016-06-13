@@ -63,17 +63,17 @@
           <% elsif current_user && @post.helpers.include?(current_user) && current_user.id != @post.user.id %>
               <a class='btn btn-warning disabled ' >Olet ilmoittaunut kiinnostuneeksi</a>
           <% elsif current_user && @post.denied_helpers.include?(current_user) && current_user != @post.user %>
-              <a class='btn btn-danger disabled ' >Ilmoittaja ei ole hyväksynyt sinua tällä kertaa.</a>
+              <a class='btn btn-danger disabled ' >Ilmoittaja ei ole valinnut sinua tällä kertaa.</a>
           <% elsif current_user && current_user.valid? && current_user != @post.user && !@post.denied_helpers.include?(current_user) %>
               <%= link_to('Ilmoittaudu kiinnostuneeksi', post_add_candidate_path(@post.id), class:"btn btn-success", method: :post) %>
-    <% else %>
-              <% if current_user && current_user.id == @post.user.id %>
+          <% else %>
+            <% if current_user && current_user.id == @post.user.id %>
 
-              <% elsif current_user %>
-                  <%= link_to 'Ilmoittaudu kiinnostuneeksi', edit_user_registration_path(current_user, :finishing => 1), class:"btn btn-success" %>
-                    <% else  %>
-                  <%= link_to 'Ilmoittaudu kiinnostuneeksi', new_user_registration_path, class:"btn btn-success" %>
-                     <% end %>
+            <% elsif current_user %>
+              <%= link_to 'Ilmoittaudu kiinnostuneeksi', edit_user_registration_path(current_user, :finishing => 1), class:"btn btn-success" %>
+            <% else  %>
+              <%= link_to 'Rekisteröidy, jotta voit ilmoittautua kiinnostuneeksi', new_user_registration_path, class:"btn btn-success" %>
+            <% end %>
           <% end %><br><br>
       <% end %>
     </div>
