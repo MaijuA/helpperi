@@ -27,7 +27,7 @@ class PostsController < ApplicationController
     params[:post_type_buying] = true if params[:post_type_buying_value]
     params[:post_type_selling] = true if params[:post_type_selling_value]
 
-    @posts = @posts.where('(title LIKE ? OR description LIKE ?)', "%#{params[:word]}%", "%#{params[:word]}%") unless params[:word] == '' || params[:word].length < 3
+    @posts = @posts.where('(lower(title) LIKE ? OR lower(description) LIKE ?)', "%#{params[:word].downcase.strip}%", "%#{params[:word].downcase.strip}%") unless params[:word] == '' || params[:word].length < 3
 
     @posts = @posts.where('ltrim(rtrim(lower(city))) = ?', params[:city].downcase.strip) unless params[:city] == ''
     @posts = @posts.where('ltrim(rtrim(lower(zip_code))) = ?', params[:zip_code].downcase.strip) unless params[:zip_code] == ''
