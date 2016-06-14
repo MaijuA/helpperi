@@ -79,7 +79,7 @@
         <% end %>
         <td>
           <p><b><%= link_to truncate(post.title, :length => 30), post %></b></p>
-          <% if post.buyer? %>
+          <% if post.seller? %>
               <p><span class="selling-badge">Helpperi</span></p>
           <% end %>
           <p>
