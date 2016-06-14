@@ -73,7 +73,8 @@
                   <%= link_to 'Ilmoittaudu kiinnostuneeksi', edit_user_registration_path(current_user, :finishing => 1), class:"btn btn-success" %>
 
               <% else  %>
-                  <%= link_to 'Täytäthän puuttuvat tiedot profiilistasi, jotta voit ilmoittautua kiinnostuneeksi tai lähettää viestin ilmoittajalle', new_user_registration_path, class:"btn btn-success" %>
+                  <p><i>Täytäthän puuttuvat tiedot profiilistasi, jotta voit ilmoittautua kiinnostuneeksi tai lähettää viestin ilmoittajalle.</i></p>
+                  <%= link_to 'Omat tiedot', new_user_registration_path, class:"btn btn-success" %>
               <% end %>
           <% end %><br><br>
       <% end %>
