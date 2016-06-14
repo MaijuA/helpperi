@@ -138,10 +138,10 @@ describe 'Search method' do
   end
 
   it 'shows posts in ending soonest order' do
-    select "Suurin palkkio", :from => "table_id"
+    select "Sulkeutumassa", :from => "table_id"
     click_button('Hae')
 
-    expect(page.text).to match(/.*Koiran\sulkoilutus.*Kattejaa.*Hehehe.*/)
+    expect(page.text).to match(/.*Koiran\sulkoilutus.*Hehehe.*Kattejaa.*/)
   end
 
 
