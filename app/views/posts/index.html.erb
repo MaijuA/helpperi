@@ -81,14 +81,13 @@
             <% end %>
           </p>
         </td>
-        <td>
-          <%= post.city %>
-        </td>
+
         <td><% if post.price %>
               <%= post.price %> €
           <% end %>
         </td>
-        <td>[tähdet]</td>
+        <td><p>[tähdet]</p>
+        <p><%= post.city %></p></td>
       </tr>
   <% end %>
   <% end %>
