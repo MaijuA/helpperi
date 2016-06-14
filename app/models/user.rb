@@ -13,11 +13,6 @@ class User < ActiveRecord::Base
     self.personal_code = personal_code.to_s.upcase
   end
 
-  # validates :email, format: {
-  #     with: /\A([^@\s]+)@((?:[-a-z0-9]+\.)+[a-z]{2,})\z/i,
-  #     message: 'ei ole mahdollinen.'
-  # }
-  # validates :password, length: { in: 8..72 }, if: :password_required?
   validate :password_black_list, if: :password_required?
   validates :first_name, :last_name, :personal_code, :phone_number, :address, :zip_code,
             :city, presence: true, :on => :update
@@ -79,18 +74,6 @@ class User < ActiveRecord::Base
   def denied_tasks
     Post.joins(:candidates).where(:candidates => {denied:true})
   end
-
-=begin
-  def hetu
-    if passport_number.nil? || passport_number == false
-      if hetu_valid? personal_code
-        errors.add(:personal_code, '- palveluun voivat rekisteröityä vain yli 15 vuotiaat') if hetu_too_young? personal_code
-      else
-        errors.add(:personal_code, 'on virheellinen')
-      end
-    end
-  end
-=end
 
   def password_black_list
     blacklist = []

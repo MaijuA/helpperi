@@ -10,6 +10,31 @@ describe 'Profile edit' do
     login_as(user)
   end
 
+  it 'uploads and deletes image' do
+    visit edit_user_registration_path
+    page.attach_file('user_image', Rails.root + 'spec/fixtures/mikki.png')
+    fill_in('Etunimi', with:'Pekka')
+    fill_in('Sukunimi', with:'Pekkanen')
+    fill_in('Nykyinen salasana', with:'ihanmitavaan')
+
+    click_button('Päivitä')
+
+    expect(page.html).to include 'cloudinary.com'
+    #page.html.should include('cloudinary.com')
+    expect(page).not_to have_content 'esti käyttäjän tallentamisen'
+
+    # Let's delete that image also
+    visit edit_user_registration_path
+    check('user_remove_image')
+    fill_in('Nykyinen salasana', with:'ihanmitavaan')
+
+    click_button('Päivitä')
+
+    expect(page.html).not_to include 'cloudinary.com'
+    #page.html.should_not include('cloudinary.com')
+    expect(page).not_to have_content 'esti käyttäjän tallentamisen'
+  end
+
   it 'edits name' do
     visit edit_user_registration_path
     fill_in('Etunimi', with:'Pekka')
@@ -19,6 +44,7 @@ describe 'Profile edit' do
     click_button('Päivitä')
 
     expect(page).to have_content 'Pekka Pekkanen'
+    expect(page).not_to have_content 'esti käyttäjän tallentamisen'
   end
 
   it 'edits address' do
@@ -31,6 +57,7 @@ describe 'Profile edit' do
     click_button('Päivitä')
 
     expect(page).to have_content 'Siilitie 4 00100 Vantaa'
+    expect(page).not_to have_content 'esti käyttäjän tallentamisen'
   end
 
   it 'edits phone number' do
@@ -41,6 +68,7 @@ describe 'Profile edit' do
     click_button('Päivitä')
 
     expect(page).to have_content '0100001111'
+    expect(page).not_to have_content 'esti käyttäjän tallentamisen'
   end
 
   it 'edits description' do
@@ -51,6 +79,7 @@ describe 'Profile edit' do
     click_button('Päivitä')
 
     expect(page).to have_content 'olen luotettava'
+    expect(page).not_to have_content 'esti käyttäjän tallentamisen'
   end
 
   it 'does not edit password if confirmation is wrong' do
@@ -72,6 +101,7 @@ describe 'Profile edit' do
     click_button('Päivitä')
 
     expect(page).to have_content 'suomi'
+    expect(page).not_to have_content 'esti käyttäjän tallentamisen'
   end
 
 end
