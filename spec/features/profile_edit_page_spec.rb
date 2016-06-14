@@ -44,17 +44,17 @@ describe 'Profile edit' do
     expect(page).to have_content 'Profiilikuva ei ole sallittua tiedostotyyppiä'
   end
 
-  # it 'rejects too big file' do
-  #   visit edit_user_registration_path
-  #   page.attach_file('user_image', Rails.root + 'spec/fixtures/tetris.jpg')
-  #   fill_in('Etunimi', with:'Pekka')
-  #   fill_in('Sukunimi', with:'Pekkanen')
-  #   fill_in('Nykyinen salasana', with:'ihanmitavaan')
-  #
-  #   click_button('Päivitä')
-  #
-  #   expect(page).to have_content 'Profiilikuva ei ole sallittua tiedostotyyppiä'
-  # end
+  it 'rejects too big file' do
+    visit edit_user_registration_path
+    page.attach_file('user_image', Rails.root + 'spec/fixtures/tetris.jpg')
+    fill_in('Etunimi', with:'Pekka')
+    fill_in('Sukunimi', with:'Pekkanen')
+    fill_in('Nykyinen salasana', with:'ihanmitavaan')
+
+    click_button('Päivitä')
+
+    expect(page).to have_content 'Profiilikuva on liian suuri'
+  end
 
   it 'edits name' do
     visit edit_user_registration_path
