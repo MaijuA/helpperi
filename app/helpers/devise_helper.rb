@@ -19,9 +19,11 @@ module DeviseHelper
     html = <<-HTML
        <div id="error_explanation">
          <h2>Sinun täytyy viimeistellä rekisteröitymisesi, jotta voit:</h2>
-          <ul>luoda uusia ilmoituksia</ul>
-          <ul>lähettää viestejä muille käyttäjille</ul>
-          <ul>tarkastella muiden käyttäjien profiileja</ul>
+          <ul>
+            <li>luoda uusia ilmoituksia</li>
+            <li>lähettää viestejä muille käyttäjille</li>
+            <li>tarkastella muiden käyttäjien profiileja</li>
+          <ul>
        </div>
     HTML
     html.html_safe
