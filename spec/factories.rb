@@ -110,6 +110,7 @@ FactoryGirl.define do
 
     factory :post_with_category do
       id 3
+      title 'Koiran ulkoilutus'
       transient do
         category_count 1
       end
