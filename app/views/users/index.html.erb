@@ -5,7 +5,16 @@
             class:"btn btn-success") if current_user && !current_user.valid? %>
 <br>
 
-<br><table class="table table-striped">
+<table class="table table-striped">
+  <thead>
+  <tr>
+    <th class="col-md-2">Kuva</th>
+    <th class="col-md-2">Otsikko</th>
+    <th class="col-md-2">Kiinnostuneita</th>
+    <th class="col-md-2">Viestejä</th>
+    <th class="col-md-1">Hinta</th>
+  </tr>
+  </thead>
 
   <tbody class="form-group">
   <% @user_posts.each do |post| %>
@@ -28,9 +37,16 @@
           <% if post.helpers.empty? %>
               Ei kiinnostuneita
           <% else %>
-              <%= link_to "#{post.helpers.count} kiinnostunutta", post_path(post), class:"label interest-badge"%>
-
+              <%= link_to post.helpers.count, post_path(post), class:"label interest-badge" %>
+              <% if Candidate.where(post_id:post.id).unread_by(current_user).count > 0 %>
+                  <%= link_to post_path(post), class:"label label-primary" do %>
+                    Uusia <%= content_tag :span, Candidate.where(post_id:post.id).unread_by(current_user).count,
+                                          class: 'badge', style:"background-color: #C42121;" %>
+                  <% end %>
+              <% end %>
           <% end %>
+        </td>
+        <td>
         </td>
         <td><% if post.price %>
               <%= post.price %> €
@@ -39,7 +55,59 @@
       </tr>
   <% end %>
   </tbody>
-
 </table>
 <%= will_paginate @user_posts %>
 <br>
+<br>
+<table class="table table-striped">
+  <thead>
+  <tr>
+    <th class="col-md-2">Kuva</th>
+    <th class="col-md-2">Otsikko</th>
+    <th class="col-md-2">Tila</th>
+    <th class="col-md-2">Viestejä</th>
+    <th class="col-md-1">Hinta</th>
+  </tr>
+  </thead>
+
+  <tbody class="form-group">
+  <% current_user.tasks.each do |post| %>
+      <tr>
+        <% if post.image_is_set? %>
+            <td><%= image_tag post.image_url(:list), align: 'left' %></td>
+        <% else %>
+            <td><%= image_tag post.category_to_take_image_from.image_url(:list), align: 'left' %></td>
+        <% end %>
+        <td><%= link_to truncate(post.title, :length => 30), post %>
+          <p>
+            <% post.categories.each do |category| %>
+                <span class="category-badge"><%= "#{category.name}" %></span>
+            <% end %>
+          </p>
+        </td>
+        <td>
+          <% if post.doer_id == current_user.id %>
+            <%= link_to 'Hyväksytty', post_path(post), class:"label label-success" %>
+            <% unless Candidate.where(post_id:post.id).unread_by(current_user).empty? %>
+              <span class="label label-primary">Tila muuttunut</span>
+            <% end %>
+          <% elsif !Candidate.where(post_id:post.id).where(user_id:current_user.id).where(denied:false).empty? %>
+            <%= link_to 'Odottaa hyväksyntää', post_path(post), class:"label interest-badge" %>
+          <% else %>
+            <%= link_to 'Hylätty', post_path(post), class:"label label-danger" %>
+              <% unless Candidate.where(post_id:post.id).unread_by(current_user).empty? %>
+                <span class="label label-primary">Tila muuttunut</span>
+              <% end %>
+          <% end %>
+        </td>
+        <td>
+
+        </td>
+        <td><% if post.price %>
+              <%= post.price %> €
+          <% end %>
+        </td>
+      </tr>
+  <% end %>
+  </tbody>
+</table>
