@@ -43,6 +43,8 @@ gem 'will_paginate'
 gem 'omniauth-facebook'
 gem 'omniauth-linkedin'
 gem 'omniauth-google-oauth2'
+gem 'unread'
+gem 'public_activity'
 
 group :development, :test do
   gem 'rspec-rails', '~> 3.0'

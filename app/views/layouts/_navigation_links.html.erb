@@ -1,7 +1,9 @@
-
 <% if user_signed_in? %>
-    <li><%= link_to 'Omat ilmoitukset', users_path %></li>
-    <li>
+    <li><%= link_to users_path do %>
+          Omat ilmoitukset <%= content_tag :span, Candidate.where(user_id:current_user.id).unread_by(current_user).count + Candidate.where(post_id:Post.where(user_id:current_user.id)).unread_by(current_user).count,
+                                           class: 'badge', style:"background-color: #C42121;" if Candidate.where(user_id:current_user.id).unread_by(current_user).count + Candidate.where(post_id:Post.where(user_id:current_user.id)).unread_by(current_user).count > 0 %>
+      <% end %>
+    </li>
       <%= link_to user_path(current_user) do %>
           <span class="glyphicon glyphicon-user"></span> <%= current_user.first_name %>
       <% end %>
@@ -12,8 +14,6 @@
         <span class="glyphicon glyphicon-envelope"></span> (100)
       <% end %>
     </li>
-
-
     <li><%= link_to 'Kirjaudu ulos', destroy_user_session_path, :method => :delete %></li>
 <% else %>
     <li><%= link_to 'Kirjaudu', user_session_path %></li>

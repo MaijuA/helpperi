@@ -14,40 +14,35 @@
         <div class="Column">
           <%= check_box_tag :post_type_selling_value, 'Myynti', params[:post_type_selling] %> Halutaan helpperiksi
         </div>
-
         <div class="Row">
           <div class="Column">
-            Hakusana
-            <br>
-            <%= text_field_tag :word, params[:word] %>
+            Hakusana<br>
+            <%= text_field_tag :word, params[:word], size: "11" %>
           </div>
           <div class="Column">
-            Kaupunki
-            <br>
-            <%= text_field_tag :city, params[:city] %>
-          </div>
-          <div class="Column">
-            Postinumero
-            <br>
-            <%= text_field_tag :zip_code, params[:zip_code] %>
+            Kategoria<br>
+            <%= select_tag :category_ids, options_for_select(Category.all.collect {|x| [x.name, x.id]}, params[:category_ids]), :multiple => true %>
           </div>
         </div>
         <div class="Row">
           <div class="Column">
-            Palkkio vähintään
-            <br>
-            <%= number_field_tag :min, params[:min] %>
+            Kaupunki<br>
+            <%= text_field_tag :city, params[:city], size: "11" %>
           </div>
           <div class="Column">
-            Palkkio enintään
-            <br>
-            <%= number_field_tag :max, params[:max] %>
+            Postinumero<br>
+            <%= text_field_tag :zip_code, params[:zip_code], size: "8" %>
           </div>
         </div>
         <div class="Row">
-          Kategoria
-          <br>
-          <%= select_tag :category_ids, options_for_select(Category.all.collect {|x| [x.name, x.id]}, params[:category_ids]), :multiple => true %>
+          <div class="Column">
+            Palkkio vähintään<br>
+            <%= number_field_tag :min, params[:min], min: 0, max: 999 %>
+          </div>
+          <div class="Column">
+            Palkkio enintään<br>
+            <%= number_field_tag :max, params[:max], min: 0, max: 999 %>
+          </div>
         </div>
         <div class="Row">
           <div class="Column">
@@ -60,13 +55,10 @@
       </div>
     </div>
     <div align="right"><%= collection_select(:table, :id, ["Uusimmat", "Sulkeutumassa", "Pienin palkkio", "Suurin palkkio"], :to_s, :to_s, {:selected => params[:order]}, { :onchange => "changeOrder();return false;"}) %></div>
-<% end %>
-
-<br>
+<% end %><br>
 
 <table class="table table-striped">
   <tbody class="form-group">
-
 
   <% @posts.each do |post| %>
       <tr>

@@ -1,5 +1,10 @@
 class Message < ActiveRecord::Base
-  belongs_to :conversation
+  include PublicActivity::Model
+  tracked
+
+  acts_as_readable :on => :created_at
+
+  belongs_to :conversations
   belongs_to :user
 
   scope :unread, -> do

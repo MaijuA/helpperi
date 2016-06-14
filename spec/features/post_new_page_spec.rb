@@ -68,7 +68,7 @@ describe 'New post' do
 
     click_button('Luo ilmoitus')
 
-    expect(page).to have_content 'Postinumero ei ole Suomessa kelvollinen'
+    expect(page).to have_content 'Postinumero ei voi olla sisällötön'
   end
 
 
