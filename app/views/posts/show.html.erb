@@ -67,13 +67,15 @@
           <% elsif current_user && current_user.valid? && current_user != @post.user && !@post.denied_helpers.include?(current_user) %>
               <%= link_to('Ilmoittaudu kiinnostuneeksi', post_add_candidate_path(@post.id), class:"btn btn-success", method: :post) %>
           <% else %>
-            <% if current_user && current_user.id == @post.user.id %>
+              <% if current_user && current_user.id == @post.user.id %>
 
-            <% elsif current_user %>
-              <%= link_to 'Ilmoittaudu kiinnostuneeksi', edit_user_registration_path(current_user, :finishing => 1), class:"btn btn-success" %>
-            <% else  %>
-              <%= link_to 'Rekisteröidy, jotta voit ilmoittautua kiinnostuneeksi', new_user_registration_path, class:"btn btn-success" %>
-            <% end %>
+              <% elsif current_user %>
+                  <%= link_to 'Ilmoittaudu kiinnostuneeksi', edit_user_registration_path(current_user, :finishing => 1), class:"btn btn-success" %>
+
+              <% else  %>
+                  <p><i>Täytäthän puuttuvat tiedot profiilistasi, jotta voit ilmoittautua kiinnostuneeksi tai lähettää viestin ilmoittajalle.</i></p>
+                  <%= link_to 'Omat tiedot', new_user_registration_path, class:"btn btn-success" %>
+              <% end %>
           <% end %><br><br>
       <% end %>
     </div>
@@ -85,9 +87,9 @@
       <div class="col-md-6 col-md-offset-3">
         <% if @post.performer %>
             <h4 class="text-center title">Olet valinnut seuraavan henkilön</h4>
-            <% else %>
-        <h3 class="text-center title">Kiinnostuneet</h3>
-            <% end %>
+        <% else %>
+            <h3 class="text-center title">Kiinnostuneet</h3>
+        <% end %>
         <div class="account-wall">
 
 
@@ -114,7 +116,7 @@
                       <td></td>
                     </tr>
                     </tbody>
-                    </table>
+                  </table>
               <% else %>
                   <table class="table table-striped">
                     <thead>
@@ -138,7 +140,7 @@
                             </a>
                           </p></td>
                           <td><p align="center"><%= link_to('Hyväksy', post_accept_candidate_path(@post.id, user_id: helper.id), class:"btn-sm btn-warning", data:
-                              { confirm: 'Haluatko varmasti hyväksyä käyttäjän?' }, method: :post) %></p>
+                              { confirm: 'Vahvista hyväksyntäsi valitsemalla OK' }, method: :post) %></p>
                             <p align="center"><%= link_to('Hylkää', post_deny_candidate_path(@post.id, user_id: helper.id), class:"btn-sm btn-danger", data:
                                 { confirm: 'Haluatko varmasti hylätä käyttäjän?' }, method: :post) %></p></td>
                         </tr>
@@ -147,9 +149,8 @@
                   </table>
               <% end %>
           <% end %>
+        </div>
+      </div>
+    </div>
 <% end %>
-</div>
-</div>
-</div>
-
 

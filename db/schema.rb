@@ -32,21 +32,21 @@ ActiveRecord::Schema.define(version: 20160613100756) do
   create_table "conversations", force: :cascade do |t|
     t.integer  "sender_id"
     t.integer  "recipient_id"
-    t.datetime "created_at",   null: false
-    t.datetime "updated_at",   null: false
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
   create_table "messages", force: :cascade do |t|
     t.text     "body"
-    t.integer  "conversations_id"
+    t.integer  "conversation_id"
     t.integer  "user_id"
-    t.boolean  "read",             default: false
+    t.boolean  "read",            default: false
     t.integer  "post_id"
-    t.datetime "created_at",                       null: false
-    t.datetime "updated_at",                       null: false
+    t.datetime "created_at",                      null: false
+    t.datetime "updated_at",                      null: false
   end
 
-  add_index "messages", ["conversations_id"], name: "index_messages_on_conversations_id"
+  add_index "messages", ["conversation_id"], name: "index_messages_on_conversation_id"
   add_index "messages", ["user_id"], name: "index_messages_on_user_id"
 
   create_table "post_categories", force: :cascade do |t|
@@ -105,9 +105,9 @@ ActiveRecord::Schema.define(version: 20160613100756) do
     t.boolean  "passport_number"
     t.datetime "deleted_at"
     t.string   "image"
-    t.string   "language"
     t.string   "provider"
     t.string   "uid"
+    t.string   "language"
   end
 
   add_index "users", ["confirmation_token"], name: "index_users_on_confirmation_token", unique: true
