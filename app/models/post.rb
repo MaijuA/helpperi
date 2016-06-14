@@ -61,7 +61,7 @@ class Post < ActiveRecord::Base
   end
 
   scope :active, -> { where(deleted:false).where(doer_id:nil) }
-  scope :accepted, -> { where(deleted:false).where.not(doer_id :nil) }
+  scope :accepted, -> { where(deleted:false).where.not(doer_id:nil) }
   scope :deleted, -> { where deleted:true }
   scope :buying, -> { where post_type:'Osto'}
   scope :selling, -> { where post_type:'Myynti'}
