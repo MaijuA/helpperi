@@ -1,4 +1,5 @@
 class RegistrationsController < Devise::RegistrationsController
+  helper_method :save_my_previous_url
 
   def destroy
     if !resource.posts.nil?
@@ -22,10 +23,19 @@ class RegistrationsController < Devise::RegistrationsController
     end
   end
 
+  def save_my_previous_url
+    # session[:previous_url] is a Rails built-in variable to save last url.
+    session[:my_previous_url] = request.referer
+  end
+
   protected
 
   def after_update_path_for(resource)
-    user_path(resource)
+    session[:my_previous_url] || user_path(resource)
+  end
+
+  def after_sign_up_path_for(resource)
+    session[:my_previous_url] || user_path(resource)
   end
 
 end
