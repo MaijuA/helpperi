@@ -1,18 +1,18 @@
-<h1>Omat ilmoitukset</h1>
+
 <br>
 <%= link_to('Uusi ilmoitus', new_post_path, class:"btn btn-success") if current_user && current_user.valid? %>
 <%= link_to('Uusi ilmoitus', edit_user_registration_path(current_user, :finishing => 1),
             class:"btn btn-success") if current_user && !current_user.valid? %>
 <br>
-
+<h3>Omat ilmoitukset</h3>
 <table class="table table-striped">
   <thead>
   <tr>
-    <th class="col-md-2">Kuva</th>
-    <th class="col-md-2">Otsikko</th>
-    <th class="col-md-2">Kiinnostuneita</th>
-    <th class="col-md-2">Viestejä</th>
-    <th class="col-md-1">Hinta</th>
+    <th class="col-md-2"></th>
+    <th class="col-md-2"></th>
+    <th class="col-md-2"></th>
+    <th class="col-md-2"></th>
+    <th class="col-md-1"></th>
   </tr>
   </thead>
 
@@ -37,11 +37,10 @@
           <% if post.helpers.empty? %>
               Ei kiinnostuneita
           <% else %>
-              <%= link_to post.helpers.count, post_path(post), class:"label interest-badge" %>
+              <p><%= link_to "#{post.helpers.count} kiinnostunutta", post_path(post), class:"label interest-badge"%></p>
               <% if Candidate.where(post_id:post.id).unread_by(current_user).count > 0 %>
-                  <%= link_to post_path(post), class:"label label-primary" do %>
-                    Uusia <%= content_tag :span, Candidate.where(post_id:post.id).unread_by(current_user).count,
-                                          class: 'badge', style:"background-color: #C42121;font-weight: bold;" %>
+                  <%= link_to post_path(post)  do %>
+                      <p><%= Candidate.where(post_id:post.id).unread_by(current_user).count %> uutta</p>
                   <% end %>
               <% end %>
           <% end %>
@@ -58,15 +57,65 @@
 </table>
 <%= will_paginate @user_posts %>
 <br>
-<br>
+
+
+<h3>Tekijä hyväksytty</h3>
+
 <table class="table table-striped">
   <thead>
   <tr>
-    <th class="col-md-2">Kuva</th>
-    <th class="col-md-2">Otsikko</th>
-    <th class="col-md-2">Tila</th>
-    <th class="col-md-2">Viestejä</th>
-    <th class="col-md-1">Hinta</th>
+    <th class="col-md-2"></th>
+    <th class="col-md-2"></th>
+    <th class="col-md-2"></th>
+    <th class="col-md-2"></th>
+    <th class="col-md-1"></th>
+  </tr>
+  </thead>
+
+  <tbody class="form-group">
+  <% @user_accepted_posts.each do |post| %>
+      <tr>
+        <% if post.image_is_set? %>
+            <td><%= image_tag post.image_url(:list), align: 'left' %></td>
+        <% else %>
+            <td><%= image_tag post.category_to_take_image_from.image_url(:list), align: 'left' %></td>
+        <% end %>
+        <td><b><%= link_to truncate(post.title, :length => 30), post %></b>
+          <% if post.buyer? %>
+              <p><span class="selling-badge">Helpperi</span></p>
+          <% end %>
+          <p>
+            <% post.categories.each do |category| %>
+                <span class="category-badge"><%= "#{category.name}" %></span>
+            <% end %>
+          </p></td>
+        <td>
+          <p><%= link_to(post.performer.first_name, user_path(post.performer)) %></p>
+        </td>
+        <td>
+        </td>
+        <td><% if post.price %>
+              <%= post.price %> €
+          <% end %>
+        </td>
+      </tr>
+  <% end %>
+  </tbody>
+</table>
+<%= will_paginate @user_posts %>
+<br>
+
+
+<br>
+<h3>Omat kiinnostukset</h3>
+<table class="table table-striped">
+  <thead>
+  <tr>
+    <th class="col-md-2"></th>
+    <th class="col-md-2"></th>
+    <th class="col-md-2"></th>
+    <th class="col-md-2"></th>
+    <th class="col-md-1"></th>
   </tr>
   </thead>
 
@@ -78,7 +127,7 @@
         <% else %>
             <td><%= image_tag post.category_to_take_image_from.image_url(:list), align: 'left' %></td>
         <% end %>
-        <td><%= link_to truncate(post.title, :length => 30), post %>
+        <td><b><%= link_to truncate(post.title, :length => 30), post %></b>
           <p>
             <% post.categories.each do |category| %>
                 <span class="category-badge"><%= "#{category.name}" %></span>
@@ -87,12 +136,14 @@
         </td>
         <td>
           <% if post.doer_id == current_user.id %>
-            <%= link_to 'Hyväksytty', post_path(post), class:"label label-success" %>
-            <% unless Candidate.where(post_id:post.id).unread_by(current_user).empty? %>
-              <span class="badge" style="background-color: #C42121;font-weight: bold;">!</span>
-            <% end %>
+              <p><%= link_to 'Hyväksytty', post_path(post), class:"label label-success" %></p>
+              <% unless Candidate.where(post_id:post.id).unread_by(current_user).empty? %>
+                  <%= link_to post_path(post)  do %>
+                      <p>Uusi hyväksyntä</p>
+                  <% end %>
+              <% end %>
           <% elsif !Candidate.where(post_id:post.id).where(user_id:current_user.id).where(denied:false).empty? %>
-            <%= link_to 'Odottaa hyväksyntää', post_path(post), class:"label interest-badge" %>
+              <%= link_to 'Odottaa hyväksyntää', post_path(post), class:"label interest-badge" %>
           <% end %>
         </td>
         <td>

@@ -19,6 +19,7 @@ class UsersController < ApplicationController
     end
     if current_user
       @user_posts = current_user.posts.active.valid.paginate(:page => params[:page], :per_page => 15)
+      @user_accepted_posts = current_user.posts.valid.accepted
       @user_expired_posts = current_user.posts.active.expired
     end
   end
