@@ -152,10 +152,10 @@ class PostsController < ApplicationController
     post = Post.find(params[:post_id])
     if current_user && !post.helpers.include?(current_user) && current_user != post.user
       candi = Candidate.create post_id:post.id, user_id:current_user.id, denied:false
-      candi.mark_as_read! :for => current_user
       candi.create_activity key: 'candidate.added', owner: post, recipient:current_user
     end
     if candi.save
+      candi.mark_as_read! :for => current_user
       redirect_to :back, notice: 'Sinut on lisätty kiinnostuneeksi.'
     else
       redirect_to :back, alert: 'Kiinnostuneeksi ilmoittautuminen ei onnistunut.'
@@ -168,6 +168,7 @@ class PostsController < ApplicationController
       candi = Candidate.find_by post_id:post.id, user_id:params[:user_id]
       candi.update_attribute(:denied, true)
       candi.mark_as_read! :for => current_user
+      candi.mark_as_read! :for => User.find(params[:user_id])
       candi.create_activity key: 'candidate.denied', owner: post, recipient:User.find(params[:user_id])
     end
     if candi.save

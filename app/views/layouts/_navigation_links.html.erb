@@ -1,8 +1,8 @@
 
 <% if user_signed_in? %>
     <li><%= link_to users_path do %>
-          Omat ilmoitukset <%= content_tag :span, Candidate.unread_by(current_user).count,
-                 class: 'badge', style:"background-color: #C42121;" if Candidate.unread_by(current_user).count > 0 %>
+          Omat ilmoitukset <%= content_tag :span, Candidate.where(user_id:current_user.id).unread_by(current_user).count + Candidate.where(post_id:Post.where(user_id:current_user.id)).unread_by(current_user).count,
+                 class: 'badge', style:"background-color: #C42121;" if Candidate.where(user_id:current_user.id).unread_by(current_user).count + Candidate.where(post_id:Post.where(user_id:current_user.id)).unread_by(current_user).count > 0 %>
         <% end %>
     </li>
     <li><%= link_to 'Profiili', user_path(current_user) %></li>
