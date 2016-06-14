@@ -172,6 +172,7 @@ fi:
       carrierwave_processing_error: prosessointi epäonnistui
       carrierwave_integrity_error: ei ole sallittua tiedostotyyppiä
       extension_white_list_error: "ei ole sallittua tiedostotyyppiä, sallitut tyypit: %{allowed_types}"
+      size_too_big: "on liian suuri, maksimikoko 5 MB"
     template:
       body: 'Seuraavat kentät aiheuttivat ongelmia:'
       header:

@@ -20,10 +20,8 @@ describe 'Profile edit' do
     click_button('Päivitä')
 
     expect(page.html).to include 'cloudinary.com'
-    #page.html.should include('cloudinary.com')
     expect(page).not_to have_content 'esti käyttäjän tallentamisen'
 
-    # Let's delete that image also
     visit edit_user_registration_path
     check('user_remove_image')
     fill_in('Nykyinen salasana', with:'ihanmitavaan')
@@ -31,9 +29,32 @@ describe 'Profile edit' do
     click_button('Päivitä')
 
     expect(page.html).not_to include 'cloudinary.com'
-    #page.html.should_not include('cloudinary.com')
     expect(page).not_to have_content 'esti käyttäjän tallentamisen'
   end
+
+  it 'rejects zip-file' do
+    visit edit_user_registration_path
+    page.attach_file('user_image', Rails.root + 'spec/fixtures/zip.zip')
+    fill_in('Etunimi', with:'Pekka')
+    fill_in('Sukunimi', with:'Pekkanen')
+    fill_in('Nykyinen salasana', with:'ihanmitavaan')
+
+    click_button('Päivitä')
+
+    expect(page).to have_content 'Profiilikuva ei ole sallittua tiedostotyyppiä'
+  end
+
+  # it 'rejects too big file' do
+  #   visit edit_user_registration_path
+  #   page.attach_file('user_image', Rails.root + 'spec/fixtures/tetris.jpg')
+  #   fill_in('Etunimi', with:'Pekka')
+  #   fill_in('Sukunimi', with:'Pekkanen')
+  #   fill_in('Nykyinen salasana', with:'ihanmitavaan')
+  #
+  #   click_button('Päivitä')
+  #
+  #   expect(page).to have_content 'Profiilikuva ei ole sallittua tiedostotyyppiä'
+  # end
 
   it 'edits name' do
     visit edit_user_registration_path
