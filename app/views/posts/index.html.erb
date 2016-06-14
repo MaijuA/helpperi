@@ -61,6 +61,7 @@
   <tbody class="form-group">
 
   <% @posts.each do |post| %>
+  <% if post.user != current_user %>
       <tr>
         <% if post.image_is_set? %>
 
@@ -89,6 +90,7 @@
         </td>
         <td>[tähdet]</td>
       </tr>
+  <% end %>
   <% end %>
   </tbody>
 </table>
