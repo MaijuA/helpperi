@@ -91,11 +91,11 @@ footer a {
 }
 
 footer ul {
-list-style: none;
+  list-style: none;
 }
 
 footer ul li {
- margin-top:5px;
+  margin-top:5px;
   float: none;
   text-align:center;
 }
@@ -176,17 +176,14 @@ footer p {
   white-space: nowrap;
 }
 
-
-.Row
-{
+.Row {
   display: table;
   border-spacing: 10px; /*Optional*/
 }
-.Column
-{
+
+.Column {
   display: table-cell;
 }
-
 
 .interest-badge {
   background-color: #FFBF00;

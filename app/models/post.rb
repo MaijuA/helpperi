@@ -1,4 +1,5 @@
 class Post < ActiveRecord::Base
+  acts_as_reader
   belongs_to :user
   has_many :post_categories
   has_many :categories, -> {distinct}, through: :post_categories

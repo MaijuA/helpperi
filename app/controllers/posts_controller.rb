@@ -71,6 +71,11 @@ class PostsController < ApplicationController
 # GET /posts/1
 # GET /posts/1.json
   def show
+    if current_user
+      Candidate.where(post_id:params[:id]).each do |c|
+        c.mark_as_read! :for => current_user
+      end
+    end
   end
 
 # GET /posts/new
@@ -147,8 +152,10 @@ class PostsController < ApplicationController
     post = Post.find(params[:post_id])
     if current_user && !post.helpers.include?(current_user) && current_user != post.user
       candi = Candidate.create post_id:post.id, user_id:current_user.id, denied:false
+      candi.create_activity key: 'candidate.added', owner: post, recipient:current_user
     end
     if candi.save
+      candi.mark_as_read! :for => current_user
       redirect_to :back, notice: 'Sinut on lisätty kiinnostuneeksi.'
     else
       redirect_to :back, alert: 'Kiinnostuneeksi ilmoittautuminen ei onnistunut.'
@@ -160,6 +167,9 @@ class PostsController < ApplicationController
     if current_user && current_user == post.user
       candi = Candidate.find_by post_id:post.id, user_id:params[:user_id]
       candi.update_attribute(:denied, true)
+      candi.mark_as_read! :for => current_user
+      candi.mark_as_read! :for => User.find(params[:user_id])
+      candi.create_activity key: 'candidate.denied', owner: post, recipient:User.find(params[:user_id])
     end
     if candi.save
       redirect_to :back, notice: 'Kiinnostunut on hylätty onnistuneesti.'
@@ -173,8 +183,12 @@ class PostsController < ApplicationController
     if current_user && current_user == post.user
       post.accepted_candidates.each do |c|
         c.update_attribute(:denied, true)
+        c.create_activity key: 'candidate.denied', owner: post, recipient:User.find(c.user_id)
       end
       post.update_attribute(:doer_id, params[:user_id])
+      candi = Candidate.find_by post_id:post.id, user_id:params[:user_id]
+      candi.mark_as_read! :for => current_user
+      candi.create_activity key: 'candidate.accepted', owner: post, recipient:User.find(params[:user_id])
     end
     if !post.doer_id.nil?
       redirect_to :back, notice: 'Kiinnostunut on hyväksytty onnistuneesti.'

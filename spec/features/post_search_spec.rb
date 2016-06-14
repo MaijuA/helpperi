@@ -102,6 +102,18 @@ describe 'Search method' do
     expect(page).to have_content 'Koiran ulkoilutus'
   end
 
+  it 'shows right posts with category' do
+    post4 = FactoryGirl.create(:post_with_category3)
+    post5 = FactoryGirl.create(:post_with_category2)
+    visit root_path
+    select "Siivous", :from => "category_ids[]"
+    click_button('Hae')
+
+    expect(page).not_to have_content 'Ruotsin opetusta'
+    expect(page).to have_content 'Kaupassa käynti'
+  end
+
+
   it 'shows right posts with type' do
     uncheck('post_type_buying_value')
     click_button('Hae')
