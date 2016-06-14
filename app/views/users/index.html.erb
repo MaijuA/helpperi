@@ -89,7 +89,7 @@
           <% if post.doer_id == current_user.id %>
             <%= link_to 'Hyväksytty', post_path(post), class:"label label-success" %>
             <% unless Candidate.where(post_id:post.id).unread_by(current_user).empty? %>
-              <span class="badge" style="background-color: #C42121;font-weight: bold;">!</span>
+              <span class="badge" style="background-color: #C42121;font-weight: bold;">UUSI</span>
             <% end %>
           <% elsif !Candidate.where(post_id:post.id).where(user_id:current_user.id).where(denied:false).empty? %>
             <%= link_to 'Odottaa hyväksyntää', post_path(post), class:"label interest-badge" %>
