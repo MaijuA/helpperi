@@ -13,11 +13,8 @@ class MessagesController < ApplicationController
       @over_ten = false
       @messages = @conversation.messages
     end
-    if @messages.last
-      if @messages.last.user_id != current_user.id
-        #@messages.last.read = true
-        @messages.last.update_attribute :read, true
-      end
+    @messages.unread_by(current_user).each do |m|
+      m.mark_as_read! :for => current_user
     end
 
     @message = @conversation.messages.new
