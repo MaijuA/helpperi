@@ -55,7 +55,7 @@ describe 'Post candidate' do
 
     visit post_path(post)
 
-    expect(page).to have_content 'Ilmoittaja ei ole hyväksynyt sinua tällä kertaa.'
+    expect(page).to have_content 'Ilmoittaja ei ole valinnut sinua tällä kertaa.'
   end
 
   it 'post owner can accept candidate and it shows to user' do
