@@ -55,7 +55,7 @@
   <% end %>
   </tbody>
 </table>
-<%= will_paginate @user_posts %>
+<%= will_paginate @user_posts, :param_name => 'post_page' %>
 <br>
 
 
@@ -102,7 +102,7 @@
   <% end %>
   </tbody>
 </table>
-<%= will_paginate @user_accepted_posts %>
+<%= will_paginate @user_accepted_posts, :param_name => 'accepted_page' %>
 <br>
 
 
@@ -157,4 +157,4 @@
   <% end %>
   </tbody>
 </table>
-<%= will_paginate @user_tasks %>
+<%= will_paginate @user_tasks, :param_name => 'task_page' %>

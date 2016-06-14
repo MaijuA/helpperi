@@ -18,10 +18,13 @@ class UsersController < ApplicationController
       end
     end
     if current_user
-      @user_posts = current_user.posts.active.valid.paginate(:page => params[:page], :per_page => 5)
-      @user_accepted_posts = current_user.posts.valid.accepted.paginate(:page => params[:page], :per_page => 5)
+      params[:page1] = 1 if params[:page1] == ''
+      params[:page2] = 1 if params[:page2] == ''
+      params[:page3] = 1 if params[:page3] == ''
+      @user_posts = current_user.posts.active.valid.paginate(:page => params[:post_page], :per_page => 5)
+      @user_accepted_posts = current_user.posts.valid.accepted.paginate(:page => params[:accepted_page], :per_page => 5)
       @user_expired_posts = current_user.posts.active.expired
-      @user_tasks = current_user.tasks.paginate(:page => params[:page], :per_page => 5)
+      @user_tasks = current_user.tasks.paginate(:page => params[:tasks_page], :per_page => 5)
     end
   end
 
