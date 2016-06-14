@@ -63,18 +63,18 @@
           <% elsif current_user && @post.helpers.include?(current_user) && current_user.id != @post.user.id %>
               <a class='btn btn-warning disabled ' >Olet ilmoittaunut kiinnostuneeksi</a>
           <% elsif current_user && @post.denied_helpers.include?(current_user) && current_user != @post.user %>
-              <a class='btn btn-danger disabled ' >Ilmoittaja ei ole hyväksynyt sinua tällä kertaa.</a>
+              <a class='btn btn-danger disabled ' >Ilmoittaja ei ole valinnut sinua tällä kertaa.</a>
           <% elsif current_user && current_user.valid? && current_user != @post.user && !@post.denied_helpers.include?(current_user) %>
               <%= link_to('Ilmoittaudu kiinnostuneeksi', post_add_candidate_path(@post.id), class:"btn btn-success", method: :post) %>
           <% else %>
               <% if current_user && current_user.id == @post.user.id %>
 
               <% elsif current_user %>
-                  <%= link_to 'Ilmoittaudu kiinnostuneeksi', edit_user_registration_path(current_user, :finishing => 1), class:"btn btn-success" %>
-
-              <% else  %>
-                  <p><i>Täytäthän puuttuvat tiedot profiilistasi, jotta voit ilmoittautua kiinnostuneeksi tai lähettää viestin ilmoittajalle.</i></p>
+                  p><i>Täytäthän puuttuvat tiedot profiilistasi, jotta voit ilmoittautua kiinnostuneeksi tai lähettää viestin ilmoittajalle.</i></p>
                   <%= link_to 'Omat tiedot', new_user_registration_path, class:"btn btn-success" %>
+              <% else  %>
+                  <p><i>Rekisteröidy, jotta voit ilmoittautua kiinnostuneeksi tai lähettää viestin ilmoittajalle.</i></p>
+                  <%= link_to 'Rekisteröidy', new_user_registration_path, class:"btn btn-success" %>
               <% end %>
           <% end %><br><br>
       <% end %>
@@ -135,8 +135,8 @@
 
 
                           <td><p align="center">
-                            <a href="#" class="btn btn-info btn-xs">
-                              <span class="glyphicon glyphicon-envelope"></span> 0
+                            <a href="#" class="btn btn-info btn-sm">
+                              <span class="glyphicon glyphicon-envelope"></span>
                             </a>
                           </p></td>
                           <td><p align="center"><%= link_to('Hyväksy', post_accept_candidate_path(@post.id, user_id: helper.id), class:"btn-sm btn-warning", data:
