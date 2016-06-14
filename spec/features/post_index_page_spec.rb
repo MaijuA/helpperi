@@ -5,6 +5,8 @@ describe 'Posts page' do
   it 'should show posts' do
     FactoryGirl.create(:post_with_category)
     FactoryGirl.create(:post_with_category2)
+    user = FactoryGirl.create(:user2)
+    login_as(user)
 
     visit posts_path
 
