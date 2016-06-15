@@ -27,9 +27,11 @@ class MessagesController < ApplicationController
   def create
     @message = @conversation.messages.new(message_params)
     if @message.save
+      @message.mark_as_read! :for => current_user
       redirect_to conversation_messages_path(@conversation)
+    else
+      redirect_to :back, notice: 'Viestiä ei voitu lähettää.'
     end
-    render :nothing => true
   end
 
   private

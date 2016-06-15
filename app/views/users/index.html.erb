@@ -1,10 +1,9 @@
-
 <br>
 <%= link_to('Uusi ilmoitus', new_post_path, class:"btn btn-success") if current_user && current_user.valid? %>
 <%= link_to('Uusi ilmoitus', edit_user_registration_path(current_user, :finishing => 1),
             class:"btn btn-success") if current_user && !current_user.valid? %>
 <br>
-<h3>Omat ilmoitukset</h3>
+<h3>Omat ilmoitukset (<%= @user_posts.count %>)</h3>
 <table class="table table-striped">
   <thead>
   <tr>
@@ -48,13 +47,18 @@
         <td>
           <% if Conversation.where(post_id:post.id) %>
               <% Conversation.where(post_id:post.id).each do |c| %>
-                  <% if c.sender_id != current_user.id %>
-                      <%= link_to User.where(id:c.sender_id).first.first_name, conversation_messages_path(c) %>
+                  <% if c.sender_id == current_user.id %>
+                      <%= link_to conversation_messages_path(c) do %>
+                          <%= User.where(id:c.recipient_id).first.first_name %> <span class="glyphicon glyphicon-envelope"></span>
+                          <%= content_tag :span, distinct_conversation_count(post.id),
+                                          class: 'badge', style:"background-color: blue" if distinct_conversation_count(post.id) > 0 %>
+                      <% end %>
                   <% else %>
-                      <%= link_to User.where(id:c.recipient_id).first.first_name, conversation_messages_path(c) %>
-                  <% end %>
-                  <% if Conversation.where(id:c.id).user_messages(current_user.id).unread_by(current_user).count > 0 %>
-                      <p>Uusia viestejä</p>
+                      <%= link_to conversation_messages_path(c) do %>
+                          <%= User.where(id:c.sender_id).first.first_name %> <span class="glyphicon glyphicon-envelope"></span>
+                          <%= content_tag :span, distinct_conversation_count(post.id),
+                                          class: 'badge', style:"background-color: blue" if distinct_conversation_count(post.id) > 0 %>
+                      <% end %>
                   <% end %>
               <% end %>
           <% end %>
@@ -71,7 +75,7 @@
 <br>
 
 
-<h3>Tekijä hyväksytty</h3>
+<h3>Tekijä hyväksytty (<%= @user_accepted_posts.count %>)</h3>
 
 <table class="table table-striped">
   <thead>
@@ -105,6 +109,11 @@
           <p><%= link_to(post.performer.first_name, user_path(post.performer)) %></p>
         </td>
         <td>
+          <%= link_to conversations_path(post.performer.id, post.user.id, post.id) do %>
+             <span class="glyphicon glyphicon-envelope"></span>
+             <%= content_tag :span, distinct_conversation_count(post.id),
+                        class: 'badge', style:"background-color: blue" if distinct_conversation_count(post.id) > 0 %>
+          <% end %>
         </td>
         <td><% if post.price %>
               <%= post.price %> €
@@ -118,8 +127,60 @@
 <br>
 
 
+<h3>Olet tekijänä (<%= @user_performer_posts.count %>)</h3>
+
+    <table class="table table-striped">
+      <thead>
+      <tr>
+        <th class="col-md-2"></th>
+        <th class="col-md-2"></th>
+        <th class="col-md-2"></th>
+        <th class="col-md-2"></th>
+        <th class="col-md-1"></th>
+      </tr>
+      </thead>
+
+      <tbody class="form-group">
+      <% @user_performer_posts.each do |post| %>
+          <tr>
+            <% if post.image_is_set? %>
+                <td><%= image_tag post.image_url(:list), align: 'left' %></td>
+            <% else %>
+                <td><%= image_tag post.category_to_take_image_from.image_url(:list), align: 'left' %></td>
+            <% end %>
+            <td><b><%= link_to truncate(post.title, :length => 30), post %></b>
+              <% if post.buyer? %>
+                  <p><span class="selling-badge">Helpperi</span></p>
+              <% end %>
+              <p>
+                <% post.categories.each do |category| %>
+                    <span class="category-badge"><%= "#{category.name}" %></span>
+                <% end %>
+              </p></td>
+            <td>
+              <p><%= link_to(post.user.first_name, user_path(post.user)) %></p>
+            </td>
+            <td>
+                <%= link_to conversations_path(current_user.id, post.user.id, post.id) do %>
+                  <span class="glyphicon glyphicon-envelope"></span>
+                  <%= content_tag :span, distinct_conversation_count(post.id),
+                             class: 'badge', style:"background-color: blue" if distinct_conversation_count(post.id) > 0 %>
+                <% end %>
+            </td>
+            <td><% if post.price %>
+                  <%= post.price %> €
+              <% end %>
+            </td>
+          </tr>
+      <% end %>
+      </tbody>
+    </table>
+<%= will_paginate @user_performer_posts, :param_name => 'performer_page' %>
 <br>
-<h3>Omat kiinnostukset</h3>
+
+
+<br>
+<h3>Omat kiinnostukset (<%= @user_tasks.count %>)</h3>
 <table class="table table-striped">
   <thead>
   <tr>
@@ -159,6 +220,11 @@
           <% end %>
         </td>
         <td>
+          <%= link_to conversations_path(current_user.id, post.user.id, post.id) do %>
+            <span class="glyphicon glyphicon-envelope"></span>
+            <%= content_tag :span, distinct_conversation_count(post.id),
+                    class: 'badge', style:"background-color: blue" if distinct_conversation_count(post.id) > 0 %>
+          <% end %>
         </td>
         <td><% if post.price %>
               <%= post.price %> €
@@ -169,3 +235,110 @@
   </tbody>
 </table>
 <%= will_paginate @user_tasks, :param_name => 'task_page' %>
+<br>
+<br>
+
+    <h3>Vanhentuneet ilmoitukset (<%= @user_expired_posts.count %>)</h3>
+
+    <table class="table table-striped">
+      <thead>
+      <tr>
+        <th class="col-md-2"></th>
+        <th class="col-md-2"></th>
+        <th class="col-md-2"></th>
+        <th class="col-md-2"></th>
+        <th class="col-md-1"></th>
+      </tr>
+      </thead>
+
+      <tbody class="form-group">
+      <% @user_expired_posts.each do |post| %>
+          <tr>
+            <% if post.image_is_set? %>
+                <td><%= image_tag post.image_url(:list), align: 'left' %></td>
+            <% else %>
+                <td><%= image_tag post.category_to_take_image_from.image_url(:list), align: 'left' %></td>
+            <% end %>
+            <td><b><%= link_to truncate(post.title, :length => 30), post %></b>
+              <% if post.buyer? %>
+                  <p><span class="selling-badge">Helpperi</span></p>
+              <% end %>
+              <p>
+                <% post.categories.each do |category| %>
+                    <span class="category-badge"><%= "#{category.name}" %></span>
+                <% end %>
+              </p></td>
+            <td>
+              <p><%= link_to(post.performer.first_name, user_path(post.performer)) if post.performer %></p>
+            </td>
+            <td>
+              <% if post.performer %>
+              <%= link_to conversations_path(current_user.id, post.performer.id, post.id) do %>
+                  <span class="glyphicon glyphicon-envelope"></span>
+                  <%= content_tag :span, distinct_conversation_count(post.id),
+                                  class: 'badge', style:"background-color: blue" if distinct_conversation_count(post.id) > 0 %>
+              <% end %>
+              <% end %>
+            </td>
+            <td><% if post.price %>
+                  <%= post.price %> €
+              <% end %>
+            </td>
+          </tr>
+      <% end %>
+      </tbody>
+    </table>
+    <%= will_paginate @user_expired_posts, :param_name => 'expired_page' %>
+    <br>
+    <br>
+
+    <h3>Tehdyt ilmoitukset (<%= @user_performer_posts_expired.count %>)</h3>
+
+    <table class="table table-striped">
+      <thead>
+      <tr>
+        <th class="col-md-2"></th>
+        <th class="col-md-2"></th>
+        <th class="col-md-2"></th>
+        <th class="col-md-2"></th>
+        <th class="col-md-1"></th>
+      </tr>
+      </thead>
+
+      <tbody class="form-group">
+      <% @user_performer_posts_expired.each do |post| %>
+          <tr>
+            <% if post.image_is_set? %>
+                <td><%= image_tag post.image_url(:list), align: 'left' %></td>
+            <% else %>
+                <td><%= image_tag post.category_to_take_image_from.image_url(:list), align: 'left' %></td>
+            <% end %>
+            <td><b><%= link_to truncate(post.title, :length => 30), post %></b>
+              <% if post.buyer? %>
+                  <p><span class="selling-badge">Helpperi</span></p>
+              <% end %>
+              <p>
+                <% post.categories.each do |category| %>
+                    <span class="category-badge"><%= "#{category.name}" %></span>
+                <% end %>
+              </p></td>
+            <td>
+              <p><%= link_to(post.user.first_name, user_path(post.user)) %></p>
+            </td>
+            <td>
+              <%= link_to conversations_path(current_user.id, post.user.id, post.id) do %>
+                  <span class="glyphicon glyphicon-envelope"></span>
+                  <%= content_tag :span, distinct_conversation_count(post.id),
+                                  class: 'badge', style:"background-color: blue" if distinct_conversation_count(post.id) > 0 %>
+              <% end %>
+            </td>
+            <td><% if post.price %>
+                  <%= post.price %> €
+              <% end %>
+            </td>
+          </tr>
+      <% end %>
+      </tbody>
+    </table>
+    <%= will_paginate @user_performer_posts_expired, :param_name => 'performer_expired_page' %>
+    <br>
