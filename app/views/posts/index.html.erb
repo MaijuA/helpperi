@@ -1,8 +1,6 @@
 <% content_for(:head) do %>
     <%= javascript_include_tag 'post.js', 'data-turbolinks-track' => true  %>
-<% end %>
-
-<h1>Ilmoitukset</h1><br>
+<% end %><br>
 
 <%= form_tag search_path, id: "search", :method => 'get' do%>
 
@@ -36,12 +34,9 @@
         </div>
         <div class="Row">
           <div class="Column">
-            Palkkio vähintään<br>
-            <%= number_field_tag :min, params[:min], min: 0, max: 999 %>
-          </div>
-          <div class="Column">
-            Palkkio enintään<br>
-            <%= number_field_tag :max, params[:max], min: 0, max: 999 %>
+            Palkkio<br>
+            <%= number_field_tag :min, params[:min], min: 0, max: 499, placeholder: "min" %> -
+            <%= number_field_tag :max, params[:max], min: 0, max: 499, placeholder: "max" %>
           </div>
         </div>
         <div class="Row">
