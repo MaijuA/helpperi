@@ -76,7 +76,8 @@
                   <p><i>Rekisteröidy, jotta voit ilmoittautua kiinnostuneeksi tai lähettää viestin ilmoittajalle.</i></p>
                   <%= link_to 'Rekisteröidy', new_user_registration_path, class:"btn btn-success" %>
               <% end %>
-          <% end %><br><br>
+          <% end %>
+          <%= link_to 'Lähetä viesti ilmoittajalle', conversations_path(sender_id: current_user.id, recipient_id: @post.user.id, post_id:@post.id), method: 'post', class:"btn btn-info" if current_user && @post.user.id != current_user.id %>
       <% end %>
     </div>
   </div>
@@ -132,12 +133,12 @@
                           <td><p align="center"><%= link_to helper.first_name, user_path(helper) %></p>
                             <p align="center">[tähdet]</p></td>
 
-
-
                           <td><p align="center">
-                            <a href="#" class="btn btn-info btn-sm">
-                              <span class="glyphicon glyphicon-envelope"></span>
-                            </a>
+                            <%= link_to conversations_path(Conversation.where(sender_id:current_user).where(recipient_id:helper.id).where(post_id:@post.id)) do %>
+                                <span class="glyphicon glyphicon-envelope"></span>
+                                <%= content_tag :span, Conversation.where(sender_id:current_user).where(recipient_id:helper.id).where(post_id:@post.id).count,
+                                                class: 'badge', style:"background-color: #C42121;" if Conversation.where(sender_id:current_user).where(recipient_id:helper.id).where(post_id:@post.id).count > 0 %>
+                            <% end %>
                           </p></td>
                           <td><p align="center"><%= link_to('Hyväksy', post_accept_candidate_path(@post.id, user_id: helper.id), class:"btn-sm btn-warning", data:
                               { confirm: 'Vahvista hyväksyntäsi valitsemalla OK' }, method: :post) %></p>
