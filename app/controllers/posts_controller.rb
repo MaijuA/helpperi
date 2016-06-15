@@ -2,7 +2,11 @@ class PostsController < ApplicationController
   before_action :set_post, only: [:show, :edit, :update]
 
   def index
-    @posts = Post.all.valid.active
+    if current_user != nil
+      @posts = Post.all.valid.active.others(current_user.id)
+    else
+      @posts = Post.all.valid.active
+    end
     @posts = @posts.order(created_at: :desc)
     @posts = @posts.paginate(:page => params[:page], :per_page => 15)
     params[:page] = 1
@@ -14,8 +18,11 @@ class PostsController < ApplicationController
 
 
   def search
-    @posts = Post.all.valid.active
-
+    if current_user != nil
+      @posts = Post.all.valid.active.others(current_user.id)
+    else
+      @posts = Post.all.valid.active
+    end
     unless params[:post_type_buying_value] && params[:post_type_selling_value]
       if params[:post_type_buying_value]
         @posts = @posts.where(:post_type => 'Osto')

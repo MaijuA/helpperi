@@ -10,38 +10,38 @@
 
         <div class="account-wall">
           <!--div class ="text-center"-->
-            <div class="form-group">
-              <%= check_box_tag :post_type_buying_value, 'Osto', params[:post_type_buying] %> Etsitään helpperiä
-              <%= check_box_tag :post_type_selling_value, 'Myynti', params[:post_type_selling] %> Halutaan helpperiksi
-            </div>
-            <div class="form-group2">
-              Hakusana<br>
-              <%= text_field_tag :word, params[:word], size: "11" %>
-            </div>
-            <div class="form-group2">
-              Kategoria<br>
-              <%= select_tag :category_ids, options_for_select(Category.all.collect {|x| [x.name, x.id]}, params[:category_ids]), :multiple => true %>
-            </div>
-            <div class="form-group2">
-              Kaupunki<br>
-              <%= text_field_tag :city, params[:city], size: "11" %>
-            </div>
-            <div class="form-group2">
-              Postinumero<br>
-              <%= text_field_tag :zip_code, params[:zip_code], size: "8" %>
-            </div>
-            <div class="form-group2">
-              Palkkio<br>
-              <%= number_field_tag :min, params[:min], min: 0, max: 999, placeholder: "min" %> -
-              <%= number_field_tag :max, params[:max], min: 0, max: 999, placeholder: "max" %>
-            </div><br>
-            <div class="form-group">
-              <%= submit_tag "Hae" %>
-              <%= check_box_tag :remember, true, false %> Muista valintani
-            </div>
+          <div class="form-group">
+            <%= check_box_tag :post_type_buying_value, 'Osto', params[:post_type_buying] %> Etsitään helpperiä
+            <%= check_box_tag :post_type_selling_value, 'Myynti', params[:post_type_selling] %> Halutaan helpperiksi
           </div>
-        </div><br>
-      </div>
+          <div class="form-group2">
+            Hakusana<br>
+            <%= text_field_tag :word, params[:word], size: "11" %>
+          </div>
+          <div class="form-group2">
+            Kategoria<br>
+            <%= select_tag :category_ids, options_for_select(Category.all.collect {|x| [x.name, x.id]}, params[:category_ids]), :multiple => true %>
+          </div>
+          <div class="form-group2">
+            Kaupunki<br>
+            <%= text_field_tag :city, params[:city], size: "11" %>
+          </div>
+          <div class="form-group2">
+            Postinumero<br>
+            <%= text_field_tag :zip_code, params[:zip_code], size: "8" %>
+          </div>
+          <div class="form-group2">
+            Palkkio<br>
+            <%= number_field_tag :min, params[:min], min: 0, max: 999, placeholder: "min" %> -
+            <%= number_field_tag :max, params[:max], min: 0, max: 999, placeholder: "max" %>
+          </div><br>
+          <div class="form-group">
+            <%= submit_tag "Hae" %>
+            <%= check_box_tag :remember, true, false %> Muista valintani
+          </div>
+        </div>
+      </div><br>
+    </div>
     </div>
     <div align="right">
       <%= collection_select(:table, :id, ["Uusimmat", "Sulkeutumassa", "Pienin palkkio", "Suurin palkkio"], :to_s, :to_s, {:selected => params[:order]}, { :onchange => "changeOrder();return false;"}) %>
@@ -54,7 +54,6 @@
   <tbody class="form-group">
 
   <% @posts.each do |post| %>
-  <% if post.user != current_user %>
       <tr>
         <% if post.image_is_set? %>
 
@@ -80,9 +79,8 @@
           <% end %>
         </td>
         <td><p>[tähdet]</p>
-        <p><%= post.city %></p></td>
+          <p><%= post.city %></p></td>
       </tr>
-  <% end %>
   <% end %>
   </tbody>
 </table>
