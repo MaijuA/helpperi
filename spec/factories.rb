@@ -30,7 +30,14 @@ FactoryGirl.define do
       first_name 'Maija'
     end
 
-   end
+    factory :soft_user do
+      id 4
+      address ''
+      zip_code ''
+      city ''
+    end
+
+  end
 
   factory :category do
     id 1
@@ -103,6 +110,7 @@ FactoryGirl.define do
 
     factory :post_with_category do
       id 3
+      title 'Koiran ulkoilutus'
       transient do
         category_count 1
       end

@@ -24,7 +24,9 @@
                 <p><%= link_to recipient.first_name, user_path(recipient)%></p>
                 <p>[tähdet]</p>
               </td>
-              <td><%= link_to 'Keskustelu', conversation_messages_path(conversation)%></td>
+              <td><%= link_to 'Keskustelu', conversation_messages_path(conversation)%><br>
+
+              </td>
             </tr>
           <% end %>
       <% end %>

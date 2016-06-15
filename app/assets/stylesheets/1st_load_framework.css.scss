@@ -176,13 +176,19 @@ footer p {
   white-space: nowrap;
 }
 
-.Row {
-  display: table;
-  border-spacing: 10px; /*Optional*/
-}
+//.Row {
+//  display: table;
+//  border-spacing: 10px; /*Optional*/
+//}
+//
+//.Column {
+//  display: table-cell;
+//  padding: 4px;
+//}
 
-.Column {
-  display: table-cell;
+.form-group2 {
+  display: inline-block;
+  padding: 4px;
 }
 
 .interest-badge {

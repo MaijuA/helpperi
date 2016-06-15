@@ -313,6 +313,38 @@ RSpec.describe User, type: :model do
     expect(user.valid?).to be(false)
   end
 
+  it 'validates user if social security number is from 19th century' do
+    user = User.create email: Faker::Internet.email,
+                       first_name: 'Matti',
+                       last_name: 'Mallikas',
+                       address: 'Mallitie 3',
+                       zip_code: '02340',
+                       city: 'Espoo',
+                       phone_number: '0501234567',
+                       personal_code: '121299+298K',
+                       description: 'oon kiva',
+                       password: 'Ihanmitavaan1',
+                       password_confirmation: 'Ihanmitavaan1'
+
+    expect(user.valid?).to be(true)
+  end
+
+  it 'doesn´t validate user if social security number has invalid century character' do
+    user = User.create email: Faker::Internet.email,
+                       first_name: 'Matti',
+                       last_name: 'Mallikas',
+                       address: 'Mallitie 3',
+                       zip_code: '02340',
+                       city: 'Espoo',
+                       phone_number: '0501234567',
+                       personal_code: '121299B298K',
+                       description: 'oon kiva',
+                       password: 'Ihanmitavaan1',
+                       password_confirmation: 'Ihanmitavaan1'
+
+    expect(user.valid?).to be(false)
+  end
+
   it 'doesn´t validate user if password is on the black list' do
     user = User.create email: Faker::Internet.email,
                        first_name: 'Matti',
