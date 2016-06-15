@@ -4,6 +4,9 @@ class MessagesController < ApplicationController
   end
 
   def index
+    if !check_conversation_owner
+      redirect_to root_path
+    else
     @messages = @conversation.messages
     if @messages.length > 10
       @over_ten = true
@@ -18,10 +21,7 @@ class MessagesController < ApplicationController
     end
 
     @message = @conversation.messages.new
-  end
-
-  def new
-    @message = @conversation.messages.new
+    end
   end
 
   def create
@@ -34,5 +34,9 @@ class MessagesController < ApplicationController
   private
   def message_params
     params.require(:message).permit(:body, :user_id, :read)
+  end
+
+  def check_conversation_owner
+    Conversation.user_conversation(current_user).include? @conversation
   end
 end
