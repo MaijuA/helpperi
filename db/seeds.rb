@@ -6,14 +6,49 @@
 #   cities = City.create([{ name: 'Chicago' }, { name: 'Copenhagen' }])
 #   Mayor.create(name: 'Emanuel', city: cities.first)
 
-Category.create name: 'Remontti', remote_image_url: 'http://res.cloudinary.com/helpperi/image/upload/v1464866403/npnbi1gck7slvvik5o4m.jpg'
-Category.create name: 'Piha&Puutarha', remote_image_url: 'http://res.cloudinary.com/helpperi/image/upload/v1464868932/gshwgszxbztpty8jjrgt.jpg'
-Category.create name: 'It&Hifi', remote_image_url: 'http://res.cloudinary.com/helpperi/image/upload/v1464866436/vwbmipqdnhvhhhilw7i3.jpg'
-Category.create name: 'Siivous', remote_image_url: 'http://res.cloudinary.com/helpperi/image/upload/v1464866464/wyd6b5gnrrvh9yd9gqse.jpg'
-Category.create name: 'Opetus', remote_image_url: 'https://res-3.cloudinary.com/helpperi/image/upload/v1464866480/a6smthtzzpqbjqylqdrh.jpg'
-Category.create name: 'Hoitoapu', remote_image_url: 'https://res-2.cloudinary.com/helpperi/image/upload/v1464866501/z2qqexyrvhd5qg4h6nuc.jpg'
-Category.create name: 'Liikunta&Ulkoilu', remote_image_url: 'https://res-2.cloudinary.com/helpperi/image/upload/v1464866521/cggddvfbcivrnsohqxap.jpg'
-Category.create name: 'Ruoka', remote_image_url: 'https://res-4.cloudinary.com/helpperi/image/upload/v1464866537/xefuyhpcnsrxtwuakpxe.jpg'
-Category.create name: 'Eläimet', remote_image_url: 'https://res-3.cloudinary.com/helpperi/image/upload/v1464866554/d2tnmy3o2jeyw5ur64te.jpg'
-Category.create name: 'Kuljetus', remote_image_url: 'https://res-1.cloudinary.com/helpperi/image/upload/v1464866579/hklbolsgimdifiuosrnq.jpg'
-Category.create name: 'Muu', remote_image_url: 'https://res-5.cloudinary.com/helpperi/image/upload/v1464866594/zquq0so3dibtnobs6mdu.jpg'
+test_user1 = User.create email: 'mikko.meikalainen@testi.fi', password: 10000000 + rand(10000000), first_name: 'Mikko', last_name: 'Meikäläinen', personal_code: '060588-217L', phone_number: '0501234567', address: 'Nollakatu 0', zip_code: '00000', city: 'Helsinki', passport_number: false, confirmed_at: DateTime.now
+test_user2 = User.create email: 'maija.meikalainen@testi.fi', password: 10000000 + rand(10000000), first_name: 'Maija', last_name: 'Meikäläinen', personal_code: '071287-186M', phone_number: '0500000000', address: 'Nollakatu 0', zip_code: '00000', city: 'Helsinki', passport_number: false, confirmed_at: DateTime.now
+
+renovating = Category.new name: 'Remontti', description:'Teen kaikki kodin pienet korjausurakat'
+renovating.image = File.open(File.join(Rails.root, '/seedfiles/renovating.jpg'))
+renovating.save
+gardening = Category.new name: 'Piha&Puutarha', description:'Leikkaan nurmikon, kitken rikkaruohot, hoidan kastelun ja istutukset!'
+gardening.image = File.open(File.join(Rails.root, '/seedfiles/gardening.jpg'))
+gardening.save
+it_supporting = Category.new name: 'It&Hifi', description:'Minulta hoituvat niin tietokoneiden kuin televisioiden asennukset'
+it_supporting.image = File.open(File.join(Rails.root, '/seedfiles/it.jpg'))
+it_supporting.save
+cleaning = Category.new name: 'Siivous', description:'Imurointi, pölyjen pyyhintä, mattojen tamppaus, ikkunoiden pesu... Kaikki puhdistuu!'
+cleaning.image = File.open(File.join(Rails.root, '/seedfiles/cleaning.jpg'))
+cleaning.save
+teaching = Category.new name: 'Opetus', description:'Kärsivällinen opettaja tarjoaa valmennusta aiheeseen kuin aiheeseen'
+teaching.image = File.open(File.join(Rails.root, '/seedfiles/teaching.jpg'))
+teaching.save
+childcare = Category.new name: 'Lasten hoitoapu', description:'Olen kokenut lasten kaitsija'
+childcare.image = File.open(File.join(Rails.root, '/seedfiles/childcare.jpg'))
+childcare.save
+carejob = Category.new name: 'Muu hoitoapu', description:'Tarjoan empaattista tukea vanhusten, vammaisten ja vammautuneiden hoitoon'
+carejob.image = File.open(File.join(Rails.root, '/seedfiles/hands.jpg'))
+carejob.save
+outdoors = Category.new name: 'Liikunta&Ulkoilu', description:'Haluatko ulkoilu tai urheiluseuraa? Olen sporttinen kymmenottelija joka on aina valmis liikkumaan!'
+outdoors.image = File.open(File.join(Rails.root, '/seedfiles/sports.jpg'))
+outdoors.save
+food = Category.new name: 'Ruoka', description:'Kakut, leivokset, ruuat ja keitot isompaan tai pienempään juhlaan'
+food.image = File.open(File.join(Rails.root, '/seedfiles/food.jpg'))
+food.save
+animalcare = Category.new name: 'Eläimet', description:'Eläinrakas hoitaja kissalle tai koiralle tai vaikka matelijalle'
+animalcare.image = File.open(File.join(Rails.root, '/seedfiles/animals.jpg'))
+animalcare.save
+moving = Category.new name: 'Kuljetus', description:'Luotettavalla pakullani teen kotiinkuljetuksia sekä muuttoja'
+moving.image = File.open(File.join(Rails.root, '/seedfiles/truck.jpg'))
+moving.save
+other = Category.new name: 'Muu', description:'Teen kaikkea maan ja taivaan väliltä'
+other.image = File.open(File.join(Rails.root, '/seedfiles/hand_people.jpg'))
+other.save
+
+post1 = Post.create title: 'Koiranhoitajaa kahdelle saksanpaimenkoiralle', description: 'Perheen kaksi kilttiä saksanpaimenkoiraa tarvitsisivat hoitajaa viikon kesäloman ajaksi', user_id: test_user1.id, price: 200, ending_date: DateTime.now + 2.weeks, address: test_user1.address, zip_code: test_user1.zip_code, city: test_user1.city, post_type: "Osto"
+post2 = Post.create title: 'Puutarhatyöläinen', description: 'Teen puutarhatöitä viikonloppuisin kesälomallani', user_id: test_user2.id, price: 0, ending_date: DateTime.now + 2.months, address: test_user2.address, zip_code: test_user2.zip_code, city: test_user2.city, radius: 6, post_type: "Myynti"
+
+
+PostCategory.create post_id: post1.id, category_id: animalcare.id
+PostCategory.create post_id: post2.id, category_id: gardening.id

@@ -52,10 +52,8 @@
   <tbody class="form-group">
 
   <% @posts.each do |post| %>
-      <% if post.user != current_user %>
-          <tr>
-            <% if post.image_is_set? %>
-
+      <tr>
+        <% if post.image_is_set? %>
                 <td ><%= image_tag post.image_url(:list), align: 'left' %></td>
             <% else %>
                 <td ><%= image_tag post.category_to_take_image_from.image_url(:list), align: 'left' %></td>
@@ -72,15 +70,13 @@
                 <% end %>
               </p>
             </td>
-
-            <td><% if post.price %>
-                  <%= post.price %> €
-              <% end %>
-            </td>
-            <td><p>[tähdet]</p>
-              <p><%= post.city %></p></td>
-          </tr>
-      <% end %>
+        <td><% if post.price %>
+              <%= post.price %> €
+          <% end %>
+        </td>
+        <td><p>[tähdet]</p>
+          <p><%= post.city %></p></td>
+      </tr>
   <% end %>
   </tbody>
 </table>
