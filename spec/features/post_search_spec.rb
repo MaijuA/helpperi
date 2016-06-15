@@ -6,7 +6,7 @@ Warden.test_mode!
 describe 'Search method' do
 
   before :each do
-    user = FactoryGirl.create(:user)
+    user = FactoryGirl.create(:user2)
     login_as(user)
     post = FactoryGirl.create(:post)
     sleep 1.5
@@ -125,8 +125,24 @@ describe 'Search method' do
 
   it 'shows posts in min price order' do
     select "Pienin palkkio", :from => "table_id"
+    click_button('Hae')
 
     expect(page.text).to match(/.*Hehehe.*Kattejaa.*Koiran\sulkoilutus.*/)
   end
+
+  it 'shows posts in max price order' do
+    select "Suurin palkkio", :from => "table_id"
+    click_button('Hae')
+
+    expect(page.text).to match(/.*Koiran\sulkoilutus.*Kattejaa.*Hehehe.*/)
+  end
+
+  it 'shows posts in ending soonest order' do
+    select "Sulkeutumassa", :from => "table_id"
+    click_button('Hae')
+
+    expect(page.text).to match(/.*Koiran\sulkoilutus.*Hehehe.*Kattejaa.*/)
+  end
+
 
 end
