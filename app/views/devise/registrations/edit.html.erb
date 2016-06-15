@@ -111,7 +111,7 @@
 
           <div class="form-group">
             <%= f.submit "Päivitä", class: "btn btn-success" %>
-            <%= link_to "Peruuta", user_path(resource_name), class: "btn" %>
+            <%= link_to "Peruuta", user_path(current_user), class: "btn" %>
           </div>
 
       <% end %>
