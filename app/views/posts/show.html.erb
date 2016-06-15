@@ -70,8 +70,8 @@
               <% if current_user && current_user.id == @post.user.id %>
 
               <% elsif current_user %>
-                  p><i>Täytäthän puuttuvat tiedot profiilistasi, jotta voit ilmoittautua kiinnostuneeksi tai lähettää viestin ilmoittajalle.</i></p>
-                  <%= link_to 'Omat tiedot', new_user_registration_path, class:"btn btn-success" %>
+                  <i>Täytäthän puuttuvat tiedot profiilistasi, jotta voit ilmoittautua kiinnostuneeksi tai lähettää viestin ilmoittajalle.</i></p>
+                  <%= link_to 'Omat tiedot', edit_user_registration_path, class:"btn btn-success" %>
               <% else  %>
                   <p><i>Rekisteröidy, jotta voit ilmoittautua kiinnostuneeksi tai lähettää viestin ilmoittajalle.</i></p>
                   <%= link_to 'Rekisteröidy', new_user_registration_path, class:"btn btn-success" %>
@@ -124,6 +124,7 @@
                       <th class="col-md-1"></th>
                       <th class="col-md-1"></th>
                       <th class="col-md-1"></th>
+                      <th class="col-md-1"></th>
                     </tr>
                     </thead>
                     <tbody class="form-group">
@@ -135,14 +136,21 @@
 
 
                           <td><p align="center">
-                            <a href="#" class="btn btn-info btn-sm">
+                            <a href="#">
                               <span class="glyphicon glyphicon-envelope"></span>
                             </a>
                           </p></td>
-                          <td><p align="center"><%= link_to('Hyväksy', post_accept_candidate_path(@post.id, user_id: helper.id), class:"btn-sm btn-warning", data:
-                              { confirm: 'Vahvista hyväksyntäsi valitsemalla OK' }, method: :post) %></p>
-                            <p align="center"><%= link_to('Hylkää', post_deny_candidate_path(@post.id, user_id: helper.id), class:"btn-sm btn-danger", data:
-                                { confirm: 'Haluatko varmasti hylätä käyttäjän?' }, method: :post) %></p></td>
+                          <td><p align="center">
+                            <%= link_to post_accept_candidate_path(@post.id, user_id: helper.id),
+                                        data: { confirm: 'Vahvista hyväksyntäsi valitsemalla ok' }, method: :post do %>
+                                <span class="glyphicon glyphicon-ok" style="color: green"></span>
+                            <% end %></p></td>
+
+                          <td><p align="center">
+                            <%= link_to post_deny_candidate_path(@post.id, user_id: helper.id),
+                                        data: { confirm: 'Haluatko varmasti hylätä käyttäjän?' }, method: :post do %>
+                                <span class="glyphicon glyphicon-remove" style="color: red"></span>
+                            <% end %></p></td>
                         </tr>
                     <% end %>
                     </tbody>
