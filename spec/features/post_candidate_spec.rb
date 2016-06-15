@@ -38,41 +38,41 @@ describe 'Post candidate' do
     expect(page).to have_content 'Maija'
   end
 
-  # it 'post owner can deny user and denying shows to user' do
-  #   login_as(user3)
-  #   visit post_path(post)
-  #
-  #   click_link 'Ilmoittaudu kiinnostuneeksi'
-  #   login_as(user)
-  #
-  #   visit post_path(post)
-  #
-  #   click_link 'Hylkää'
-  #   expect(page).to have_content 'Kiinnostunut on hylätty onnistuneesti.'
-  #   expect(page).not_to have_content 'Maija'
-  #
-  #   login_as(user3)
-  #
-  #   visit post_path(post)
-  #
-  #   expect(page).to have_content 'Ilmoittaja ei ole valinnut sinua tällä kertaa.'
-  # end
-  #
-  # it 'post owner can accept candidate and it shows to user' do
-  #   login_as(user3)
-  #   visit post_path(post)
-  #
-  #   click_link 'Ilmoittaudu kiinnostuneeksi'
-  #   login_as(user)
-  #
-  #   visit post_path(post)
-  #
-  #   click_link 'Hyväksy'
-  #
-  #   login_as(user3)
-  #
-  #   visit post_path(post)
-  #
-  #   expect(page).to have_content 'Olet sitoutunut tähän ilmoitukseen.'
-  # end
+  it 'post owner can deny user and denying shows to user' do
+    login_as(user3)
+    visit post_path(post)
+
+    click_link 'Ilmoittaudu kiinnostuneeksi'
+    login_as(user)
+
+    visit post_path(post)
+
+    click_link 'remove'
+    expect(page).to have_content 'Kiinnostunut on hylätty onnistuneesti.'
+    expect(page).not_to have_content 'Maija'
+
+    login_as(user3)
+
+    visit post_path(post)
+
+    expect(page).to have_content 'Ilmoittaja ei ole valinnut sinua tällä kertaa.'
+  end
+
+  it 'post owner can accept candidate and it shows to user' do
+    login_as(user3)
+    visit post_path(post)
+
+    click_link 'Ilmoittaudu kiinnostuneeksi'
+    login_as(user)
+
+    visit post_path(post)
+
+    click_link 'ok'
+
+    login_as(user3)
+
+    visit post_path(post)
+
+    expect(page).to have_content 'Olet sitoutunut tähän ilmoitukseen.'
+  end
 end

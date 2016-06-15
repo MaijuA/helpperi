@@ -1,26 +1,16 @@
 <% content_for(:head) do %>
     <%= javascript_include_tag 'post.js', 'data-turbolinks-track' => true  %>
-<% end %>
+<% end %><br>
 
 <%= form_tag search_path, id: "search", :method => 'get' do%>
     <div class="row">
-      <h1 class="text-center">Ilmoitukset</h1><br>
 
       <div class="col-md-6 col-md-offset-3">
 
         <div class="account-wall">
-          <!--div class ="text-center"-->
           <div class="form-group">
             <%= check_box_tag :post_type_buying_value, 'Osto', params[:post_type_buying] %> Etsitään helpperiä
             <%= check_box_tag :post_type_selling_value, 'Myynti', params[:post_type_selling] %> Halutaan helpperiksi
-          </div>
-          <div class="form-group2">
-            Hakusana<br>
-            <%= text_field_tag :word, params[:word], size: "11" %>
-          </div>
-          <div class="form-group2">
-            Kategoria<br>
-            <%= select_tag :category_ids, options_for_select(Category.all.collect {|x| [x.name, x.id]}, params[:category_ids]), :multiple => true %>
           </div>
           <div class="form-group2">
             Kaupunki<br>
@@ -31,18 +21,26 @@
             <%= text_field_tag :zip_code, params[:zip_code], size: "8" %>
           </div>
           <div class="form-group2">
+            Hakusana<br>
+            <%= text_field_tag :word, params[:word], size: "11" %>
+          </div>
+          <div class="form-group2">
             Palkkio<br>
             <%= number_field_tag :min, params[:min], min: 0, max: 999, placeholder: "min" %> -
             <%= number_field_tag :max, params[:max], min: 0, max: 999, placeholder: "max" %>
-          </div><br>
+          </div>
+          <div class="form-group2">
+            Kategoria<br>
+            <%= select_tag :category_ids, options_for_select([["Kaikki", 0]] + Category.all.collect {|x| [x.name, x.id]}, params[:category_ids]), :multiple => true %>
+          </div><br><br>
           <div class="form-group">
             <%= submit_tag "Hae" %>
             <%= check_box_tag :remember, true, false %> Muista valintani
           </div>
         </div>
-      </div><br>
+      </div>
     </div>
-    </div>
+    </div><br><br>
     <div align="right">
       <%= collection_select(:table, :id, ["Uusimmat", "Sulkeutumassa", "Pienin palkkio", "Suurin palkkio"], :to_s, :to_s, {:selected => params[:order]}, { :onchange => "changeOrder();return false;"}) %>
     </div>
@@ -56,24 +54,22 @@
   <% @posts.each do |post| %>
       <tr>
         <% if post.image_is_set? %>
+                <td ><%= image_tag post.image_url(:list), align: 'left' %></td>
+            <% else %>
+                <td ><%= image_tag post.category_to_take_image_from.image_url(:list), align: 'left' %></td>
 
-            <td ><%= image_tag post.image_url(:list), align: 'left' %></td>
-        <% else %>
-            <td ><%= image_tag post.category_to_take_image_from.image_url(:list), align: 'left' %></td>
-
-        <% end %>
-        <td>
-          <p><b><%= link_to truncate(post.title, :length => 30), post %></b></p>
-          <% if post.seller? %>
-              <p><span class="selling-badge">Helpperi</span></p>
-          <% end %>
-          <p>
-            <% post.categories.each do |category| %>
-                <span class="category-badge"><%= "#{category.name}" %></span>
             <% end %>
-          </p>
-        </td>
-
+            <td>
+              <p><b><%= link_to truncate(post.title, :length => 30), post %></b></p>
+              <% if post.seller? %>
+                  <p><span class="selling-badge">Helpperi</span></p>
+              <% end %>
+              <p>
+                <% post.categories.each do |category| %>
+                    <span class="category-badge"><%= "#{category.name}" %></span>
+                <% end %>
+              </p>
+            </td>
         <td><% if post.price %>
               <%= post.price %> €
           <% end %>

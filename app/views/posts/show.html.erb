@@ -143,13 +143,13 @@
                           </p></td>
                           <td><p align="center">
                             <%= link_to post_accept_candidate_path(@post.id, user_id: helper.id),
-                                        data: { confirm: 'Vahvista hyväksyntäsi valitsemalla ok' }, method: :post do %>
-                                <span class="glyphicon glyphicon-ok" style="color: green"></span>
+                                        data: { confirm: 'Vahvista hyväksyntäsi valitsemalla ok' }, title: 'ok', method: :post do %>
+                                <span title="ok" class="glyphicon glyphicon-ok" style="color: green"></span>
                             <% end %></p></td>
 
                           <td><p align="center">
                             <%= link_to post_deny_candidate_path(@post.id, user_id: helper.id),
-                                        data: { confirm: 'Haluatko varmasti hylätä käyttäjän?' }, method: :post do %>
+                                        data: { confirm: 'Haluatko varmasti hylätä käyttäjän?' }, title: 'remove', method: :post do %>
                                 <span class="glyphicon glyphicon-remove" style="color: red"></span>
                             <% end %></p></td>
                         </tr>
