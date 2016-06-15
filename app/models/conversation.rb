@@ -14,4 +14,8 @@ class Conversation < ActiveRecord::Base
     Message.where(:conversation_id => Conversation.where("conversations.sender_id = ? OR conversations.recipient_id =?", user_id,user_id).ids).where.not(user_id:user_id)
   end
 
+  scope :user_conversation, -> (user_id) do
+    Conversation.where("conversations.sender_id = ? OR conversations.recipient_id =?", user_id,user_id)
+  end
+
 end

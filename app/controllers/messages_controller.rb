@@ -1,6 +1,11 @@
 class MessagesController < ApplicationController
   before_action do
     @conversation = Conversation.find(params[:conversation_id])
+
+    if check_conversation_owner
+      redirect_to root_path
+    end
+
   end
 
   def index
@@ -34,5 +39,9 @@ class MessagesController < ApplicationController
   private
   def message_params
     params.require(:message).permit(:body, :user_id, :read)
+  end
+
+  def check_conversation_owner
+    Conversation.user_conversation(current_user).present?
   end
 end
