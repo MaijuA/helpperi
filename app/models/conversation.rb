@@ -4,10 +4,10 @@ class Conversation < ActiveRecord::Base
 
   has_many :messages, dependent: :destroy
 
-  validates_uniqueness_of :sender_id, :scope => :recipient_id
+  validates_uniqueness_of :sender_id, :scope => [:recipient_id, :post_id]
 
-  scope :between, -> (sender_id,recipient_id) do
-    where("(conversations.sender_id = ? AND conversations.recipient_id =?) OR (conversations.sender_id = ? AND conversations.recipient_id =?)", sender_id,recipient_id, recipient_id, sender_id)
+  scope :between, -> (post_id,sender_id,recipient_id) do
+    where("(conversations.post_id = ? AND conversations.sender_id = ? AND conversations.recipient_id =?) OR (conversations.post_id = ? AND conversations.sender_id = ? AND conversations.recipient_id =?)", post_id, sender_id,recipient_id, post_id, recipient_id, sender_id)
   end
 
   scope :user_messages, -> (user_id) do

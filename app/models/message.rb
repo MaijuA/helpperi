@@ -4,7 +4,7 @@ class Message < ActiveRecord::Base
 
   acts_as_readable :on => :created_at
 
-  belongs_to :conversations
+  belongs_to :conversation
   belongs_to :user
 
   scope :unread, -> do
