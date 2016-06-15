@@ -29,6 +29,7 @@ class MessagesController < ApplicationController
     if @message.save
       redirect_to conversation_messages_path(@conversation)
     end
+    render :nothing => true
   end
 
   private
