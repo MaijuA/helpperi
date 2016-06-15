@@ -16,7 +16,7 @@
       <%= link_to conversations_path, class: ""  do %>
         <span class="glyphicon glyphicon-envelope"></span>
           <%= content_tag :span, Conversation.user_messages(current_user.id).unread_by(current_user).count,
-              class: 'label label-warning' if Conversation.user_messages(current_user.id).unread_by(current_user).count > 0 %>
+              class: 'label label-primary' if Conversation.user_messages(current_user.id).unread_by(current_user).count > 0 %>
       <% end %>
     </li>
     <li><%= link_to 'Kirjaudu ulos', destroy_user_session_path, :method => :delete %></li>

@@ -40,7 +40,7 @@ class PostsController < ApplicationController
       @posts = @posts.where("price <= ?", params[:max])
     end
 
-    if params[:category_ids] != nil
+    if params[:category_ids] != nil && !params[:category_ids].include?('0')
       @posts = Post.where(:id => PostCategory.where(:category_id => params[:category_ids]).map { |x| x.post_id })
     end
 
