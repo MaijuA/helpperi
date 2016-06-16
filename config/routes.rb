@@ -23,6 +23,7 @@ Rails.application.routes.draw do
     post 'accept_candidate'
   end
 
+  get '/interests' => 'users#interests', as: :user_interests
   get '/list' => 'admin#list', as: :admin_list
 
   get '/info' => 'info#info', as: :info_info

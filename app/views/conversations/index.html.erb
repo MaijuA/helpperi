@@ -7,7 +7,6 @@
     <tr>
       <th></th>
       <th></th>
-      <th>Ilmoitus</th>
     </tr>
     </thead>
 
@@ -21,18 +20,15 @@
                   <% recipient = User.find(conversation.sender_id) %>
               <% end %>
             <tr>
-              <td>
-                <p><%= link_to recipient.first_name, user_path(recipient)%></p>
-                <p>[tähdet]</p>
-              </td>
-              <td><%= link_to 'Keskustelu', conversation_messages_path(conversation)%><br>
+
+              <td><%= link_to recipient.first_name, conversation_messages_path(conversation) %><br>
                 <% if Conversation.where(id:conversation.id).user_messages(current_user.id).unread_by(current_user).count > 0 %>
                   <p>Uusia viestejä</p>
                 <% end %>
               </td>
               <td>
                 <% if conversation.post_id %>
-                    <%= link_to Post.find(conversation.post_id).title, post_path(Post.find(conversation.post_id)) %>
+                    <%= link_to Post.find(conversation.post_id).title, conversation_messages_path(conversation) %>
                 <% end %>
               </td>
             </tr>
