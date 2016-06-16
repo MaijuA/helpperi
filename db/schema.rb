@@ -40,11 +40,11 @@ ActiveRecord::Schema.define(version: 20160616073642) do
   end
 
   create_table "candidates", force: :cascade do |t|
+    t.integer  "post_id"
+    t.integer  "user_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.boolean  "denied"
-    t.integer  "post_id"
-    t.integer  "user_id"
   end
 
   create_table "categories", force: :cascade do |t|
@@ -58,8 +58,8 @@ ActiveRecord::Schema.define(version: 20160616073642) do
   create_table "conversations", force: :cascade do |t|
     t.integer  "sender_id"
     t.integer  "recipient_id"
-    t.datetime "created_at",   null: false
-    t.datetime "updated_at",   null: false
+    t.datetime "created_at"
+    t.datetime "updated_at"
     t.integer  "post_id"
   end
 
@@ -69,8 +69,8 @@ ActiveRecord::Schema.define(version: 20160616073642) do
     t.integer  "user_id"
     t.boolean  "read",            default: false
     t.integer  "post_id"
-    t.datetime "created_at",                      null: false
-    t.datetime "updated_at",                      null: false
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
   add_index "messages", ["conversation_id"], name: "index_messages_on_conversation_id"
@@ -155,15 +155,12 @@ ActiveRecord::Schema.define(version: 20160616073642) do
     t.datetime "last_sign_in_at"
     t.string   "current_sign_in_ip"
     t.string   "last_sign_in_ip"
+    t.datetime "created_at",                          null: false
+    t.datetime "updated_at",                          null: false
     t.string   "confirmation_token"
     t.datetime "confirmed_at"
     t.datetime "confirmation_sent_at"
     t.string   "unconfirmed_email"
-    t.integer  "failed_attempts",        default: 0,  null: false
-    t.string   "unlock_token"
-    t.datetime "locked_at"
-    t.datetime "created_at",                          null: false
-    t.datetime "updated_at",                          null: false
     t.string   "first_name"
     t.string   "last_name"
     t.string   "personal_code"
@@ -174,15 +171,17 @@ ActiveRecord::Schema.define(version: 20160616073642) do
     t.text     "description"
     t.boolean  "passport_number"
     t.datetime "deleted_at"
-    t.string   "image"
+    t.integer  "failed_attempts",        default: 0,  null: false
+    t.string   "unlock_token"
+    t.datetime "locked_at"
     t.string   "provider"
     t.string   "uid"
+    t.string   "image"
     t.string   "language"
   end
 
   add_index "users", ["confirmation_token"], name: "index_users_on_confirmation_token", unique: true
   add_index "users", ["email"], name: "index_users_on_email", unique: true
   add_index "users", ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
-  add_index "users", ["unlock_token"], name: "index_users_on_unlock_token", unique: true
 
 end

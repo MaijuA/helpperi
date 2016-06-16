@@ -67,11 +67,6 @@ class PostsController < ApplicationController
 
     @posts = @posts.paginate(:page => params[:page], :per_page => 15)
 
-
-    #   fulltext params[:word] do
-    #     fields(:title, :description)
-    #   end
-
     render :index
   end
 

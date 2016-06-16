@@ -114,7 +114,9 @@
                       <td> <p><%= link_to @post.performer.first_name, user_path(@post.performer) %></p>
                         <p>[tähdet]</p></td>
 
-                      <td></td>
+                      <td>
+                        <%= link_to 'Lähetä viesti', conversations_path(sender_id: current_user.id, recipient_id: @post.performer.id, post_id:@post.id), method: 'post', class:"btn btn-info" %>
+                      </td>
                     </tr>
                     </tbody>
                   </table>
@@ -135,10 +137,10 @@
                             <p align="center">[tähdet]</p></td>
 
                           <td><p align="center">
-                            <%= link_to conversations_path(Conversation.where(sender_id:current_user).where(recipient_id:helper.id).where(post_id:@post.id)) do %>
+                            <%= link_to conversations_path(current_user.id, helper.id, @post.id) do %>
                                 <span class="glyphicon glyphicon-envelope"></span>
-                                <%= content_tag :span, Conversation.where(sender_id:current_user).where(recipient_id:helper.id).where(post_id:@post.id).count,
-                                                class: 'badge', style:"background-color: #C42121;" if Conversation.where(sender_id:current_user).where(recipient_id:helper.id).where(post_id:@post.id).count > 0 %>
+                                <%= content_tag :span, distinct_conversation_count(@post.id),
+                                                class: 'badge', style:"background-color: #C42121;" if distinct_conversation_count(@post.id) > 0 %>
                             <% end %>
                           </p></td>
                           <td><p align="center">
@@ -158,6 +160,47 @@
                   </table>
               <% end %>
           <% end %>
+        </div>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-md-6 col-md-offset-3">
+        <h3 class="text-center title">Ilmoitukseen liittyvät viestit</h3>
+        <div class="account-wall">
+
+          <%= form_for(@post, :html => {:class => "lomake"}) do |f| %>
+            <table class="table table-striped">
+              <thead>
+                <tr>
+                  <th class="col-md-1"></th>
+                </tr>
+              </thead>
+                <tbody class="form-group">
+                <% Conversation.where(post_id:@post.id).each do |c| %>
+                  <tr>
+                    <td>
+                      <p align="center">
+                        <% if c.sender_id == current_user.id %>
+                          <%= link_to conversation_messages_path(c) do %>
+                            <%= User.where(id:c.recipient_id).first.first_name %> <span class="glyphicon glyphicon-envelope"></span>
+                            <%= content_tag :span, distinct_conversation_count(@post.id),
+                                            class: 'badge', style:"background-color: blue" if distinct_conversation_count(@post.id) > 0 %>
+                            <% end %>
+                        <% else %>
+                          <%= link_to conversation_messages_path(c) do %>
+                            <%= User.where(id:c.sender_id).first.first_name %> <span class="glyphicon glyphicon-envelope"></span>
+                              <%= content_tag :span, distinct_conversation_count(@post.id),
+                                           class: 'badge', style:"background-color: blue" if distinct_conversation_count(@post.id) > 0 %>
+                            <% end %>
+                        <% end %>
+                      </p>
+                    </td>
+                  </tr>
+                  <% end %>
+                </tbody>
+              </table>
+             <% end %>
         </div>
       </div>
     </div>

@@ -6,8 +6,7 @@ Warden.test_mode!
 describe 'Search method' do
 
   before :each do
-    user = FactoryGirl.create(:user2)
-    login_as(user)
+    logout
     post = FactoryGirl.create(:post)
     sleep 1.5
     post1 = FactoryGirl.create(:post_search)

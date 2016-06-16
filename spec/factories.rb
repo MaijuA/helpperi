@@ -30,8 +30,13 @@ FactoryGirl.define do
       first_name 'Maija'
     end
 
-    factory :soft_user do
+    factory :user4 do
       id 4
+      first_name 'Keijo'
+    end
+
+    factory :soft_user do
+      id 5
       address ''
       zip_code ''
       city ''
