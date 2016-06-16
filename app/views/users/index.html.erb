@@ -50,15 +50,15 @@
                   <% if c.sender_id == current_user.id %>
                       <%= link_to conversation_messages_path(c) do %>
                           <%= User.where(id:c.recipient_id).first.first_name %> <span class="glyphicon glyphicon-envelope"></span>
-                          <%= content_tag :span, distinct_conversation_count(post.id),
-                                          class: 'badge', style:"background-color: blue" if distinct_conversation_count(post.id) > 0 %>
+                          <%= content_tag :span, conversation_user_count(c.recipient_id, post.id),
+                                          class: 'badge', style:"background-color: blue" if conversation_user_count(c.recipient_id, post.id) > 0 %>
                       <% end %>
                   <% else %>
                       <%= link_to conversation_messages_path(c) do %>
                           <%= User.where(id:c.sender_id).first.first_name %> <span class="glyphicon glyphicon-envelope"></span>
-                          <%= content_tag :span, distinct_conversation_count(post.id),
-                                          class: 'badge', style:"background-color: blue" if distinct_conversation_count(post.id) > 0 %>
-                      <% end %>
+                          <%= content_tag :span, conversation_user_count(c.sender_id, post.id),
+                                          class: 'badge', style:"background-color: blue" if conversation_user_count(c.sender_id, post.id) > 0 %>
+                      <% end %><br>
                   <% end %>
               <% end %>
           <% end %>
