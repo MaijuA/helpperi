@@ -66,7 +66,7 @@ class Post < ActiveRecord::Base
   scope :buying, -> { where post_type:'Osto'}
   scope :selling, -> { where post_type:'Myynti'}
   scope :valid, lambda{ where("ending_date >= ?", Date.today) }
-  scope :others, -> (user_id) { where("id != ?", user_id)}
+  scope :others, -> (current_user) { where("user_id != ?", current_user)}
   scope :expired, lambda{ where("ending_date < ?", Date.today) }
 
   def category_to_take_image_from
