@@ -1,5 +1,11 @@
 <div class="row">
   <div class="col-md-5 col-md-offset-3">
+
+
+    <% if @conversation_title %>
+      <h3><%= link_to @conversation_title, post_path(@conversation.post_id) %></h3>
+    <% end %>
+
     <% if @over_ten %>
         <p>10 uusinta viestiä. (<%= link_to 'Aikaisemmat viestit', '?m=all' %>)</p>
     <% end %>
@@ -16,7 +22,7 @@
             <% user = User.find(message.user_id) %>
             <div class="row" style="margin: 10px;">
               <div class="bubble-right hyphenate">
-                <div class="header"><strong><%= user.first_name %></strong> <%= message.message_time %></div>
+                <div class="header"><strong><%= link_to user.first_name, user_path(user) %></strong> <%= message.message_time %></div>
                 <%= message.body %>
               </div>
             </div>
