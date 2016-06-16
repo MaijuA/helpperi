@@ -49,8 +49,8 @@ ActiveRecord::Schema.define(version: 20160615112136) do
   create_table "conversations", force: :cascade do |t|
     t.integer  "sender_id"
     t.integer  "recipient_id"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at",   null: false
+    t.datetime "updated_at",   null: false
     t.integer  "post_id"
   end
 
@@ -60,8 +60,8 @@ ActiveRecord::Schema.define(version: 20160615112136) do
     t.integer  "user_id"
     t.boolean  "read",            default: false
     t.integer  "post_id"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at",                      null: false
+    t.datetime "updated_at",                      null: false
   end
 
   add_index "messages", ["conversation_id"], name: "index_messages_on_conversation_id"
