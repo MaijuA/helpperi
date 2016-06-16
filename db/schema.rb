@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160616080000) do
+ActiveRecord::Schema.define(version: 20160616131735) do
 
   create_table "activities", force: :cascade do |t|
     t.integer  "trackable_id"
@@ -135,11 +135,12 @@ ActiveRecord::Schema.define(version: 20160616080000) do
   add_index "rating_caches", ["cacheable_id", "cacheable_type"], name: "index_rating_caches_on_cacheable_id_and_cacheable_type"
 
   create_table "ratings", force: :cascade do |t|
+    t.integer  "reviewer_id"
+    t.integer  "reviewed_id"
+    t.integer  "post_id"
     t.string   "review"
-    t.integer  "user_id"
-    t.string   "role"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at",  null: false
+    t.datetime "updated_at",  null: false
   end
 
   create_table "read_marks", force: :cascade do |t|

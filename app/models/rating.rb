@@ -1,5 +1,6 @@
 class Rating < ActiveRecord::Base
-  ratyrate_rateable :user_id
-  belongs_to post
-  belongs_to user
+  belongs_to :reviewer, :foreign_key => :reviewer_id, class_name: 'User'
+  belongs_to :reviewed, :foreign_key => :reviewed_id, class_name: 'User'
+
+  validates_uniqueness_of :reviewer_id, :scope => [:reviewed_id, :post_id]
 end

@@ -1,9 +1,4 @@
 FactoryGirl.define do
-  factory :rating do
-    review "MyString"
-    user_id 1
-    role "MyString"
-  end
   factory :user do
     id 1
     email { Faker::Internet.email }

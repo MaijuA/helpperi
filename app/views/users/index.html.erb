@@ -115,6 +115,9 @@
                         class: 'badge', style:"background-color: blue" if conversation_user_count(post.performer.id, post.id) > 0 %>
           <% end %>
         </td>
+        <td>
+          <p><%= link_to("Arviointi", new_rating_path) %></p>
+        </td>
         <td><% if post.price %>
               <%= post.price %> €
           <% end %>

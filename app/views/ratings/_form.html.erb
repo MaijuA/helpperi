@@ -19,11 +19,9 @@
         </div>
     <% end %>
 
-    Arvio: <%= rating_for @rating, 'user_id' %>
-
     <div class="form-group">
-      <%= f.label :description %><br>
-      <%= f.text_area :description, :rows => '5', class: 'form-control' %>
+      <%= f.label :review %><br>
+      <%= f.text_area :review, :rows => '5', class: 'form-control' %>
     </div>
 
     <% if @edit %>

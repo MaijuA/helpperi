@@ -7,8 +7,7 @@ class Post < ActiveRecord::Base
   has_many :denied_candidates, -> { where denied: true }, class_name: 'Candidate'
   has_many :helpers, through: :accepted_candidates, source: :user
   has_many :denied_helpers, through: :denied_candidates, source: :user
-  has_one :rating, :class_name => 'Rating', :foreign_key => 'buyer_rating_id'
-  has_one :rating, :class_name => 'Rating', :foreign_key => 'seller_rating_id'
+  has_many :ratings
 
   mount_uploader :image, ImageUploader
 

@@ -22,8 +22,6 @@ Rails.application.routes.draw do
     post 'add_candidate'
     post 'deny_candidate'
     post 'accept_candidate'
-    post 'create_rating'
-    post 'edit_rating'
   end
 
   get '/interests' => 'users#interests', as: :user_interests
