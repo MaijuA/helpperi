@@ -7,6 +7,7 @@ class Post < ActiveRecord::Base
   has_many :denied_candidates, -> { where denied: true }, class_name: 'Candidate'
   has_many :helpers, through: :accepted_candidates, source: :user
   has_many :denied_helpers, through: :denied_candidates, source: :user
+  has_many :ratings
 
   mount_uploader :image, ImageUploader
 
@@ -16,6 +17,7 @@ class Post < ActiveRecord::Base
     self.city = city.to_s.capitalize
   end
 
+  validates :ratings, length: { maximum: 2}
   validates :user_id, :post_type, :zip_code, :city, :price, :ending_date, presence: true
   validates :price, numericality: {greater_than_or_equal_to: 0, less_than: 500 }
   validates :post_type, :inclusion=> { :in => ['Myynti', 'Osto'] }

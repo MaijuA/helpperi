@@ -6,6 +6,10 @@ class UsersController < ApplicationController
     if current_user == @user
       @user_expired_posts = @user.posts.active.expired
     end
+    @rating = Rating.where(user_id: @user.id).first
+    unless @rating
+      @rating = Rating.create(post_id:100, user_id: @user.id, score: 0)
+    end
   end
 
   # GET /posts

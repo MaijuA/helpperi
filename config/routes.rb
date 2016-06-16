@@ -12,6 +12,8 @@ Rails.application.routes.draw do
 
   resources :posts
 
+  resources :ratings, only: :update
+
   root 'posts#index'
 
   get '/search', to:'posts#search', as: :search

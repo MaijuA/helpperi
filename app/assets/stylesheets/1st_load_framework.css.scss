@@ -333,3 +333,15 @@ footer p {
   -moz-hyphens: auto;
   hyphens: auto;
 }
+
+.rating_star {
+  background: url('star-on.png') 0 0;
+  width: 16px;
+  height: 16px;
+  display: block;
+  float: left;
+}
+
+.on {
+  background-position: 0 16px;
+}
