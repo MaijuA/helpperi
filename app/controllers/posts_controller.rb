@@ -199,6 +199,14 @@ class PostsController < ApplicationController
     end
   end
 
+  def create_rating
+
+  end
+
+  def edit_rating
+
+  end
+
   private
 # Use callbacks to share common setup or constraints between actions.
   def set_post

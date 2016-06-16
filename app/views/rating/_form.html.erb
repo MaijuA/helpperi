@@ -1,0 +1,40 @@
+<%= form_for(@rating, :html => {:class => 'lomake'}) do |f| %>
+    <% if @rating.errors.any? %>
+        <div id='error_explanation'>
+          <h2><%= @rating.errors.count %>
+            <% if @rating.errors.count == 1 %>
+                virhe
+            <% else %>
+                virhettä
+            <% end %>
+            esti tallentamasta tämän arvionnin:
+
+          </h2>
+
+          <ul>
+            <% @rating.errors.full_messages.each do |message| %>
+                <li><%= message %></li>
+            <% end %>
+          </ul>
+        </div>
+    <% end %>
+
+    Arvio: <%= rating_for @rating, 'user_id' %>
+
+    <div class="form-group">
+      <%= f.label :description %><br>
+      <%= f.text_area :description, :rows => '5', class: 'form-control' %>
+    </div>
+
+    <% if @edit %>
+        <div class='actions'>
+          <%= f.submit 'Päivitä', class: 'btn btn-success' %>
+          <%= link_to 'Peruuta', post_path, class: 'btn' %>
+        </div><br>
+    <% else %>
+        <div class="actions">
+          <%= f.submit 'Luo arvionti', class: "btn btn-success" %>
+          <%= link_to "Peruuta", posts_path, class: "btn" %>
+        </div>
+    <% end %>
+<% end %>

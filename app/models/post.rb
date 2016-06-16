@@ -7,6 +7,8 @@ class Post < ActiveRecord::Base
   has_many :denied_candidates, -> { where denied: true }, class_name: 'Candidate'
   has_many :helpers, through: :accepted_candidates, source: :user
   has_many :denied_helpers, through: :denied_candidates, source: :user
+  has_one :rating, :class_name => 'Rating', :foreign_key => 'buyer_rating_id'
+  has_one :rating, :class_name => 'Rating', :foreign_key => 'seller_rating_id'
 
   mount_uploader :image, ImageUploader
 
@@ -66,7 +68,7 @@ class Post < ActiveRecord::Base
   scope :buying, -> { where post_type:'Osto'}
   scope :selling, -> { where post_type:'Myynti'}
   scope :valid, lambda{ where("ending_date >= ?", Date.today) }
-  scope :others, -> (user_id) { where("id != ?", user_id)}
+  scope :others, -> (user_id) { where("user_id != ?", user_id)}
   scope :expired, lambda{ where("ending_date < ?", Date.today) }
 
   def category_to_take_image_from

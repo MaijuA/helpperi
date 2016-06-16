@@ -1,5 +1,6 @@
 class User < ActiveRecord::Base
   acts_as_reader
+  ratyrate_rater
   mount_uploader :image, ImageUploader
 
   devise :confirmable, :database_authenticatable, :registerable,
@@ -42,6 +43,7 @@ class User < ActiveRecord::Base
   has_many :posts, dependent: :destroy
   has_many :candidates, -> { where denied:false }, dependent: :destroy
   has_many :tasks, through: :candidates, source: :post
+  has_many :ratings
 
   scope :active, -> { where deleted_at:false }
   scope :deleted, -> { where deleted_at:true }
