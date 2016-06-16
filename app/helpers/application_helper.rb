@@ -1,17 +1,14 @@
 module ApplicationHelper
   def users_conversations_count # counts all messages which aren´t related to own posts or interests or performed posts
-    Conversation.where(post_id:nil).user_messages(current_user.id).unread_by(current_user).count
-    + Conversation.where.not(post_id:(Post.where(doer_id:current_user.id))).where(post_id:(Candidate.where(denied:true).where(user_id:current_user.id))).user_messages(current_user.id).unread_by(current_user).count
-    + Conversation.where.not(post_id:(Post.where(user_id:current_user.id))).where.not(post_id:(Candidate.where(user_id:current_user.id))).user_messages(current_user.id).unread_by(current_user).count
+    Conversation.where(post_id:nil).user_messages(current_user.id).unread_by(current_user).count + Conversation.where(post_id:(Candidate.where(denied:true).where(user_id:current_user.id))).where.not(post_id:(Post.where(doer_id:current_user.id))).user_messages(current_user.id).unread_by(current_user).count + Conversation.where.not(post_id:(Post.where(user_id:current_user.id))).where.not(post_id:(Post.where(doer_id:current_user.id))).where.not(post_id:(Candidate.where(user_id:current_user.id))).user_messages(current_user.id).unread_by(current_user).count
   end
 
   def posts_conversations_count # counts all users posts unread messages
-    Conversation.where.not(post_id:nil).where(post_id:current_user.posts.ids).user_messages(current_user.id).unread_by(current_user).count
+    Conversation.where(post_id:current_user.posts.ids).user_messages(current_user.id).unread_by(current_user).count
   end
 
   def candidate_conversations_count # counts all unread messages related to users interests
-    Conversation.where(post_id:(Post.where(doer_id:current_user.id))).user_messages(current_user.id).unread_by(current_user).count
-    + Conversation.where(post_id:(Candidate.where(denied:false).where(user_id:current_user.id))).user_messages(current_user.id).unread_by(current_user).count
+    Conversation.where(post_id:(Post.where(doer_id:current_user.id))).user_messages(current_user.id).unread_by(current_user).count + Conversation.where(post_id:(Candidate.where(denied:false).where(user_id:current_user.id))).user_messages(current_user.id).unread_by(current_user).count
   end
 
   def post_conversation_count(post_id) # counts all conversations related to post
