@@ -50,15 +50,15 @@
                   <% if c.sender_id == current_user.id %>
                       <%= link_to conversation_messages_path(c) do %>
                           <%= User.where(id:c.recipient_id).first.first_name %> <span class="glyphicon glyphicon-envelope"></span>
-                          <%= content_tag :span, distinct_conversation_count(post.id),
-                                          class: 'badge', style:"background-color: blue" if distinct_conversation_count(post.id) > 0 %>
+                          <%= content_tag :span, conversation_user_count(c.recipient_id, post.id),
+                                          class: 'badge', style:"background-color: blue" if conversation_user_count(c.recipient_id, post.id) > 0 %>
                       <% end %>
                   <% else %>
                       <%= link_to conversation_messages_path(c) do %>
                           <%= User.where(id:c.sender_id).first.first_name %> <span class="glyphicon glyphicon-envelope"></span>
-                          <%= content_tag :span, distinct_conversation_count(post.id),
-                                          class: 'badge', style:"background-color: blue" if distinct_conversation_count(post.id) > 0 %>
-                      <% end %>
+                          <%= content_tag :span, conversation_user_count(c.sender_id, post.id),
+                                          class: 'badge', style:"background-color: blue" if conversation_user_count(c.sender_id, post.id) > 0 %>
+                      <% end %><br>
                   <% end %>
               <% end %>
           <% end %>
@@ -111,8 +111,8 @@
         <td>
           <%= link_to conversations_path(post.performer.id, post.user.id, post.id) do %>
              <span class="glyphicon glyphicon-envelope"></span>
-             <%= content_tag :span, distinct_conversation_count(post.id),
-                        class: 'badge', style:"background-color: blue" if distinct_conversation_count(post.id) > 0 %>
+             <%= content_tag :span, conversation_user_count(post.performer.id, post.id),
+                        class: 'badge', style:"background-color: blue" if conversation_user_count(post.performer.id, post.id) > 0 %>
           <% end %>
         </td>
         <td><% if post.price %>
@@ -166,8 +166,8 @@
               <% if post.performer %>
               <%= link_to conversations_path(current_user.id, post.performer.id, post.id) do %>
                   <span class="glyphicon glyphicon-envelope"></span>
-                  <%= content_tag :span, distinct_conversation_count(post.id),
-                                  class: 'badge', style:"background-color: blue" if distinct_conversation_count(post.id) > 0 %>
+                  <%= content_tag :span, conversation_user_count(post.performer.id, post.id),
+                                  class: 'badge', style:"background-color: blue" if conversation_user_count(post.performer.id, post.id) > 0 %>
               <% end %>
               <% end %>
             </td>
