@@ -32,7 +32,7 @@ class User < ActiveRecord::Base
       message: 'ei ole Suomessa kelvollinen'
   }, :on => :update
 
-  validates :personal_code, hetu: true, :on => :update
+  validates :personal_code, hetu: true, :unless => :passport_number_is_used?, :on => :update
 
   validates_processing_of :image, if: :image_is_set?
   validates_integrity_of :image, if: :image_is_set?

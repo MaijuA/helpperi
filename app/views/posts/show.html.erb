@@ -48,36 +48,58 @@
           <p>
             <strong>Ilmoittaja</strong><br>
             <%= link_to(@post.user.first_name, user_path(@post.user)) %><br>
-            <%= @post.address if @post.user == current_user %><% if @post.user ==current_user %><br><% end %>
+            <!-- oma ilmoitus -->
+            <%= @post.address if @post.user == current_user %><br>
+            <!-- /oma ilmoitus -->
             <%= @post.zip_code %> <%= @post.city %>
           </p><br>
 
-
+          <!-- oma ilmoitus -->
           <%= link_to('Muokkaa', edit_post_path(@post), class:"btn btn-info") if @post.user == current_user %>
           <%= link_to("Poista", post_delete_post_path(@post.id), class:"btn btn-danger", data:
               { confirm: 'Haluatko varmasti poistaa ilmoituksen?' }, method: :post) if @post.user == current_user %>
+          <!-- /oma ilmoitus -->
 
+          <!--
+          (on kiinnostunut)
+          1. käyttäjä on sitoutunut (valittu)
+          2. käyttäjä on ilmoittautunut kiinnostuneeksi (kiinnostunut)
+          3. käyttäjä on hylätty (ei valittu)
 
-          <% if current_user && @post.doer_id == current_user.id && current_user != @post.user %>
-              <a class='btn btn-warning disabled ' >Olet sitoutunut tähän ilmoitukseen.</a>
-          <% elsif current_user && @post.helpers.include?(current_user) && current_user.id != @post.user.id %>
-              <a class='btn btn-warning disabled ' >Olet ilmoittaunut kiinnostuneeksi</a>
-          <% elsif current_user && @post.denied_helpers.include?(current_user) && current_user != @post.user %>
-              <a class='btn btn-danger disabled ' >Ilmoittaja ei ole valinnut sinua tällä kertaa.</a>
-          <% elsif current_user && current_user.valid? && current_user != @post.user && !@post.denied_helpers.include?(current_user) %>
-              <%= link_to('Ilmoittaudu kiinnostuneeksi', post_add_candidate_path(@post.id), class:"btn btn-success", method: :post) %>
-          <% else %>
-              <% if current_user && current_user.id == @post.user.id %>
+          tai
 
-              <% elsif current_user %>
+          (ei kiinnostunut)
+          1. käyttäjä voi ilmoittautua kiinnostuneeksi
+
+          1. viestit
+
+          tai
+
+          1. viivästetty rekisteröinti ilmoitus (kirjautunut)
+          2. suorita rekisteröinti (ei kirjautunut)
+          -->
+          <% if current_user && @post.user.id != current_user.id %>
+              <% if current_user.valid? %>
+                  <% if @post.doer_id == current_user.id %>
+                      <a class='btn btn-warning disabled ' >Olet sitoutunut tähän ilmoitukseen.</a>
+                  <% elsif @post.helpers.include?(current_user) %>
+                      <a class='btn btn-warning disabled ' >Olet ilmoittaunut kiinnostuneeksi</a>
+                  <% elsif @post.denied_helpers.include?(current_user) %>
+                      <a class='btn btn-danger disabled ' >Ilmoittaja ei ole valinnut sinua tällä kertaa.</a>
+                  <% elsif !@post.denied_helpers.include?(current_user) %>
+                      <%= link_to('Ilmoittaudu kiinnostuneeksi', post_add_candidate_path(@post.id), class:"btn btn-success", method: :post) %>
+                  <% end %>
+                  <!-- ilmoituksen keskustelu -->
+                  <%= link_to 'Lähetä viesti ilmoittajalle', conversations_path(sender_id: current_user.id, recipient_id: @post.user.id, post_id:@post.id), method: 'post', class:"btn btn-info" %>
+                  <!-- /ilmoituksen keskustelu -->
+              <% else %>
                   <i>Täytäthän puuttuvat tiedot profiilistasi, jotta voit ilmoittautua kiinnostuneeksi tai lähettää viestin ilmoittajalle.</i></p>
-                  <%= link_to 'Omat tiedot', edit_user_registration_path, class:"btn btn-success" %>
-              <% else  %>
-                  <p><i>Rekisteröidy, jotta voit ilmoittautua kiinnostuneeksi tai lähettää viestin ilmoittajalle.</i></p>
-                  <%= link_to 'Rekisteröidy', new_user_registration_path, class:"btn btn-success" %>
+                  <%= link_to 'Omat tiedot', edit_user_registration_path(finishing: 1), class:"btn btn-success" %>
               <% end %>
+          <% else %>
+              <p><i>Rekisteröidy, jotta voit ilmoittautua kiinnostuneeksi tai lähettää viestin ilmoittajalle.</i></p>
+              <%= link_to 'Rekisteröidy', new_user_registration_path, class:"btn btn-success" %>
           <% end %>
-          <%= link_to 'Lähetä viesti ilmoittajalle', conversations_path(sender_id: current_user.id, recipient_id: @post.user.id, post_id:@post.id), method: 'post', class:"btn btn-info" if current_user && @post.user.id != current_user.id %>
       <% end %>
     </div>
   </div>
