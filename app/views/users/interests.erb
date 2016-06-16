@@ -26,16 +26,7 @@
           </p>
         </td>
         <td>
-          <% if post.doer_id == current_user.id %>
-              <p><%= link_to 'Hyväksytty', post_path(post), class:"label label-success" %></p>
-              <% unless Candidate.where(post_id:post.id).unread_by(current_user).empty? %>
-                  <%= link_to post_path(post)  do %>
-                      <p>Uusi hyväksyntä</p>
-                  <% end %>
-              <% end %>
-          <% elsif !Candidate.where(post_id:post.id).where(user_id:current_user.id).where(denied:false).empty? %>
-              <%= link_to 'Odottaa hyväksyntää', post_path(post), class:"label label-warning" %>
-          <% end %>
+          <%= link_to 'Odottaa hyväksyntää', post_path(post), class:"label label-warning" %>
         </td>
         <td>
           <%= link_to conversations_path(current_user.id, post.user.id, post.id) do %>
@@ -85,7 +76,10 @@
             <% post.categories.each do |category| %>
                 <span class="category-badge"><%= "#{category.name}" %></span>
             <% end %>
-          </p></td>
+          </p>
+          <% if users_candidate_changes(post.id) > 0 %>
+              <span class="label label-warning">Uusi</span>
+          <% end %></td>
         <td>
           <p><%= link_to(post.user.first_name, user_path(post.user)) %></p>
         </td>
