@@ -30,7 +30,9 @@
               <p><%= @user.description %></p>
             </div><br>
             <div class="col-xs-6 col-md-4">
-              <%= image_tag @user.image_url(:display) %>
+              <% if @user.image.present? %>
+                  <%= image_tag @user.image_url(:display) %>
+              <% end %>
             </div>
           </div>
           <br>
