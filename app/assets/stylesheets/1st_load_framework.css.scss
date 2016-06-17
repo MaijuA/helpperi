@@ -335,7 +335,7 @@ footer p {
 }
 
 .rating_star {
-  background: url('star-on.png') 0 0;
+  background: url('star-off.png') 0 0;
   width: 16px;
   height: 16px;
   display: block;
@@ -343,5 +343,9 @@ footer p {
 }
 
 .on {
-  background-position: 0 16px;
+  background: url('star-on.png') 0 0;
+  width: 16px;
+  height: 16px;
+  display: block;
+  float: left;
 }

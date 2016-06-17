@@ -30,22 +30,23 @@ $(function() {
   $('.rating_star').click(function() {
       var star = $(this);
       var form_id = $(this).attr('data-form-id');
-      var stars = $(this).attr('data-score');
+      var score = $(this).attr('data-score');
+      var post_id = $(this).attr('data-post-id');
 
-      set_stars(form_id, stars);
+      set_stars(form_id, score);
 
-      $('#' + form_id + '_stars').val(stars);
+      $('#' + form_id + '_score').val(score);
 
       $.ajax({
           type: "post",
-          url: $('#' + form_id).attr('action'),
-          data: $('#' + form_id).serialize()
+          url: '../ratings/update',
+          data: $('#' + form_id).serialize() +  "&post_id=" + post_id
       });
   });
 
-$('.star_rating_form').each(function() {
-    var form_id = $(this).attr('id');
-    var stars = $('#' + form_id + '_stars').val();
-    set_stars(form_id, stars);
-});
+//$('.star_rating_form').each(function() {
+//    var form_id = $(this).attr('id');
+//    var stars = $('#' + form_id + '_score').val();
+//    set_stars(form_id, stars);
+//});
 });

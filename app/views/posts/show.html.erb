@@ -206,3 +206,16 @@
     </div>
 <% end %>
 
+<div class="rating">
+  <ul>
+    <% form_id = "user_#{@post.user.id}_rating" %>
+    <%= form_for @post.user.ratings.last || @post.user.ratings.build, :html => {:id => "user_#{@post.user.id}_rating", :class => "star_rating_form" }  do |f| %>
+        <%= f.hidden_field :user_id %>
+        <%= f.hidden_field :score, :id => "#{form_id}_score" %>
+    <% end %>
+    <% (1..5).each do |i| %>
+        <li class="rating_star" data-score="<%= i %>" data-form-id="<%= form_id %>" id="<%= "#{form_id}_#{i}" %>" data-post-id="<%= @post.id %>"></li>
+    <% end %>
+  </ul>
+</div>
+
