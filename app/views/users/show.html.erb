@@ -1,13 +1,13 @@
 <div class="row">
   <div class="col-md-6 col-md-offset-3">
-    <h1 class="text-center login-title"><%= @user.first_name %> <%= @user.last_name if current_user == @user %></strong></h1>
+    <h1 class="text-center login-title"><%= @user.first_name %> <%= @user.last_name if current_user == @user %></h1>
     <div class="account-wall">
       <%= form_for(@user, :html => {:class => "lomake"}) do |f| %>
-          <div class ="row">
 
-            <div class="col-xs-12 col-sm-6 col-md-8">
+          <div class="row">
+            <div class="col-xs-12 col-sm-6 col-md-6">
 
-              <% if current_user == @user %>
+              <p> <% if current_user == @user %>
                   <p><b>Sähköposti</b></p>
                   <p><%= @user.email if current_user == @user %></p><br>
               <% end %>
@@ -30,15 +30,21 @@
               <p><%= @user.description %></p>
             </div><br>
             <div class="col-xs-6 col-md-4">
-              <%= image_tag @user.image_url(:display) %>
+              <% if @user.image.present? %>
+                  <%= image_tag @user.image_url(:display) %>
+              <% end %>
+            </div>
+            <br>
+          </div>
+          <div class="row">
+            <div class="col-xs-12 col-sm-6 col-md-6">
+              <%= link_to 'Lähetä viesti käyttäjälle', conversations_path(sender_id: current_user.id, recipient_id: @user.id), method: 'post', class:"btn btn-info" if current_user && @user.id != current_user.id %>
+              <%= link_to('Muokkaa', edit_user_registration_path(@user), class:"btn btn-info") if current_user == @user && current_user.valid? %>
+              <%= link_to('Muokkaa', edit_user_registration_path(@user, :finishing => 1), class:"btn btn-info") if current_user == @user && !current_user.valid? %>
             </div>
           </div>
           <br>
-          <%= link_to 'Lähetä viesti käyttäjälle', conversations_path(sender_id: current_user.id, recipient_id: @user.id), method: 'post', class:"btn btn-info" if current_user && @user.id != current_user.id %>
-          <%= link_to('Muokkaa', edit_user_registration_path(@user), class:"btn btn-info") if current_user == @user && current_user.valid? %>
-          <%= link_to('Muokkaa', edit_user_registration_path(@user, :finishing => 1), class:"btn btn-info") if current_user == @user && !current_user.valid? %>
-
-          </div><br>
       <% end %>
-      </div>
+    </div>
+  </div>
 </div>
