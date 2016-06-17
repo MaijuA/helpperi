@@ -97,8 +97,10 @@
                   <%= link_to 'Omat tiedot', edit_user_registration_path(finishing: 1), class:"btn btn-success" %>
               <% end %>
           <% else %>
-              <p><i>Rekisteröidy, jotta voit ilmoittautua kiinnostuneeksi tai lähettää viestin ilmoittajalle.</i></p>
-              <%= link_to 'Rekisteröidy', new_user_registration_path, class:"btn btn-success" %>
+              <% unless user_signed_in? %>
+                  <p><i>Rekisteröidy tai kirjaudu, jotta voit ilmoittautua kiinnostuneeksi tai lähettää viestin ilmoittajalle.</i></p>
+                  <%= link_to 'Rekisteröidy', new_user_registration_path, class:"btn btn-success" %> <%= link_to 'Kirjaudu', new_user_session_path, class:"btn btn-success" %>
+              <% end %>
           <% end %>
       <% end %>
     </div>
@@ -192,39 +194,38 @@
         <div class="account-wall">
 
           <%= form_for(@post, :html => {:class => "lomake"}) do |f| %>
-            <table class="table table-striped">
-              <thead>
+              <table class="table table-striped">
+                <thead>
                 <tr>
                   <th class="col-md-1"></th>
                 </tr>
-              </thead>
+                </thead>
                 <tbody class="form-group">
                 <% Conversation.where(post_id:@post.id).each do |c| %>
-                  <tr>
-                    <td>
-                      <p align="center">
-                        <% if c.sender_id == current_user.id %>
-                          <%= link_to conversation_messages_path(c) do %>
-                            <%= User.where(id:c.recipient_id).first.first_name %> <span class="glyphicon glyphicon-envelope"></span>
-                            <%= content_tag :span, post_conversation_count(@post.id),
-                                            class: 'badge', style:"background-color: blue" if post_conversation_count(@post.id) > 0 %>
-                            <% end %>
-                        <% else %>
-                          <%= link_to conversation_messages_path(c) do %>
-                            <%= User.where(id:c.sender_id).first.first_name %> <span class="glyphicon glyphicon-envelope"></span>
-                              <%= content_tag :span, post_conversation_count(@post.id),
-                                           class: 'badge', style:"background-color: blue" if post_conversation_count(@post.id) > 0 %>
-                            <% end %>
-                        <% end %>
-                      </p>
-                    </td>
-                  </tr>
-                  <% end %>
+                    <tr>
+                      <td>
+                        <p align="center">
+                          <% if c.sender_id == current_user.id %>
+                              <%= link_to conversation_messages_path(c) do %>
+                                  <%= User.where(id:c.recipient_id).first.first_name %> <span class="glyphicon glyphicon-envelope"></span>
+                                  <%= content_tag :span, post_conversation_count(@post.id),
+                                                  class: 'badge', style:"background-color: blue" if post_conversation_count(@post.id) > 0 %>
+                              <% end %>
+                          <% else %>
+                              <%= link_to conversation_messages_path(c) do %>
+                                  <%= User.where(id:c.sender_id).first.first_name %> <span class="glyphicon glyphicon-envelope"></span>
+                                  <%= content_tag :span, post_conversation_count(@post.id),
+                                                  class: 'badge', style:"background-color: blue" if post_conversation_count(@post.id) > 0 %>
+                              <% end %>
+                          <% end %>
+                        </p>
+                      </td>
+                    </tr>
+                <% end %>
                 </tbody>
               </table>
-             <% end %>
+          <% end %>
         </div>
       </div>
     </div>
 <% end %>
-
