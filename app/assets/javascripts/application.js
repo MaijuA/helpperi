@@ -31,17 +31,18 @@ $(function() {
       var star = $(this);
       var form_id = $(this).attr('data-form-id');
       var score = $(this).attr('data-score');
-      var post_id = $(this).attr('data-post-id');
+      // var post_id = $(this).attr('data-post-id');
 
       set_stars(form_id, score);
 
-      $('#' + form_id + '_score').val(score);
+      //$('#' + form_id + '_score').data(score);
+      document.getElementById(form_id + '_score').value = score;
 
-      $.ajax({
-          type: "post",
-          url: '../ratings/update',
-          data: $('#' + form_id).serialize() +  "&post_id=" + post_id
-      });
+      // $.ajax({
+      //     type: "post",
+      //     url: '../ratings/update',
+      //     data: $('#' + form_id).serialize() +  "&post_id=" + post_id
+      // });
   });
 
 //$('.star_rating_form').each(function() {

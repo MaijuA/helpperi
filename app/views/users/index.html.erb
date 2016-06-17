@@ -84,6 +84,7 @@
     <th class="col-md-2"></th>
     <th class="col-md-2"></th>
     <th class="col-md-2"></th>
+    <th class="col-md-2"></th>
     <th class="col-md-1"></th>
   </tr>
   </thead>
@@ -114,6 +115,25 @@
              <%= content_tag :span, conversation_user_count(post.performer.id, post.id),
                         class: 'badge', style:"background-color: blue" if conversation_user_count(post.performer.id, post.id) > 0 %>
           <% end %>
+        </td>
+        <td>
+          <div class="rating">
+            <ul>
+              <% form_id = "user_#{post.user.id}_rating" %>
+                <%= form_tag ratings_path  do %>
+                  <%= hidden_field_tag :reviewer_id, post.user.id %>
+                  <%= hidden_field_tag :reviewed_id, post.performer.id %>
+                  <%= hidden_field_tag :post_id, post.id %>
+                  <%= hidden_field_tag(:score, 0, { :id => "#{form_id}_score"} ) %>
+                  <% (1..5).each do |i| %>
+                      <li class="rating_star" data-score="<%= i %>" data-form-id="<%= form_id %>" id="<%= "#{form_id}_#{i}" %>" data-post-id="<%= post.id %>"></li>
+                  <% end %>
+                  <%= label_tag :review %>
+                  <%= text_area_tag :review %>
+                  <%= submit_tag "Arvioi" %>
+              <% end %>
+            </ul>
+          </div>
         </td>
         <td><% if post.price %>
               <%= post.price %> €

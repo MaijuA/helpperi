@@ -12,7 +12,7 @@ Rails.application.routes.draw do
 
   resources :posts
 
-  resources :ratings, only: :update
+  resources :ratings, only: :create
 
   root 'posts#index'
 
@@ -25,7 +25,7 @@ Rails.application.routes.draw do
     post 'accept_candidate'
   end
 
-  post 'users/:id', to: 'ratings#update'
+  post 'users/index', to: 'ratings#create'
 
   get '/interests' => 'users#interests', as: :user_interests
   get '/list' => 'admin#list', as: :admin_list

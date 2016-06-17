@@ -1,11 +1,8 @@
 class Rating < ActiveRecord::Base
-  belongs_to :user
+  belongs_to :reviewer, :foreign_key => :reviewer_id, class_name: 'User'
+  belongs_to :reviewed, :foreign_key => :reviewed_id, class_name: 'User'
   belongs_to :post
 
-  validates_uniqueness_of :user, :scope => [:post]
-  # validates :user_post_owner_or_performer
+  validates_uniqueness_of :reviewer_id, :scope => [:reviewed_id, :post_id]
 
-  def user_post_owner_or_performer
-    true
-  end
 end

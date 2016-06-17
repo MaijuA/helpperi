@@ -11,6 +11,7 @@ class UsersController < ApplicationController
   # GET /posts
   # GET /posts.json
   def index
+    @rating = Rating.new
     if current_user
       params[:page1] = 1 if params[:page1] == ''
       params[:page2] = 1 if params[:page2] == ''
