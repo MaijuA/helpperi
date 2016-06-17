@@ -4,6 +4,11 @@ class MessagesController < ApplicationController
   end
 
   def index
+    @conversation_title = if @conversation.post_id
+                            Post.find(@conversation.post_id).title
+                          end
+
+
     if !check_conversation_owner
       redirect_to root_path
     else

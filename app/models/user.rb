@@ -31,6 +31,7 @@ class User < ActiveRecord::Base
       with: /\A(FI-)?[0-9]{5}\z/,
       message: 'ei ole Suomessa kelvollinen'
   }, :on => :update
+
   validates :personal_code, hetu: true, :unless => :passport_number_is_used?, :on => :update
 
   validates_processing_of :image, if: :image_is_set?
