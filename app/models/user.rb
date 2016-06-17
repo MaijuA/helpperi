@@ -1,5 +1,6 @@
 class User < ActiveRecord::Base
   acts_as_reader
+  ratyrate_rater
   mount_uploader :image, ImageUploader
 
   devise :confirmable, :database_authenticatable, :registerable,

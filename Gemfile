@@ -45,6 +45,7 @@ gem 'omniauth-linkedin'
 gem 'omniauth-google-oauth2'
 gem 'unread'
 gem 'public_activity'
+gem 'ratyrate'
 
 group :development, :test do
   gem 'rspec-rails', '~> 3.0'
