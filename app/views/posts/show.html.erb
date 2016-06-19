@@ -137,14 +137,12 @@
                       <td><span class="glyphicon glyphicon-ok"></span></td>
                       <td> <p><%= link_to @post.performer.first_name, user_path(@post.performer) %></p>
                         <% if @post.performer.ratings_count > 0 %>
-                            <ul>
-                            <% (1..@post.performer.average_rating.to_i).each do |i| %>
-                                <li class="on"></li>
-                            <% end %>
-                              <%= @post.performer.average_rating %> / <%= @post.performer.ratings_count %> arviota
-                            </ul>
+                          <% (1..@post.performer.average_rating.to_i).each do |i| %>
+                            <p class="on"></p>
+                          <% end %>
+                          <%= @post.performer.average_rating %> (<%= @post.performer.ratings_count %> arvostelua)
                         <% else %>
-                            <p class="empty-rating-badge"></p> (ei arvioita)<br>
+                          <p class="empty-rating-badge"></p> (ei arvosteluja)<br>
                         <% end %>
                         <td>
                         <%= link_to 'Lähetä viesti', conversations_path(sender_id: current_user.id, recipient_id: @post.performer.id, post_id:@post.id), method: 'post', class:"btn btn-info" %>
@@ -166,15 +164,14 @@
                     <% @post.helpers.each do |helper| %>
                         <tr>
                           <td><p align="center"><%= link_to helper.first_name, user_path(helper) %></p>
-                              <% if helper.ratings_count > 0 %>
-                                <ul>
-                                  <% (1..helper.average_rating.to_i).each do |i| %>
-                                      <li class="on"></li>
-                                  <% end %><br>
-                                  <%= helper.average_rating %> / <%= helper.ratings_count %> arviota
-                                </ul>
+                            <% if helper.ratings_count > 0 %>
+                              <% (1..helper.average_rating.to_i).each do |i| %>
+                                <p class="on"></p>
+                              <% end %>
+                              <br>
+                              <%= helper.average_rating %> (<%= helper.ratings_count %> arvostelua)
                             <% else %>
-                                <p class="empty-rating-badge"></p> (ei arvioita)<br>
+                              <p class="empty-rating-badge"></p> (ei arvosteluja)<br>
                             <% end %>
                           </td>
 

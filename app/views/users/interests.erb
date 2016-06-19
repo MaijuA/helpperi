@@ -144,18 +144,14 @@
         </td>
         <td>
           Ilmoittajan antama arvio:
-           <ul>
              <% (1..post.ratings.where(reviewer_id:post.user.id).first.score).each do |i| %>
-                    <li class="on"></li>
-                <% end %><br>
-           </ul>
+               <p class="on"></p>
+             <% end %><br>
           <% if post.ratings.where(reviewer_id:post.performer.id).count > 0 %>
             Annoit arvion:
-           <ul>
           <% (1..post.ratings.where(reviewer_id:post.performer.id).first.score).each do |i| %>
-              <li class="on"></li>
+              <p class="on"></p>
           <% end %><br>
-          </ul>
           <% else %>
               <%= link_to 'Arvioi ilmoittaja', user_review_path(:post_id => post.id) %>
           <% end %>
