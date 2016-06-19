@@ -74,8 +74,19 @@
               <%= post.price %> €
           <% end %>
         </td>
-        <td><p>[tähdet]</p>
-          <p><%= post.city %></p></td>
+        <td>
+          <% if post.user.ratings_count > 0 %>
+              <ul>
+                <% (1..post.user.average_rating.to_i).each do |i| %>
+                    <li class="on"></li>
+                <% end %>
+                <%= post.user.average_rating %> / <%= post.user.ratings_count %> arviota
+              </ul>
+          <% else %>
+              <p class="empty-rating-badge"></p> (ei arvioita)<br>
+          <% end %>
+          <p><%= post.city %></p>
+        </td>
       </tr>
   <% end %>
   </tbody>

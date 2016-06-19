@@ -2,8 +2,13 @@
   <ul>
     <% form_id = "user_#{@post.user.id}_rating" %>
     <%= form_tag users_create_rating_path do %>
-        <%= hidden_field_tag :reviewer_id, @post.user.id %>
-        <%= hidden_field_tag :reviewed_id, @post.performer.id %>
+        <% if @post.user == current_user %>
+          <%= hidden_field_tag :reviewer_id, @post.user.id %>
+          <%= hidden_field_tag :reviewed_id, @post.performer.id %>
+        <% else %>
+          <%= hidden_field_tag :reviewed_id, @post.user.id %>
+          <%= hidden_field_tag :reviewer_id, @post.performer.id %>
+        <% end %>
         <%= hidden_field_tag :post_id, @post.id %>
         <%= hidden_field_tag(:score, 0, { :id => "#{form_id}_score"} ) %>
         <% (1..5).each do |i| %>

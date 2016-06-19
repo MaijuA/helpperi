@@ -143,11 +143,21 @@
           <% end %>
         </td>
         <td>
-          Ilmoittajan antama arvio: <span class="rating-badge"><%= post.ratings.where(reviewer_id:post.user.id) %></span><br>
-          <% if post.ratings.where(reviewer_id:@user.id) %>
-            Annoit arvion: <span class="rating-badge"><%= post.ratings.where(reviewer_id:@user.id) %></span>
+          Ilmoittajan antama arvio:
+           <ul>
+             <% (1..post.ratings.where(reviewer_id:post.user.id).first.score).each do |i| %>
+                    <li class="on"></li>
+                <% end %><br>
+           </ul>
+          <% if post.ratings.where(reviewer_id:post.performer.id).count > 0 %>
+            Annoit arvion:
+           <ul>
+          <% (1..post.ratings.where(reviewer_id:post.performer.id).first.score).each do |i| %>
+              <li class="on"></li>
+          <% end %><br>
+          </ul>
           <% else %>
-              <%= link_to 'Anna arviosi ilmoittajasta', users_review_path(:post_id => post.id) %>
+              <%= link_to 'Arvioi ilmoittaja', user_review_path(:post_id => post.id) %>
           <% end %>
         </td>
         <td><% if post.price %>

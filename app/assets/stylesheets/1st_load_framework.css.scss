@@ -350,20 +350,10 @@ footer p {
   float: left;
 }
 
-.rating-badge {
-  background: url('star-on.png');
-  background-size: 100% 100%;
-  width: 20px;
-  height: 20px;
-  display: block;
-  float: left;
-}
-
 .empty-rating-badge {
-  background: url('star-off.png');
-  background-size: 100% 100%;
-  width: 20px;
-  height: 20px;
+  background: url('star-off.png') 0 0;
+  width: 16px;
+  height: 16px;
   display: block;
   float: left;
 }

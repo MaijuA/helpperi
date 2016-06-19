@@ -108,6 +108,16 @@
           </p></td>
         <td>
           <%= link_to(post.performer.first_name, user_path(post.performer)) %>
+          <% if post.performer.ratings_count > 0 %>
+              <ul>
+                <% (1..post.performer.average_rating.to_i).each do |i| %>
+                    <li class="on"></li>
+                <% end %><br>
+                <%= post.performer.average_rating %> / <%= post.performer.ratings_count %> arviota
+              </ul>
+          <% else %>
+              <p class="empty-rating-badge"></p> (ei arvioita)<br>
+          <% end %>
         </td>
         <td>
           <%= link_to conversations_path(post.performer.id, post.user.id, post.id) do %>
@@ -173,9 +183,21 @@
           <% end %>
         </td>
         <td>
-          <p>Tekijälle antamasi arvio: <%= post.ratings.where(reviewer_id:post.user.id).first.score %> <span class="rating-badge"></span></p><br>
+          Tekijälle antamasi arvio:
+          <ul>
+            <% (1..post.ratings.where(reviewer_id:post.user.id).first.score).each do |i| %>
+              <li class="on"></li>
+          <% end %>
+          </ul>
+          <br>
           <% if post.ratings.where(reviewer_id:post.performer.id).count > 0 %>
-              Tekijän antama arvio: <%= post.ratings.where(reviewer_id:post.performer.id).first.score %> <span class="rating-badge"></span>
+              Tekijän antama arvio:
+          <ul>
+          <% (1..post.ratings.where(reviewer_id:post.performer.id).first.score).each do |i| %>
+              <li class="on"></li>
+          <% end %>
+          </ul>
+              <br>
           <% end %>
         </td>
         <td><% if post.price %>
