@@ -7,6 +7,12 @@
           <div class="row">
             <div class="col-xs-12 col-sm-6 col-md-6">
 
+              <% if @user.ratings_count > 0 %>
+                  <%= @user.average_rating %> <span class="rating-badge"></span> (<%= @user.ratings_count %> arviota)<br>
+              <% else %>
+                  <span class="empty-rating-badge"></span> (ei arvioita)<br>
+              <% end %><br>
+
               <p> <% if current_user == @user %>
                   <p><b>Sähköposti</b></p>
                   <p><%= @user.email if current_user == @user %></p><br>

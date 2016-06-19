@@ -67,9 +67,11 @@ class Post < ActiveRecord::Base
   scope :deleted, -> { where deleted:true }
   scope :buying, -> { where post_type:'Osto'}
   scope :selling, -> { where post_type:'Myynti'}
-  scope :valid, lambda{ where("ending_date >= ?", Date.today) }
+  scope :valid, lambda{ where(deleted:false).where("ending_date >= ?", Date.today) }
   scope :others, -> (current_user) { where("user_id != ?", current_user)}
-  scope :expired, lambda{ where("ending_date < ?", Date.today) }
+  scope :expired, lambda{ where(deleted:false).where("ending_date < ?", Date.today) }
+  scope :rated, -> { where(deleted:false).where(id:(Post.joins(:ratings).ids)) }
+  scope :not_rated, -> { where(deleted:false).where.not(id:(Post.joins(:ratings).ids)) }
 
   def category_to_take_image_from
     if self.categories != nil && self.categories.size == 1

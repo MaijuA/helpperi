@@ -25,7 +25,13 @@ Rails.application.routes.draw do
     post 'accept_candidate'
   end
 
-  post 'users/index', to: 'ratings#create'
+  get '/review', to:'users#review', as: :user_review
+
+  # resources :users do
+  #   post 'create_rating'
+  # end
+
+  post 'users/create_rating', to:'users#create_rating', as: :users_create_rating
 
   get '/interests' => 'users#interests', as: :user_interests
   get '/list' => 'admin#list', as: :admin_list

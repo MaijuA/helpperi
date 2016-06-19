@@ -136,9 +136,12 @@
                     <tr>
                       <td><span class="glyphicon glyphicon-ok"></span></td>
                       <td> <p><%= link_to @post.performer.first_name, user_path(@post.performer) %></p>
-                        <p>[tähdet]</p></td>
-
-                      <td>
+                        <% if @post.performer.ratings_count > 0 %>
+                            <%= @post.performer.average_rating %> <span class="rating-badge"></span> (<%= @post.performer.ratings_count %> arviota)<br>
+                        <% else %>
+                            <span class="empty-rating-badge"></span> (ei arvioita)<br>
+                        <% end %>
+                        <td>
                         <%= link_to 'Lähetä viesti', conversations_path(sender_id: current_user.id, recipient_id: @post.performer.id, post_id:@post.id), method: 'post', class:"btn btn-info" %>
                       </td>
                     </tr>
@@ -158,7 +161,14 @@
                     <% @post.helpers.each do |helper| %>
                         <tr>
                           <td><p align="center"><%= link_to helper.first_name, user_path(helper) %></p>
-                            <p align="center">[tähdet]</p></td>
+                            <p align="center">
+                              <% if helper.ratings %>
+                                  <%= helper.average_rating %> <span class="rating-badge"></span> (<%= helper.ratings_count %> arviota)<br>
+                              <% else %>
+                                  <span class="empty-rating-badge"></span> (ei arvioita)<br>
+                              <% end %>
+                            ]</p>
+                          </td>
 
                           <td><p align="center">
                             <%= link_to conversations_path(sender_id:current_user.id, recipient_id:helper.id, post_id:@post.id), method: :post do %>

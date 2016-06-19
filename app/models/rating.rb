@@ -4,5 +4,6 @@ class Rating < ActiveRecord::Base
   belongs_to :post
 
   validates_uniqueness_of :reviewer_id, :scope => [:reviewed_id, :post_id]
+  validates :review, length: { maximum: 500 }
 
 end

@@ -107,7 +107,7 @@
             <% end %>
           </p></td>
         <td>
-          <p><%= link_to(post.performer.first_name, user_path(post.performer)) %></p>
+          <%= link_to(post.performer.first_name, user_path(post.performer)) %>
         </td>
         <td>
           <%= link_to conversations_path(post.performer.id, post.user.id, post.id) do %>
@@ -117,23 +117,7 @@
           <% end %>
         </td>
         <td>
-          <div class="rating">
-            <ul>
-              <% form_id = "user_#{post.user.id}_rating" %>
-                <%= form_tag ratings_path  do %>
-                  <%= hidden_field_tag :reviewer_id, post.user.id %>
-                  <%= hidden_field_tag :reviewed_id, post.performer.id %>
-                  <%= hidden_field_tag :post_id, post.id %>
-                  <%= hidden_field_tag(:score, 0, { :id => "#{form_id}_score"} ) %>
-                  <% (1..5).each do |i| %>
-                      <li class="rating_star" data-score="<%= i %>" data-form-id="<%= form_id %>" id="<%= "#{form_id}_#{i}" %>" data-post-id="<%= post.id %>"></li>
-                  <% end %>
-                  <%= label_tag :review %>
-                  <%= text_area_tag :review %>
-                  <%= submit_tag "Arvioi" %>
-              <% end %>
-            </ul>
-          </div>
+          <%= link_to 'Kuittaa suoritetuksi', user_review_path(:post_id => post.id) %>
         </td>
         <td><% if post.price %>
               <%= post.price %> €
@@ -146,6 +130,64 @@
 <%= will_paginate @user_accepted_posts, :param_name => 'accepted_page' %>
 <br>
 
+
+<h3>Suljetut ilmoitukset (<%= @user_performed_posts.count %>)</h3>
+
+<table class="table table-striped">
+  <thead>
+  <tr>
+    <th class="col-md-2"></th>
+    <th class="col-md-2"></th>
+    <th class="col-md-2"></th>
+    <th class="col-md-2"></th>
+    <th class="col-md-2"></th>
+    <th class="col-md-1"></th>
+  </tr>
+  </thead>
+
+  <tbody class="form-group">
+  <% @user_performed_posts.each do |post| %>
+      <tr>
+        <% if post.image_is_set? %>
+            <td><%= image_tag post.image_url(:list), align: 'left' %></td>
+        <% else %>
+            <td><%= image_tag post.category_to_take_image_from.image_url(:list), align: 'left' %></td>
+        <% end %>
+        <td><b><%= link_to truncate(post.title, :length => 30), post %></b>
+          <% if post.buyer? %>
+              <p><span class="selling-badge">Helpperi</span></p>
+          <% end %>
+          <p>
+            <% post.categories.each do |category| %>
+                <span class="category-badge"><%= "#{category.name}" %></span>
+            <% end %>
+          </p></td>
+        <td>
+          <%= link_to(post.performer.first_name, user_path(post.performer)) %>
+        </td>
+        <td>
+          <%= link_to conversations_path(post.performer.id, post.user.id, post.id) do %>
+              <span class="glyphicon glyphicon-envelope"></span>
+              <%= content_tag :span, conversation_user_count(post.performer.id, post.id),
+                              class: 'badge', style:"background-color: blue" if conversation_user_count(post.performer.id, post.id) > 0 %>
+          <% end %>
+        </td>
+        <td>
+          <p>Tekijälle antamasi arvio: <%= post.ratings.where(reviewer_id:post.user.id).first.score %> <span class="rating-badge"></span></p><br>
+          <% if post.ratings.where(reviewer_id:post.performer.id).count > 0 %>
+              Tekijän antama arvio: <%= post.ratings.where(reviewer_id:post.performer.id).first.score %> <span class="rating-badge"></span>
+          <% end %>
+        </td>
+        <td><% if post.price %>
+              <%= post.price %> €
+          <% end %>
+        </td>
+      </tr>
+  <% end %>
+  </tbody>
+</table>
+<%= will_paginate @user_performed_posts, :param_name => 'performed_page' %>
+<br>
 
 
 

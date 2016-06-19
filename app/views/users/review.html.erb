@@ -1,0 +1,17 @@
+<div class="rating">
+  <ul>
+    <% form_id = "user_#{@post.user.id}_rating" %>
+    <%= form_tag users_create_rating_path do %>
+        <%= hidden_field_tag :reviewer_id, @post.user.id %>
+        <%= hidden_field_tag :reviewed_id, @post.performer.id %>
+        <%= hidden_field_tag :post_id, @post.id %>
+        <%= hidden_field_tag(:score, 0, { :id => "#{form_id}_score"} ) %>
+        <% (1..5).each do |i| %>
+            <li class="rating_star" data-score="<%= i %>" data-form-id="<%= form_id %>" id="<%= "#{form_id}_#{i}" %>" data-post-id="<%= @post.id %>"></li>
+        <% end %><br><br>
+        <%= label_tag :review, 'Anna halutessasi kirjallinen arvio:' %><br>
+        <%= text_area_tag :review %><br>
+        <%= submit_tag "Arvioi" %>
+    <% end %>
+  </ul>
+</div>
