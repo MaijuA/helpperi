@@ -6,6 +6,7 @@ describe 'Posts page' do
     FactoryGirl.create(:post_with_category)
     FactoryGirl.create(:post_with_category2)
     user = FactoryGirl.create(:user2)
+    FactoryGirl.create(:user)
     login_as(user)
 
     visit posts_path

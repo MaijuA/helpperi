@@ -322,3 +322,65 @@ footer p {
   -moz-hyphens: auto;
   hyphens: auto;
 }
+
+.rating_star {
+  background: url('star-off.png') 0 0;
+  width: 16px;
+  height: 16px;
+  display: block;
+  float: left;
+}
+
+.on {
+  background: url('star-on.png') 0 0;
+  width: 16px;
+  height: 16px;
+  display: block;
+  float: left;
+}
+
+.empty-rating-badge {
+  background: url('star-off.png') 0 0;
+  width: 16px;
+  height: 16px;
+  display: block;
+  float: left;
+}
+
+.centerBlock {
+  display: table;
+  margin: 0 auto;
+}
+
+.col-lg-4, .col-lg-8 {
+  float:none;
+  display:inline-block;
+  vertical-align:middle;
+  margin-right:-4px;
+}
+
+#new_rating {
+  width: 100%;
+  padding: 15px;
+  margin: 0 auto;
+
+  textarea {
+   width: 100%
+  }
+
+  .rating_star {
+    background: url('star-off-big.png') 0 0;
+    width: 48px;
+    height: 48px;
+    display: block;
+    float: left;
+  }
+
+  .on {
+    background: url('star-on-big.png') 0 0;
+    width: 48px;
+    height: 48px;
+    display: block;
+    float: left;
+  }
+}

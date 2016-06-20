@@ -104,11 +104,12 @@
 <%= will_paginate @user_performer_posts, :param_name => 'performer_page' %>
 <br>
 
-<h3>Tehdyt ilmoitukset (<%= @user_performer_posts_expired.count %>)</h3>
+<h3>Tehdyt ilmoitukset (<%= @user_performed_tasks.count %>)</h3>
 
 <table class="table table-striped">
   <thead>
   <tr>
+    <th class="col-md-2"></th>
     <th class="col-md-2"></th>
     <th class="col-md-2"></th>
     <th class="col-md-2"></th>
@@ -118,7 +119,7 @@
   </thead>
 
   <tbody class="form-group">
-  <% @user_performer_posts_expired.each do |post| %>
+  <% @user_performed_tasks.each do |post| %>
       <tr>
         <% if post.image_is_set? %>
             <td><%= image_tag post.image_url(:list), align: 'left' %></td>
@@ -144,6 +145,41 @@
                               class: 'badge', style:"background-color: blue" if post_conversation_count(post.id) > 0 %>
           <% end %>
         </td>
+        <td>
+          <div class="row">
+            <div class="col-xs-12 col-sm-6 col-md-6">
+          <p>
+          Sait arvion:
+              <% (1..5).each do |i| %>
+                  <% if i <= post.ratings.where(reviewer_id:post.user.id).first.score %>
+                      <p class="on"></p>
+                  <% else %>
+                      <p class="rating_star"></p>
+                  <% end %>
+              <% end %>
+              </p>
+            </div>
+          </div>
+                  <div class="row">
+                    <div class="col-xs-12 col-sm-6 col-md-6">
+
+            <p>
+            <% if post.ratings.where(reviewer_id:post.performer.id).count > 0 %>
+            Annoit arvion:
+                  <% (1..5).each do |i| %>
+                      <% if i <= post.ratings.where(reviewer_id:post.performer.id).first.score %>
+                          <p class="on"></p>
+                      <% else %>
+                          <p class="rating_star"></p>
+                      <% end %>
+                  <% end %>
+          <% else %>
+              <%= link_to 'Arvioi ilmoittaja', user_review_path(:post_id => post.id) %>
+          <% end %>
+              </p>
+        </div>
+        </div>
+        </td>
         <td><% if post.price %>
               <%= post.price %> €
           <% end %>
@@ -152,7 +188,7 @@
   <% end %>
   </tbody>
 </table>
-<%= will_paginate @user_performer_posts_expired, :param_name => 'performer_expired_page' %>
+<%= will_paginate @user_performed_tasks, :param_name => 'performed_page' %>
 <br>
 <br>
 <br>

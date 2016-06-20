@@ -43,6 +43,8 @@ class User < ActiveRecord::Base
   has_many :posts, dependent: :destroy
   has_many :candidates, -> { where denied:false }, dependent: :destroy
   has_many :tasks, through: :candidates, source: :post
+  has_many :ratings, :foreign_key => 'reviewed_id', :dependent => :destroy
+  has_many :reviews, :class_name => "Rating", :foreign_key => 'reviewer_id', :dependent => :destroy
 
   scope :active, -> { where deleted_at:false }
   scope :deleted, -> { where deleted_at:true }
@@ -75,6 +77,14 @@ class User < ActiveRecord::Base
 
   def denied_tasks
     Post.active.valid.joins(:candidates).where(:candidates => {denied:true})
+  end
+
+  def average_rating
+    ratings.sum(:score) / ratings.size
+  end
+
+  def ratings_count
+    ratings.size
   end
 
   def password_black_list

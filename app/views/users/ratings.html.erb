@@ -1,0 +1,38 @@
+<div class="row">
+  <div class="col-md-6 col-md-offset-3">
+    <h1 class="text-center login-title"> Arvioinnit</h1>
+    <div class="account-wall">
+      <table class="table table-striped">
+        <thead>
+        <tr>
+          <th class="col-md-2"></th>
+          <th class="col-md-2"></th>
+          <th class="col-md-2"></th>
+        </tr>
+        </thead>
+
+        <tbody class="form-group">
+        <% @user.reviews.each do |review| %>
+          <tr>
+            <td>
+              <%= review.review %>
+            </td>
+            <td>
+              <% (1..5).each do |i| %>
+                  <% if i <= review.score %>
+                      <p class="on"></p>
+                  <% else %>
+                      <p class="rating_star"></p>
+                  <% end %>
+              <% end %>
+            </td>
+            <td>
+              <%= link_to review.reviewer.first_name, user_path(review.reviewer) %>
+            </td>
+          </tr>
+        <% end %>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>

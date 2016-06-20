@@ -86,6 +86,7 @@
     <th class="col-md-2"></th>
     <th class="col-md-2"></th>
     <th class="col-md-2"></th>
+    <th class="col-md-2"></th>
     <th class="col-md-1"></th>
   </tr>
   </thead>
@@ -106,9 +107,30 @@
             <% post.categories.each do |category| %>
                 <span class="category-badge"><%= "#{category.name}" %></span>
             <% end %>
-          </p></td>
+          </p>
+        </td>
         <td>
-          <p><%= link_to(post.performer.first_name, user_path(post.performer)) %></p>
+          <div class="row">
+            <div class="col-xs-12 col-sm-6 col-md-6">
+          <%= link_to(post.performer.first_name, user_path(post.performer)) %>
+            <p>
+            <%= link_to user_ratings_path(:id => post.performer.id) do %>
+                <% (1..5).each do |i| %>
+                    <% if post.performer.ratings_count != 0  && i <= post.performer.average_rating.to_i %>
+                      <p class="on"></p>
+                  <% else %>
+                      <p class="rating_star"></p>
+                  <% end %>
+              <% end %>
+            </div>
+            </div>
+                  <div class="row">
+                    <div class="col-xs-12 col-sm-6 col-md-6">
+              <%= post.performer.average_rating if post.performer.ratings_count > 0%> (<%= post.performer.ratings_count %> arvostelua)<br>
+          <% end %>
+              </p>
+              </div>
+          </div>
         </td>
         <td>
           <%= link_to conversations_path(post.performer.id, post.user.id, post.id) do %>
@@ -116,6 +138,9 @@
              <%= content_tag :span, conversation_user_count(post.performer.id, post.id),
                         class: 'badge', style:"background-color: blue" if conversation_user_count(post.performer.id, post.id) > 0 %>
           <% end %>
+        </td>
+        <td>
+          <%= link_to 'Kuittaa suoritetuksi', user_review_path(:post_id => post.id) %>
         </td>
         <td><% if post.price %>
               <%= post.price %> €
@@ -128,6 +153,92 @@
 <%= will_paginate @user_accepted_posts, :param_name => 'accepted_page' %>
 <br>
 
+
+<h3>Suljetut ilmoitukset (<%= @user_performed_posts.count %>)</h3>
+
+<table class="table table-striped">
+  <thead>
+  <tr>
+    <th class="col-md-2"></th>
+    <th class="col-md-2"></th>
+    <th class="col-md-2"></th>
+    <th class="col-md-2"></th>
+    <th class="col-md-2"></th>
+    <th class="col-md-1"></th>
+  </tr>
+  </thead>
+
+  <tbody class="form-group">
+  <% @user_performed_posts.each do |post| %>
+      <tr>
+        <% if post.image_is_set? %>
+            <td><%= image_tag post.image_url(:list), align: 'left' %></td>
+        <% else %>
+            <td><%= image_tag post.category_to_take_image_from.image_url(:list), align: 'left' %></td>
+        <% end %>
+        <td><b><%= link_to truncate(post.title, :length => 30), post %></b>
+          <% if post.buyer? %>
+              <p><span class="selling-badge">Helpperi</span></p>
+          <% end %>
+          <p>
+            <% post.categories.each do |category| %>
+                <span class="category-badge"><%= "#{category.name}" %></span>
+            <% end %>
+          </p></td>
+        <td>
+          <%= link_to(post.performer.first_name, user_path(post.performer)) %>
+        </td>
+        <td>
+          <%= link_to conversations_path(post.performer.id, post.user.id, post.id) do %>
+              <span class="glyphicon glyphicon-envelope"></span>
+              <%= content_tag :span, conversation_user_count(post.performer.id, post.id),
+                              class: 'badge', style:"background-color: blue" if conversation_user_count(post.performer.id, post.id) > 0 %>
+          <% end %>
+        </td>
+        <td>
+          <div class="row">
+            <div class="col-xs-12 col-sm-6 col-md-6">
+          <p>
+          Annoit arvion:
+              <% (1..5).each do |i| %>
+                  <% if i <= post.ratings.where(reviewer_id:post.user.id).first.score %>
+                      <p class="on"></p>
+                  <% else %>
+                      <p class="rating_star"></p>
+                  <% end %>
+              <% end %>
+              </p>
+            </div>
+            </div>
+          <br>
+          <div class="row">
+            <div class="col-xs-12 col-sm-6 col-md-6">
+          <% if post.ratings.where(reviewer_id:post.performer.id).count > 0 %>
+           <p>
+             Sait arvion:
+            <% (1..5).each do |i| %>
+                      <% if i <= post.ratings.where(reviewer_id:post.performer.id).first.score %>
+                          <p class="on"></p>
+                      <% else %>
+                          <p class="rating_star"></p>
+                      <% end %>
+                  <% end %>
+                  </p>
+                  </div>
+                  </div>
+          <br>
+          <% end %>
+        </td>
+        <td><% if post.price %>
+              <%= post.price %> €
+          <% end %>
+        </td>
+      </tr>
+  <% end %>
+  </tbody>
+</table>
+<%= will_paginate @user_performed_posts, :param_name => 'performed_page' %>
+<br>
 
 
 

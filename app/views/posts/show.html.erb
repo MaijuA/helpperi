@@ -137,9 +137,26 @@
                     <tr>
                       <td><span class="glyphicon glyphicon-ok"></span></td>
                       <td> <p><%= link_to @post.performer.first_name, user_path(@post.performer) %></p>
-                        <p>[tähdet]</p></td>
-
-                      <td>
+                        <div class="row">
+                          <div class="col-xs-12 col-sm-6 col-md-6">
+                        <%= link_to user_ratings_path(:id => @post.performer.id) do %>
+                            <% (1..5).each do |i| %>
+                                <% if @post.performer.ratings_count != 0  && i <= @post.performer.average_rating.to_i %>
+                                    <p class="on"></p>
+                                <% else %>
+                                    <p class="rating_star"></p>
+                                <% end %>
+                            <% end %>
+                            <br>
+                         </div>
+                         </div>
+                                <div class="row">
+                                  <div class="col-xs-12 col-sm-6 col-md-6">
+                            <%= @post.performer.average_rating %> (<%= @post.performer.ratings_count %> arvostelua)<br>
+                        <% end %>
+                        </div>
+                        </div>
+                        <td>
                         <%= link_to 'Lähetä viesti', conversations_path(sender_id: current_user.id, recipient_id: @post.performer.id, post_id:@post.id), method: 'post', class:"btn btn-info" %>
                       </td>
                     </tr>
@@ -159,7 +176,26 @@
                     <% @post.helpers.each do |helper| %>
                         <tr>
                           <td><p align="center"><%= link_to helper.first_name, user_path(helper) %></p>
-                            <p align="center">[tähdet]</p></td>
+                            <div class="row">
+                              <div class="col-xs-12 col-sm-6 col-md-6">
+                            <%= link_to user_ratings_path(:id => helper.id) do %>
+                                <% (1..5).each do |i| %>
+                                    <% if helper.ratings_count != 0  && i <= helper.average_rating.to_i %>
+                                        <p class="on"></p>
+                                    <% else %>
+                                        <p class="rating_star"></p>
+                                    <% end %>
+                                <% end %>
+                                <br>
+                             </div>
+                             </div>
+                                    <div class="row">
+                                      <div class="col-xs-12 col-sm-6 col-md-6">
+                                <%= helper.average_rating if helper.ratings_count > 0 %> (<%= helper.ratings_count %> arvostelua)<br>
+                            <% end %>
+                            </div>
+                            </div>
+                          </td>
 
                           <td><p align="center">
                             <%= link_to conversations_path(sender_id:current_user.id, recipient_id:helper.id, post_id:@post.id), method: :post do %>

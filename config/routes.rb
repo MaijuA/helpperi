@@ -12,6 +12,8 @@ Rails.application.routes.draw do
 
   resources :posts
 
+  resources :ratings, only: :create
+
   root 'posts#index'
 
   get '/search', to:'posts#search', as: :search
@@ -22,6 +24,15 @@ Rails.application.routes.draw do
     post 'deny_candidate'
     post 'accept_candidate'
   end
+
+  get '/review', to:'users#review', as: :user_review
+  get '/ratings', to:'users#ratings', as: :user_ratings
+
+  # resources :users do
+  #   post 'create_rating'
+  # end
+
+  post 'users/create_rating', to:'users#create_rating', as: :users_create_rating
 
   get '/interests' => 'users#interests', as: :user_interests
   get '/list' => 'admin#list', as: :admin_list

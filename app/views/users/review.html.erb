@@ -1,0 +1,33 @@
+<% content_for(:head) do %>
+    <%= javascript_include_tag 'review.js', 'data-turbolinks-track' => true  %>
+<% end %>
+<div class="row">
+  <div class="col-md-6 col-md-offset-3">
+    <h1 class="text-center login-title">Arvioi </h1>
+    <div class="account-wall">
+      <% form_id = "user_#{@post.user.id}_rating" %>
+      <%= form_tag users_create_rating_path, :id => "new_rating" do %>
+          <% if @post.user == current_user %>
+              <%= hidden_field_tag :reviewer_id, @post.user.id %>
+              <%= hidden_field_tag :reviewed_id, @post.performer.id %>
+          <% else %>
+              <%= hidden_field_tag :reviewed_id, @post.user.id %>
+              <%= hidden_field_tag :reviewer_id, @post.performer.id %>
+          <% end %>
+          <%= hidden_field_tag :post_id, @post.id %>
+          <%= hidden_field_tag(:score, 0, { :id => "#{form_id}_score"} ) %>
+          <div class="centerBlock">
+            <% (1..5).each do |i| %>
+                <p class="rating_star" data-score="<%= i %>" data-form-id="<%= form_id %>" id="<%= "#{form_id}_#{i}" %>" data-post-id="<%= @post.id %>"></p>
+            <% end %>
+          </div>
+          <br><br>
+          <%= label_tag :review, 'Anna halutessasi kirjallinen arvio:' , align: "middle"%><br>
+          <%= text_area_tag :review, '', {:rows => '5'} %><br>
+          <%= submit_tag "Arvioi" %>
+      <% end %>
+    </div>
+  </div>
+</div>
+</div>
+</div>
