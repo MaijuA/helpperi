@@ -24,8 +24,11 @@ class RegistrationsController < Devise::RegistrationsController
   end
 
   def save_my_previous_url
-    # session[:previous_url] is a Rails built-in variable to save last url.
-    session[:my_previous_url] = request.referer
+
+    if not(request.referer.to_s.include? 'edit') and not(request.referer.to_s.include? 'sign_in') and not(request.referer.to_s.include? 'sign_up')
+      session[:my_previous_url] = request.referer
+    end
+
   end
 
   protected

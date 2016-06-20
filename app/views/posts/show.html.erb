@@ -78,6 +78,7 @@
           1. viivästetty rekisteröinti ilmoitus (kirjautunut)
           2. suorita rekisteröinti (ei kirjautunut)
           -->
+
           <% if current_user && @post.user.id != current_user.id %>
               <% if current_user.valid? %>
                   <% if @post.doer_id == current_user.id %>
