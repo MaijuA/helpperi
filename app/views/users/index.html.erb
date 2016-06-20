@@ -109,10 +109,16 @@
         </td>
         <td>
           <%= link_to(post.performer.first_name, user_path(post.performer)) %>
+          <p>
           <% if post.performer.ratings_count > 0 %>
-            <% (1..post.performer.average_rating.to_i).each do |i| %>
-              <p class="on"></p>
-            <% end %>
+                  <% (1..5).each do |i| %>
+                      <% if i <= post.performer.average_rating.to_i %>
+                          <p class="on"></p>
+                      <% else %>
+                          <p class="rating_star"></p>
+                      <% end %>
+                  <% end %>
+              </p>
             <br>
             <%= post.performer.average_rating %> (<%= post.performer.ratings_count %> arvostelua)
           <% else %>
@@ -183,16 +189,28 @@
           <% end %>
         </td>
         <td>
+          <p>
           Tekijälle antamasi arvio:
-          <% (1..post.ratings.where(reviewer_id:post.user.id).first.score).each do |i| %>
-            <p class="on"></p>
-          <% end %>
+              <% (1..5).each do |i| %>
+                  <% if i <= post.ratings.where(reviewer_id:post.user.id).first.score %>
+                      <p class="on"></p>
+                  <% else %>
+                      <p class="rating_star"></p>
+                  <% end %>
+              <% end %>
+          </p>
           <br>
+          <p>
           <% if post.ratings.where(reviewer_id:post.performer.id).count > 0 %>
               Tekijän antama arvio:
-          <% (1..post.ratings.where(reviewer_id:post.performer.id).first.score).each do |i| %>
-            <p class="on"></p>
-          <% end %>
+            <% (1..5).each do |i| %>
+                      <% if i <= post.ratings.where(reviewer_id:post.performer.id).first.score %>
+                          <p class="on"></p>
+                      <% else %>
+                          <p class="rating_star"></p>
+                      <% end %>
+                  <% end %>
+              </p>
           <br>
           <% end %>
         </td>
