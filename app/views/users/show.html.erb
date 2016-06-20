@@ -19,7 +19,7 @@
                 <%= @user.average_rating %> (<%= @user.ratings_count %> arvostelua)<br>
               <% end %>
               <br>
-              <% if current_user == @user %>
+              <p> <% if current_user == @user %>
                   <p><b>Sähköposti</b></p>
                   <p><%= @user.email if current_user == @user %></p><br>
               <% end %>
