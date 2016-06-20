@@ -108,6 +108,8 @@
           </p>
         </td>
         <td>
+          <div class="row">
+            <div class="col-xs-12 col-sm-6 col-md-6">
           <%= link_to(post.performer.first_name, user_path(post.performer)) %>
             <%= link_to user_ratings_path(:id => post.performer.id) do %>
                 <% (1..5).each do |i| %>
@@ -117,8 +119,14 @@
                       <p class="rating_star"></p>
                   <% end %>
               <% end %>
+            </div>
+            </div>
+                  <div class="row">
+                    <div class="col-xs-12 col-sm-6 col-md-6">
               <%= post.performer.average_rating if post.performer.ratings_count > 0%> (<%= post.performer.ratings_count %> arvostelua)<br>
           <% end %>
+          </div>
+          </div>
         </td>
         <td>
           <%= link_to conversations_path(post.performer.id, post.user.id, post.id) do %>
@@ -184,6 +192,8 @@
           <% end %>
         </td>
         <td>
+          <div class="row">
+            <div class="col-xs-12 col-sm-6 col-md-6">
           <p>
           Tekijälle antamasi arvio:
               <% (1..5).each do |i| %>
@@ -193,10 +203,14 @@
                       <p class="rating_star"></p>
                   <% end %>
               <% end %>
-          </p>
+              </p>
+            </div>
+            </div>
           <br>
-          <p>
+          <div class="row">
+            <div class="col-xs-12 col-sm-6 col-md-6">
           <% if post.ratings.where(reviewer_id:post.performer.id).count > 0 %>
+           <p>
               Tekijän antama arvio:
             <% (1..5).each do |i| %>
                       <% if i <= post.ratings.where(reviewer_id:post.performer.id).first.score %>
@@ -205,7 +219,9 @@
                           <p class="rating_star"></p>
                       <% end %>
                   <% end %>
-              </p>
+                  </p>
+                  </div>
+                  </div>
           <br>
           <% end %>
         </td>

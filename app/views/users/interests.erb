@@ -143,6 +143,9 @@
           <% end %>
         </td>
         <td>
+          <div class="row">
+            <div class="col-xs-12 col-sm-6 col-md-6">
+          <p>
           Ilmoittajan antama arvio:
               <% (1..5).each do |i| %>
                   <% if i <= post.ratings.where(reviewer_id:post.user.id).first.score %>
@@ -151,7 +154,14 @@
                       <p class="rating_star"></p>
                   <% end %>
               <% end %>
-                  <% if post.ratings.where(reviewer_id:post.performer.id).count > 0 %>
+              </p>
+            </div>
+          </div>
+                  <div class="row">
+                    <div class="col-xs-12 col-sm-6 col-md-6">
+
+            <p>
+            <% if post.ratings.where(reviewer_id:post.performer.id).count > 0 %>
             Annoit arvion:
                   <% (1..5).each do |i| %>
                       <% if i <= post.ratings.where(reviewer_id:post.performer.id).first.score %>
@@ -163,6 +173,9 @@
           <% else %>
               <%= link_to 'Arvioi ilmoittaja', user_review_path(:post_id => post.id) %>
           <% end %>
+              </p>
+        </div>
+        </div>
         </td>
         <td><% if post.price %>
               <%= post.price %> €
