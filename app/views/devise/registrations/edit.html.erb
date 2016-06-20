@@ -97,7 +97,12 @@
 
           <% unless resource.is_social? %>
               <div class="form-group">
-                <%= f.label :password, class: "control-label" %>
+                <%= f.label :current_password, class: "control-label" %> *
+                <%= f.password_field :current_password, autocomplete: "off", class: "form-control" %>
+              </div>
+
+              <div class="form-group">
+                <b>Uusi </b><%= f.label :password, class: "control-label" %>
                 <br><i>(jätä tyhjäksi, jos et halua vaihtaa salasanaasi)</i>
                 <%= f.password_field :password, autocomplete: "off", class: "form-control" %>
               </div>
@@ -105,11 +110,6 @@
               <div class="form-group">
                 <%= f.label :password_confirmation, class: "control-label" %>
                 <%= f.password_field :password_confirmation, autocomplete: "off", class: "form-control" %>
-              </div>
-
-              <div class="form-group">
-                <%= f.label :current_password, class: "control-label" %> *
-                <%= f.password_field :current_password, autocomplete: "off", class: "form-control" %>
               </div>
           <% end %>
 

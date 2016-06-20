@@ -1,32 +1,64 @@
-<h1>Info</h1><br>
+<div class="row">
+  <div class="col-md-6 col-md-offset-3">
+    <h1 class="text-center login-title">Info</h1>
+    <div class="account-wall">
+      <h3>Usein kysyttyä Helpperin etsimisestä</h3><br>
+      <p><b>"Tuleeko minun huolehtia työnantajana TyEl-maksuista käyttäessäni Skillfied-palvelua?"</b></p>
+      <p>Jos maksut työntekijää kohden jäävät alle 57,51 € kuukaudessa per työntekijä, ei Sinun työnantajana tule huolehtia TyEl-maksusta.
+        Olemme tällä hetkellä rajanneet maksua, niin että palvelumme kautta on mahdollista palkata sama työntekijä enintään 50,00 eurolla kuukaudessa, minkä takia TyEl-maksu jää pois. Voit kuitenkin käyttää useita eri työntekijöitä, jolloin et varmasti jää ilman apua.</p>
+      <br>
+      <p><b>"Tarvitsen apua siivouksessa, voinko palkata ikkunoiden pesijäksi palvelusta kenet tahansa?"</b></p>
+      <p>Ehdottomasti. Palvelumme on tarkoitettu kaikkia yksityisiä henkilöitä varten, jotka haluavat apua arkeen. Valikostamme voit etsiä juuri oikean kategorian Helppereitä suoraan tai ilmoittaa avoimen siivoustehtävän, sekä hinnoitella sen aivan itse. Me emme ota mitään välistä.</p>
+      <br>
+      <p><b>"Mitä Helpperi-palvelun käyttö maksaa?"</b></p>
+      Helpperi on täysin ilmainen välitysalusta apua tarvitseville. Kirjautumalla Helpperin etsijänä, voit jättää ilmaiseksi ilmoituksia tehtävistä, joita haluat Helppereiden tekevän puolestasi. Palveluun voi jättää pienimuotoisia ei-ammattimaisia. Voit myös itse täysin vapaasti hinnoitella tehtävät. Esimerkiksi, toivot Helpperin tamppaavan mattosi ja tarjoat hinnaksi 10€. Kaikki alueellasi toimivat Helpperi saavat ilmoituksen avautuvasta tehtävästä ja voit valita heistä itsellesi sopivimman.
+      Mikäli suunnitellet aloittavasi Helpperinä, eli haluat auttaa ja tehdä pienimuotoisia ei-ammattimaisia töitä, voit selailla vapaana olevia tehtäviä ilmaiseksi. Mikäli haluat vastata tehtäviin ja ilmoittautua niiden tekijäksi, maksat ensimmäisen tehtävän jälkeen kuukausimaksua 5€. Maksu veloitetaan valitsemallasi tavalla (verkkolaskulla tai suoraveloituksena) kuukausittain, kunnes päätät lopettaa palvelumme käytön. Kuukausimaksun hinta palveluun ei muutu, vaikka tekisit useita Helpperi tehtäviä kuukaudessa. Esimerkiksi: Teet viikossa yhden Helpperi keikan, joista tienaat 10€/kerta. Eli kuukaudessa tienaat 40€. Veloitamme silti vain 5€ kuukausi maksun sovitun ja voimassa olevan hinnaston mukaisesti.
+      <br><br>
+      <p><b>"Kuinka saan yhteyden Helpperiin tai tehtävän tarjoajaan?"</b></p>
+      Kirjautumalla palveluun, ja vastaamalla ilmoitukseen, pääset ”Hyväksymään” tai ”Hylkäämään” ilmoituksen, tai vaihtoehtoisesti voit aloittaa keskustelun painamalla ”Kysy lisätietoja” painiketta. Tarjoamme teille Chat- toiminnon, jonka avulla voitte sopia yksityiskohdista.
+      <br><br><br>
+      <h3>Usein kysyttyä Helpperinä toimimisesta</h3><br>
 
-<h4>"En saanut tunnusten vahvistusohjeita sähköpostiini"</h4>
-<p>- Voit tilata uudet vahvistusohjeet
-  <%= link_to "tästä linkistä", new_user_confirmation_path %> syöttämällä
-  rekisteröintivaiheessa antamasi sähköpostiosoitteen.<br>
-  Muistathan tarkistaa roskaposti-kansiosi. Mikäli epäilet antaneesi rekisteröityessä väärän sähköpostiosoitteen, <br>
-  olethan yhteydessä asiakaspalveluumme.
-</p><br>
-
-<h4>"Olen unohtanut salasanani"</h4>
-<p>- Salasanan pääset uusimaan <%= link_to "tästä linkistä", new_user_password_path %>.</p><br>
-
-<h4>"Tunnukseni on lukittu"</h4>
-<p>- Mikäli kirjoitit salasanasi väärin liian monta kertaa, pääset avaamaan tunnuksesi
-  <%= link_to "tästä linkistä", new_user_unlock_path %>.<br>
-  Muussa tapauksessa ota yhteyttä asiakaspalveluumme.
-</p><br>
-
-<h4>"Poistin tilini, mutta haluaisin avata sen uudestaan"</h4>
-<p>- Poistetut tilin pääset palauttamaan ottamalla yhteyttä asiakaspalveluumme.
-</p><br>
-
-<h4>"En pysty luomaan uusia ilmoituksia"</h4>
-<p>- Varmistathan profiilisivultasi, että olet täyttänyt kaikki pakolliset tiedot.</p><br>
-
-<h4>"Joudunko maksamaan veroja Helpperin kautta tekemästäni työstä?"</h4>
-<p>- Vastikkeeton työ on verovapaata, mutta vastikkeeksi saatu vaihtotyö on lähtökohtaisesti veronalaista ansiotuloa.<br>
-  Rahallisen vastikkeen verotus riippuu vastikkeen suuruudesta.
-  <a href="http://www.vero.fi">Verohallinnon sivuilta</a>
-  pääset lukemaan verotuksesta tarkemmin.
-</p><br>
+      <p><b>"Miten löydän tehtäviä?"</b></p>
+      Voit etsiä palvelussamme kirjautumatta avoimia valitsemaltasi alueelta tai kategoriasta. Kirjautumisen jälkeen voit ilmoittautua Helpperiksi kyseiseen tehtävään helposti vastaamalla ilmoitukseen painamalla ”Ilmoittaudu Helpperiksi” -painiketta. Voit vaihtoehtoisesti myös kysyä tehtävästä lisää, ”kysy Lisätietoja” painiketta painamalla. Tällöin sinun ja ilmoittajan välille avautuu Chat- keskustelu, jossa voitte vaihtaa lisätietoja.
+      <br><br>
+      <p><b>"Pitääkö minun maksaa veroja tienaamistani Helpperi puuhista?"</b></p>
+      Verot ovat Suomalaisen hyvinvointi yhteyskunnan perusta. Suosittelemme, että vierailet palvelussa www.vero.fi/yksityishenkilöille , jossa voit laskea oman veroprosentisi. Veroprosentti riippuu myös muita vuoden aikana tienaamista tuloistasi/ etuuksistasi. Helpperi ei vastaa ilmoituksista tai verojen maksusta puolestasi. Mikäli veroja kertyy kohdallesi maksettaviksi, suosittelemme niiden ilmoittamista verottajalle joko etukäteen perustuen arvioosi vuoden Helpperi -toiminnastasi, tai vaihtoehtoisesti jälkikäteen perustuen Helpperi -toimintaasi.
+      Veroprosentti riippuu myös muista vuoden aikana tienaamista tuloistasi/ etuuksistasi. Helpperi ei vastaa verojen ilmoituksista tai verojen maksusta, perinnästä tai palautuksista puolestasi. Verottajan tai muun viranomaisen, niin pyytäessä luovutamme käyttäjiemme palvelumme kautta saavutetut tulotiedot heidän käyttöönsä. ”Omat tiedot” osiostasi voit tarkistaa, kuinka paljon kulloinkin olet tienannut palvelussamme.
+      <br><br>
+      <p><b>"Kuinka saan maksun tehdyistä Helppauksista?"</b></p>
+      Jokaisessa ilmoituksessa on mainittu summa, jolla ilmoittaja on luvannut tehtävästä tekijälle tarjota. Maksu maksetaan tehdyn työn päätteeksi ilmoittajan ja tekijän välisen sopimuksen mukaan. Voit pyytää maksun tilillesi tai käteisenä. Voitte sopia maksutavasta, vaikka jo ennen tehtävän suorittamista.
+      <b>Muistutamme, että jokainen Helpperi sekä Helppauksen ilmoittaja arvostellaan tähdillä 1-5 sekä halutessa avoimin kommentein, jotka ovat muiden käyttäjien nähtävillä. Tämän vuoksi ei ole järkevää jättää maksuja maksamatta tai luvattuja tehtäviä suorittamatta. Ne näkyvät profiilissasi ja Helpperi- palvelu ei voi niitä piilottaa, poistaa tai muokata.</b>
+      <br><br><br>
+      <h3>Usein kysyttyä palvelustamme</h3><br>
+      <p><b>"Miten maksu kulkee HELPPERISSÄ?"</b></p>
+      Maksu ei kulje palvelumme kautta. Olet itse vastuussa palvelussa ilmoittamasi tehtävän maksun suorittamisesta ohjeiden ja hyvän tavan mukaisesti. Muistutamme, että saat arvostelut tehtävän jälkeen, jossa myös tehtävien tekijä eli Helpperi arvostelee Helpperitehtävän ilmoittajan.
+      <br><br>
+      <p><b>"Miten käyttäjien henkilöllisyydet varmistetaan?"</b></p>
+      Vain rekisteröityneenä käyttäjänä voit vastata ja julkaista palvelussamme ilmoituksia. Rekisteröinnin yhteydessä pyydämme Henkilöturvatunnuksen kokonaisuudessaan tai ulkomaalaisena passin numeron. Tämä tarvitaan palvelun turvallisuuden takaamiseksi. Palvelua voi käyttää vain olemassa olevat oikeat ihmiset, joilla on kaikki lain ja oikeuden mukainen vastuut palvelun käyttöön liittyen.
+      <br><br>
+      <p><b>"Voiko Helpperi ilmoituksien tekijöitä arvostella?"</b></p>
+      Kyllä. Jokaisen Helpperi -tehtävän päätteeksi sekä Helpperi, että Helpperi tehtävän ilmoittaja arvostelevat toisensa 1-5 tähdellä. Tämän lisäksi on mahdollista antaa avointa palautetta. Arvostelujen keskiarvo kommentit näkyvät profiilissa muiden käyttäjien tiedoksi.
+      <b>Muistutamme, että jokainen Helpperi sekä Helppauksen ilmoittaja arvostellaan tähdillä 1-5 sekä halutessa avoimin kommentein, jotka ovat muiden käyttäjien nähtävillä. Tämän vuoksi ei ole järkevää jättää maksuja maksamatta tai luvattuja tehtäviä suorittamatta. Ne näkyvät profiilissasi ja Helpperi- palvelu ei voi niitä piilottaa, poistaa tai muokata.</b>
+      <br><br>
+      <p><b>"Miten voin poistaa tilini?"</b></p>
+      Voit lähettää sähköpostia osoitteeseen info@helpperi.fi
+      <br><br>
+      <p><b>"Onko rajaa kuinka paljon voin työtehtäviä ilmoittaa / tehdä HELPPERIN kautta?"</b></p>
+      Mikäli käytä samaa Helpperiä yli 50€ edestä 30 kuukauden päivän sisällä, sinun tulee maksaa työnantajalle kohdistuvat TyEl -maksut ja vakuutukset. Vastuusi astuu myös voimaan mikäli olet maksanut hänelle palkkaa yksittäisistä tehtävistä yli 50€. Vastaat näistä maksuista ja vastuista itsenäisesti.  Muistutamme, että Helpperi -palvelumme on tarkoitettu Ei-ammattimaisiin pieniin aputehtäviin, eikä siis ammattimaisiin työsuoriteisiin.
+      Palvelussamme on hälytys, jotta et voi vahingossa ylittää kyseistä rajaa, vaan muistutamme sinua etukäteen.
+      Hälytyksen saadessasi voit edelleen jatkaa palvelussan´mme ja hankkia apua, tuolloin suosittelemme käyttämään muita alueellasi toimivia Helppereitä, joita palvelussamme varmasti on vapaana.
+      Emme rajoita tekemiesi Helppauksien määrää. Tarkista kuitenkin mahdollinen nollatulorajasi tai lisätuloosi kohdistuva veroprosenttisi osoitteesta: www.vero.fi.
+      <br><br>
+      <p><b>"Kuinka paljon voin ansaita Helpperi tehtäviä tekemällä?"</b></p>
+      Emme rajoita tekemiesi Helppauksien määrää. Tarkista kuitenkin mahdollinen nollatulorajasi tai lisätuloosi kohdistuva veroprosenttisi osoitteesta: www.vero.fi. Tarkista myös omat vakuutuksesi omasta vakuutusyhtiöstäsi. Helpperi on tarkoitettu lisätienestiksi ja harrastusmielessä tapahtuvaksi ihmisten auttamispalveluksi. Ei siis kenenkään päätoimen tuloksi.
+      <br><br>
+      <p><b>"Kuinka nopeasti voin löytää Helpperin tai löytää Helpperihomman?"</b></p>
+      Ilmoituksen jätettyäsi kaikki hakuusi sopivat helpperit saavat ilmoituksen avoimesta Helppaustehtävästäsi. He voivat sekunneissa lähettää sinulle hyväksymispyynnön. Helpperi toimii kaikkien mobiililaitteessa ja on siis aina mukana! Joten Helpperi on nopeasti saatavilla!
+      Helpperi palvelu toimii myös toisin päin! Voit lisätä omat ilmoituksesi – mitä haluat tehdä ja voit saada Helpperihomman minuuteissa! Esimerkiksi ilmoittaudut Helpperiksi kaupankäyntiin lähtiessäsi töistä kotiin. Käyt muutenkin kaupassa, nyt palvelumme avulla voit tienata vaikkapa vitosen ( ja etenkin hyvän mielen) tekemällä ostokset alueellasi jollekin avuntarvitsijalle.   Ilmoituksesi lähetyksen jälkeen kaikki avuntarvitsijat saavat tiedon tarjouksestasi ja voivat olla yhteydessä sinuun! Helppoa ja aina mukana!
+      <br><br>
+      <p><b>"Saanko ilmoittaa useita Helpperihommia?"</b></p>
+      Aivan niin monta kuin tarvitset! Yhteen ilmoitukseen voit ilmoittaa vain yhden. Jos esimerkiksi tarvitset muuttoon useampaa tekijää, voit kopioda saman ilmoituksen uudestaan uudeksi ilmoitukseksi.
+    </div>
+  </div>
+</div>

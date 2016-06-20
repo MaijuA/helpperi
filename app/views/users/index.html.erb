@@ -1,8 +1,10 @@
-<br>
+<% if @user_posts.empty? && @user_accepted_posts.empty? && @user_expired_posts.empty? %>
+    Sinulla ei tällä hetkellä ole yhtään luotua ilmoitusta. Luo uusi ilmoitus alla olevasta painikkeesta!<br>
+<% end %>
 <%= link_to('Uusi ilmoitus', new_post_path, class:"btn btn-success") if current_user && current_user.valid? %>
 <%= link_to('Uusi ilmoitus', edit_user_registration_path(current_user, :finishing => 1),
             class:"btn btn-success") if current_user && !current_user.valid? %>
-<br>
+<br><br>
 <h3>Omat ilmoitukset (<%= @user_posts.count %>)</h3>
 <table class="table table-striped">
   <thead>

@@ -22,14 +22,19 @@
         </div>
     <% end %>
 
+    <div class='form-group'>
+      <%= f.label :title %><br>
+      <%= f.text_field :title, class: 'form-control' %>
+    </div>
+
     <div class='radio'>
       <label>
-        <%= f.radio_button :post_type, 'Osto', checked: true %> Etsin helpperiä
+        <%= f.radio_button :post_type, 'Osto', checked: true, value: "false" %> Etsin helpperiä
       </label>
     </div>
     <div class='radio'>
       <label>
-        <%= f.radio_button :post_type, 'Myynti' %> Haluan helpperiksi
+        <%= f.radio_button :post_type, 'Myynti', value: "true" %> Haluan helpperiksi
       </label>
     </div>
 
@@ -39,11 +44,6 @@
           <!--nolla)</i><br>-->
           <%= f.number_field :radius, value: f.object.radius || 0, min: 0 %>
     </div><br>
-
-    <div class='form-group'>
-      <%= f.label :title %><br>
-      <%= f.text_field :title, class: 'form-control' %>
-    </div>
 
     <div class="form-group">
       <%= f.label :image %>
