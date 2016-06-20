@@ -5,6 +5,9 @@
 //fontti
 @import url(https://fonts.googleapis.com/css?family=Open+Sans);
 
+//logo
+@import url(https://fonts.googleapis.com/css?family=Amatic+SC);
+
 // make all images responsive by default
 img {
   @extend .img-responsive;
@@ -49,27 +52,13 @@ section {
 }
 // Helpperi
 
-
-body {
-  padding-top: 70px; /* Required padding for .navbar-fixed-top. Change if height of navigation changes. */
+.white {
+  color: #fff;
 }
 
-.navbar-fixed-top .nav {
-  padding: 15px 0;
-}
-
-.navbar-fixed-top .navbar-brand {
-  padding: 0 15px;
-}
-
-@media(min-width:768px) {
-  body {
-    padding-top: 100px; /* Required padding for .navbar-fixed-top. Change if height of navigation changes. */
-  }
-
-  .navbar-fixed-top .navbar-brand {
-    //padding: 15px 0;
-  }
+.navbar-default .navbar-nav > li > a:hover, .navbar-default .navbar-nav > li > a:focus {
+  background-color: #000;
+  color: #d4d4d4;
 }
 
 body {
@@ -78,12 +67,12 @@ body {
 }
 
 .navbar-default {
-  background-color: #b7d8b4;
-  border-color: #b7d8b4;
+  background-color: #000;
+  border-color: #000;
 }
 
 .navbar .nav > li > a {
-  color: #555;
+  color: #fff;
 }
 
 html {

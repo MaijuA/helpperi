@@ -1,10 +1,20 @@
+<div class="row" style="padding-top: 12px;">
+
+  <div class="col-md-1 col-md-offset-4">
+  <%= link_to(image_tag("logo.png" , id:"logo"), root_path) %>
+    </div>
+  <div class="col-md-2">
+  <h1 align="center" style="font-family: 'Amatic SC', cursive;font-size: 65px;">HELPPERI</h1>
+  </div>
+  <div class="col-md-6"></div>
+</div>
+
 <% content_for(:head) do %>
     <%= javascript_include_tag 'post.js', 'data-turbolinks-track' => true  %>
 <% end %><br>
 
 <%= form_tag search_path, id: "search", :method => 'get' do%>
     <div class="row">
-
       <div class="col-md-6 col-md-offset-3">
 
         <div class="account-wall">
