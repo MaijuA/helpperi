@@ -8,8 +8,12 @@
             <div class="col-xs-12 col-sm-6 col-md-6">
 
               <% if @user.ratings_count > 0 %>
-                <% (1..@user.average_rating.to_i).each do |i| %>
-                  <p class="on"></p>
+                <% (1..5).each do |i| %>
+                  <% if i <= @user.average_rating.to_i %>
+                    <p class="on"></p>
+                  <% else %>
+                    <p class="rating_star"></p>
+                  <% end %>
                 <% end %>
                 <br>
                 <%= @user.average_rating %> (<%= @user.ratings_count %> arvostelua)<br>

@@ -137,9 +137,13 @@
                       <td><span class="glyphicon glyphicon-ok"></span></td>
                       <td> <p><%= link_to @post.performer.first_name, user_path(@post.performer) %></p>
                         <% if @post.performer.ratings_count > 0 %>
-                          <% (1..@post.performer.average_rating.to_i).each do |i| %>
-                            <p class="on"></p>
-                          <% end %>
+                                <% (1..5).each do |i| %>
+                                    <% if i <= @post.performer.average_rating.to_i %>
+                                        <p class="on"></p>
+                                    <% else %>
+                                        <p class="rating_star"></p>
+                                    <% end %>
+                                <% end %>
                           <%= @post.performer.average_rating %> (<%= @post.performer.ratings_count %> arvostelua)
                         <% else %>
                           <p class="empty-rating-badge"></p> (ei arvosteluja)<br>
@@ -165,9 +169,13 @@
                         <tr>
                           <td><p align="center"><%= link_to helper.first_name, user_path(helper) %></p>
                             <% if helper.ratings_count > 0 %>
-                              <% (1..helper.average_rating.to_i).each do |i| %>
-                                <p class="on"></p>
-                              <% end %>
+                                    <% (1..5).each do |i| %>
+                                        <% if i <= helper.average_rating.to_i %>
+                                            <p class="on"></p>
+                                        <% else %>
+                                            <p class="rating_star"></p>
+                                        <% end %>
+                                    <% end %>
                               <br>
                               <%= helper.average_rating %> (<%= helper.ratings_count %> arvostelua)
                             <% else %>
