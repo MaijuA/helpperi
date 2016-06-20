@@ -117,7 +117,7 @@
                       <p class="rating_star"></p>
                   <% end %>
               <% end %>
-              <%= post.performer.average_rating %> (<%= post.performer.ratings_count %> arvostelua)<br>
+              <%= post.performer.average_rating if post.performer.ratings_count > 0%> (<%= post.performer.ratings_count %> arvostelua)<br>
           <% end %>
         </td>
         <td>

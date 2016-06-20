@@ -176,7 +176,7 @@
                                     <% end %>
                                 <% end %>
                                 <br>
-                                <%= helper.average_rating %> (<%= helper.ratings_count %> arvostelua)<br>
+                                <%= helper.average_rating if helper.ratings_count > 0 %> (<%= helper.ratings_count %> arvostelua)<br>
                             <% end %>
                           </td>
 

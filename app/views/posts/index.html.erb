@@ -84,8 +84,8 @@
                       <p class="rating_star"></p>
                   <% end %>
               <% end %>
-              <br>
-              <%= post.user.average_rating %> (<%= post.user.ratings_count %> arvostelua)<br>
+              <%= post.user.average_rating if post.user.ratings_count > 0 %> (<%= post.user.ratings_count %> arvostelua)<br>
+          </p>
           <% end %>
           <p><%= post.city %></p>
         </td>

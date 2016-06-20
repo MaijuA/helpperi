@@ -84,7 +84,6 @@ class User < ActiveRecord::Base
   end
 
   def ratings_count
-    return 0 if ratings.size.nil?
     ratings.size
   end
 
