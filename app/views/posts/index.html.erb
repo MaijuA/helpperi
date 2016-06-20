@@ -9,8 +9,8 @@
 
         <div class="account-wall">
           <div class="form-group">
-            <%= check_box_tag :post_type_buying_value, 'Osto', params[:post_type_buying] %> Etsitään helpperiä
-            <%= check_box_tag :post_type_selling_value, 'Myynti', params[:post_type_selling] %> Halutaan helpperiksi
+            <%= check_box_tag :post_type_buying_value, 'Osto', params[:post_type_buying] %> Haluan helpperiksi
+            <%= check_box_tag :post_type_selling_value, 'Myynti', params[:post_type_selling] %> Etsin helpperiä
           </div>
           <div class="form-group2">
             Kaupunki<br>
@@ -25,7 +25,7 @@
             <%= text_field_tag :word, params[:word], size: "11" %>
           </div>
           <div class="form-group2">
-            Palkkio<br>
+            Palkkio (euroa)<br>
             <%= number_field_tag :min, params[:min], min: 0, max: 999, placeholder: "min" %> -
             <%= number_field_tag :max, params[:max], min: 0, max: 999, placeholder: "max" %>
           </div>

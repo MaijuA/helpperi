@@ -24,14 +24,21 @@
 
     <div class='radio'>
       <label>
-        <%= f.radio_button :post_type, 'Myynti', checked: true %> Haluan helpperiksi
+        <%= f.radio_button :post_type, 'Osto', checked: true %> Etsin helpperiä
       </label>
     </div>
     <div class='radio'>
       <label>
-        <%= f.radio_button :post_type, 'Osto' %> Etsin helpperiä
+        <%= f.radio_button :post_type, 'Myynti' %> Haluan helpperiksi
       </label>
     </div>
+
+    <div class='field'>
+          <%= f.label :radius %><br>
+          <!--<i>(millä säteellä (km) osoitteestasi olet valmis tarjoamaan apuasi? Helpperin etsijä, jätä vain arvoksi-->
+          <!--nolla)</i><br>-->
+          <%= f.number_field :radius, value: f.object.radius || 0, min: 0 %>
+    </div><br>
 
     <div class='form-group'>
       <%= f.label :title %><br>
@@ -88,7 +95,7 @@
 
     <div class='form-group'>
       <%= f.label :address, class: 'control-label' %>
-      <br><i>(ei näy muille käyttäjille)</i>
+      <br><i>(muille käyttäjille näkyy vain sijaintitiedoista postinumero ja kaupunki)</i>
       <%= f.text_field :address, value: current_user.address, class: 'form-control' %>
     </div>
 
@@ -100,13 +107,6 @@
     <div class='form-group'>
       <%= f.label :city, class: 'control-label' %>
       <%= f.text_field :city, value: current_user.city, class: 'form-control' %>
-    </div>
-
-    <div class='field'>
-      <%= f.label :radius %><br>
-      <i>(millä säteellä (km) osoitteestasi olet valmis tarjoamaan apuasi? Helpperin etsijä, jätä vain arvoksi
-        nolla)</i><br>
-      <%= f.number_field :radius, value: f.object.radius || 0, min: 0 %>
     </div>
 
     <br>
