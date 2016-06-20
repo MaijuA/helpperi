@@ -76,19 +76,16 @@
         </td>
         <td>
           <p>
-          <% if post.user.ratings_count > 0 %>
-                  <% (1..5).each do |i| %>
-                      <% if i <= post.user.average_rating.to_i %>
-                          <p class="on"></p>
-                      <% else %>
-                          <p class="rating_star"></p>
-                      <% end %>
+            <%= link_to user_ratings_path(:id => post.user.id) do %>
+                <% (1..5).each do |i| %>
+                    <% if post.user.ratings_count != 0  && i <= post.user.average_rating.to_i %>
+                      <p class="on"></p>
+                  <% else %>
+                      <p class="rating_star"></p>
                   <% end %>
-              </p>
-            <br>
-            <%= post.user.average_rating %> (<%= post.user.ratings_count %> arvostelua)
-          <% else %>
-            <p class="empty-rating-badge"></p> (ei arvosteluja)<br>
+              <% end %>
+              <br>
+              <%= post.user.average_rating %> (<%= post.user.ratings_count %> arvostelua)<br>
           <% end %>
           <p><%= post.city %></p>
         </td>

@@ -12,6 +12,10 @@ class UsersController < ApplicationController
     @post = Post.find params[:post_id]
   end
 
+  def ratings
+    @user = User.find(params[:id])
+  end
+
   # GET /posts
   # GET /posts.json
   def index

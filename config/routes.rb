@@ -26,6 +26,7 @@ Rails.application.routes.draw do
   end
 
   get '/review', to:'users#review', as: :user_review
+  get '/ratings', to:'users#ratings', as: :user_ratings
 
   # resources :users do
   #   post 'create_rating'

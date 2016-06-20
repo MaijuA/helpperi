@@ -109,20 +109,16 @@
         </td>
         <td>
           <%= link_to(post.performer.first_name, user_path(post.performer)) %>
-          <p>
-          <% if post.performer.ratings_count > 0 %>
-                  <% (1..5).each do |i| %>
-                      <% if i <= post.performer.average_rating.to_i %>
-                          <p class="on"></p>
-                      <% else %>
-                          <p class="rating_star"></p>
-                      <% end %>
+            <%= link_to user_ratings_path(:id => post.performer.id) do %>
+                <% (1..5).each do |i| %>
+                    <% if post.performer.ratings_count != 0  && i <= post.performer.average_rating.to_i %>
+                      <p class="on"></p>
+                  <% else %>
+                      <p class="rating_star"></p>
                   <% end %>
-              </p>
-            <br>
-            <%= post.performer.average_rating %> (<%= post.performer.ratings_count %> arvostelua)
-          <% else %>
-              <p class="empty-rating-badge"></p> (ei arvosteluja)<br>
+              <% end %>
+              <br>
+              <%= post.performer.average_rating %> (<%= post.performer.ratings_count %> arvostelua)<br>
           <% end %>
         </td>
         <td>

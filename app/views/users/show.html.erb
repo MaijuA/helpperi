@@ -7,9 +7,9 @@
           <div class="row">
             <div class="col-xs-12 col-sm-6 col-md-6">
 
-              <% if @user.ratings_count > 0 %>
+              <%= link_to user_ratings_path(:id => @user.id) do %>
                 <% (1..5).each do |i| %>
-                  <% if i <= @user.average_rating.to_i %>
+                  <% if @user.ratings_count != 0  && i <= @user.average_rating.to_i %>
                     <p class="on"></p>
                   <% else %>
                     <p class="rating_star"></p>
@@ -17,11 +17,9 @@
                 <% end %>
                 <br>
                 <%= @user.average_rating %> (<%= @user.ratings_count %> arvostelua)<br>
-              <% else %>
-                <p class="empty-rating-badge"></p> (ei arvosteluja) <br>
-              <% end %><br>
-
-              <p> <% if current_user == @user %>
+              <% end %>
+              <br>
+              <% if current_user == @user %>
                   <p><b>Sähköposti</b></p>
                   <p><%= @user.email if current_user == @user %></p><br>
               <% end %>
