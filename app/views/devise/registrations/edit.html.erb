@@ -48,7 +48,7 @@
             <%= f.text_field :last_name, class: "form-control", maxlength: "50", :style=>'text-transform:capitalize' %>
           </div>
 
-          <% unless resource.personal_code? %>
+          <% unless resource.valid? %>
               <div class="form-group">
                 <%= f.label :personal_code, class: "control-label" %> *
                 <%= f.text_field :personal_code, class: "form-control", :style=>'text-transform:uppercase' %>
