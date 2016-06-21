@@ -111,26 +111,9 @@
         </td>
         <td>
           <div class="row">
-            <div class="col-xs-12 col-sm-6 col-md-6">
-          <%= link_to(post.performer.first_name, user_path(post.performer)) %>
-            <p>
-            <%= link_to user_ratings_path(:id => post.performer.id) do %>
-                <% (1..5).each do |i| %>
-                    <% if post.performer.ratings_count != 0  && i <= post.performer.average_rating.to_i %>
-                      <p class="on"></p>
-                  <% else %>
-                      <p class="rating_star"></p>
-                  <% end %>
-              <% end %>
-            </div>
-            </div>
-                  <div class="row">
-                    <div class="col-xs-12 col-sm-6 col-md-6">
-              <%= post.performer.average_rating if post.performer.ratings_count > 0%> (<%= post.performer.ratings_count %> arvostelua)<br>
-          <% end %>
-              </p>
-              </div>
+            <%= link_to(post.performer.first_name, user_path(post.performer)) %>
           </div>
+          <%= render 'layouts/stars', :user => post.performer %>
         </td>
         <td>
           <%= link_to conversations_path(post.performer.id, post.user.id, post.id) do %>
@@ -197,37 +180,15 @@
         </td>
         <td>
           <div class="row">
-            <div class="col-xs-12 col-sm-6 col-md-6">
-          <p>
-          Annoit arvion:
-              <% (1..5).each do |i| %>
-                  <% if i <= post.ratings.where(reviewer_id:post.user.id).first.score %>
-                      <p class="on"></p>
-                  <% else %>
-                      <p class="rating_star"></p>
-                  <% end %>
-              <% end %>
-              </p>
-            </div>
-            </div>
-          <br>
-          <div class="row">
-            <div class="col-xs-12 col-sm-6 col-md-6">
+            Annoit arvion:
+          </div>
+          <%= render 'layouts/stars', :user => post.performer %>
           <% if post.ratings.where(reviewer_id:post.performer.id).count > 0 %>
-           <p>
-             Sait arvion:
-            <% (1..5).each do |i| %>
-                      <% if i <= post.ratings.where(reviewer_id:post.performer.id).first.score %>
-                          <p class="on"></p>
-                      <% else %>
-                          <p class="rating_star"></p>
-                      <% end %>
-                  <% end %>
-                  </p>
-                  </div>
-                  </div>
-          <br>
-          <% end %>
+            <div class="row">
+              Sait arvion:
+            </div>
+            <%= render 'layouts/stars', :user => post.performer %>
+         <% end %>
         </td>
         <td><% if post.price %>
               <%= post.price %> €

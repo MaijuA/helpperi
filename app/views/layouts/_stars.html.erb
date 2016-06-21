@@ -1,20 +1,14 @@
-<div class="row">
-  <div class="col-xs-12 col-sm-6 col-md-6">
-    <p>
-      <%= link_to user_ratings_path(:id => user.id) do %>
-          <% (1..5).each do |i| %>
-              <% if user.ratings_count != 0  && i <= user.average_rating.to_i %>
-                <p class="on"></p>
-            <% else %>
-                <p class="rating_star"></p>
-            <% end %>
+<%= link_to user_ratings_path(:id => user.id) do %>
+  <div class="row">
+    <div class="col-xs-14 col-sm-8 col-md-8">
+      <% (1..5).each do |i| %>
+        <% if user.ratings_count != 0  && i <= user.average_rating %>
+          <p class="on"></p>
+        <% else %>
+          <p class="rating_star"></p>
         <% end %>
-        </div>
-        </div>
-        <div class="row">
-          <div class="col-xs-12 col-sm-6 col-md-6">
-            (<%= user.ratings_count %> arvostelua)<br>
-    <% end %>
-    </p>
+      <% end %>
+    </div>
   </div>
-</div>
+<% end %>
+
