@@ -86,26 +86,7 @@
           <% end %>
         </td>
         <td>
-          <p>
-            <div class="row">
-              <div class="col-xs-12 col-sm-6 col-md-6">
-            <%= link_to user_ratings_path(:id => post.user.id) do %>
-                <% (1..5).each do |i| %>
-                    <% if post.user.ratings_count != 0  && i <= post.user.average_rating.to_i %>
-                      <p class="on"></p>
-                  <% else %>
-                      <p class="rating_star"></p>
-                  <% end %>
-              <% end %>
-              </div>
-              </div>
-              <div class="row">
-                <div class="col-xs-12 col-sm-6 col-md-6">
-              <%= post.user.average_rating if post.user.ratings_count > 0 %> (<%= post.user.ratings_count %> arvostelua)<br>
-          </div>
-                </div>
-                  </p>
-          <% end %>
+          <%= render 'layouts/stars', :user => post.user %>
           <p><%= post.city %></p>
         </td>
       </tr>
