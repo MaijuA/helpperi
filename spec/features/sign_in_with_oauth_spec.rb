@@ -27,7 +27,7 @@ describe 'OAuth' do
 
     click_link 'Kirjaudu LinkedIn-tunnuksilla'
     visit users_path
-    click_link 'Uusi ilmoitus'
+    click_link 'Luo ilmoitus'
 
     expect(page).to have_content 'Viimeistele rekisteröitymisesi'
   end
