@@ -1,6 +1,7 @@
-<% if @user_tasks.empty? && @user_performer_posts.empty? && @user_performer_posts_expired.empty? %>
+<% if @user_tasks.empty? %>
     Et ole ilmoittautunut kiinnostuneeksi yhteenkään ilmoitukseen. Voit löytää kiinnostavia ilmoituksia etusivun kautta!
 <% end %>
+
 <h3>Omat kiinnostukset (<%= @user_tasks.count %>)</h3>
 <table class="table table-striped">
   <thead>
@@ -148,36 +149,23 @@
         <td>
           <div class="row">
             <div class="col-xs-12 col-sm-6 col-md-6">
-          <p>
-          Sait arvion:
-              <% (1..5).each do |i| %>
-                  <% if i <= post.ratings.where(reviewer_id:post.user.id).first.score %>
-                      <p class="on"></p>
-                  <% else %>
-                      <p class="rating_star"></p>
-                  <% end %>
-              <% end %>
+              <p>
+                Sait arvion:
+                <%= render 'layouts/stars', :user => post.user %>
               </p>
             </div>
           </div>
-                  <div class="row">
-                    <div class="col-xs-12 col-sm-6 col-md-6">
-
+          <div class="row">
+            <div class="col-xs-12 col-sm-6 col-md-6">
             <p>
             <% if post.ratings.where(reviewer_id:post.performer.id).count > 0 %>
-            Annoit arvion:
-                  <% (1..5).each do |i| %>
-                      <% if i <= post.ratings.where(reviewer_id:post.performer.id).first.score %>
-                          <p class="on"></p>
-                      <% else %>
-                          <p class="rating_star"></p>
-                      <% end %>
-                  <% end %>
-          <% else %>
+              Annoit arvion:
+              <%= render 'layouts/stars', :user => post.performer %>
+            <% else %>
               <%= link_to 'Arvioi ilmoittaja', user_review_path(:post_id => post.id) %>
-          <% end %>
-              </p>
-        </div>
+            <% end %>
+            </p>
+          </div>
         </div>
         </td>
         <td><% if post.price %>
@@ -189,6 +177,4 @@
   </tbody>
 </table>
 <%= will_paginate @user_performed_tasks, :param_name => 'performed_page' %>
-<br>
-<br>
 <br>
