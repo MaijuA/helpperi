@@ -1,5 +1,6 @@
+<br>
+<%= link_to('Luo ilmoitus', new_post_path, class:"black-button") if current_user && current_user.valid? %>
 <div class="row" style="padding-top: 12px;">
-
   <div class="col-md-1 col-md-offset-4">
   <%= link_to(image_tag("logo.png" , id:"logo"), root_path) %>
     </div>
@@ -19,8 +20,8 @@
 
         <div class="account-wall">
           <div class="form-group">
-            <%= check_box_tag :post_type_buying_value, 'Osto', params[:post_type_buying] %> Haluan helpperiksi
-            <%= check_box_tag :post_type_selling_value, 'Myynti', params[:post_type_selling] %> Etsin helpperiä
+            <%= check_box_tag :post_type_buying_value, 'Osto', params[:post_type_buying] %> Haluan helppaajaksi
+            <%= check_box_tag :post_type_selling_value, 'Myynti', params[:post_type_selling] %> Etsin helppaajaa
           </div>
           <div class="form-group2">
             Kaupunki<br>
@@ -72,8 +73,10 @@
             <% end %>
             <td>
               <p><b><%= link_to truncate(post.title, :length => 30), post %></b></p>
-              <% if post.seller? %>
-                  <p><span class="selling-badge">Helpperi</span></p>
+              <% if post.buyer? %>
+                  <p><span class="buying-badge">Helpattava</span></p>
+              <% elsif post.seller? %>
+                  <p><span class="selling-badge">Helppaaja</span></p>
               <% end %>
               <p>
                 <% post.categories.each do |category| %>
