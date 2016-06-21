@@ -324,7 +324,7 @@ footer p {
 }
 
 .rating_star {
-  background: url('star-off.png') 0 0;
+  background: image-url('star-off.png') 0 0;
   width: 16px;
   height: 16px;
   display: block;
@@ -332,7 +332,7 @@ footer p {
 }
 
 .on {
-  background: url('star-on.png') 0 0;
+  background: image-url('star-on.png') 0 0;
   width: 16px;
   height: 16px;
   display: block;
@@ -340,7 +340,7 @@ footer p {
 }
 
 .empty-rating-badge {
-  background: url('star-off.png') 0 0;
+  background: image-url('star-off.png') 0 0;
   width: 16px;
   height: 16px;
   display: block;
@@ -369,7 +369,7 @@ footer p {
   }
 
   .rating_star {
-    background: url('star-off-big.png') 0 0;
+    background: image-url('star-off-big.png') 0 0;
     width: 48px;
     height: 48px;
     display: block;
@@ -377,7 +377,7 @@ footer p {
   }
 
   .on {
-    background: url('star-on-big.png') 0 0;
+    background: image-url('star-on-big.png') 0 0;
     width: 48px;
     height: 48px;
     display: block;
