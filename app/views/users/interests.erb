@@ -1,6 +1,7 @@
-<% if @user_tasks.empty? && @user_performer_posts.empty? && @user_performer_posts_expired.empty? %>
+<% if @user_tasks.empty? %>
     Et ole ilmoittautunut kiinnostuneeksi yhteenkään ilmoitukseen. Voit löytää kiinnostavia ilmoituksia etusivun kautta!
 <% end %>
+
 <h3>Omat kiinnostukset (<%= @user_tasks.count %>)</h3>
 <table class="table table-striped">
   <thead>

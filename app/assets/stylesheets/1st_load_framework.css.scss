@@ -81,9 +81,9 @@ html {
 }
 
 .footer {
-  background-color: #e6e6e6;
-  border-color: #e6e6e6;
-  color: #777;
+  background-color: #000;
+  border-color: #000;
+  color: #000;
   bottom:0;
   margin-top: 15px;
   padding-top: 5px;
@@ -91,6 +91,7 @@ html {
   width:100%;
   position:absolute;
   height:100px;
+  font-family: 'Open Sans', sans-serif;
 
   //background: linear-gradient(to bottom, #e6e6e6 0%,#ffffff 100%);
   //border-top: 1px solid #eaeaea;
@@ -98,7 +99,7 @@ html {
 }
 
 footer a {
-  color: #555;
+  color: #fff;
   align: center;
 }
 
@@ -139,6 +140,10 @@ footer p {
   margin: -16px auto 10px;
 }
 
+.linkit {
+  color: #000;
+  text-decoration: underline;
+}
 
 .lomake,
 .form-signin,
@@ -248,6 +253,37 @@ footer p {
   white-space: nowrap;
 }
 
+.black-button {
+  @extend .btn;
+  -webkit-border-radius: 15;
+  -moz-border-radius: 15;
+  border-radius: 15px;
+  -webkit-box-shadow: 0px 1px 3px #666666;
+  -moz-box-shadow: 0px 1px 3px #666666;
+  box-shadow: 0px 1px 3px #666666;
+  color: #ffffff;
+  font-size: 14px;
+  padding: 9px;
+  background: #000000;
+  text-decoration: none;
+  font-family: 'Open Sans', sans-serif;
+}
+
+.white-button {
+  @extend .btn;
+  -webkit-border-radius: 15;
+  -moz-border-radius: 15;
+  border-radius: 15px;
+  -webkit-box-shadow: 0px 1px 3px #666666;
+  -moz-box-shadow: 0px 1px 3px #666666;
+  box-shadow: 0px 1px 3px #666666;
+  color: #000000;
+  font-size: 14px;
+  padding: 9px;
+  background: #ffffff;
+  text-decoration: none;
+  font-family: 'Open Sans', sans-serif;
+}
 
 //vasen
 .bubble-left
