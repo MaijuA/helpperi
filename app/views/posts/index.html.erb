@@ -1,10 +1,10 @@
 <div class="row" style="padding-top: 12px;">
 
   <div class="col-md-1 col-md-offset-4">
-  <%= link_to(image_tag("logo.png" , id:"logo"), root_path) %>
-    </div>
+    <%= link_to(image_tag("logo.png" , id:"logo"), root_path) %>
+  </div>
   <div class="col-md-2">
-  <h1 align="center" style="font-family: 'Amatic SC', cursive;font-size: 65px;">HELPPERI</h1>
+    <h1 align="center" style="font-family: 'Amatic SC', cursive;font-size: 65px;">HELPPERI</h1>
   </div>
   <div class="col-md-6"></div>
 </div>
@@ -13,39 +13,48 @@
     <%= javascript_include_tag 'post.js', 'data-turbolinks-track' => true  %>
 <% end %><br>
 
-<%= form_tag search_path, id: "search", :method => 'get' do%>
+<%= form_tag search_path, :id => "search", :method => 'get' do %>
     <div class="row">
       <div class="col-md-6 col-md-offset-3">
-
         <div class="account-wall">
-          <div class="form-group">
-            <%= check_box_tag :post_type_buying_value, 'Osto', params[:post_type_buying] %> Haluan helpperiksi
-            <%= check_box_tag :post_type_selling_value, 'Myynti', params[:post_type_selling] %> Etsin helpperiä
-          </div>
-          <div class="form-group2">
-            Kaupunki<br>
-            <%= text_field_tag :city, params[:city], size: "11" %>
-          </div>
-          <div class="form-group2">
-            Postinumero<br>
-            <%= text_field_tag :zip_code, params[:zip_code], size: "8" %>
-          </div>
-          <div class="form-group2">
-            Hakusana<br>
-            <%= text_field_tag :word, params[:word], size: "11" %>
-          </div>
-          <div class="form-group2">
-            Palkkio (euroa)<br>
-            <%= number_field_tag :min, params[:min], min: 0, max: 999, placeholder: "min" %> -
-            <%= number_field_tag :max, params[:max], min: 0, max: 999, placeholder: "max" %>
-          </div>
-          <div class="form-group2">
-            Kategoria<br>
-            <%= select_tag :category_ids, options_for_select([["Kaikki", 0]] + Category.all.collect {|x| [x.name, x.id]}, params[:category_ids]), selected: 0, :multiple => true %>
-          </div><br><br>
-          <div class="form-group">
-            <%= submit_tag "Hae" %>
-            <%= check_box_tag :remember, true, false %> Muista valintani
+          <div class="search-block">
+            <div class="hidden" id="short">
+              <div class="form-group2">
+                Kaupunki<br>
+                <%= text_field_tag :city, params[:city], size: "11" %>
+              </div>
+            </div>
+            <div id="long">
+              <div class="form-group">
+                <%= check_box_tag :post_type_buying_value, 'Osto', params[:post_type_buying] %> Haluan helpperiksi
+                <%= check_box_tag :post_type_selling_value, 'Myynti', params[:post_type_selling] %> Etsin helpperiä
+              </div>
+              <div class="form-group2">
+                Kaupunki<br>
+                <%= text_field_tag :city, params[:city], size: "11" %>
+              </div>
+              <div class="form-group2">
+                Postinumero<br>
+                <%= text_field_tag :zip_code, params[:zip_code], size: "8" %>
+              </div>
+              <div class="form-group2">
+                Hakusana<br>
+                <%= text_field_tag :word, params[:word], size: "11" %>
+              </div>
+              <div class="form-group2">
+                Palkkio (euroa)<br>
+                <%= number_field_tag :min, params[:min], min: 0, max: 999, placeholder: "min" %> -
+                <%= number_field_tag :max, params[:max], min: 0, max: 999, placeholder: "max" %>
+              </div>
+              <div class="form-group2">
+                Kategoria<br>
+                <%= select_tag :category_ids, options_for_select([["Kaikki", 0]] + Category.all.collect {|x| [x.name, x.id]}, params[:category_ids]), selected: 0, :multiple => true %>
+              </div><br><br>
+              <div class="form-group">
+                <%= submit_tag "Hae" %>
+                <!--<= check_box_tag :remember, true, false %> Muista valintani-->
+              </div>
+            </div>
           </div>
         </div>
       </div>
@@ -81,18 +90,18 @@
                 <% end %>
               </p>
             </td>
-        <td><% if post.price %>
-              <%= post.price %> €
-          <% end %>
-        </td>
-        <td>
-          <%= render 'layouts/stars', :user => post.user %>
-          <p><%= post.city %></p>
-        </td>
-      </tr>
-  <% end %>
-  <% end %>
-  </tbody>
+            <td><% if post.price %>
+                  <%= post.price %> €
+              <% end %>
+            </td>
+            <td>
+              <%= render 'layouts/stars', :user => post.user %>
+              <p><%= post.city %></p>
+            </td>
+          </tr>
+      <% end %>
+<% end %>
+</tbody>
 </table>
 
 
