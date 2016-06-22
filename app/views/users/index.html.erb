@@ -6,6 +6,30 @@
 <%= link_to('Luo ilmoitus', new_post_path, class:"black-button") if current_user && current_user.valid? %>
 <%= link_to('Luo ilmoitus', edit_user_registration_path(current_user, :finishing => 1),
             class:"black-button") if current_user && !current_user.valid? %>
+
+<h3>Etsin helpperiä (<%= @user_buying_posts.count %>)</h3>
+
+<table class="table table-striped">
+  <thead>
+  <tr>
+    <th class="col-md-2"></th>
+    <th class="col-md-2"></th>
+    <th class="col-md-2"></th>
+    <th class="col-md-2"></th>
+    <th class="col-md-1"></th>
+  </tr>
+  </thead>
+
+  <tbody class="form-group">
+  <% @user_buying_posts.each do |post| %>
+      <%= render 'user_post_row', :post => post %>
+  <% end %>
+  </tbody>
+</table>
+
+
+<h3>Olen helpperi (<%= @user_selling_posts.count %>)</h3>
+
 <br><br>
 <h3>Luomasi ilmoitukset (<%= @user_posts.count %>)</h3>
 <table class="table table-striped">
@@ -54,17 +78,23 @@
           <% if Conversation.where(post_id:post.id) %>
               <% Conversation.where(post_id:post.id).each do |c| %>
                   <% if c.sender_id == current_user.id %>
+                      <div class="row">
                       <%= link_to conversation_messages_path(c) do %>
                           <%= User.where(id:c.recipient_id).first.first_name %> <span class="glyphicon glyphicon-envelope"></span>
                           <%= content_tag :span, conversation_user_count(c.recipient_id, post.id),
                                           class: 'badge', style:"background-color: blue" if conversation_user_count(c.recipient_id, post.id) > 0 %>
+                      </div>
                       <% end %>
+                      <%= render 'layouts/stars', :user => User.where(id:c.recipient_id).first %><br>
                   <% else %>
+                      <div class="row">
                       <%= link_to conversation_messages_path(c) do %>
                           <%= User.where(id:c.sender_id).first.first_name %> <span class="glyphicon glyphicon-envelope"></span>
                           <%= content_tag :span, conversation_user_count(c.sender_id, post.id),
                                           class: 'badge', style:"background-color: blue" if conversation_user_count(c.sender_id, post.id) > 0 %>
-                      <% end %><br>
+                      <% end %>
+                      </div>
+                      <%= render 'layouts/stars', :user => User.where(id:c.sender_id).first %><br>
                   <% end %>
               <% end %>
           <% end %>
@@ -138,4 +168,3 @@
   </tbody>
 </table>
 <%= will_paginate @user_accepted_posts, :param_name => 'accepted_page' %>
-<br>

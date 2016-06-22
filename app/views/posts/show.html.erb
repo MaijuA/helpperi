@@ -56,8 +56,8 @@
           </p><br>
 
           <!-- oma ilmoitus -->
-          <%= link_to('Muokkaa', edit_post_path(@post), class:"btn btn-info") if @post.user == current_user %>
-          <%= link_to("Poista", post_delete_post_path(@post.id), class:"btn btn-danger", data:
+          <%= link_to('Muokkaa', edit_post_path(@post), class:"black-button") if @post.user == current_user %>
+          <%= link_to("Poista", post_delete_post_path(@post.id), class:"white-button", data:
               { confirm: 'Haluatko varmasti poistaa ilmoituksen?' }, method: :post) if @post.user == current_user %>
           <!-- /oma ilmoitus -->
 
@@ -85,7 +85,7 @@
                   <% if @post.doer_id == current_user.id %>
                       <a class='btn btn-warning disabled ' >Olet sitoutunut tähän ilmoitukseen.</a>
                   <% elsif @post.helpers.include?(current_user) %>
-                      <a class='btn btn-warning disabled ' >Olet ilmoittaunut kiinnostuneeksi</a>
+                      <a class='black-button disabled ' >Olet ilmoittaunut kiinnostuneeksi</a>
                   <% elsif @post.denied_helpers.include?(current_user) %>
                       <a class='btn btn-danger disabled ' >Ilmoittaja ei ole valinnut sinua tällä kertaa.</a>
                   <% elsif !@post.denied_helpers.include?(current_user) %>
@@ -101,7 +101,8 @@
           <% else %>
               <% unless user_signed_in? %>
                   <p><i>Rekisteröidy tai kirjaudu, jotta voit ilmoittautua kiinnostuneeksi tai lähettää viestin ilmoittajalle.</i></p>
-                  <%= link_to 'Rekisteröidy', new_user_registration_path, class:"black-button" %> <%= link_to 'Kirjaudu', new_user_session_path, class:"white-button" %>
+                  <%= link_to 'Rekisteröidy', new_user_registration_path, class:"black-button" %>
+                  <%= link_to 'Kirjaudu', new_user_session_path, class:"white-button" %>
               <% end %>
           <% end %>
       <% end %>

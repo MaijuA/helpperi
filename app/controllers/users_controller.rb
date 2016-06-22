@@ -25,29 +25,28 @@ class UsersController < ApplicationController
       params[:page2] = 1 if params[:page2] == ''
       params[:page3] = 1 if params[:page3] == ''
       params[:page4] = 1 if params[:page4] == ''
+
       @user_posts = current_user.posts.active.valid.paginate(:page => params[:post_page], :per_page => 5)
+
+      @user_selling_posts = current_user.posts.valid.selling
+      @user_buying_posts = current_user.posts.valid.buying
+
       @user_accepted_posts = current_user.posts.valid.accepted.not_rated.paginate(:page => params[:accepted_page], :per_page => 5)
       @user_expired_posts = current_user.posts.active.expired.paginate(:page => params[:expired_page], :per_page => 5)
       @user_performed_posts = current_user.posts.rated.paginate(:page => params[:expired_page], :per_page => 5)
-
-      @user_own_posts = current_user.posts.selling.valid.paginate(:page => params[:post_page], :per_page => 5)
-      @user_other_posts = Post.where(doer_id:current_user.id).selling.valid.paginate(:page => params[:tasks_page], :per_page => 5)
     end
   end
 
-  def interests
-    if current_user
-      params[:page1] = 1 if params[:page1] == ''
-      params[:page2] = 1 if params[:page2] == ''
-      params[:page3] = 1 if params[:page3] == ''
-      @user_tasks = current_user.tasks.active.valid.not_rated.paginate(:page => params[:tasks_page], :per_page => 5)
-      @user_performer_posts = Post.where(doer_id:current_user.id).valid.not_rated.paginate(:page => params[:performer_page], :per_page => 5)
-      @user_performed_tasks = Post.where(doer_id:current_user.id).rated.paginate(:page => params[:tasks_page], :per_page => 5)
-
-      @user_own_posts = current_user.posts.buying.valid.paginate(:page => params[:post_page], :per_page => 5)
-      @user_other_posts = Post.where(doer_id:current_user.id).buying.valid.paginate(:page => params[:tasks_page], :per_page => 5)
-    end
-  end
+  # def interests
+  #   if current_user
+  #     params[:page1] = 1 if params[:page1] == ''
+  #     params[:page2] = 1 if params[:page2] == ''
+  #     params[:page3] = 1 if params[:page3] == ''
+  #     @user_tasks = current_user.tasks.active.valid.not_rated.paginate(:page => params[:tasks_page], :per_page => 5)
+  #     @user_performer_posts = Post.where(doer_id:current_user.id).valid.not_rated.paginate(:page => params[:performer_page], :per_page => 5)
+  #     @user_performed_tasks = Post.where(doer_id:current_user.id).rated.paginate(:page => params[:tasks_page], :per_page => 5)
+  #   end
+  # end
 
   def history
     if current_user
