@@ -45,7 +45,7 @@
               <%= link_to 'Lähetä viesti käyttäjälle', conversations_path(sender_id: current_user.id, recipient_id: @user.id), method: 'post', class:"black-button" if current_user && @user.id != current_user.id %>
               <%= link_to('Muokkaa', edit_user_registration_path, class:"black-button") if current_user == @user && current_user.valid? %>
               <!--helppaushistoria tiedostossa users/history, polku puuttuu-->
-              <%= link_to('Näytä helppaushistoria', '', class:"white-button") if current_user == @user && current_user.valid? %>
+              <%= link_to('Näytä helppaushistoria', user_history_path, class:"white-button") if current_user == @user && current_user.valid? %>
               <%= link_to('Muokkaa', edit_user_registration_path(:finishing => 1), class:"black-button") if current_user == @user && !current_user.valid? %>
             </div>
           </div>

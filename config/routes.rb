@@ -27,6 +27,7 @@ Rails.application.routes.draw do
 
   get '/review', to:'users#review', as: :user_review
   get '/ratings', to:'users#ratings', as: :user_ratings
+  get '/history', to:'users#history', as: :user_history
 
   # resources :users do
   #   post 'create_rating'

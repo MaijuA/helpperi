@@ -47,7 +47,7 @@
 
           <p>
             <strong>Ilmoittaja</strong><br>
-            <%= link_to(@post.user.first_name, user_path(@post.user)) %><br>
+            <%= link_to(@post.user.first_name, user_path(@post.user), :class => "linkit") %><br>
             <!-- oma ilmoitus -->
             <%= @post.address if @post.user == current_user %><br>
             <!-- /oma ilmoitus -->
@@ -139,11 +139,11 @@
                     <tr>
                       <td><span class="glyphicon glyphicon-ok"></span></td>
                       <td>
-                        <p><%= link_to @post.performer.first_name, user_path(@post.performer) %></p>
+                        <p><%= link_to @post.performer.first_name, user_path(@post.performer), :class => "linkit" %></p>
                         <%= render 'layouts/stars', :user => @post.performer %>
                       </td>
                       <td>
-                        <%= link_to 'Lähetä viesti', conversations_path(sender_id: current_user.id, recipient_id: @post.performer.id, post_id:@post.id), method: 'post', class:"btn btn-info" %>
+                        <%= link_to 'Lähetä viesti', conversations_path(sender_id: current_user.id, recipient_id: @post.performer.id, post_id:@post.id), method: 'post', class:"black-button" %>
                       </td>
                     </tr>
                     </tbody>

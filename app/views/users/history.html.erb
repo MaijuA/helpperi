@@ -1,3 +1,61 @@
+<h3>Olen ollut helpperinä ()</h3>
+
+<h3>Minulla on ollut helpperi ()</h3>
+
+<h3>Vanhentuneet ilmoitukseni (<%= @user_expired_posts.count %>)</h3>
+
+<table class="table table-striped">
+  <thead>
+  <tr>
+    <th class="col-md-2"></th>
+    <th class="col-md-2"></th>
+    <th class="col-md-2"></th>
+    <th class="col-md-2"></th>
+    <th class="col-md-1"></th>
+  </tr>
+  </thead>
+
+  <tbody class="form-group">
+  <% @user_expired_posts.each do |post| %>
+      <tr>
+        <% if post.image_is_set? %>
+            <td><%= image_tag post.image_url(:list), align: 'left' %></td>
+        <% else %>
+            <td><%= image_tag post.category_to_take_image_from.image_url(:list), align: 'left' %></td>
+        <% end %>
+        <td><b><%= link_to truncate(post.title, :length => 30), post %></b>
+          <p>
+            <% post.categories.each do |category| %>
+                <span class="category-badge"><%= "#{category.name}" %></span>
+            <% end %>
+          </p></td>
+        <td>
+          <p><%= link_to(post.performer.first_name, user_path(post.performer)) if post.performer %></p>
+        </td>
+        <td>
+          <% if post.performer %>
+              <%= link_to conversations_path(current_user.id, post.performer.id, post.id) do %>
+                  <span class="glyphicon glyphicon-envelope"></span>
+                  <%= content_tag :span, conversation_user_count(post.performer.id, post.id),
+                                  class: 'badge', style:"background-color: blue" if conversation_user_count(post.performer.id, post.id) > 0 %>
+              <% end %>
+          <% end %>
+        </td>
+        <td><% if post.price %>
+              <%= post.price %> €
+          <% end %>
+        </td>
+      </tr>
+  <% end %>
+  </tbody>
+</table>
+<%= will_paginate @user_expired_posts, :param_name => 'expired_page' %>
+<br>
+<br>
+
+
+--------------------------------------------------------
+
 <br>
 <h3>Suljetut ilmoitukset ()</h3>
 
@@ -63,62 +121,6 @@
   </tbody>
 </table>
 <%= will_paginate @user_performed_posts, :param_name => 'performed_page' %>
-<br>
-
-
-
-<h3>Vanhentuneet ilmoitukset (<%= @user_expired_posts.count %>)</h3>
-
-<table class="table table-striped">
-  <thead>
-  <tr>
-    <th class="col-md-2"></th>
-    <th class="col-md-2"></th>
-    <th class="col-md-2"></th>
-    <th class="col-md-2"></th>
-    <th class="col-md-1"></th>
-  </tr>
-  </thead>
-
-  <tbody class="form-group">
-  <% @user_expired_posts.each do |post| %>
-      <tr>
-        <% if post.image_is_set? %>
-            <td><%= image_tag post.image_url(:list), align: 'left' %></td>
-        <% else %>
-            <td><%= image_tag post.category_to_take_image_from.image_url(:list), align: 'left' %></td>
-        <% end %>
-        <td><b><%= link_to truncate(post.title, :length => 30), post %></b>
-          <% if post.buyer? %>
-              <p><span class="selling-badge">Helpperi</span></p>
-          <% end %>
-          <p>
-            <% post.categories.each do |category| %>
-                <span class="category-badge"><%= "#{category.name}" %></span>
-            <% end %>
-          </p></td>
-        <td>
-          <p><%= link_to(post.performer.first_name, user_path(post.performer)) if post.performer %></p>
-        </td>
-        <td>
-          <% if post.performer %>
-              <%= link_to conversations_path(current_user.id, post.performer.id, post.id) do %>
-                  <span class="glyphicon glyphicon-envelope"></span>
-                  <%= content_tag :span, conversation_user_count(post.performer.id, post.id),
-                                  class: 'badge', style:"background-color: blue" if conversation_user_count(post.performer.id, post.id) > 0 %>
-              <% end %>
-          <% end %>
-        </td>
-        <td><% if post.price %>
-              <%= post.price %> €
-          <% end %>
-        </td>
-      </tr>
-  <% end %>
-  </tbody>
-</table>
-<%= will_paginate @user_expired_posts, :param_name => 'expired_page' %>
-<br>
 <br>
 
 ----------------------------------------------------------------------------------
