@@ -117,6 +117,10 @@ footer p {
   text-align: center;
 }
 
+.footer:hover {
+  color: #000;
+}
+
 // Lomakkeiden virheilmoitukset
 #error_explanation {
   @extend .alert;
@@ -269,12 +273,16 @@ input[type="number"] {
   -webkit-box-shadow: 0px 1px 3px #666666;
   -moz-box-shadow: 0px 1px 3px #666666;
   box-shadow: 0px 1px 3px #666666;
-  color: #ffffff;
+  color: #fff;
   font-size: 14px;
   padding: 9px;
   background: #000000;
   text-decoration: none;
   font-family: 'Open Sans', sans-serif;
+}
+
+.black-button:hover {
+  color: #d4d4d4;
 }
 
 .white-button {
@@ -413,19 +421,38 @@ input[type="number"] {
   }
 
   .rating_star {
-    background: image-url('star-off-big.png') 0 0;
-    width: 48px;
-    height: 48px;
+    background: image-url('star-off-big.png');
+    width: 20px;
+    height: 20px;
     display: block;
     float: left;
   }
 
   .on {
-    background: image-url('star-on-big.png') 0 0;
-    width: 48px;
-    height: 48px;
+    background: image-url('star-on-big.png');
+    width: 20px;
+    height: 20px;
     display: block;
     float: left;
   }
 }
 
+.wrapper {
+  position: relative;
+}
+
+.box {
+background-color: #fff;
+  width: 25px;
+  height: 25px;
+  position: absolute;
+  opacity: 0.7;
+
+}
+
+.wrapper .glyphicon {
+  position: absolute;
+  top: 5px;
+  left: 5px;
+
+}

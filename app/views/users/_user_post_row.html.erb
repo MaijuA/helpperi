@@ -1,0 +1,53 @@
+<tr>
+<% if post.image_is_set? %>
+            <td><%= image_tag post.image_url(:list), align: 'left' %></td>
+        <% else %>
+            <td><%= image_tag post.category_to_take_image_from.image_url(:list), align: 'left' %></td>
+        <% end %>
+        <td><b><%= link_to truncate(post.title, :length => 30), post %></b>
+<% if post.buyer? %>
+              <p><span class="buying-badge">Helpattava</span></p>
+<% elsif post.seller? %>
+              <p><span class="selling-badge">Helppaaja</span></p>
+<% end %>
+<p>
+<% post.categories.each do |category| %>
+                <span class="category-badge"><%= "#{category.name}" %></span>
+            <% end %>
+          </p></td>
+        <td>
+          <% if post.helpers.empty? %>
+              Ei kiinnostuneita
+          <% else %>
+              <p><%= link_to "#{post.helpers.count} kiinnostunutta", post_path(post), class:"label label-warning"%></p>
+              <% if Candidate.where(post_id:post.id).unread_by(current_user).count > 0 %>
+                  <%= link_to post_path(post)  do %>
+                      <p><%= Candidate.where(post_id:post.id).unread_by(current_user).count %> uutta</p>
+<% end %>
+<% end %>
+<% end %>
+    </td>
+        <td>
+          <% if Conversation.where(post_id:post.id) %>
+              <% Conversation.where(post_id:post.id).each do |c| %>
+                  <% if c.sender_id == current_user.id %>
+                      <%= link_to conversation_messages_path(c) do %>
+                          <%= User.where(id:c.recipient_id).first.first_name %> <span class="glyphicon glyphicon-envelope"></span>
+<%= content_tag :span, conversation_user_count(c.recipient_id, post.id),
+                                          class: 'badge', style:"background-color: blue" if conversation_user_count(c.recipient_id, post.id) > 0 %>
+                      <% end %>
+                  <% else %>
+                      <%= link_to conversation_messages_path(c) do %>
+                          <%= User.where(id:c.sender_id).first.first_name %> <span class="glyphicon glyphicon-envelope"></span>
+                          <%= content_tag :span, conversation_user_count(c.sender_id, post.id),
+                                          class: 'badge', style:"background-color: blue" if conversation_user_count(c.sender_id, post.id) > 0 %>
+                      <% end %><br>
+                  <% end %>
+              <% end %>
+          <% end %>
+        </td>
+<td><% if post.price %>
+              <%= post.price %> €
+<% end %>
+</td>
+      </tr>

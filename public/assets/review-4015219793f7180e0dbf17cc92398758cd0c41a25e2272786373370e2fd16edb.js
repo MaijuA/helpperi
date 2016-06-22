@@ -1,0 +1,1 @@
+var set_stars=function(e,t){for(i=1;i<=5;i++)i<=t?$("#"+e+"_"+i).addClass("on"):$("#"+e+"_"+i).removeClass("on")};$(function(){$(".rating_star").click(function(){var e=($(this),$(this).attr("data-form-id")),t=$(this).attr("data-score");set_stars(e,t),document.getElementById(e+"_score").value=t})});
