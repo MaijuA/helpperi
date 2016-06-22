@@ -89,19 +89,19 @@
                   <% elsif @post.denied_helpers.include?(current_user) %>
                       <a class='btn btn-danger disabled ' >Ilmoittaja ei ole valinnut sinua tällä kertaa.</a>
                   <% elsif !@post.denied_helpers.include?(current_user) %>
-                      <%= link_to('Ilmoittaudu kiinnostuneeksi', post_add_candidate_path(@post.id), class:"btn btn-success", method: :post) %>
+                      <%= link_to('Ilmoittaudu kiinnostuneeksi', post_add_candidate_path(@post.id), class:"black-button", method: :post) %>
                   <% end %>
                   <!-- ilmoituksen keskustelu -->
-                  <%= link_to 'Lähetä viesti ilmoittajalle', conversations_path(sender_id: current_user.id, recipient_id: @post.user.id, post_id:@post.id), method: 'post', class:"btn btn-info" %>
+                  <%= link_to 'Lähetä viesti ilmoittajalle', conversations_path(sender_id: current_user.id, recipient_id: @post.user.id, post_id:@post.id), method: 'post', class:"white-button" %>
                   <!-- /ilmoituksen keskustelu -->
               <% else %>
                   <i>Täytäthän puuttuvat tiedot profiilistasi, jotta voit ilmoittautua kiinnostuneeksi tai lähettää viestin ilmoittajalle.</i></p>
-                  <%= link_to 'Omat tiedot', edit_user_registration_path(finishing: 1), class:"btn btn-success" %>
+                  <%= link_to 'Omat tiedot', edit_user_registration_path(finishing: 1), class:"black-button" %>
               <% end %>
           <% else %>
               <% unless user_signed_in? %>
                   <p><i>Rekisteröidy tai kirjaudu, jotta voit ilmoittautua kiinnostuneeksi tai lähettää viestin ilmoittajalle.</i></p>
-                  <%= link_to 'Rekisteröidy', new_user_registration_path, class:"btn btn-success" %> <%= link_to 'Kirjaudu', new_user_session_path, class:"btn btn-success" %>
+                  <%= link_to 'Rekisteröidy', new_user_registration_path, class:"black-button" %> <%= link_to 'Kirjaudu', new_user_session_path, class:"white-button" %>
               <% end %>
           <% end %>
       <% end %>
