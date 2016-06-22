@@ -78,17 +78,23 @@
       <% @posts.each do |post| %>
           <tr>
             <% if post.image_is_set? %>
-                <td><%= image_tag post.image_url(:list), align: 'left' %></td>
+                <td>
+                  <div class="wrapper">
+                    <%= image_tag post.image_url(:list), align: 'left' %>
+                    <div class="box">
+                      <span class="glyphicon glyphicon-search"></span>
+                    </div>
+                  </div>
+                </td>
             <% else %>
-
-
                 <td >
                   <div class="wrapper">
                     <%= image_tag post.category_to_take_image_from.image_url(:list), align: 'left' %>
-                    <div class="box"><span class="glyphicon glyphicon-search"></span></div>
+                    <div class="box">
+                      <span class="glyphicon glyphicon-search"></span>
                     </div>
+                  </div>
                 </td>
-
             <% end %>
             <td>
               <p><b><%= link_to truncate(post.title, :length => 30), post %></b></p>
@@ -103,8 +109,8 @@
               </p>
             </td>
         <td>
-          <%= render 'layouts/stars', :user => post.user %>
-          <p><%= post.city %></p>
+          <div class="row"><%= render 'layouts/stars', :user => post.user %></div>
+          <div class="row"><%= post.city %></div>
         </td>
       </tr>
   <% end %>
