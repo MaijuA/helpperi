@@ -1,13 +1,13 @@
 <br>
 <% if @user_posts.empty? %>
-    Sinulla ei tällä hetkellä ole helppaajia. Voit löytää helppaajia etusivulta tai luomalla ilmoituksia!<br>
+    Sinulla ei tällä hetkellä ole helppaajia. Etsi helppaajia etusivulta tai luomalla ilmoituksia!<br>
     <br>
 <% end %>
 <%= link_to('Luo ilmoitus', new_post_path, class:"black-button") if current_user && current_user.valid? %>
 <%= link_to('Luo ilmoitus', edit_user_registration_path(current_user, :finishing => 1),
             class:"black-button") if current_user && !current_user.valid? %>
 <br><br>
-<h3>Itse luomasi ilmoitukset (<%= @user_posts.count %>)</h3>
+<h3>Luomasi ilmoitukset (<%= @user_posts.count %>)</h3>
 <table class="table table-striped">
   <thead>
   <tr>
@@ -81,7 +81,7 @@
 <br>
 
 
-<h3>Muiden luomat ilmoitukset (<%= @user_accepted_posts.count %>)</h3>
+<h3>Ilmoitukset, joista olet kiinnostunut (<%= @user_accepted_posts.count %>)</h3>
 
 <table class="table table-striped">
   <thead>
