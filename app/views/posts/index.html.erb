@@ -78,12 +78,29 @@
       <% @posts.each do |post| %>
           <tr>
             <% if post.image_is_set? %>
-                <td><%= image_tag post.image_url(:list), align: 'left' %></td>
+                <td>
+                  <div class="wrapper">
+                    <%= image_tag post.image_url(:list), align: 'left' %>
+                    <div class="box">
+                      <% if post.buyer? %>
+                        <span class="glyphicon glyphicon-search"></span>
+                      <% else %>
+                          <span class="glyphicon glyphicon-user"></span>
+                      <% end %>
+                    </div>
+                  </div>
+                </td>
             <% else %>
-                <td >
+                <td>
                   <div class="wrapper">
                     <%= image_tag post.category_to_take_image_from.image_url(:list), align: 'left' %>
-                    <div class="box"><span class="glyphicon glyphicon-search"></span></div>
+                    <div class="box">
+                      <% if post.buyer? %>
+                          <span class="glyphicon glyphicon-search"></span>
+                      <% else %>
+                          <span class="glyphicon glyphicon-user"></span>
+                      <% end %>
+                    </div>
                   </div>
                 </td>
             <% end %>
@@ -100,14 +117,14 @@
                 <% end %>
               </p>
             </td>
-            <td>
-              <%= render 'layouts/stars', :user => post.user %>
-              <p><%= post.city %></p>
-            </td>
-          </tr>
-      <% end %>
-<% end %>
-</tbody>
+        <td>
+          <div class="row"><%= render 'layouts/stars', :user => post.user %></div>
+          <div class="row"><%= post.city %></div>
+        </td>
+      </tr>
+  <% end %>
+  <% end %>
+  </tbody>
 </table>
 
 

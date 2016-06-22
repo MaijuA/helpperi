@@ -47,12 +47,11 @@
 
           <p>
             <strong>Ilmoittaja</strong><br>
-            <%= link_to(@post.user.first_name, user_path(@post.user), :class => "linkit") %><br>
+            <%= link_to(@post.user.first_name, user_path(@post.user), :class => "linkit") %> <%= render 'layouts/stars', :user => @post.user %><br>
             <!-- oma ilmoitus -->
             <%= @post.address if @post.user == current_user %><br>
             <!-- /oma ilmoitus -->
             <%= @post.zip_code %> <%= @post.city %>
-            <%= render 'layouts/stars', :user => @post.user %>
           </p><br>
 
           <!-- oma ilmoitus -->
