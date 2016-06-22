@@ -6,6 +6,30 @@
 <%= link_to('Luo ilmoitus', new_post_path, class:"black-button") if current_user && current_user.valid? %>
 <%= link_to('Luo ilmoitus', edit_user_registration_path(current_user, :finishing => 1),
             class:"black-button") if current_user && !current_user.valid? %>
+
+<h3>Etsin helpperiä (<%= @user_buying_posts.count %>)</h3>
+
+<table class="table table-striped">
+  <thead>
+  <tr>
+    <th class="col-md-2"></th>
+    <th class="col-md-2"></th>
+    <th class="col-md-2"></th>
+    <th class="col-md-2"></th>
+    <th class="col-md-1"></th>
+  </tr>
+  </thead>
+
+  <tbody class="form-group">
+  <% @user_buying_posts.each do |post| %>
+      <%= render 'user_post_row', :post => post %>
+  <% end %>
+  </tbody>
+</table>
+
+
+<h3>Olen helpperi (<%= @user_selling_posts.count %>)</h3>
+
 <br><br>
 <h3>Luomasi ilmoitukset (<%= @user_posts.count %>)</h3>
 <table class="table table-striped">
