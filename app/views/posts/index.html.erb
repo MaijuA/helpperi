@@ -18,13 +18,18 @@
       <div class="col-md-6 col-md-offset-3">
         <div class="account-wall">
           <div class="search-block">
-            <div class="hidden" id="short">
-              <div class="form-group2">
+            <div id="short">
+              <div class="form-group">
                 Kaupunki<br>
                 <%= text_field_tag :city, params[:city], size: "11" %>
+                <br>
+              </div>
+              <div class="form-group">
+                <%= submit_tag "Hae" %>
+                <%= button_to "Tarkka haku", "javascript: long_search(); return false;" %>
               </div>
             </div>
-            <div id="long">
+            <div class="hidden" id="long">
               <div class="form-group">
                 <%= check_box_tag :post_type_buying_value, 'Osto', params[:post_type_buying] %> Haluan helpperiksi
                 <%= check_box_tag :post_type_selling_value, 'Myynti', params[:post_type_selling] %> Etsin helpperiä
@@ -52,13 +57,13 @@
               </div><br><br>
               <div class="form-group">
                 <%= submit_tag "Hae" %>
+                <%= button_to "Tarkka haku", "javascript: short_search(); return false;" %>
                 <!--<= check_box_tag :remember, true, false %> Muista valintani-->
               </div>
             </div>
           </div>
         </div>
       </div>
-    </div>
     </div><br><br>
     <div align="right">
       <%= collection_select(:table, :id, ["Uusimmat", "Sulkeutumassa", "Pienin palkkio", "Suurin palkkio"], :to_s, :to_s, {:selected => params[:order]}, { :onchange => "changeOrder();return false;"}) %>
