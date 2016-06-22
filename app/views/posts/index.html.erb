@@ -1,26 +1,30 @@
+<br>
+<%= link_to('Luo ilmoitus', new_post_path, class:"black-button") if current_user && current_user.valid? %>
 <div class="row" style="padding-top: 12px;">
-
   <div class="col-md-1 col-md-offset-4">
-  <%= link_to(image_tag("logo.png" , id:"logo"), root_path) %>
-    </div>
-  <div class="col-md-2">
-  <h1 align="center" style="font-family: 'Amatic SC', cursive;font-size: 65px;">HELPPERI</h1>
+    <%= link_to(image_tag("logo.png", id: "logo"), root_path) %>
   </div>
+
+  <div class="col-md-2">
+    <h1 align="center" style="font-family: 'Amatic SC', cursive;font-size: 65px;">HELPPERI</h1>
+  </div>
+
   <div class="col-md-6"></div>
 </div>
 
 <% content_for(:head) do %>
     <%= javascript_include_tag 'post.js', 'data-turbolinks-track' => true  %>
-<% end %><br>
+<% end %>
 
-<%= form_tag search_path, id: "search", :method => 'get' do%>
-    <div class="row">
-      <div class="col-md-6 col-md-offset-3">
 
-        <div class="account-wall">
+<div class="row">
+  <div class="col-md-6 col-md-offset-3">
+    <div class="account-wall">
+      <%= form_tag search_path, id: "search", :method => 'get', :class => "lomake" do %>
+
           <div class="form-group">
-            <%= check_box_tag :post_type_buying_value, 'Osto', params[:post_type_buying] %> Haluan helpperiksi
-            <%= check_box_tag :post_type_selling_value, 'Myynti', params[:post_type_selling] %> Etsin helpperiä
+            <%= check_box_tag :post_type_buying_value, 'Osto', params[:post_type_buying] %> Haluan helppaajaksi
+            <%= check_box_tag :post_type_selling_value, 'Myynti', params[:post_type_selling] %> Etsin helppaajaa
           </div>
           <div class="form-group2">
             Kaupunki<br>
@@ -41,20 +45,29 @@
           </div>
           <div class="form-group2">
             Kategoria<br>
-            <%= select_tag :category_ids, options_for_select([["Kaikki", 0]] + Category.all.collect {|x| [x.name, x.id]}, params[:category_ids]), selected: 0, :multiple => true %>
-          </div><br><br>
+            <%= select_tag :category_ids, options_for_select([["Kaikki", 0]] + Category.all.collect { |x| [x.name, x.id] }, params[:category_ids]), selected: 0, :multiple => true %>
+          </div>
+          <br><br>
           <div class="form-group">
             <%= submit_tag "Hae" %>
             <%= check_box_tag :remember, true, false %> Muista valintani
           </div>
-        </div>
+          <div align="right">
+            <%= collection_select(:table, :id, ["Uusimmat", "Sulkeutumassa", "Pienin palkkio", "Suurin palkkio"], :to_s, :to_s, {:selected => params[:order]}, {:onchange => "changeOrder();return false;"}) %>
+          </div>
+      <% end %>
       </div>
-    </div>
-    </div><br><br>
-    <div align="right">
-      <%= collection_select(:table, :id, ["Uusimmat", "Sulkeutumassa", "Pienin palkkio", "Suurin palkkio"], :to_s, :to_s, {:selected => params[:order]}, { :onchange => "changeOrder();return false;"}) %>
-    </div>
-<% end %>
+  </div>
+</div>
+
+<div class="row">
+  <%= form_tag search_path, id: "sort", :method => 'get', :class => "lomake" do %>
+      <input name="tradie[tradie_category_ids][]" type="hidden" value="">
+      <div align="right">
+        <%= collection_select(:table, :id, ["Uusimmat", "Sulkeutumassa", "Pienin palkkio", "Suurin palkkio"], :to_s, :to_s, {:selected => params[:order]}, {:onchange => "changeOrder();return false;"}) %>
+      </div>
+  <% end %>
+</div>
 
 <% if @posts.empty? %>
     <p class="text-center"><b>Sovelluksessa ei tällä hetkellä ole avoimia ilmoituksia.</b></p>
@@ -72,8 +85,10 @@
             <% end %>
             <td>
               <p><b><%= link_to truncate(post.title, :length => 30), post %></b></p>
-              <% if post.seller? %>
-                  <p><span class="selling-badge">Helpperi</span></p>
+              <% if post.buyer? %>
+                  <p><span class="buying-badge">Helpattava</span></p>
+              <% elsif post.seller? %>
+                  <p><span class="selling-badge">Helppaaja</span></p>
               <% end %>
               <p>
                 <% post.categories.each do |category| %>
@@ -82,7 +97,7 @@
               </p>
             </td>
         <td><% if post.price %>
-              <%= post.price %> €
+              <div style="min-width:4em;"><%= post.price %> €</div>
           <% end %>
         </td>
         <td>

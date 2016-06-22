@@ -29,19 +29,18 @@
 
     <div class='radio'>
       <label>
-        <%= f.radio_button :post_type, 'Osto', checked: true, value: "false" %> Etsin helpperiä
+        <%= f.radio_button :post_type, 'Osto', checked: true, value: "false" %> Etsin helppaajaa
       </label>
     </div>
     <div class='radio'>
       <label>
-        <%= f.radio_button :post_type, 'Myynti', value: "true" %> Haluan helpperiksi
+        <%= f.radio_button :post_type, 'Myynti', value: "true" %> Haluan helppaajaksi
       </label>
     </div>
 
     <div class='field'>
           <%= f.label :radius %><br>
-          <!--<i>(millä säteellä (km) osoitteestasi olet valmis tarjoamaan apuasi? Helpperin etsijä, jätä vain arvoksi-->
-          <!--nolla)</i><br>-->
+          <i>(millä säteellä (km) osoitteestasi olet valmis helppaamaan?)</i><br>
           <%= f.number_field :radius, value: f.object.radius || 0, min: 0 %>
     </div><br>
 
@@ -86,7 +85,7 @@
         Kenttä ei ole tyhjä!
       </p>
     </div>
-    <%= link_to 'Hae kategorian kuvausehdotus', "#", onclick: "defaultDescription();return false;" %> (Huom. kentän tulee olla tyhjä)
+    <%= link_to 'Hae kategorian kuvausehdotus', "#", onclick: "defaultDescription();return false;", :class =>"linkit" %> (Huom. kentän tulee olla tyhjä)
     <br>
     <i>(max. 2000 merkkiä)</i>
     <br>
@@ -118,13 +117,13 @@
 
     <% if @edit %>
         <div class='actions'>
-          <%= f.submit 'Päivitä', class: 'btn btn-success' %>
-          <%= link_to 'Peruuta', post_path, class: 'btn' %>
+          <%= f.submit 'Päivitä', class: 'black-button' %>
+          <%= link_to 'Peruuta', post_path, class: 'white-button' %>
         </div><br>
     <% else %>
         <div class="actions">
-          <%= f.submit 'Luo ilmoitus', class: "btn btn-success" %>
-          <%= link_to "Peruuta", posts_path, class: "btn" %>
+          <%= f.submit 'Luo ilmoitus', class: "black-button" %>
+          <%= link_to "Peruuta", posts_path, class: "white-button" %>
         </div>
     <% end %>
 

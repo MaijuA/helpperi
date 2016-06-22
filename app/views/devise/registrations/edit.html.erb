@@ -114,8 +114,8 @@
           <% end %>
 
           <div class="form-group">
-            <%= f.submit "Päivitä", class: "btn btn-success" %>
-            <%= link_to "Peruuta", user_path(current_user), class: "btn" %>
+            <%= f.submit "Päivitä", class: "black-button" %>
+            <%= link_to "Peruuta", user_path(current_user), class: "white-button" %>
           </div>
 
       <% end %>
@@ -125,7 +125,7 @@
     <h5>Haluatko lopettaa palvelun käytön?</h5>
 
     <%= button_to "Poista tilini", registration_path(resource_name), data: { confirm: "Oletko varma?" },
-                  method: :delete, :class => 'btn-mini btn-danger btn' if current_user %>
+                  method: :delete, :class => 'black-button' if current_user %>
   </div>
 </div>
 

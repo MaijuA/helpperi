@@ -8,7 +8,7 @@
             <div class="col-xs-12 col-sm-6 col-md-6">
 
               <%= render 'layouts/stars', :user => @user %>
-              <%= link_to "(#{@user.ratings_count} arvostelua)", user_ratings_path(:id => @user.id) %><br>
+              <%= link_to "(#{@user.ratings_count} arvostelua)", user_ratings_path(:id => @user.id), :class => "linkit" %><br>
 
               <br>
               <p> <% if current_user == @user %>
@@ -42,9 +42,11 @@
           </div>
           <div class="row">
             <div class="col-xs-12 col-sm-6 col-md-6">
-              <%= link_to 'Lähetä viesti käyttäjälle', conversations_path(sender_id: current_user.id, recipient_id: @user.id), method: 'post', class:"btn btn-info" if current_user && @user.id != current_user.id %>
-              <%= link_to('Muokkaa', edit_user_registration_path, class:"btn btn-info") if current_user == @user && current_user.valid? %>
-              <%= link_to('Muokkaa', edit_user_registration_path(:finishing => 1), class:"btn btn-info") if current_user == @user && !current_user.valid? %>
+              <%= link_to 'Lähetä viesti käyttäjälle', conversations_path(sender_id: current_user.id, recipient_id: @user.id), method: 'post', class:"black-button" if current_user && @user.id != current_user.id %>
+              <%= link_to('Muokkaa', edit_user_registration_path, class:"black-button") if current_user == @user && current_user.valid? %>
+              <!--helppaushistoria tiedostossa users/history, polku puuttuu-->
+              <%= link_to('Näytä helppaushistoria', '', class:"white-button") if current_user == @user && current_user.valid? %>
+              <%= link_to('Muokkaa', edit_user_registration_path(:finishing => 1), class:"black-button") if current_user == @user && !current_user.valid? %>
             </div>
           </div>
           <br>

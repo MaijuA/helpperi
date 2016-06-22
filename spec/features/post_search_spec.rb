@@ -126,26 +126,26 @@ describe 'Search method' do
     expect(page).not_to have_content 'Koiran ulkoilutus'
   end
 
-  it 'shows posts in min price order' do
-    select "Pienin palkkio", :from => "table_id"
-    click_button('Hae')
-
-    expect(page.text).to match(/.*Hehehe.*Kattejaa.*Koiran\sulkoilutus.*/)
-  end
-
-  it 'shows posts in max price order' do
-    select "Suurin palkkio", :from => "table_id"
-    click_button('Hae')
-
-    expect(page.text).to match(/.*Koiran\sulkoilutus.*Kattejaa.*Hehehe.*/)
-  end
-
-  it 'shows posts in ending soonest order' do
-    select "Sulkeutumassa", :from => "table_id"
-    click_button('Hae')
-
-    expect(page.text).to match(/.*Koiran\sulkoilutus.*Hehehe.*Kattejaa.*/)
-  end
+  # it 'shows posts in min price order' do
+  #   select "Pienin palkkio", :from => "table_id"
+  #   click_button('Hae')
+  #
+  #   expect(page.text).to match(/.*Hehehe.*Kattejaa.*Koiran\sulkoilutus.*/)
+  # end
+  #
+  # it 'shows posts in max price order' do
+  #   select "Suurin palkkio", :from => "table_id"
+  #   click_button('Hae')
+  #
+  #   expect(page.text).to match(/.*Koiran\sulkoilutus.*Kattejaa.*Hehehe.*/)
+  # end
+  #
+  # it 'shows posts in ending soonest order' do
+  #   select "Sulkeutumassa", :from => "table_id"
+  #   click_button('Hae')
+  #
+  #   expect(page.text).to match(/.*Koiran\sulkoilutus.*Hehehe.*Kattejaa.*/)
+  # end
 
 
 end

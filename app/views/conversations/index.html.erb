@@ -7,23 +7,26 @@
     <tr>
       <th></th>
       <th></th>
+      <th></th>
     </tr>
     </thead>
 
     <tbody>
     <% @conversations.each do |conversation| %>
 
-          <% if conversation.sender_id == current_user.id || conversation.recipient_id == current_user.id %>
-              <% if conversation.sender_id == current_user.id %>
-                  <% recipient = User.find(conversation.recipient_id) %>
-              <% else %>
-                  <% recipient = User.find(conversation.sender_id) %>
-              <% end %>
+        <% if conversation.sender_id == current_user.id || conversation.recipient_id == current_user.id %>
+            <% if conversation.sender_id == current_user.id %>
+                <% recipient = User.find(conversation.recipient_id) %>
+            <% else %>
+                <% recipient = User.find(conversation.sender_id) %>
+            <% end %>
             <tr>
-
+              <td><% if recipient.image.present? %>
+                    <%= image_tag recipient.image_url(:display) %>
+                <% end %></td>
               <td><%= link_to recipient.first_name, conversation_messages_path(conversation) %><br>
                 <% if Conversation.where(id:conversation.id).user_messages(current_user.id).unread_by(current_user).count > 0 %>
-                  <p>Uusia viestejä</p>
+                    <p>Uusia viestejä</p>
                 <% end %>
               </td>
               <td>
@@ -32,8 +35,8 @@
                 <% end %>
               </td>
             </tr>
-          <% end %>
-      <% end %>
+        <% end %>
+    <% end %>
     </tbody>
   </table>
 
