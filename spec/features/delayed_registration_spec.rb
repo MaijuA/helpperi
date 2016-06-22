@@ -12,7 +12,7 @@ describe 'Delayed registration' do
   it 'redirects to registration page if not fully registered and user tries to create new post' do
     visit users_path
 
-    click_link 'Uusi ilmoitus'
+    click_link 'Luo ilmoitus'
 
     expect(page).to have_content 'Viimeistele rekisteröitymisesi'
   end
