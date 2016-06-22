@@ -7,7 +7,6 @@
 
   <div class="col-md-2">
     <h1 align="center" style="font-family: 'Amatic SC', cursive;font-size: 65px;">HELPPERI</h1>
-
   </div>
 
   <div class="col-md-6"></div>
@@ -79,9 +78,16 @@
       <% @posts.each do |post| %>
           <tr>
             <% if post.image_is_set? %>
-                <td ><%= image_tag post.image_url(:list), align: 'left' %></td>
+                <td><%= image_tag post.image_url(:list), align: 'left' %></td>
             <% else %>
-                <td ><%= image_tag post.category_to_take_image_from.image_url(:list), align: 'left' %></td>
+
+
+                <td >
+                  <div class="wrapper">
+                    <%= image_tag post.category_to_take_image_from.image_url(:list), align: 'left' %>
+                    <div class="box"><span class="glyphicon glyphicon-search"></span></div>
+                    </div>
+                </td>
 
             <% end %>
             <td>
@@ -90,20 +96,12 @@
                   <div style="min-width:4em;"><%= post.price %> €</div>
               <% end %>
               </p>
-
               <p>
                 <% post.categories.each do |category| %>
                     <span class="category-badge"><%= "#{category.name}" %></span>
                 <% end %>
               </p>
             </td>
-        <td><% if post.buyer? %>
-              <p><span class="glyphicon glyphicon-search"></span></p>
-          <% elsif post.seller? %>
-              <p><%= image_tag("logo_list.png", id: "logo_list") %></p>
-          <% end %>
-
-        </td>
         <td>
           <%= render 'layouts/stars', :user => post.user %>
           <p><%= post.city %></p>

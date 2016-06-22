@@ -428,3 +428,24 @@ input[type="number"] {
     float: left;
   }
 }
+
+
+.wrapper {
+  position: relative;
+}
+
+.box {
+background-color: #fff;
+  width: 25px;
+  height: 25px;
+  position: absolute;
+  opacity: 0.7;
+
+}
+
+.wrapper .glyphicon {
+  position: absolute;
+  top: 5px;
+  left: 5px;
+
+}
