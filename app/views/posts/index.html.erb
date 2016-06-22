@@ -7,6 +7,7 @@
 
   <div class="col-md-2">
     <h1 align="center" style="font-family: 'Amatic SC', cursive;font-size: 65px;">HELPPERI</h1>
+
   </div>
 
   <div class="col-md-6"></div>
@@ -85,20 +86,23 @@
             <% end %>
             <td>
               <p><b><%= link_to truncate(post.title, :length => 30), post %></b></p>
-              <% if post.buyer? %>
-                  <p><span class="buying-badge">Helpattava</span></p>
-              <% elsif post.seller? %>
-                  <p><span class="selling-badge">Helppaaja</span></p>
+              <p><% if post.price %>
+                  <div style="min-width:4em;"><%= post.price %> €</div>
               <% end %>
+              </p>
+
               <p>
                 <% post.categories.each do |category| %>
                     <span class="category-badge"><%= "#{category.name}" %></span>
                 <% end %>
               </p>
             </td>
-        <td><% if post.price %>
-              <div style="min-width:4em;"><%= post.price %> €</div>
+        <td><% if post.buyer? %>
+              <p><span class="glyphicon glyphicon-search"></span></p>
+          <% elsif post.seller? %>
+              <p><%= image_tag("logo_list.png", id: "logo_list") %></p>
           <% end %>
+
         </td>
         <td>
           <%= render 'layouts/stars', :user => post.user %>
