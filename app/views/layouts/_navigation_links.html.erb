@@ -1,15 +1,13 @@
 <li><%= link_to 'Etusivu', root_path %></li>
 <% if user_signed_in? %>
     <li><%= link_to users_path do %>
-          Omat helppaajat <%= content_tag :span, post_candidate_changes_count,
-                                           class: 'label label-warning' if post_candidate_changes_count > 0 %>
+          Ilmoitukset
+          <%= content_tag :span, post_candidate_changes_count,
+                          class: 'label label-warning' if post_candidate_changes_count > 0 %>
           <%= content_tag :span, posts_conversations_count,
                           class: 'label label-primary' if posts_conversations_count > 0 %>
-      <% end %>
-    </li>
-    <li><%= link_to user_interests_path do %>
-          Omat helpattavat <%= content_tag :span, users_candidate_changes_count,
-                                             class: 'label label-warning' if users_candidate_changes_count > 0 %>
+          <%= content_tag :span, users_candidate_changes_count,
+                          class: 'label label-warning' if users_candidate_changes_count > 0 %>
           <%= content_tag :span, candidate_conversations_count,
                           class: 'label label-primary' if candidate_conversations_count > 0 %>
       <% end %>
