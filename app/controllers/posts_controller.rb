@@ -14,6 +14,7 @@ class PostsController < ApplicationController
     params[:post_type_selling] = true
     params[:order] = "Uusimmat"
     params[:table] = []
+    params[:size] = "short"
   end
 
 

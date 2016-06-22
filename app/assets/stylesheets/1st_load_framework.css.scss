@@ -135,6 +135,14 @@ footer p {
 }
 
 // Devisen lomakkeet
+
+//hakulomake
+
+// numerokenttä (size ei toimi)
+input[type="number"] {
+  width:50px;
+}
+
 .shared-links {
   padding: 15px;
   margin: -16px auto 10px;
@@ -421,8 +429,3 @@ footer p {
   }
 }
 
-.search-block {
-  width: 100%;
-  padding: 15px;
-  margin: 0 auto;
-}

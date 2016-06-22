@@ -1,180 +1,115 @@
-<% if @user_tasks.empty? %>
-    Et ole ilmoittautunut kiinnostuneeksi yhteenkään ilmoitukseen. Voit löytää kiinnostavia ilmoituksia etusivun kautta!
+<br>
+<% if @user_tasks.empty? %><br>
+    Sinulla ei tällä hetkellä ole helpattavia. Voit löytää helpattavia etusivulta tai luomalla ilmoituksia!
+    <br>
+    <%= link_to('Luo ilmoitus', new_post_path, class:"black-button") if current_user && current_user.valid? %>
+<% else %>
+    <%= link_to('Luo ilmoitus', new_post_path, class:"black-button") if current_user && current_user.valid? %>
+    <h3>Itse luomani ilmoitukset (<%= @user_tasks.count %>)</h3>
+    <table class="table table-striped">
+      <thead>
+      <tr>
+        <th class="col-md-2"></th>
+        <th class="col-md-2"></th>
+        <th class="col-md-2"></th>
+        <th class="col-md-2"></th>
+        <th class="col-md-1"></th>
+      </tr>
+      </thead>
+
+      <tbody class="form-group">
+      <% @user_tasks.each do |post| %>
+          <tr>
+            <% if post.image_is_set? %>
+                <td><%= image_tag post.image_url(:list), align: 'left' %></td>
+            <% else %>
+                <td><%= image_tag post.category_to_take_image_from.image_url(:list), align: 'left' %></td>
+            <% end %>
+            <td><b><%= link_to truncate(post.title, :length => 30), post %></b>
+              <% if post.buyer? %>
+                  <p><span class="buying-badge">Helpattava</span></p>
+              <% elsif post.seller? %>
+                  <p><span class="selling-badge">Helppaaja</span></p>
+              <% end %>
+              <p>
+                <% post.categories.each do |category| %>
+                    <span class="category-badge"><%= "#{category.name}" %></span>
+                <% end %>
+              </p>
+            </td>
+            <td>
+              <%= link_to 'Odottaa hyväksyntää', post_path(post), class:"label label-warning" %>
+            </td>
+            <td>
+              <%= link_to conversations_path(current_user.id, post.user.id, post.id) do %>
+                  <span class="glyphicon glyphicon-envelope"></span>
+                  <%= content_tag :span, post_conversation_count(post.id),
+                                  class: 'badge', style:"background-color: blue" if post_conversation_count(post.id) > 0 %>
+              <% end %>
+            </td>
+            <td><% if post.price %>
+                  <%= post.price %> €
+              <% end %>
+            </td>
+          </tr>
+      <% end %>
+      </tbody>
+    </table>
+    <%= will_paginate @user_tasks, :param_name => 'task_page' %>
+    <br>
+
+
+    <h3>Muiden luomat ilmoitukset (<%= @user_performer_posts.count %>)</h3>
+
+    <table class="table table-striped">
+      <thead>
+      <tr>
+        <th class="col-md-2"></th>
+        <th class="col-md-2"></th>
+        <th class="col-md-2"></th>
+        <th class="col-md-2"></th>
+        <th class="col-md-1"></th>
+      </tr>
+      </thead>
+
+      <tbody class="form-group">
+      <% @user_performer_posts.each do |post| %>
+          <tr>
+            <% if post.image_is_set? %>
+                <td><%= image_tag post.image_url(:list), align: 'left' %></td>
+            <% else %>
+                <td><%= image_tag post.category_to_take_image_from.image_url(:list), align: 'left' %></td>
+            <% end %>
+            <td><b><%= link_to truncate(post.title, :length => 30), post %></b>
+              <% if post.buyer? %>
+                  <p><span class="selling-badge">Helpperi</span></p>
+              <% end %>
+              <p>
+                <% post.categories.each do |category| %>
+                    <span class="category-badge"><%= "#{category.name}" %></span>
+                <% end %>
+              </p>
+              <% if users_candidate_changes(post.id) > 0 %>
+                  <span class="label label-warning">Uusi</span>
+              <% end %></td>
+            <td>
+              <p><%= link_to(post.user.first_name, user_path(post.user)) %></p>
+            </td>
+            <td>
+              <%= link_to conversations_path(current_user.id, post.user.id, post.id) do %>
+                  <span class="glyphicon glyphicon-envelope"></span>
+                  <%= content_tag :span, post_conversation_count(post.id),
+                                  class: 'badge', style:"background-color: blue" if post_conversation_count(post.id) > 0 %>
+              <% end %>
+            </td>
+            <td><% if post.price %>
+                  <%= post.price %> €
+              <% end %>
+            </td>
+          </tr>
+      <% end %>
+      </tbody>
+    </table>
+    <%= will_paginate @user_performer_posts, :param_name => 'performer_page' %>
 <% end %>
 
-<h3>Omat kiinnostukset (<%= @user_tasks.count %>)</h3>
-<table class="table table-striped">
-  <thead>
-  <tr>
-    <th class="col-md-2"></th>
-    <th class="col-md-2"></th>
-    <th class="col-md-2"></th>
-    <th class="col-md-2"></th>
-    <th class="col-md-1"></th>
-  </tr>
-  </thead>
-
-  <tbody class="form-group">
-  <% @user_tasks.each do |post| %>
-      <tr>
-        <% if post.image_is_set? %>
-            <td><%= image_tag post.image_url(:list), align: 'left' %></td>
-        <% else %>
-            <td><%= image_tag post.category_to_take_image_from.image_url(:list), align: 'left' %></td>
-        <% end %>
-        <td><b><%= link_to truncate(post.title, :length => 30), post %></b>
-          <p>
-            <% post.categories.each do |category| %>
-                <span class="category-badge"><%= "#{category.name}" %></span>
-            <% end %>
-          </p>
-        </td>
-        <td>
-          <%= link_to 'Odottaa hyväksyntää', post_path(post), class:"label label-warning" %>
-        </td>
-        <td>
-          <%= link_to conversations_path(current_user.id, post.user.id, post.id) do %>
-              <span class="glyphicon glyphicon-envelope"></span>
-              <%= content_tag :span, post_conversation_count(post.id),
-                              class: 'badge', style:"background-color: blue" if post_conversation_count(post.id) > 0 %>
-          <% end %>
-        </td>
-        <td><% if post.price %>
-              <%= post.price %> €
-          <% end %>
-        </td>
-      </tr>
-  <% end %>
-  </tbody>
-</table>
-<%= will_paginate @user_tasks, :param_name => 'task_page' %>
-<br>
-
-
-<h3>Olet tekijänä (<%= @user_performer_posts.count %>)</h3>
-
-<table class="table table-striped">
-  <thead>
-  <tr>
-    <th class="col-md-2"></th>
-    <th class="col-md-2"></th>
-    <th class="col-md-2"></th>
-    <th class="col-md-2"></th>
-    <th class="col-md-1"></th>
-  </tr>
-  </thead>
-
-  <tbody class="form-group">
-  <% @user_performer_posts.each do |post| %>
-      <tr>
-        <% if post.image_is_set? %>
-            <td><%= image_tag post.image_url(:list), align: 'left' %></td>
-        <% else %>
-            <td><%= image_tag post.category_to_take_image_from.image_url(:list), align: 'left' %></td>
-        <% end %>
-        <td><b><%= link_to truncate(post.title, :length => 30), post %></b>
-          <% if post.buyer? %>
-              <p><span class="selling-badge">Helpperi</span></p>
-          <% end %>
-          <p>
-            <% post.categories.each do |category| %>
-                <span class="category-badge"><%= "#{category.name}" %></span>
-            <% end %>
-          </p>
-          <% if users_candidate_changes(post.id) > 0 %>
-              <span class="label label-warning">Uusi</span>
-          <% end %></td>
-        <td>
-          <p><%= link_to(post.user.first_name, user_path(post.user)) %></p>
-        </td>
-        <td>
-          <%= link_to conversations_path(current_user.id, post.user.id, post.id) do %>
-              <span class="glyphicon glyphicon-envelope"></span>
-              <%= content_tag :span, post_conversation_count(post.id),
-                              class: 'badge', style:"background-color: blue" if post_conversation_count(post.id) > 0 %>
-          <% end %>
-        </td>
-        <td><% if post.price %>
-              <%= post.price %> €
-          <% end %>
-        </td>
-      </tr>
-  <% end %>
-  </tbody>
-</table>
-<%= will_paginate @user_performer_posts, :param_name => 'performer_page' %>
-<br>
-
-<h3>Tehdyt ilmoitukset (<%= @user_performed_tasks.count %>)</h3>
-
-<table class="table table-striped">
-  <thead>
-  <tr>
-    <th class="col-md-2"></th>
-    <th class="col-md-2"></th>
-    <th class="col-md-2"></th>
-    <th class="col-md-2"></th>
-    <th class="col-md-2"></th>
-    <th class="col-md-1"></th>
-  </tr>
-  </thead>
-
-  <tbody class="form-group">
-  <% @user_performed_tasks.each do |post| %>
-      <tr>
-        <% if post.image_is_set? %>
-            <td><%= image_tag post.image_url(:list), align: 'left' %></td>
-        <% else %>
-            <td><%= image_tag post.category_to_take_image_from.image_url(:list), align: 'left' %></td>
-        <% end %>
-        <td><b><%= link_to truncate(post.title, :length => 30), post %></b>
-          <% if post.buyer? %>
-              <p><span class="selling-badge">Helpperi</span></p>
-          <% end %>
-          <p>
-            <% post.categories.each do |category| %>
-                <span class="category-badge"><%= "#{category.name}" %></span>
-            <% end %>
-          </p></td>
-        <td>
-          <p><%= link_to(post.user.first_name, user_path(post.user)) %></p>
-        </td>
-        <td>
-          <%= link_to conversations_path(current_user.id, post.user.id, post.id) do %>
-              <span class="glyphicon glyphicon-envelope"></span>
-              <%= content_tag :span, post_conversation_count(post.id),
-                              class: 'badge', style:"background-color: blue" if post_conversation_count(post.id) > 0 %>
-          <% end %>
-        </td>
-        <td>
-          <div class="row">
-            <div class="col-xs-12 col-sm-6 col-md-6">
-              <p>
-                Sait arvion:
-                <%= render 'layouts/stars', :user => post.user %>
-              </p>
-            </div>
-          </div>
-          <div class="row">
-            <div class="col-xs-12 col-sm-6 col-md-6">
-            <p>
-            <% if post.ratings.where(reviewer_id:post.performer.id).count > 0 %>
-              Annoit arvion:
-              <%= render 'layouts/stars', :user => post.performer %>
-            <% else %>
-              <%= link_to 'Arvioi ilmoittaja', user_review_path(:post_id => post.id) %>
-            <% end %>
-            </p>
-          </div>
-        </div>
-        </td>
-        <td><% if post.price %>
-              <%= post.price %> €
-          <% end %>
-        </td>
-      </tr>
-  <% end %>
-  </tbody>
-</table>
-<%= will_paginate @user_performed_tasks, :param_name => 'performed_page' %>
-<br>
