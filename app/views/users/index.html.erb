@@ -21,10 +21,11 @@
 
     <h3>Etsin helpperiä </h3>
     <% unless @user_performer_posts.empty? %>
-        <h4>Minut on hyväksytty (<%= @user_performer_selling_posts.count %>)</h4>
+
 
 
         <table class="table table-striped">
+          <caption><h4>Minut on hyväksytty (<%= @user_performer_selling_posts.count %>)</h4></caption>
           <thead>
           <tr>
             <th class="col-md-2"></th>
@@ -111,8 +112,9 @@
     <% end %>
 
     <% unless @user_buying_posts.empty? %>
-        <h4>Luomani ilmoitukset (<%= @user_buying_posts.count %>)</h4>
+
         <table class="table table-striped">
+          <caption><h4>Luomani ilmoitukset (<%= @user_buying_posts.count %>)</h4></caption>
           <thead>
           <tr>
             <th class="col-md-2"></th>
@@ -133,9 +135,11 @@
 <% unless @user_performer_posts.empty? && @user_selling_posts.empty? %>
     <h3>Haluan helpperiksi </h3>
     <% unless @user_performer_posts.empty? %>
-        <h4>Minut on hyväksytty (<%= @user_performer_posts.count %>)</h4>
+
         <table class="table table-striped">
+          <caption><h4>Minut on hyväksytty (<%= @user_performer_posts.count %>)</h4></caption>
           <thead>
+
           <tr>
             <th class="col-md-2"></th>
             <th class="col-md-2"></th>
@@ -221,8 +225,9 @@
     <% end %>
 
     <% unless @user_selling_posts.empty? %>
-        <h4>Luomani ilmoitukset (<%= @user_selling_posts.count %>)</h4>
+
         <table class="table table-striped">
+          <caption><h4>Luomani ilmoitukset (<%= @user_selling_posts.count %>)</h4></caption>
           <thead>
           <tr>
             <th class="col-md-2"></th>
