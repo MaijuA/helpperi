@@ -1,7 +1,7 @@
 <div class="row">
   <div class="col-md-6 col-md-offset-3">
     <h1 class="text-center login-title"><%= @user.first_name %></h1>
-    <h2 class="text-center login-title"> Arvioinnit (<%= @user.reviews.count %>)</h2>
+    <h2 class="text-center login-title"> Arvioinnit (<%= @user.ratings.count %>)</h2>
     <div class="account-wall">
       <table class="table table-striped">
         <thead>
@@ -12,7 +12,7 @@
         </thead>
 
         <tbody class="form-group">
-        <% @user.reviews.each do |review| %>
+        <% @user.ratings.each do |review| %>
           <tr>
             <td>
               <%= review.review %>
