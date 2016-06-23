@@ -39,8 +39,9 @@
           <tbody class="form-group">
           <% @user_performer_selling_posts.each do |post| %>
               <tr>
+                <td>
                 <% if post.image_is_set? %>
-                    <td>
+
                       <div class="wrapper">
                         <%= image_tag post.image_url(:list), align: 'left' %>
                         <div class="box">
@@ -51,9 +52,9 @@
                           <% end %>
                         </div>
                       </div>
-                    </td>
+
                 <% else %>
-                    <td>
+
                       <div class="wrapper">
                         <%= image_tag post.category_to_take_image_from.image_url(:list), align: 'left' %>
                         <div class="box">
@@ -64,9 +65,9 @@
                           <% end %>
                         </div>
                       </div>
-                    </td>
-                <% end %>
 
+                <% end %>
+                </td>
                 <td>
                   <p><b><%= link_to truncate(post.title, :length => 30), post, :class => "linkit" %></b></p>
                   <p><% if post.price %>
@@ -86,8 +87,7 @@
                           <p><%= Candidate.where(post_id:post.id).unread_by(current_user).count %> uutta</p>
                       <% end %>
                   <% end %>
-                </td>
-                <td>
+
                   <% if Conversation.where(post_id:post.id) %>
                       <% Conversation.where(post_id:post.id).each do |c| %>
                           <% if c.sender_id == current_user.id %>
@@ -198,8 +198,7 @@
                           <p><%= Candidate.where(post_id:post.id).unread_by(current_user).count %> uutta</p>
                       <% end %>
                   <% end %>
-                </td>
-                <td>
+
                   <% if Conversation.where(post_id:post.id) %>
                       <% Conversation.where(post_id:post.id).each do |c| %>
                           <% if c.sender_id == current_user.id %>
