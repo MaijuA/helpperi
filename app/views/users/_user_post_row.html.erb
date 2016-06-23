@@ -39,7 +39,7 @@
     </p>
   </td>
   <td>
-        <% if post.performer %>
+        <% if post.performer && post.ratings.empty? %>
           <%= link_to post.performer.first_name, user_path(post.performer) %><br>
           <%= render 'layouts/stars', :user => post.performer %><br>
           <%= link_to "Kuittaa suoritetuksi", user_review_path(:post_id => post.id), class:"label label-success" %>
