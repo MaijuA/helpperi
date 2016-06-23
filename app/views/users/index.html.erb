@@ -1,6 +1,17 @@
 <br>
 <% if @user_posts.empty? %>
-    Sinulla ei tällä hetkellä ole aktiivisia ilmoituksia. Voit selata ilmoituksia etusivulla tai luoda uusia klikkaamalla 'Luo ilmoitus' -painiketta!<br>
+
+    <div class="row">
+      <div class="col-md-6 col-md-offset-3">
+        <h1 class="text-center login-title">Omat ilmoitukset</h1>
+        <div class="account-wall">
+
+          <div class="padding">
+            Sinulla ei tällä hetkellä ole aktiivisia ilmoituksia. Voit selata ilmoituksia etusivulla tai luoda uusia klikkaamalla 'Luo ilmoitus' -painiketta!<br>
+          </div>
+        </div>
+      </div>
+    </div>
     <br>
 <% end %>
 <%= link_to('Luo ilmoitus', new_post_path, class:"black-button") if current_user && current_user.valid? %>
@@ -122,7 +133,7 @@
 <% unless @user_performer_posts.empty? && @user_selling_posts.empty? %>
     <h3>Haluan helpperiksi </h3>
     <% unless @user_performer_posts.empty? %>
-        <h3>Minut on hyväksytty (<%= @user_performer_posts.count %>)</h3>
+        <h4>Minut on hyväksytty (<%= @user_performer_posts.count %>)</h4>
         <table class="table table-striped">
           <thead>
           <tr>
@@ -282,7 +293,7 @@
                 <!--<%= link_to conversation_messages_path(c) do %>-->
                     <!--<%= User.where(id:c.recipient_id).first.first_name %> <span class="glyphicon glyphicon-envelope"></span>
                     <!--<%= content_tag :span, conversation_user_count(c.recipient_id, post.id),
-                                    class: 'badge', style:"background-color: blue" if conversation_user_count(c.recipient_id, post.id) > 0 %>-->
+                                        class: 'badge', style:"background-color: blue" if conversation_user_count(c.recipient_id, post.id) > 0 %>-->
                     <!--</div>-->
                     <!--<% end %>-->
                 <!--<%= render 'layouts/stars', :user => User.where(id:c.recipient_id).first %><br>-->
@@ -291,7 +302,7 @@
                 <!--<%= link_to conversation_messages_path(c) do %>-->
                     <!--<%= User.where(id:c.sender_id).first.first_name %> <span class="glyphicon glyphicon-envelope"></span>
                     <!--<%= content_tag :span, conversation_user_count(c.sender_id, post.id),
-                                    class: 'badge', style:"background-color: blue" if conversation_user_count(c.sender_id, post.id) > 0 %>-->
+                                        class: 'badge', style:"background-color: blue" if conversation_user_count(c.sender_id, post.id) > 0 %>-->
                     <!--<% end %>-->
                 <!--</div>-->
                 <!--<%= render 'layouts/stars', :user => User.where(id:c.sender_id).first %><br>-->
@@ -300,11 +311,11 @@
         <!--<% end %>-->
     <!--</td>-->
     <!--<td><% if post.price %>-->
-          <!--<%= post.price %> €-->
-          <!--<% end %>-->
-      <!--</td>-->
-      <!--</tr>-->
-      <!--<% end %>-->
+        <!--<%= post.price %> €-->
+        <!--<% end %>-->
+    <!--</td>-->
+    <!--</tr>-->
+    <!--<% end %>-->
 <!--</tbody>-->
 <!--</table>-->
 <!--<%= will_paginate @user_accepted_posts, :param_name => 'post_page' %>-->
@@ -360,11 +371,11 @@
     <!--<%= link_to 'Kuittaa suoritetuksi', user_review_path(:post_id => post.id) %>-->
     <!--</td>-->
     <!--<td><% if post.price %>-->
-          <!--<%= post.price %> €-->
-          <!--<% end %>-->
-      <!--</td>-->
-      <!--</tr>-->
-      <!--<% end %>-->
+        <!--<%= post.price %> €-->
+        <!--<% end %>-->
+    <!--</td>-->
+    <!--</tr>-->
+    <!--<% end %>-->
 <!--</tbody>-->
 <!--</table>-->
 <!--<%= will_paginate @user_accepted_posts, :param_name => 'accepted_page' %>-->

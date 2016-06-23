@@ -2,7 +2,7 @@
   <div class="col-md-6 col-md-offset-3">
     <h1 class="text-center login-title"><%= @user.first_name %> <%= @user.last_name if current_user == @user %></h1>
     <div class="account-wall">
-      <%= form_for(@user, :html => {:class => "lomake"}) do |f| %>
+      <div class="padding">
 
           <div class="row">
             <div class="col-xs-12 col-sm-6 col-md-6">
@@ -49,7 +49,7 @@
             </div>
           </div>
           <br>
-      <% end %>
+      </div>
     </div>
   </div>
 </div>
