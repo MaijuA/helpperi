@@ -39,14 +39,13 @@
     </p>
   </td>
   <td>
-    <% unless post.helpers.empty? %>
         <% if post.performer %>
           <%= link_to post.performer.first_name, user_path(post.performer) %><br>
           <%= render 'layouts/stars', :user => post.performer %><br>
           <%= link_to "Kuittaa suoritetuksi", user_review_path(:post_id => post.id), class:"label label-success" %>
-        <% elsif post.helpers.count == 1 %>
+        <% elsif !post.helpers.empty? && post.helpers.count == 1 %>
             <p><%= link_to "1 kiinnostunut", post_path(post), class:"label label-warning"%></p>
-        <% elsif post.helpers.count > 1 %>
+        <% elsif !post.helpers.empty? && post.helpers.count > 1 %>
             <p><%= link_to "#{post.helpers.count} kiinnostunutta", post_path(post), class:"label label-warning"%></p>
         <% end %>
         <% if Candidate.where(post_id:post.id).unread_by(current_user).count > 0 %>
@@ -54,7 +53,6 @@
                 <p><%= Candidate.where(post_id:post.id).unread_by(current_user).count %> uutta</p>
             <% end %>
         <% end %>
-    <% end %>
   </td>
   <td>
     <% if post.performer %>

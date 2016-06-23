@@ -200,6 +200,19 @@ class PostsController < ApplicationController
     end
   end
 
+  def remove_candidate
+    post = Post.find(params[:post_id])
+    if current_user && post.helpers.include?(current_user)
+      candi = Candidate.find_by(post_id:post.id, user_id:current_user.id)
+      candi.delete
+    end
+    if candi.save
+      redirect_to :back, notice: 'Kiinnostuksesi on poistettu.'
+    else
+      redirect_to :back, alert: 'Kiinnostuksesi poistaminen ei onnistunut.'
+    end
+  end
+
   private
 # Use callbacks to share common setup or constraints between actions.
   def set_post

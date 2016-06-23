@@ -23,6 +23,7 @@ Rails.application.routes.draw do
     post 'add_candidate'
     post 'deny_candidate'
     post 'accept_candidate'
+    post 'remove_candidate'
   end
 
   get '/review', to:'users#review', as: :user_review
