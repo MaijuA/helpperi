@@ -21,9 +21,8 @@ describe 'Post candidate' do
     click_link 'Ilmoittaudu kiinnostuneeksi'
     expect(page).to have_content 'Sinut on lisätty kiinnostuneeksi.'
 
-    visit post_path(post)
-
-    expect(page).to have_content 'Olet ilmoittaunut kiinnostuneeksi'
+    expect(page).to have_content 'Peru kiinnostuksesi'
+    expect(post.helpers.ids).to include(user3.id)
   end
 
   it 'should show candidates to post owner' do
@@ -74,5 +73,19 @@ describe 'Post candidate' do
     visit post_path(post)
 
     expect(page).to have_content 'Olet sitoutunut tähän ilmoitukseen.'
+  end
+
+  it 'user can remove himself from candidates' do
+    login_as(user3)
+    visit post_path(post)
+
+    click_link 'Ilmoittaudu kiinnostuneeksi'
+    expect(post.helpers.ids).to include(user3.id)
+    expect(page).to have_content 'Peru kiinnostuksesi'
+
+    click_link 'Peru kiinnostuksesi'
+
+    expect(page).to have_content 'Ilmoittaudu kiinnostuneeksi'
+    expect(post.helpers.ids).not_to include(user3.id)
   end
 end
