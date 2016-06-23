@@ -3,7 +3,7 @@
 
 
     <% if @conversation_title %>
-      <h3><%= link_to @conversation_title, post_path(@conversation.post_id) %></h3>
+      <h3><%= link_to @conversation_title, post_path(@conversation.post_id), :class => "linkit" %></h3>
     <% end %>
 
     <% if @over_ten %>
