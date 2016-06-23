@@ -182,40 +182,40 @@
                     <% end %>
                     </tbody>
                   </table>
-                  <table class="table table-striped">
-                    <thead>
-                    <tr>
-                      <th class="col-md-1"></th>
-                    </tr>
-                    </thead>
-                    <tbody class="form-group">
-                    <% Conversation.where(post_id:@post.id).each do |c| %>
-                        <tr>
-                          <td>
-                            <p align="center">
-                              <% if c.sender_id == current_user.id %>
-                                  <%= link_to conversation_messages_path(c) do %>
-                                      <%= User.where(id:c.recipient_id).first.first_name %> <span class="glyphicon glyphicon-envelope"></span>
-                                      <%= content_tag :span, post_conversation_count(@post.id),
-                                                      class: 'badge', style:"background-color: blue" if post_conversation_count(@post.id) > 0 %>
-                                      <%= render 'layouts/stars', :user => User.where(id:c.recipient_id).first %><br>
-                                  <% end %>
-                              <% else %>
-                                  <%= link_to conversation_messages_path(c) do %>
-                                      <%= User.where(id:c.sender_id).first.first_name %> <span class="glyphicon glyphicon-envelope"></span>
-                                      <%= content_tag :span, post_conversation_count(@post.id),
-                                                      class: 'badge', style:"background-color: blue" if post_conversation_count(@post.id) > 0 %>
-                                      <%= render 'layouts/stars', :user => User.where(id:c.sender_id).first %><br>
-                                  <% end %>
-                              <% end %>
-                            </p>
-                          </td>
-                        </tr>
-                    <% end %>
-                    </tbody>
-                  </table>
               <% end %>
           <% end %>
+          <table class="table table-striped">
+            <thead>
+            <tr>
+              <th class="col-md-1"></th>
+            </tr>
+            </thead>
+            <tbody class="form-group">
+            <% Conversation.where(post_id:@post.id).where.not(sender_id:@post.helpers.ids).where.not(recipient_id:@post.helpers.ids).each do |c| %>
+                <tr>
+                  <td>
+                    <p>
+                      <% if c.sender_id == current_user.id %>
+                          <%= link_to conversation_messages_path(c) do %>
+                              <%= User.where(id:c.recipient_id).first.first_name %><span class="glyphicon glyphicon-envelope"></span>
+                              <%= content_tag :span, post_conversation_count(@post.id),
+                                              class: 'badge', style:"background-color: blue" if post_conversation_count(@post.id) > 0 %>
+                              <%= render 'layouts/stars', :user => User.where(id:c.recipient_id).first %><br>
+                          <% end %>
+                      <% else %>
+                          <%= link_to conversation_messages_path(c) do %>
+                              <%= User.where(id:c.sender_id).first.first_name %> <span class="glyphicon glyphicon-envelope"></span>
+                              <%= content_tag :span, post_conversation_count(@post.id),
+                                              class: 'badge', style:"background-color: blue" if post_conversation_count(@post.id) > 0 %>
+                              <%= render 'layouts/stars', :user => User.where(id:c.sender_id).first %><br>
+                          <% end %>
+                      <% end %>
+                    </p>
+                  </td>
+                </tr>
+            <% end %>
+            </tbody>
+          </table>
         </div>
       </div>
     </div>
