@@ -1,9 +1,11 @@
+<ul style="list-style: none; padding-left: 0;">
 <%= link_to user_ratings_path(:id => user.id) do %>
-    <% (1..3).each do |i| %>
-        <% if user.ratings_count != 0 && i <= user.average_rating %>
-            <p class="on"></p>
-        <% else %>
-            <p class="rating_star"></p>
-        <% end %>
+  <% (1..3).each do |i| %>
+    <% if user.ratings_count != 0 && i <= user.average_rating %>
+      <li class="on"></li>
+    <% else %>
+      <li class="rating_star"></li>
     <% end %>
+  <% end %>
 <% end %>
+</ul>

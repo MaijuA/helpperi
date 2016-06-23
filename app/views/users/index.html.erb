@@ -6,12 +6,10 @@
 <%= link_to('Luo ilmoitus', new_post_path, class:"black-button") if current_user && current_user.valid? %>
 <%= link_to('Luo ilmoitus', edit_user_registration_path(current_user, :finishing => 1),
             class:"black-button") if current_user && !current_user.valid? %><br>
-<% if @user_performer_posts.empty? &&  @user_buying_posts.empty? %>
-<% else %>
+<% unless @user_performer_posts.empty? &&  @user_buying_posts.empty? %>
 
     <h3>Etsin helpperiä </h3>
-    <% if @user_performer_posts.empty? %>
-    <% else %>
+    <% unless @user_performer_posts.empty? %>
         <h4>Minut on hyväksytty (<%= @user_performer_posts.count %>)</h4>
 
 
@@ -52,7 +50,7 @@
                   </p>
                 </td>
                 <td>
-                  <%= link_to 'Arvioi ilmoittaja', user_review_path(:post_id => post.id), :class => "linkit" %>
+                  <%= link_to 'Arvioi ilmoittaja', user_review_path(:post_id => post.id), :class => "linkit" if post.ratings.count > 0 %>
                   <% if Candidate.where(post_id:post.id).unread_by(current_user).count > 0 %>
                       <%= link_to post_path(post), :class => "linkit"  do %>
                           <p><%= Candidate.where(post_id:post.id).unread_by(current_user).count %> uutta</p>
@@ -83,8 +81,7 @@
           </tbody>
         </table>
     <% end %>
-    <% if @user_buying_posts.empty? %>
-    <% else %>
+    <% unless @user_buying_posts.empty? %>
         <h4>Luomani ilmoitukset (<%= @user_buying_posts.count %>)</h4>
         <table class="table table-striped">
           <thead>
@@ -104,11 +101,9 @@
         </table><br>
     <% end %>
 <% end %>
-<% if @user_performer_posts.empty? && @user_selling_posts.empty? %>
-<% else %>
+<% unless @user_performer_posts.empty? && @user_selling_posts.empty? %>
     <h3>Haluan helpperiksi </h3>
-    <% if @user_performer_posts.empty? %>
-    <% else %>
+    <% unless @user_performer_posts.empty? %>
         <h3>Minut on hyväksytty (<%= @user_performer_posts.count %>)</h3>
         <table class="table table-striped">
           <thead>
@@ -147,7 +142,7 @@
                   </p>
                 </td>
                 <td>
-                  <%= link_to 'Arvioi ilmoittaja', user_review_path(:post_id => post.id), :class => "linkit" %>
+                  <%= link_to 'Arvioi ilmoittaja', user_review_path(:post_id => post.id), :class => "linkit" if post.ratings.count > 0 %>
                   <% if Candidate.where(post_id:post.id).unread_by(current_user).count > 0 %>
                       <%= link_to post_path(post), :class => "linkit"  do %>
                           <p><%= Candidate.where(post_id:post.id).unread_by(current_user).count %> uutta</p>
@@ -178,8 +173,7 @@
           </tbody>
         </table>
     <% end %>
-    <% if @user_selling_posts.empty? %>
-    <% else %>
+    <% unless @user_selling_posts.empty? %>
         <h4>Luomani ilmoitukset (<%= @user_selling_posts.count %>)</h4>
         <table class="table table-striped">
           <thead>

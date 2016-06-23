@@ -28,9 +28,13 @@
             <% post.categories.each do |category| %>
                 <span class="category-badge"><%= "#{category.name}" %></span>
             <% end %>
-          </p></td>
+          </p>
+        </td>
         <td>
-          <p><%= link_to(post.performer.first_name, user_path(post.performer)) if post.performer %></p>
+          <% if post.performer %>
+            <%= link_to(post.performer.first_name, user_path(post.performer)) %>
+            <%= render 'layouts/stars', :user => post.performer %>
+          <% end %>
         </td>
         <td>
           <% if post.performer %>
@@ -57,7 +61,7 @@
 --------------------------------------------------------
 
 <br>
-<h3>Suljetut ilmoitukset ()</h3>
+<h3>Suljetut ilmoitukset (<%= @user_performed_posts.count %>)</h3>
 
 <table class="table table-striped">
   <thead>
@@ -92,6 +96,7 @@
           </p></td>
         <td>
           <%= link_to(post.performer.first_name, user_path(post.performer)) %>
+          <%= render 'layouts/stars', :user => post.performer %>
         </td>
         <td>
           <%= link_to conversations_path(post.performer.id, post.user.id, post.id) do %>
@@ -101,15 +106,11 @@
           <% end %>
         </td>
         <td>
-          <div class="row">
-            Annoit arvion:
-          </div>
-          <%= render 'layouts/stars', :user => post.performer %>
+          Annoit arvion:
+          <%= render 'layouts/stars', :user => post.performer %><br>
           <% if post.ratings.where(reviewer_id:post.performer.id).count > 0 %>
-              <div class="row">
-                Sait arvion:
-              </div>
-              <%= render 'layouts/stars', :user => post.performer %>
+            Sait arvion:
+            <%= render 'layouts/stars', :user => post.performer %><br>
           <% end %>
         </td>
         <td><% if post.price %>
@@ -158,7 +159,8 @@
             <% end %>
           </p></td>
         <td>
-          <p><%= link_to(post.user.first_name, user_path(post.user)) %></p>
+          <%= link_to(post.user.first_name, user_path(post.user)) %>
+          <%= render 'layouts/stars', :user => post.user %>
         </td>
         <td>
           <%= link_to conversations_path(current_user.id, post.user.id, post.id) do %>
@@ -168,26 +170,14 @@
           <% end %>
         </td>
         <td>
-          <div class="row">
-            <div class="col-xs-12 col-sm-6 col-md-6">
-              <p>
-                Sait arvion:
-                <%= render 'layouts/stars', :user => post.user %>
-              </p>
-            </div>
-          </div>
-          <div class="row">
-            <div class="col-xs-12 col-sm-6 col-md-6">
-              <p>
-                <% if post.ratings.where(reviewer_id:post.performer.id).count > 0 %>
-                    Annoit arvion:
-                    <%= render 'layouts/stars', :user => post.performer %>
-                <% else %>
-                    <%= link_to 'Arvioi ilmoittaja', user_review_path(:post_id => post.id) %>
-                <% end %>
-              </p>
-            </div>
-          </div>
+          Sait arvion:
+          <%= render 'layouts/stars', :user => post.user %><br>
+          <% if post.ratings.where(reviewer_id:post.performer.id).count > 0 %>
+            Annoit arvion:
+            <%= render 'layouts/stars', :user => post.performer %><br>
+          <% else %>
+            <%= link_to 'Arvioi ilmoittaja', user_review_path(:post_id => post.id) %>
+          <% end %>
         </td>
         <td><% if post.price %>
               <%= post.price %> €

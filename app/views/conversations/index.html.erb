@@ -24,7 +24,9 @@
               <td><% if recipient.image.present? %>
                     <%= image_tag recipient.image_url(:list) %>
                 <% end %></td>
-              <td><%= link_to recipient.first_name, conversation_messages_path(conversation) %><br>
+              <td>
+                <%= link_to recipient.first_name, conversation_messages_path(conversation) %>
+                  <%= render 'layouts/stars', :user => recipient %><br>
                 <% if Conversation.where(id:conversation.id).user_messages(current_user.id).unread_by(current_user).count > 0 %>
                     <p>Uusia viestejä</p>
                 <% end %>

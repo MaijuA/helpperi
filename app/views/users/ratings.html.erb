@@ -17,15 +17,15 @@
               <%= review.review %>
             </td>
             <td>
-              <p>
+              <ul style="list-style: none; padding-left: 0;">
               <% (1..3).each do |i| %>
                   <% if i <= review.score %>
-                      <p class="on"></p>
+                      <li class="on"></li>
                   <% else %>
-                      <p class="rating_star"></p>
+                      <li class="rating_star"></li>
                   <% end %>
               <% end %>
-              </p>
+              </ul>
             </td>
           </tr>
         <% end %>

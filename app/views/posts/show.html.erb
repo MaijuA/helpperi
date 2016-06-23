@@ -47,7 +47,8 @@
 
           <p>
             <strong>Ilmoittaja</strong><br>
-            <%= link_to(@post.user.first_name, user_path(@post.user), :class => "linkit") %> <%= render 'layouts/stars', :user => @post.user %><br>
+            <%= link_to(@post.user.first_name, user_path(@post.user), :class => "linkit") %>
+            <%= render 'layouts/stars', :user => @post.user %><br>
             <!-- oma ilmoitus -->
             <%= @post.address if @post.user == current_user %><br>
             <!-- /oma ilmoitus -->
@@ -138,7 +139,7 @@
                     <tr>
                       <td><span class="glyphicon glyphicon-ok"></span></td>
                       <td>
-                        <p><%= link_to @post.performer.first_name, user_path(@post.performer), :class => "linkit" %></p>
+                        <%= link_to @post.performer.first_name, user_path(@post.performer), :class => "linkit" %>
                         <%= render 'layouts/stars', :user => @post.performer %>
                       </td>
                       <td>
@@ -161,7 +162,7 @@
                     <% @post.helpers.each do |helper| %>
                         <tr>
                           <td>
-                            <p><%= link_to helper.first_name, user_path(helper) %></p>
+                            <%= link_to helper.first_name, user_path(helper) %>
                             <%= render 'layouts/stars', :user => helper %>
                           </td>
                           <td><p align="center">
@@ -214,12 +215,14 @@
                                   <%= User.where(id:c.recipient_id).first.first_name %> <span class="glyphicon glyphicon-envelope"></span>
                                   <%= content_tag :span, post_conversation_count(@post.id),
                                                   class: 'badge', style:"background-color: blue" if post_conversation_count(@post.id) > 0 %>
+                                  <%= render 'layouts/stars', :user => User.where(id:c.recipient_id).first %>
                               <% end %>
                           <% else %>
                               <%= link_to conversation_messages_path(c) do %>
                                   <%= User.where(id:c.sender_id).first.first_name %> <span class="glyphicon glyphicon-envelope"></span>
                                   <%= content_tag :span, post_conversation_count(@post.id),
                                                   class: 'badge', style:"background-color: blue" if post_conversation_count(@post.id) > 0 %>
+                                  <%= render 'layouts/stars', :user => User.where(id:c.sender_id).first %>
                               <% end %>
                           <% end %>
                         </p>

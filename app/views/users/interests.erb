@@ -93,7 +93,8 @@
                   <span class="label label-warning">Uusi</span>
               <% end %></td>
             <td>
-              <p><%= link_to(post.user.first_name, user_path(post.user)) %></p>
+              <%= link_to(post.user.first_name, user_path(post.user)) %>
+              <%= render 'layouts/stars', :user => post.user %>
             </td>
             <td>
               <%= link_to conversations_path(current_user.id, post.user.id, post.id) do %>
