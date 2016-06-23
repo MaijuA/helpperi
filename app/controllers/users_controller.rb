@@ -31,6 +31,8 @@ class UsersController < ApplicationController
       @user_selling_posts = current_user.posts.valid.selling
       @user_buying_posts = current_user.posts.valid.buying
       @user_performer_posts = Post.where(doer_id:current_user.id).valid.not_rated
+      @user_performer_buying_posts = Post.where(doer_id:current_user.id).valid.not_rated.buying
+      @user_performer_selling_posts = Post.where(doer_id:current_user.id).valid.not_rated.selling
 
       @user_accepted_posts = current_user.posts.valid.accepted.not_rated.paginate(:page => params[:accepted_page], :per_page => 5)
       @user_expired_posts = current_user.posts.active.expired.paginate(:page => params[:expired_page], :per_page => 5)

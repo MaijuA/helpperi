@@ -3,109 +3,104 @@
     <h1 class="text-center login-title"> <%= @post.title %></h1>
     <div class="account-wall">
 
-      <%= form_for(@post, :html => {:class => "lomake"}) do |f| %>
+      <div class="padding">
 
-          <% if @post.image_is_set? %>
-              <%= image_tag @post.image_url(:display), align: 'right' %>
+        <% if @post.image_is_set? %>
+            <%= image_tag @post.image_url(:display), align: 'right' %>
+        <% else %>
+            <%= image_tag @post.category_to_take_image_from.image_url(:display), align: 'right' %>
+        <% end %>
+        <p>
+          <% if @post.seller? %>
+              HALUAN HELPPERIKSI
           <% else %>
-              <%= image_tag @post.category_to_take_image_from.image_url(:display), align: 'right' %>
+              ETSIN HELPPERIÄ
           <% end %>
-          <p>
-            <% if @post.seller? %>
-                HALUAN HELPPAAJAKSI
+        </p>
+        <p>
+          <% if @post.price %>
+              <b><%= @post.price %> €</b>
+          <% end %>
+        </p>
+
+        <p>
+          <% @post.categories.each do |category| %>
+              <span class="category-badge"><%= "#{category.name}" %></span>
+          <% end %>
+        </p>
+
+        <p>
+          <%= @post.description %>
+        </p>
+
+        <p>
+          <% if @post.seller? %>
+              <strong>Toimin säteellä</strong><br>
+              <%= @post.radius %> km
+          <% end %>
+        </p>
+
+        <p>
+          <strong>Ilmoitus voimassa</strong><br>
+          <%= l(@post.ending_date, format: '%A %e. %Bta %Y') %>
+        </p>
+
+        <p>
+          <strong>Ilmoittaja</strong><br>
+        <div class="row" style="padding-left:15px"><%= link_to(@post.user.first_name, user_path(@post.user), :class => "linkit") %></div>
+        <div class="row" style="padding:10px 0px 0px 15px"><%= render 'layouts/stars', :user => @post.user %><br></div>
+        <!-- oma ilmoitus -->
+        <div class="row" style="padding-left:15px"><%= @post.address if @post.user == current_user %></div>
+        <!-- /oma ilmoitus -->
+        <div class="row" style="padding-left:15px"><%= @post.zip_code %> <%= @post.city %></div>
+        </p><br>
+
+        <!-- oma ilmoitus -->
+        <%= link_to('Muokkaa', edit_post_path(@post), class:"black-button") if @post.user == current_user %>
+        <%= link_to("Poista", post_delete_post_path(@post.id), class:"white-button", data:
+            { confirm: 'Haluatko varmasti poistaa ilmoituksen?' }, method: :post) if @post.user == current_user %>
+        <!-- /oma ilmoitus -->
+
+        <!--
+        (on kiinnostunut)
+        1. käyttäjä on sitoutunut (valittu)
+        2. käyttäjä on ilmoittautunut kiinnostuneeksi (kiinnostunut)
+        3. käyttäjä on hylätty (ei valittu)
+        tai
+        (ei kiinnostunut)
+        1. käyttäjä voi ilmoittautua kiinnostuneeksi
+        1. viestit
+        tai
+        1. viivästetty rekisteröinti ilmoitus (kirjautunut)
+        2. suorita rekisteröinti (ei kirjautunut)
+        -->
+
+        <% if current_user && @post.user.id != current_user.id %>
+            <% if current_user.valid? %>
+                <% if @post.doer_id == current_user.id %>
+                    <a class='btn btn-warning disabled ' >Olet sitoutunut tähän ilmoitukseen.</a>
+                <% elsif @post.helpers.include?(current_user) %>
+                    <a class='black-button disabled ' >Olet ilmoittaunut kiinnostuneeksi</a>
+                <% elsif @post.denied_helpers.include?(current_user) %>
+                    <a class='btn btn-danger disabled ' >Ilmoittaja ei ole valinnut sinua tällä kertaa.</a>
+                <% elsif !@post.denied_helpers.include?(current_user) %>
+                    <%= link_to('Ilmoittaudu kiinnostuneeksi', post_add_candidate_path(@post.id), class:"black-button", method: :post) %>
+                <% end %>
+                <!-- ilmoituksen keskustelu -->
+                <%= link_to 'Lähetä viesti ilmoittajalle', conversations_path(sender_id: current_user.id, recipient_id: @post.user.id, post_id:@post.id), method: 'post', class:"white-button" %>
+                <!-- /ilmoituksen keskustelu -->
             <% else %>
-                ETSIN HELPPAAJAA
+                <i>Täytäthän puuttuvat tiedot profiilistasi, jotta voit ilmoittautua kiinnostuneeksi tai lähettää viestin ilmoittajalle.</i></p>
+                <%= link_to 'Omat tiedot', edit_user_registration_path(finishing: 1), class:"black-button" %>
             <% end %>
-          </p>
-          <p>
-            <% if @post.price %>
-                <b><%= @post.price %> €</b>
+        <% else %>
+            <% unless user_signed_in? %>
+                <p><i>Rekisteröidy tai kirjaudu, jotta voit ilmoittautua kiinnostuneeksi tai lähettää viestin ilmoittajalle.</i></p>
+                <%= link_to 'Rekisteröidy', new_user_registration_path, class:"black-button" %>
+                <%= link_to 'Kirjaudu', new_user_session_path, class:"white-button" %>
             <% end %>
-          </p>
-
-          <p>
-            <% @post.categories.each do |category| %>
-                <span class="category-badge"><%= "#{category.name}" %></span>
-            <% end %>
-          </p>
-
-          <p>
-            <%= @post.description %>
-          </p>
-
-          <p>
-            <% if @post.seller? %>
-                <strong>Toimin säteellä</strong><br>
-                <%= @post.radius %> km
-            <% end %>
-          </p>
-
-          <p>
-            <strong>Ilmoitus voimassa</strong><br>
-            <%= l(@post.ending_date, format: '%A %e. %Bta %Y') %>
-          </p>
-
-          <p>
-            <strong>Ilmoittaja</strong><br>
-            <%= link_to(@post.user.first_name, user_path(@post.user), :class => "linkit") %>
-            <%= render 'layouts/stars', :user => @post.user %><br>
-            <!-- oma ilmoitus -->
-            <%= @post.address if @post.user == current_user %><br>
-            <!-- /oma ilmoitus -->
-            <%= @post.zip_code %> <%= @post.city %>
-          </p><br>
-
-          <!-- oma ilmoitus -->
-          <%= link_to('Muokkaa', edit_post_path(@post), class:"black-button") if @post.user == current_user %>
-          <%= link_to("Poista", post_delete_post_path(@post.id), class:"white-button", data:
-              { confirm: 'Haluatko varmasti poistaa ilmoituksen?' }, method: :post) if @post.user == current_user %>
-          <!-- /oma ilmoitus -->
-
-          <!--
-          (on kiinnostunut)
-          1. käyttäjä on sitoutunut (valittu)
-          2. käyttäjä on ilmoittautunut kiinnostuneeksi (kiinnostunut)
-          3. käyttäjä on hylätty (ei valittu)
-
-          tai
-
-          (ei kiinnostunut)
-          1. käyttäjä voi ilmoittautua kiinnostuneeksi
-
-          1. viestit
-
-          tai
-
-          1. viivästetty rekisteröinti ilmoitus (kirjautunut)
-          2. suorita rekisteröinti (ei kirjautunut)
-          -->
-
-          <% if current_user && @post.user.id != current_user.id %>
-              <% if current_user.valid? %>
-                  <% if @post.doer_id == current_user.id %>
-                      <a class='btn btn-warning disabled ' >Olet sitoutunut tähän ilmoitukseen.</a>
-                  <% elsif @post.helpers.include?(current_user) %>
-                      <a class='black-button disabled ' >Olet ilmoittaunut kiinnostuneeksi</a>
-                  <% elsif @post.denied_helpers.include?(current_user) %>
-                      <a class='btn btn-danger disabled ' >Ilmoittaja ei ole valinnut sinua tällä kertaa.</a>
-                  <% elsif !@post.denied_helpers.include?(current_user) %>
-                      <%= link_to('Ilmoittaudu kiinnostuneeksi', post_add_candidate_path(@post.id), class:"black-button", method: :post) %>
-                  <% end %>
-                  <!-- ilmoituksen keskustelu -->
-                  <%= link_to 'Lähetä viesti ilmoittajalle', conversations_path(sender_id: current_user.id, recipient_id: @post.user.id, post_id:@post.id), method: 'post', class:"white-button" %>
-                  <!-- /ilmoituksen keskustelu -->
-              <% else %>
-                  <i>Täytäthän puuttuvat tiedot profiilistasi, jotta voit ilmoittautua kiinnostuneeksi tai lähettää viestin ilmoittajalle.</i></p>
-                  <%= link_to 'Omat tiedot', edit_user_registration_path(finishing: 1), class:"black-button" %>
-              <% end %>
-          <% else %>
-              <% unless user_signed_in? %>
-                  <p><i>Rekisteröidy tai kirjaudu, jotta voit ilmoittautua kiinnostuneeksi tai lähettää viestin ilmoittajalle.</i></p>
-                  <%= link_to 'Rekisteröidy', new_user_registration_path, class:"black-button" %>
-                  <%= link_to 'Kirjaudu', new_user_session_path, class:"white-button" %>
-              <% end %>
-          <% end %>
-      <% end %>
+        <% end %>
+      </div>
     </div>
   </div>
 </div>
@@ -116,7 +111,7 @@
         <% if @post.performer %>
             <h4 class="text-center title">Olet valinnut seuraavan henkilön</h4>
         <% else %>
-            <h3 class="text-center title">Kiinnostuneet</h3>
+            <h3 class="text-center title">Kiinnostuneet ja viestit</h3>
         <% end %>
         <div class="account-wall">
 
@@ -139,7 +134,7 @@
                     <tr>
                       <td><span class="glyphicon glyphicon-ok"></span></td>
                       <td>
-                        <%= link_to @post.performer.first_name, user_path(@post.performer), :class => "linkit" %>
+                        <p><%= link_to @post.performer.first_name, user_path(@post.performer), :class => "linkit" %></p>
                         <%= render 'layouts/stars', :user => @post.performer %>
                       </td>
                       <td>
@@ -162,7 +157,7 @@
                     <% @post.helpers.each do |helper| %>
                         <tr>
                           <td>
-                            <%= link_to helper.first_name, user_path(helper) %>
+                            <p><%= link_to helper.first_name, user_path(helper) %></p>
                             <%= render 'layouts/stars', :user => helper %>
                           </td>
                           <td><p align="center">
@@ -187,50 +182,39 @@
                     <% end %>
                     </tbody>
                   </table>
-              <% end %>
-          <% end %>
-        </div>
-      </div>
-    </div>
-
-    <div class="row">
-      <div class="col-md-6 col-md-offset-3">
-        <h3 class="text-center title">Ilmoitukseen liittyvät viestit</h3>
-        <div class="account-wall">
-
-          <%= form_for(@post, :html => {:class => "lomake"}) do |f| %>
-              <table class="table table-striped">
-                <thead>
-                <tr>
-                  <th class="col-md-1"></th>
-                </tr>
-                </thead>
-                <tbody class="form-group">
-                <% Conversation.where(post_id:@post.id).each do |c| %>
+                  <table class="table table-striped">
+                    <thead>
                     <tr>
-                      <td>
-                        <p align="center">
-                          <% if c.sender_id == current_user.id %>
-                              <%= link_to conversation_messages_path(c) do %>
-                                  <%= User.where(id:c.recipient_id).first.first_name %> <span class="glyphicon glyphicon-envelope"></span>
-                                  <%= content_tag :span, post_conversation_count(@post.id),
-                                                  class: 'badge', style:"background-color: blue" if post_conversation_count(@post.id) > 0 %>
-                                  <%= render 'layouts/stars', :user => User.where(id:c.recipient_id).first %>
-                              <% end %>
-                          <% else %>
-                              <%= link_to conversation_messages_path(c) do %>
-                                  <%= User.where(id:c.sender_id).first.first_name %> <span class="glyphicon glyphicon-envelope"></span>
-                                  <%= content_tag :span, post_conversation_count(@post.id),
-                                                  class: 'badge', style:"background-color: blue" if post_conversation_count(@post.id) > 0 %>
-                                  <%= render 'layouts/stars', :user => User.where(id:c.sender_id).first %>
-                              <% end %>
-                          <% end %>
-                        </p>
-                      </td>
+                      <th class="col-md-1"></th>
                     </tr>
-                <% end %>
-                </tbody>
-              </table>
+                    </thead>
+                    <tbody class="form-group">
+                    <% Conversation.where(post_id:@post.id).each do |c| %>
+                        <tr>
+                          <td>
+                            <p align="center">
+                              <% if c.sender_id == current_user.id %>
+                                  <%= link_to conversation_messages_path(c) do %>
+                                      <%= User.where(id:c.recipient_id).first.first_name %> <span class="glyphicon glyphicon-envelope"></span>
+                                      <%= content_tag :span, post_conversation_count(@post.id),
+                                                      class: 'badge', style:"background-color: blue" if post_conversation_count(@post.id) > 0 %>
+                                      <%= render 'layouts/stars', :user => User.where(id:c.recipient_id).first %><br>
+                                  <% end %>
+                              <% else %>
+                                  <%= link_to conversation_messages_path(c) do %>
+                                      <%= User.where(id:c.sender_id).first.first_name %> <span class="glyphicon glyphicon-envelope"></span>
+                                      <%= content_tag :span, post_conversation_count(@post.id),
+                                                      class: 'badge', style:"background-color: blue" if post_conversation_count(@post.id) > 0 %>
+                                      <%= render 'layouts/stars', :user => User.where(id:c.sender_id).first %><br>
+                                  <% end %>
+                              <% end %>
+                            </p>
+                          </td>
+                        </tr>
+                    <% end %>
+                    </tbody>
+                  </table>
+              <% end %>
           <% end %>
         </div>
       </div>

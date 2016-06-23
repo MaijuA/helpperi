@@ -1,7 +1,7 @@
 <li><%= link_to 'Etusivu', root_path %></li>
 <% if user_signed_in? %>
     <li><%= link_to users_path do %>
-          Ilmoitukset
+          Omat ilmoitukset
           <%= content_tag :span, post_candidate_changes_count,
                           class: 'label label-warning' if post_candidate_changes_count > 0 %>
           <%= content_tag :span, posts_conversations_count,
