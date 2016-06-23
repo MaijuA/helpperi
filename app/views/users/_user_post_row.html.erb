@@ -61,7 +61,7 @@
                 <%= link_to post_path(post)  do %>
                     <p><%= conversation_user_count(post.performer, post.id) %> uutta</p>
                 <% end %>
-               
+
             <% end %>
         <% end %>
     <% else %>
@@ -69,17 +69,15 @@
             <% Conversation.where(post_id:post.id).each do |c| %>
                 <% if c.sender_id == current_user.id %>
                     <%= link_to conversation_messages_path(c) do %>
-                        <%= User.where(id:c.recipient_id).first.first_name %> <span class="glyphicon glyphicon-envelope"></span>
-                        <%= content_tag :span, conversation_user_count(c.recipient_id, post.id),
-                                        class: 'badge', style:"background-color: blue" if conversation_user_count(c.recipient_id, post.id) > 0 %>
-                        <%= render 'layouts/stars', :user => User.where(id:c.recipient_id).first %>
+                        <span class="label label-primary">viestiä</span>
+                        <p><% conversation_user_count(c.recipient_id, post.id) %> uutta</p>
                     <% end %>
                 <% else %>
                     <%= link_to conversation_messages_path(c) do %>
-                        <%= User.where(id:c.sender_id).first.first_name %> <span class="glyphicon glyphicon-envelope"></span>
-                        <%= content_tag :span, conversation_user_count(c.sender_id, post.id),
-                                        class: 'badge', style:"background-color: blue" if conversation_user_count(c.sender_id, post.id) > 0 %>
-                        <%= render 'layouts/stars', :user => User.where(id:c.sender_id).first %>
+                        <span class="label label-primary">viestiä</span>
+                        <% if conversation_user_count(c.sender_id, post.id) > 0 %>
+                            <p><%= conversation_user_count(c.sender_id, post.id) %> uutta</p>
+                       <% end %>
                     <% end %><br>
                 <% end %>
             <% end %>
