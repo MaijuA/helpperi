@@ -2,14 +2,10 @@
 <% if user_signed_in? %>
     <li><%= link_to users_path do %>
           Omat ilmoitukset
-          <%= content_tag :span, post_candidate_changes_count,
-                          class: 'label label-warning' if post_candidate_changes_count > 0 %>
-          <%= content_tag :span, posts_conversations_count,
-                          class: 'label label-primary' if posts_conversations_count > 0 %>
-          <%= content_tag :span, users_candidate_changes_count,
-                          class: 'label label-warning' if users_candidate_changes_count > 0 %>
-          <%= content_tag :span, candidate_conversations_count,
-                          class: 'label label-primary' if candidate_conversations_count > 0 %>
+          <%= content_tag :span, post_candidate_changes_count + users_candidate_changes_count,
+                          class: 'label label-warning' if post_candidate_changes_count + users_candidate_changes_count > 0 %>
+          <%= content_tag :span, posts_conversations_count + candidate_conversations_count,
+                          class: 'label label-primary' if posts_conversations_count + candidate_conversations_count > 0 %>
       <% end %>
     </li>
 

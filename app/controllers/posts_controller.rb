@@ -16,7 +16,6 @@ class PostsController < ApplicationController
     params[:table] = []
   end
 
-
   def search
     if current_user != nil
       @posts = Post.all.valid.active.others(current_user.id)
@@ -204,9 +203,8 @@ class PostsController < ApplicationController
     post = Post.find(params[:post_id])
     if current_user && post.helpers.include?(current_user)
       candi = Candidate.find_by(post_id:post.id, user_id:current_user.id)
-      candi.delete
     end
-    if candi.save
+    if candi.delete
       redirect_to :back, notice: 'Kiinnostuksesi on poistettu.'
     else
       redirect_to :back, alert: 'Kiinnostuksesi poistaminen ei onnistunut.'

@@ -80,7 +80,7 @@
                 <% if @post.doer_id == current_user.id %>
                     <a class='btn btn-warning disabled ' >Olet sitoutunut tähän ilmoitukseen.</a>
                 <% elsif @post.helpers.include?(current_user) %>
-                    <a class='black-button disabled ' >Olet ilmoittaunut kiinnostuneeksi</a>
+                    <%= link_to('Peru kiinnostuksesi', post_remove_candidate_path(:post_id => @post.id), class:"black-button", method: :post) %>
                 <% elsif @post.denied_helpers.include?(current_user) %>
                     <a class='btn btn-danger disabled ' >Ilmoittaja ei ole valinnut sinua tällä kertaa.</a>
                 <% elsif !@post.denied_helpers.include?(current_user) %>

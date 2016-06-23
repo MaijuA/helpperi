@@ -280,27 +280,27 @@
             <!--<% if c.sender_id == current_user.id %>-->
                 <!--<div class="row">-->
                 <!--<%= link_to conversation_messages_path(c) do %>-->
-                    <%= User.where(id:c.recipient_id).first.first_name %> <span class="glyphicon glyphicon-envelope"></span>
-                    <%= content_tag :span, conversation_user_count(c.recipient_id, post.id),
-                                    class: 'badge', style:"background-color: blue" if conversation_user_count(c.recipient_id, post.id) > 0 %>
+                    <!--<%= User.where(id:c.recipient_id).first.first_name %> <span class="glyphicon glyphicon-envelope"></span>
+                    <!--<%= content_tag :span, conversation_user_count(c.recipient_id, post.id),
+                                    class: 'badge', style:"background-color: blue" if conversation_user_count(c.recipient_id, post.id) > 0 %>-->
                     <!--</div>-->
                     <!--<% end %>-->
-                <%= render 'layouts/stars', :user => User.where(id:c.recipient_id).first %><br>
+                <!--<%= render 'layouts/stars', :user => User.where(id:c.recipient_id).first %><br>-->
                 <!--<% else %>-->
                 <!--<div class="row">-->
                 <!--<%= link_to conversation_messages_path(c) do %>-->
-                    <%= User.where(id:c.sender_id).first.first_name %> <span class="glyphicon glyphicon-envelope"></span>
-                    <%= content_tag :span, conversation_user_count(c.sender_id, post.id),
-                                    class: 'badge', style:"background-color: blue" if conversation_user_count(c.sender_id, post.id) > 0 %>
+                    <!--<%= User.where(id:c.sender_id).first.first_name %> <span class="glyphicon glyphicon-envelope"></span>
+                    <!--<%= content_tag :span, conversation_user_count(c.sender_id, post.id),
+                                    class: 'badge', style:"background-color: blue" if conversation_user_count(c.sender_id, post.id) > 0 %>-->
                     <!--<% end %>-->
                 <!--</div>-->
-                <%= render 'layouts/stars', :user => User.where(id:c.sender_id).first %><br>
+                <!--<%= render 'layouts/stars', :user => User.where(id:c.sender_id).first %><br>-->
                 <!--<% end %>-->
             <!--<% end %>-->
         <!--<% end %>-->
     <!--</td>-->
-    <td><% if post.price %>
-          <%= post.price %> €
+    <!--<td><% if post.price %>-->
+          <!--<%= post.price %> €-->
           <!--<% end %>-->
       <!--</td>-->
       <!--</tr>-->
@@ -359,8 +359,8 @@
     <!--<td>-->
     <!--<%= link_to 'Kuittaa suoritetuksi', user_review_path(:post_id => post.id) %>-->
     <!--</td>-->
-    <td><% if post.price %>
-          <%= post.price %> €
+    <!--<td><% if post.price %>-->
+          <!--<%= post.price %> €-->
           <!--<% end %>-->
       <!--</td>-->
       <!--</tr>-->
