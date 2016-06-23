@@ -1,8 +1,30 @@
 <tr>
   <% if post.image_is_set? %>
-      <td><%= image_tag post.image_url(:list), align: 'left' %></td>
+      <td>
+        <div class="wrapper">
+          <%= image_tag post.image_url(:list), align: 'left' %>
+          <div class="box">
+            <% if post.buyer? %>
+                <span class="glyphicon glyphicon-search"></span>
+            <% else %>
+                <span class="glyphicon glyphicon-header"></span>
+            <% end %>
+          </div>
+        </div>
+      </td>
   <% else %>
-      <td><%= image_tag post.category_to_take_image_from.image_url(:list), align: 'left' %></td>
+      <td>
+        <div class="wrapper">
+          <%= image_tag post.category_to_take_image_from.image_url(:list), align: 'left' %>
+          <div class="box">
+            <% if post.buyer? %>
+                <span class="glyphicon glyphicon-search"></span>
+            <% else %>
+                <span class="glyphicon glyphicon-header"></span>
+            <% end %>
+          </div>
+        </div>
+      </td>
   <% end %>
   <td>
     <p><b><%= link_to truncate(post.title, :length => 30), post, :class => "linkit" %></b></p>
@@ -18,12 +40,14 @@
   </td>
   <td>
     <% if post.helpers.empty? %>
-        Ei kiinnostuneita
+
     <% else %>
         <% if post.helpers.count == 1 %>
             <p><%= link_to "1 kiinnostunut", post_path(post), class:"label label-warning"%></p>
         <% elsif post.helpers.count > 1 %>
             <p><%= link_to "#{post.helpers.count} kiinnostunutta", post_path(post), class:"label label-warning"%></p>
+            <% elsif @user_accepted_posts %>
+            <p><%= link_to "Hyväksytty", post_path(post), class:"label label-success"%></p>
         <% end %>
         <% if Candidate.where(post_id:post.id).unread_by(current_user).count > 0 %>
             <%= link_to post_path(post)  do %>

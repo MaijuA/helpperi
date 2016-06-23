@@ -1,6 +1,6 @@
 <br>
 <% if @user_posts.empty? %>
-    Sinulla ei tällä hetkellä ole aktiivisia ilmoituksia. Etsi ilmoituksia etusivulta tai luo ilmoituksia!<br>
+    Sinulla ei tällä hetkellä ole aktiivisia ilmoituksia. Voit selata ilmoituksia etusivulla tai luoda uusia klikkaamalla 'Luo ilmoitus' -painiketta!<br>
     <br>
 <% end %>
 <%= link_to('Luo ilmoitus', new_post_path, class:"black-button") if current_user && current_user.valid? %>
@@ -26,15 +26,32 @@
           </thead>
 
           <tbody class="form-group">
-          <% @user_performer_posts.each do |post| %>
+          <% @user_performer_selling_posts.each do |post| %>
               <tr>
                 <% if post.image_is_set? %>
-                    <td><%= image_tag post.image_url(:list), align: 'left' %></td>
+                    <td>
+                      <div class="wrapper">
+                        <%= image_tag post.image_url(:list), align: 'left' %>
+                        <div class="box">
+                          <% if post.buyer? %>
+                              <span class="glyphicon glyphicon-search"></span>
+                          <% else %>
+                              <span class="glyphicon glyphicon-header"></span>
+                          <% end %>
+                        </div>
+                      </div>
+                    </td>
                 <% else %>
-                    <td >
+                    <td>
                       <div class="wrapper">
                         <%= image_tag post.category_to_take_image_from.image_url(:list), align: 'left' %>
-                        <div class="box"><span class="glyphicon glyphicon-search"></span></div>
+                        <div class="box">
+                          <% if post.buyer? %>
+                              <span class="glyphicon glyphicon-search"></span>
+                          <% else %>
+                              <span class="glyphicon glyphicon-header"></span>
+                          <% end %>
+                        </div>
                       </div>
                     </td>
                 <% end %>
@@ -109,7 +126,7 @@
     <h3>Haluan helpperiksi </h3>
     <% if @user_performer_posts.empty? %>
     <% else %>
-        <h3>Minut on hyväksytty (<%= @user_performer_posts.count %>)</h3>
+        <h3>Minut on hyväksytty (<%= @user_performer_buying_posts.count %>)</h3>
         <table class="table table-striped">
           <thead>
           <tr>
@@ -124,12 +141,29 @@
           <% @user_performer_posts.each do |post| %>
               <tr>
                 <% if post.image_is_set? %>
-                    <td><%= image_tag post.image_url(:list), align: 'left' %></td>
+                    <td>
+                      <div class="wrapper">
+                        <%= image_tag post.image_url(:list), align: 'left' %>
+                        <div class="box">
+                          <% if post.buyer? %>
+                              <span class="glyphicon glyphicon-search"></span>
+                          <% else %>
+                              <span class="glyphicon glyphicon-header"></span>
+                          <% end %>
+                        </div>
+                      </div>
+                    </td>
                 <% else %>
-                    <td >
+                    <td>
                       <div class="wrapper">
                         <%= image_tag post.category_to_take_image_from.image_url(:list), align: 'left' %>
-                        <div class="box"><span class="glyphicon glyphicon-search"></span></div>
+                        <div class="box">
+                          <% if post.buyer? %>
+                              <span class="glyphicon glyphicon-search"></span>
+                          <% else %>
+                              <span class="glyphicon glyphicon-header"></span>
+                          <% end %>
+                        </div>
                       </div>
                     </td>
                 <% end %>
