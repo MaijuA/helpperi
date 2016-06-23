@@ -54,6 +54,7 @@
             <% end %>
         <% end %>
   </td>
+  <td>
     <% if Conversation.where(post_id:post.id) %>
           <% Conversation.where(post_id:post.id).each do |c| %>
               <% if c.sender_id == current_user.id %>
@@ -80,6 +81,7 @@
               <% end %>
           <% end %>
       <% end %>
+  </td>
   <td>
     <% if post.performer %>
         <%= link_to conversations_path(current_user.id, post.performer.id, post.id) do %>
