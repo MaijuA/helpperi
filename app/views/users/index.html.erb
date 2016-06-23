@@ -27,8 +27,9 @@
         <table class="table table-striped">
 
           <thead>
-          <caption><h4>Minut on hyväksytty (<%= @user_performer_selling_posts.count %>)</h4></caption>
+
           <tr>
+            <caption><h4>Minut on hyväksytty (<%= @user_performer_selling_posts.count %>)</h4></caption>
             <th class="col-md-2"></th>
             <th class="col-md-2"></th>
             <th class="col-md-2"></th>
@@ -116,7 +117,7 @@
 
         <table class="table table-striped">
           <thead>
-          <caption><h4>Luomani ilmoitukset (<%= @user_buying_posts.count %>)</h4></caption>
+          <h4 style="color:grey">Luomani ilmoitukset (<%= @user_buying_posts.count %>)</h4>
 
           <tr>
             <th class="col-md-2"></th>
