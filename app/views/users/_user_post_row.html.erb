@@ -46,7 +46,7 @@
             <p><%= link_to "1 kiinnostunut", post_path(post), class:"label label-warning"%></p>
         <% elsif post.helpers.count > 1 %>
             <p><%= link_to "#{post.helpers.count} kiinnostunutta", post_path(post), class:"label label-warning"%></p>
-            <% elsif @user_accepted_posts %>
+        <% elsif @user_accepted_posts %>
             <p><%= link_to "Arvioi", post_path(post), class:"label label-success"%></p>
         <% end %>
         <% if Candidate.where(post_id:post.id).unread_by(current_user).count > 0 %>
@@ -65,16 +65,24 @@
 
                   <% end %>
               <% else %>
-                  <%= link_to conversation_messages_path(c) do %>
-                      <%= User.where(id:c.sender_id).first.first_name %> <span class="glyphicon glyphicon-envelope"></span>
-                      <%= content_tag :span, conversation_user_count(c.sender_id, post.id),
-                                      class: 'badge', style:"background-color: blue" if conversation_user_count(c.sender_id, post.id) > 0 %>
-                      <%= render 'layouts/stars', :user => User.where(id:c.sender_id).first %>
-                  <% end %><br>
+                  <%= link_to "#{} viestiä", post_path(post), class:"label label-primary"%>
+                  <% if conversation_user_count(c.sender_id, post.id) > 0 %>
+                      <%= link_to post_path(post)  do %>
+                          <p><%= conversation_user_count(c.sender_id, post.id) %> uutta</p>
+                      <% end %>
+                      <%= link_to conversation_messages_path(c) do %>
+
+                          <span class="glyphicon glyphicon-envelope"></span>
+                          <%= content_tag :span, conversation_user_count(c.sender_id, post.id),
+                                          class: 'badge', style:"background-color: blue" if conversation_user_count(c.sender_id, post.id) > 0 %>
+
+                      <% end %><br>
+                  <% end %>
               <% end %>
           <% end %>
-      <% end %></p>
-  </td>
+      <% end %>
+      </p>
+      </td>
   <td>
     <% if Conversation.where(post_id:post.id) %>
         <% Conversation.where(post_id:post.id).each do |c| %>

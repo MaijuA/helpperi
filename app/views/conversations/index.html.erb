@@ -21,19 +21,20 @@
                 <% recipient = User.find(conversation.sender_id) %>
             <% end %>
             <tr>
-              <td><% if recipient.image.present? %>
-                    <%= image_tag recipient.image_url(:list) %>
-                <% end %></td>
+
               <td>
-                <%= link_to recipient.first_name, conversation_messages_path(conversation) %>
+                <%= link_to recipient.first_name, user_path(recipient) %>
                   <%= render 'layouts/stars', :user => recipient %><br>
-                <% if Conversation.where(id:conversation.id).user_messages(current_user.id).unread_by(current_user).count > 0 %>
-                    <p>Uusia viestejä</p>
-                <% end %>
+
               </td>
               <td>
                 <% if conversation.post_id %>
                     <%= link_to Post.find(conversation.post_id).title, conversation_messages_path(conversation) %>
+                <% end %>
+              </td>
+              <td>
+                <% if Conversation.where(id:conversation.id).user_messages(current_user.id).unread_by(current_user).count > 0 %>
+                    <p>Uusia viestejä</p>
                 <% end %>
               </td>
             </tr>
