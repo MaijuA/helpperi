@@ -39,15 +39,15 @@
     </p>
   </td>
   <td>
-    <% if post.helpers.empty? %>
-
-    <% else %>
-        <% if post.helpers.count == 1 %>
+    <% unless post.helpers.empty? %>
+        <% if post.performer %>
+          <%= link_to post.performer.first_name, user_path(post.performer) %><br>
+          <%= render 'layouts/stars', :user => post.performer %><br>
+          <%= link_to "Kuittaa suoritetuksi", user_review_path(:post_id => post.id), class:"label label-success" %>
+        <% elsif post.helpers.count == 1 %>
             <p><%= link_to "1 kiinnostunut", post_path(post), class:"label label-warning"%></p>
         <% elsif post.helpers.count > 1 %>
             <p><%= link_to "#{post.helpers.count} kiinnostunutta", post_path(post), class:"label label-warning"%></p>
-            <% elsif @user_accepted_posts %>
-            <p><%= link_to "Hyväksytty", post_path(post), class:"label label-success"%></p>
         <% end %>
         <% if Candidate.where(post_id:post.id).unread_by(current_user).count > 0 %>
             <%= link_to post_path(post)  do %>
@@ -57,6 +57,13 @@
     <% end %>
   </td>
   <td>
+    <% if post.performer %>
+        <%= link_to conversations_path(current_user.id, post.performer.id, post.id) do %>
+            <span class="glyphicon glyphicon-envelope"></span>
+            <%= content_tag :span, conversation_user_count(post.performer, post.id),
+                            class: 'badge', style:"background-color: blue" if conversation_user_count(post.performer, post.id) > 0 %>
+        <% end %>
+    <% else %>
     <% if Conversation.where(post_id:post.id) %>
         <% Conversation.where(post_id:post.id).each do |c| %>
             <% if c.sender_id == current_user.id %>
@@ -75,6 +82,7 @@
                 <% end %><br>
             <% end %>
         <% end %>
+    <% end %>
     <% end %>
   </td>
 </tr>

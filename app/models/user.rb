@@ -75,9 +75,9 @@ class User < ActiveRecord::Base
     !provider.nil?
   end
 
-  def denied_tasks
-    Post.active.valid.joins(:candidates).where(:candidates => {denied:true})
-  end
+  # def denied_tasks
+  #   Post.active.valid.joins(:candidates).where(:candidates => {denied:true})
+  # end
 
   def average_rating
     (ratings.sum(:score) / ratings.size).round
