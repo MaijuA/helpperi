@@ -22,7 +22,7 @@
             <% user = User.find(message.user_id) %>
             <div class="row" style="margin: 10px;">
               <div class="bubble-right hyphenate">
-                <div class="header"><strong><%= link_to user.first_name, user_path(user) %></strong> <%= message.message_time %><%= render 'layouts/stars', :user => user %><br></div>
+                <div class="header"><strong><%= link_to user.first_name, user_path(user), class: "linkit" %></strong> <%= message.message_time %><%= render 'layouts/stars', :user => user %><br></div>
                 <%= message.body %>
               </div>
             </div>
