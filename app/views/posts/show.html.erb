@@ -48,7 +48,7 @@
         <p>
           <strong>Ilmoittaja</strong><br>
         <div class="row" style="padding-left:15px"><%= link_to(@post.user.first_name, user_path(@post.user), :class => "linkit") %></div>
-        <div class="row" style="padding:0px 0px 0px 15px"><%= render 'layouts/stars', :user => @post.user %><br></div>
+        <div class="row" style="padding:5px 0px 0px 15px"><%= render 'layouts/stars', :user => @post.user %><br></div>
         <!-- oma ilmoitus -->
         <div class="row" style="padding-left:15px"><%= @post.address if @post.user == current_user %></div>
         <!-- /oma ilmoitus -->
