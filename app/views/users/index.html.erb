@@ -89,11 +89,12 @@
                   <% end %>
 
                   <% if Conversation.where(post_id:post.id) %>
+                      <% Conversation.where(post_id:post.id).each do |c| %>
                       <%= link_to conversation_messages_path(c) do %>
                           <span class="label label-primary">viestiä</span>
                       <% end %>
                       <span class="label label primary">viestiä</span>
-                      <% Conversation.where(post_id:post.id).each do |c| %>
+
                           <% if c.sender_id == current_user.id %>
                               <%= link_to conversation_messages_path(c) do %>
                                   <span class="label label-primary">viestiä</span>
@@ -206,11 +207,12 @@
                   <% end %>
 
                   <% if Conversation.where(post_id:post.id) %>
-                      <%= link_to conversation_messages_path(c) do %>
-                      <span class="label label-primary">viestiä</span>
-                          <% end %>
-
                       <% Conversation.where(post_id:post.id).each do |c| %>
+                          <%= link_to conversation_messages_path(c) do %>
+                      <span class="label label-primary">viestiä</span>
+
+<% end %>
+
                           <% if c.sender_id == current_user.id %>
                               <%= link_to conversation_messages_path(c) do %>
                                   <span class="label label primary">viestiä</span>
