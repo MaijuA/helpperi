@@ -40,7 +40,7 @@
           <% @user_performer_selling_posts.each do |post| %>
               <tr>
                 <td>
-                <% if post.image_is_set? %>
+                  <% if post.image_is_set? %>
 
                       <div class="wrapper">
                         <%= image_tag post.image_url(:list), align: 'left' %>
@@ -53,7 +53,7 @@
                         </div>
                       </div>
 
-                <% else %>
+                  <% else %>
 
                       <div class="wrapper">
                         <%= image_tag post.category_to_take_image_from.image_url(:list), align: 'left' %>
@@ -66,7 +66,7 @@
                         </div>
                       </div>
 
-                <% end %>
+                  <% end %>
                 </td>
                 <td>
                   <p><b><%= link_to truncate(post.title, :length => 30), post, :class => "linkit" %></b></p>
@@ -90,10 +90,10 @@
 
                   <% if Conversation.where(post_id:post.id) %>
                       <% Conversation.where(post_id:post.id).each do |c| %>
-                      <%= link_to conversation_messages_path(c) do %>
-                          <span class="label label-primary">viestiä</span>
-                      <% end %>
-                      <span class="label label primary">viestiä</span>
+                          <%= link_to conversation_messages_path(c) do %>
+                              <span class="label label-primary">viestiä</span>
+                          <% end %>
+
 
                           <% if c.sender_id == current_user.id %>
                               <%= link_to conversation_messages_path(c) do %>
@@ -102,7 +102,8 @@
                                       <p><% conversation_user_count(c.recipient_id, post.id) %> uutta</p>
                                   <% end %>
                               <% end %>
-                          <% else %>
+                          <% end %>
+                          <% if c.recipient_id == current_user.id %>
                               <%= link_to conversation_messages_path(c) do %>
                                   <span class="label label-primary">viestiä</span>
                                   <% if conversation_user_count(c.sender_id, post.id) > 0 %>
@@ -209,9 +210,9 @@
                   <% if Conversation.where(post_id:post.id) %>
                       <% Conversation.where(post_id:post.id).each do |c| %>
                           <%= link_to conversation_messages_path(c) do %>
-                      <span class="label label-primary">viestiä</span>
+                              <span class="label label-primary">viestiä</span>
 
-<% end %>
+                          <% end %>
 
                           <% if c.sender_id == current_user.id %>
                               <%= link_to conversation_messages_path(c) do %>
