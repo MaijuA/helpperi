@@ -164,8 +164,8 @@
                           </td>
                           <td><p align="center">
                             <%= link_to conversations_path(sender_id:current_user.id, recipient_id:helper.id, post_id:@post.id), method: :post do %>
-                                <span class="glyphicon glyphicon-envelope"></span>
-                                (<%= post_conversation_count(@post.id) if post_conversation_count(@post.id) > 0 %>)
+                                <span class="glyphicon glyphicon-envelope"></span>(määrä)
+                                (<%= post_conversation_count(@post.id) if post_conversation_count(@post.id) > 0 %> uutta)
                             <% end %>
                           </p></td>
                           <td><p align="center">
@@ -198,12 +198,12 @@
                     <p>
                       <% if c.sender_id == current_user.id %>
                           <%= link_to conversation_messages_path(c) do %>
-                              <%= User.where(id:c.recipient_id).first.first_name %><span class="glyphicon glyphicon-envelope"></span>
-                              <%= content_tag :span, post_conversation_count(@post.id),
-                                              class: 'badge', style:"background-color: blue" if post_conversation_count(@post.id) > 0 %>
+                              <%= User.where(id:c.recipient_id).first.first_name %><span class="glyphicon glyphicon-envelope"></span>( määrä)</p>
+                             <p>(<%= content_tag :span, post_conversation_count(@post.id) if post_conversation_count(@post.id) > 0 %> uutta)</p>
                               <%= render 'layouts/stars', :user => User.where(id:c.recipient_id).first %><br>
                           <% end %>
-                      <% else %>
+                      <% end %>
+                      <% if c.receiver_id == current_user.id %>
                           <%= link_to conversation_messages_path(c) do %>
                               <%= User.where(id:c.sender_id).first.first_name %> <span class="glyphicon glyphicon-envelope"></span>
                               <%= content_tag :span, post_conversation_count(@post.id),
