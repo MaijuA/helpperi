@@ -89,17 +89,16 @@
                   <% end %>
 
                   <% if Conversation.where(post_id:post.id) %>
+                      <span class="label label primary">viestiä</span>
                       <% Conversation.where(post_id:post.id).each do |c| %>
                           <% if c.sender_id == current_user.id %>
                               <%= link_to conversation_messages_path(c) do %>
-                                  <span class="label label primary">viestiä</span>
                                   <% if conversation_user_count(c.recipient_id, post.id) > 0 %>
                                       <p><% conversation_user_count(c.recipient_id, post.id) %> uutta</p>
                                   <% end %>
                               <% end %>
                           <% else %>
                               <%= link_to conversation_messages_path(c) do %>
-                                  <span class="label label-primary">viestiä</span>
                                   <% if conversation_user_count(c.sender_id, post.id) > 0 %>
                                       <p><% conversation_user_count(c.sender_id, post.id) %> uutta</p>
                                   <% end %>
@@ -202,6 +201,8 @@
                   <% end %>
 
                   <% if Conversation.where(post_id:post.id) %>
+                      <span class="label label-primary">viestiä</span>
+
                       <% Conversation.where(post_id:post.id).each do |c| %>
                           <% if c.sender_id == current_user.id %>
                               <%= link_to conversation_messages_path(c) do %>
@@ -237,6 +238,7 @@
             <th class="col-md-2"></th>
             <th class="col-md-2"></th>
             <th class="col-md-2"></th>
+
           </tr>
           </thead>
 
@@ -248,6 +250,9 @@
         </table><br>
     <% end %>
 <% end %>
+
+
+
 
 <!--<br><br>-->
 <!--<h3>Luomasi ilmoitukset (<%= @user_posts.count %>)</h3>-->
