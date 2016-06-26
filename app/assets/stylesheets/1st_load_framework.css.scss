@@ -421,7 +421,7 @@ input[type="number"] {
   margin: 0 auto;
 
   textarea {
-   width: 100%
+    width: 100%
   }
 
   .rating_star {
@@ -447,7 +447,7 @@ input[type="number"] {
 }
 
 .box {
-background-color: #fff;
+  background-color: #fff;
   width: 25px;
   height: 25px;
   position: absolute;
@@ -460,4 +460,9 @@ background-color: #fff;
   top: 5px;
   left: 5px;
 
+}
+
+.black-glyph {
+  font-size:1.5em;
+  color:black;
 }

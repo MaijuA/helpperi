@@ -138,7 +138,7 @@
                     </thead>
                     <tbody class="form-group">
                     <tr>
-                      <td><span class="glyphicon glyphicon-ok"></span></td>
+                      <td><span class="glyphicon glyphicon-ok black-glyph"></span></td>
                       <td>
                         <p><%= link_to @post.performer.first_name, user_path(@post.performer), :class => "linkit" %></p>
                         <%= render 'layouts/stars', :user => @post.performer %>
@@ -150,8 +150,8 @@
                     </tbody>
                   </table>
               <% else %>
-                  <p><span class="glyphicon glyphicon-ok" style="font-size:1.5em;"></span> = hyväksy</p>
-                  <p><span class="glyphicon glyphicon-remove" style="font-size:1.5em;"></span> = ei kiitos</p>
+                  <p><span class="glyphicon glyphicon-ok black-glyph"></span> = hyväksy</p>
+                  <p><span class="glyphicon glyphicon-remove black-glyph"></span> = ei kiitos</p>
                   <table class="table table-striped">
                     <thead>
                     <tr>
@@ -170,7 +170,7 @@
                           </td>
                           <td>
                             <%= link_to conversations_path(sender_id:current_user.id, recipient_id:helper.id, post_id:@post.id), method: :post do %>
-                                <p align="center"><span class="glyphicon glyphicon-envelope" style="font-size:1.5em;"></span>(määrä)</p>
+                                <p align="center"><span class="glyphicon glyphicon-envelope black-glyph"></span> (määrä)</p>
                                 <% if post_conversation_count(@post.id) > 0 %>
                                     <p><%= post_conversation_count(@post.id) %> uutta</p>
                                 <% end %>
@@ -179,13 +179,13 @@
                           <td><p align="center">
                             <%= link_to post_accept_candidate_path(@post.id, user_id: helper.id),
                                         data: { confirm: 'Vahvista hyväksyntäsi valitsemalla ok' }, title: 'ok', method: :post do %>
-                                <span title="ok" class="glyphicon glyphicon-ok" style="font-size:1.5em;"></span>
+                                <span title="ok" class="glyphicon glyphicon-ok black-glyph"></span>
                             <% end %></p></td>
 
                           <td><p align="center">
                             <%= link_to post_deny_candidate_path(@post.id, user_id: helper.id),
                                         data: { confirm: 'Haluatko varmasti hylätä käyttäjän?' }, title: 'remove', method: :post do %>
-                                <span class="glyphicon glyphicon-remove" style="font-size:1.5em;"></span>
+                                <span class="glyphicon glyphicon-remove black-glyph"></span>
                             <% end %></p></td>
                         </tr>
                     <% end %>
@@ -210,7 +210,7 @@
                         <%= link_to conversation_messages_path(c) do %>
                             <td><p class="linkit"> <%= User.where(id:c.recipient_id).first.first_name %>
                     <%= render 'layouts/stars', :user => User.where(id:c.recipient_id).first %></p></td>
-                            <td> <p align="center" style="color:black"><span class="glyphicon glyphicon-envelope" style="color:black"></span>(määrä)</p>
+                            <td> <p align="center" style="color:black"><span class="glyphicon glyphicon-envelope black-glyph"></span>(määrä)</p>
                               <% if post_conversation_count(@post.id) > 0 %>
                                   <p style="color:black">(<%= post_conversation_count(@post.id) %> uutta)</p>
                               <% end %></td>
@@ -220,7 +220,7 @@
                         <%= link_to conversation_messages_path(c) do %>
                             <td><p style="color:black"> <%= User.where(id:c.sender_id).first.first_name %>
                               <%= render 'layouts/stars', :user => User.where(id:c.recipient_id).first %></p></td>
-                            <td> <p align="center" style="color:black"><span class="glyphicon glyphicon-envelope"></span>(määrä)</p>
+                            <td> <p align="center" style="color:black"><span class="glyphicon glyphicon-envelope black-glyph"></span> (määrä)</p>
                               <% if post_conversation_count(@post.id) > 0 %>
                                   <p style="color:black">(<%= post_conversation_count(@post.id) %> uutta)</p>
                               <% end %></td>
