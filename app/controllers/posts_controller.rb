@@ -2,11 +2,7 @@ class PostsController < ApplicationController
   before_action :set_post, only: [:show, :edit, :update]
 
   def index
-    if current_user != nil
-      @posts = Post.all.valid.active.others(current_user.id)
-    else
-      @posts = Post.all.valid.active
-    end
+    @posts = Post.all.valid.active
     @posts = @posts.order(created_at: :desc)
     @posts = @posts.paginate(:page => params[:page], :per_page => 15)
     params[:page] = 1

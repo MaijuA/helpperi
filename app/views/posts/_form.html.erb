@@ -22,11 +22,6 @@
         </div>
     <% end %>
 
-    <div class='form-group'>
-      <%= f.label :title %><br>
-      <%= f.text_field :title, class: 'form-control' %>
-    </div>
-
     <div class='radio'>
       <label>
         <%= f.radio_button :post_type, 'Osto', checked: true, value: "false" %> Etsin helpperiä
@@ -37,45 +32,17 @@
         <%= f.radio_button :post_type, 'Myynti', value: "true" %> Haluan helpperiksi
       </label>
     </div>
-
-    <div class='field'>
-          <%= f.label :radius %><br>
-          <i>(millä säteellä (km) osoitteestasi olet valmis toimimaan?)</i><br>
-          <%= f.number_field :radius, value: f.object.radius || 0, min: 0 %>
-    </div><br>
-
-    <div class="form-group">
-      <%= f.label :image %>
-      <%= f.hidden_field :image_cache %>
-      <%= f.file_field :image %>
-      <% if f.object.image? %>
-          <%= f.label :remove_image do %>
-              <%= f.check_box :remove_image %>
-              Poista nykyinen kuva
-          <% end %>
-      <% end %>
-    </div>
-
-    <div class="container">
-      <% if f.object.image? %>
-          <%= image_tag @post.image_url(:thumb), style: "float:left" %>
-      <% end %>
-    </div>
-
-    </br>
-
+    <br>
     <div class='form-group'>
       <%= f.label :category %><br>
       <i>(desktop-versiossa pidä ctrl/cmd pohjassa valitaksesi useamman kategorian)</i><br>
       <%= f.select :category_ids, Category.all.collect { |x| [x.name, x.id] }, {}, :multiple => true %>
     </div>
-
     <br>
-    <div class='field'>
-      <%= f.label :price %><br>
-      <%= f.number_field :price, value: f.object.price || 0, min: 0 %>
+    <div class='form-group'>
+      <%= f.label :title %><br>
+      <%= f.text_field :title, class: 'form-control' %>
     </div>
-
     <br>
     <div class='form-group'>
     </div>
@@ -92,17 +59,50 @@
     <div id='description' class=''><%= f.text_area :description, :rows => '5', class: 'form-control' %></div>
     <br>
 
-    <div class='form-group'>
-      <%= f.label :address, class: 'control-label' %>
-      <br><i>(muille käyttäjille näkyy vain sijaintitiedoista postinumero ja kaupunki)</i>
-      <%= f.text_field :address, value: current_user.address, class: 'form-control' %>
+    <div class="form-group">
+      <%= f.label :image %>
+      <%= f.hidden_field :image_cache %>
+      <%= f.file_field :image %>
+      <% if f.object.image? %>
+          <%= f.label :remove_image do %>
+              <%= f.check_box :remove_image %>
+              Poista nykyinen kuva
+          <% end %>
+      <% end %>
+    </div>
+    <br>
+    <div class="container">
+      <% if f.object.image? %>
+          <%= image_tag @post.image_url(:thumb), style: "float:left" %>
+      <% end %>
     </div>
 
+    </br>
+    <div class='field'>
+      <%= f.label :price %> euroa<br>
+      <%= f.number_field :price, value: f.object.price || 0, min: 0 %>
+    </div>
+
+    <br>
+
+    <div class='field'>
+      <%= f.label :ending_date %><br>
+      <%= f.date_select :ending_date, default: 2.weeks.from_now %>
+    </div>
+    <br>
+
+
+    <div class='form-group'>
+      <%= f.label :address, class: 'control-label' %>
+      <br><i>(tarkka osoite näkyy ainoastaan hyväksymällesi Helpperille, muille vain postinumerosi)</i>
+      <%= f.text_field :address, value: current_user.address, class: 'form-control' %>
+    </div>
+    <br>
     <div class='form-group'>
       <%= f.label :zip_code, class: 'control-label' %>
       <%= f.text_field :zip_code, value: current_user.zip_code, class: 'form-control' %>
     </div>
-
+    <br>
     <div class='form-group'>
       <%= f.label :city, class: 'control-label' %>
       <%= f.text_field :city, value: current_user.city, class: 'form-control' %>
@@ -110,9 +110,10 @@
 
     <br>
     <div class='field'>
-      <%= f.label :ending_date %><br>
-      <%= f.date_select :ending_date, default: 2.weeks.from_now %>
-    </div>
+      <%= f.label :radius %><br>
+      <i>(millä säteellä (km) osoitteestasi olet valmis toimimaan?)</i><br>
+      <%= f.number_field :radius, value: f.object.radius || 0, min: 0 %>
+    </div><br>
     <br>
 
     <% if @edit %>
