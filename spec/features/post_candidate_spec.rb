@@ -9,7 +9,7 @@ describe 'Post candidate' do
     login_as(user3)
     visit post_path(post)
 
-    click_link 'Ilmoittaudu kiinnostuneeksi'
+    click_link 'Haluan helpperiksi'
 
     expect(page).to have_content 'Sinut on lisätty kiinnostuneeksi.'
   end
@@ -18,7 +18,7 @@ describe 'Post candidate' do
     login_as(user3)
     visit post_path(post)
 
-    click_link 'Ilmoittaudu kiinnostuneeksi'
+    click_link 'Haluan helpperiksi'
     expect(page).to have_content 'Sinut on lisätty kiinnostuneeksi.'
 
     expect(page).to have_content 'Peru kiinnostuksesi'
@@ -29,7 +29,7 @@ describe 'Post candidate' do
     login_as(user3)
     visit post_path(post)
 
-    click_link 'Ilmoittaudu kiinnostuneeksi'
+    click_link 'Haluan helpperiksi'
 
     login_as(user)
     visit post_path(post)
@@ -41,7 +41,7 @@ describe 'Post candidate' do
     login_as(user3)
     visit post_path(post)
 
-    click_link 'Ilmoittaudu kiinnostuneeksi'
+    click_link 'Haluan helpperiksi'
     login_as(user)
 
     visit post_path(post)
@@ -61,7 +61,7 @@ describe 'Post candidate' do
     login_as(user3)
     visit post_path(post)
 
-    click_link 'Ilmoittaudu kiinnostuneeksi'
+    click_link 'Haluan helpperiksi'
     login_as(user)
 
     visit post_path(post)
@@ -79,13 +79,13 @@ describe 'Post candidate' do
     login_as(user3)
     visit post_path(post)
 
-    click_link 'Ilmoittaudu kiinnostuneeksi'
+    click_link 'Haluan'
     expect(post.helpers.ids).to include(user3.id)
     expect(page).to have_content 'Peru kiinnostuksesi'
 
     click_link 'Peru kiinnostuksesi'
 
-    expect(page).to have_content 'Ilmoittaudu kiinnostuneeksi'
+    expect(page).to have_content 'Haluan helpperiksi'
     expect(post.helpers.ids).not_to include(user3.id)
   end
 end
