@@ -23,18 +23,18 @@
             <tr>
 
               <td>
-                <%= link_to recipient.first_name, user_path(recipient) %>
+                <%= link_to recipient.first_name, user_path(recipient), class="linkit" %>
                   <%= render 'layouts/stars', :user => recipient %><br>
 
               </td>
               <td>
                 <% if conversation.post_id %>
-                    <%= link_to Post.find(conversation.post_id).title, conversation_messages_path(conversation) %>
+                    <%= link_to Post.find(conversation.post_id).title, conversation_messages_path(conversation), class="linkit" %>
                 <% end %>
               </td>
               <td>
                 <% if Conversation.where(id:conversation.id).user_messages(current_user.id).unread_by(current_user).count > 0 %>
-                    <p>Uusia viestejä</p>
+                    <%= link_to 'Uusia viestejä', conversation_messages_path(conversation), class="linkit" %>
                 <% end %>
               </td>
             </tr>
