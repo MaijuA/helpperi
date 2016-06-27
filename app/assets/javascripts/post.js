@@ -25,7 +25,3 @@ function defaultDescription() {
         message.className = "alert alert-danger";
     }
 }
-
-function changeOrder() {
-    document.getElementById("search").submit();
-}

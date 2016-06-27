@@ -6,28 +6,27 @@ class PostsController < ApplicationController
     @posts = @posts.order(created_at: :desc)
     @posts = @posts.paginate(:page => params[:page], :per_page => 15)
     params[:page] = 1
-    params[:post_type_buying] = true
-    params[:post_type_selling] = true
     params[:order] = "Uusimmat"
     params[:table] = []
+    params[:size] = "short"
+    params[:post_type_buying] = "false"
+    params[:post_type_selling] = "false"
   end
 
   def search
-    if current_user != nil
-      @posts = Post.all.valid.active.others(current_user.id)
+    if current_user && (params[:only_interests] || params[:only_interests] == "true")
+      @posts = current_user.tasks.valid.active
     else
       @posts = Post.all.valid.active
     end
-    unless params[:post_type_buying_value] && params[:post_type_selling_value]
-      if params[:post_type_buying_value]
+
+    unless params[:post_type_buying] == "true" && params[:post_type_selling] == "true"
+      if params[:post_type_buying] == "true"
         @posts = @posts.where(:post_type => 'Osto')
-      elsif params[:post_type_selling_value]
+      elsif params[:post_type_selling] == "true"
         @posts = @posts.where(:post_type => 'Myynti')
       end
     end
-
-    params[:post_type_buying] = true if params[:post_type_buying_value]
-    params[:post_type_selling] = true if params[:post_type_selling_value]
 
     @posts = @posts.where('(lower(title) LIKE ? OR lower(description) LIKE ?)', "%#{params[:word].downcase.strip}%", "%#{params[:word].downcase.strip}%") unless params[:word] == '' || params[:word].length < 3
 
