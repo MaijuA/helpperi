@@ -1,5 +1,5 @@
 <br>
-<% if @user_posts.empty? && @user.performer.posts.empty? %>
+<% if @user_posts.empty? && @user_performer_posts.empty? %>
 
     <div class="row">
       <div class="col-md-6 col-md-offset-3">
@@ -28,6 +28,7 @@
         <table class="table table-striped">
           <caption>Minut on hyväksytty (<%= @user_performer_selling_posts.count %>) </caption>
           <!--(olen kiinnostunut)(huom ei erottele ostoja ja myyntejä)-->
+
           <thead>
           <tr>
             <th class="col-md-2"></th>
@@ -37,6 +38,7 @@
           </thead>
           <tbody class="form-group">
           <% @user_performer_selling_posts.each do |post| %>
+          <% if post.ratings.count < 2 %>
               <tr>
                 <td>
                   <% if post.image_is_set? %>
@@ -88,7 +90,7 @@
                       <% Conversation.where(post_id:post.id).each do |c| %>
                           <% if c.sender_id == current_user.id %>
                               <%= link_to conversation_messages_path(c) do %>
-                                  <p><span class="label label-primary">määrä viestiä</span></p>
+                                  <p><span class="label label-primary">keskustelu</span></p>
                                   <% if conversation_user_count(c.recipient_id, post.id) > 0 %>
                                       <p class="links"><% conversation_user_count(c.recipient_id, post.id) %> uutta</p>
                                   <% end %>
@@ -96,7 +98,7 @@
                           <% end %>
                           <% if c.recipient_id == current_user.id %>
                               <%= link_to conversation_messages_path(c) do %>
-                                  <p><span class="label label-primary">määrä viestiä</span></p>
+                                  <p><span class="label label-primary">keskustelu</span></p>
                                   <% if conversation_user_count(c.sender_id, post.id) > 0 %>
                                       <p class="links"><% conversation_user_count(c.sender_id, post.id) %> uutta</p>
                                   <% end %>
@@ -109,6 +111,7 @@
           <% end %>
           </tbody>
         </table>
+          <% end %>
     <% end %>
 
     <% unless @user_buying_posts.empty? %>
@@ -147,6 +150,7 @@
 
           <tbody class="form-group">
           <% @user_performer_buying_posts.each do |post| %>
+              <% if post.ratings.count < 2 %>
               <tr>
                 <% if post.image_is_set? %>
                     <td>
@@ -200,7 +204,7 @@
                       <% Conversation.where(post_id:post.id).each do |c| %>
                           <% if c.sender_id == current_user.id %>
                               <%= link_to conversation_messages_path(c) do %>
-                                  <span class="label label-primary">määrä viestiä</span>
+                                  <span class="label label-primary">keskustelu</span>
                                   <% if conversation_user_count(c.recipient_id, post.id) > 0 %>
                                       <p style="color:black" class="links"><% conversation_user_count(c.recipient_id, post.id) %> uutta</p>
                                   <% end %>
@@ -208,7 +212,7 @@
                           <% end %>
                           <% if c.recipient_id == current_user.id %>
                               <%= link_to conversation_messages_path(c) do %>
-                                  <span class="label label-primary">määrä viestiä</span>
+                                  <span class="label label-primary">keskustelu</span>
                                   <% if conversation_user_count(c.sender_id, post.id) > 0 %>
                                       <p style="color:black" class="links"><% conversation_user_count(c.sender_id, post.id) %> uutta</p>
                                   <% end %>
@@ -221,6 +225,7 @@
           <% end %>
           </tbody>
         </table>
+          <% end %>
     <% end %>
 
     <% unless @user_selling_posts.empty? %>

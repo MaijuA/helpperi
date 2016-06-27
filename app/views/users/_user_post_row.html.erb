@@ -40,9 +40,7 @@
   </td>
   <td>
     <% if post.performer && post.ratings.empty? %>
-        <%= link_to post.performer.first_name, user_path(post.performer), :class => "links" %><br>
-        <%= render 'layouts/stars', :user => post.performer %><br>
-        <%= link_to "Kuittaa suoritetuksi", user_review_path(:post_id => post.id), class:"label label-success" %>
+        <p><%= link_to "Kuittaa suoritetuksi", user_review_path(:post_id => post.id), class:"label label-success" %></p>
     <% elsif !post.helpers.empty? && post.helpers.count == 1 %>
         <p><%= link_to "1 kiinnostunut", post_path(post), class:"label label-warning"%></p>
     <% elsif !post.helpers.empty? && post.helpers.count > 1 %>
@@ -56,7 +54,7 @@
 
     <% if post.performer %>
         <%= link_to conversations_path(current_user.id, post.performer.id, post.id) do %>
-            <span class="label label-primary">viestiä</span>
+            <p><span class="label label-primary">keskustelu</span></p>
             <% if conversation_user_count(post.performer, post.id) > 0 %>
                 <p class="linkit"><%= conversation_user_count(post.performer, post.id) %> uutta</p>
             <% end %>
@@ -66,14 +64,14 @@
             <% Conversation.where(post_id:post.id).each do |c| %>
                 <% if c.sender_id == current_user.id %>
                     <%= link_to conversation_messages_path(c) do %>
-                        <span class="label label-primary">viestiä</span>
+                        <p><span class="label label-primary">keskustelu</span></p>
                         <% if conversation_user_count(c.recipient_id, post.id) > 0 %>
                         <p class="linkit"><% conversation_user_count(c.recipient_id, post.id) %> uutta</p>
                             <% end %>
                     <% end %>
                 <% else %>
                     <%= link_to conversation_messages_path(c) do %>
-                        <span class="label label-primary">viestiä</span>
+                        <span class="label label-primary">keskustelu</span>
                         <% if conversation_user_count(c.sender_id, post.id) > 0 %>
                             <p class="linkit"><%= conversation_user_count(c.sender_id, post.id) %> uutta</p>
                        <% end %>
