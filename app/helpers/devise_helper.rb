@@ -14,18 +14,18 @@ module DeviseHelper
     HTML
     html.html_safe
   end
-
-  def html_errors
-    html = <<-HTML
-       <div id="error_explanation">
-         <h2>Sinun täytyy viimeistellä rekisteröitymisesi, jotta voit:</h2>
-          <ul>
-            <li>luoda uusia ilmoituksia</li>
-            <li>lähettää viestejä muille käyttäjille</li>
-            <li>tarkastella muiden käyttäjien profiileja</li>
-          <ul>
-       </div>
-    HTML
-    html.html_safe
-  end
+  #
+  # def html_errors
+  #   html = <<-HTML
+  #      <div id="error_explanation">
+  #        <h2>Sinun täytyy viimeistellä rekisteröitymisesi, jotta voit:</h2>
+  #         <ul>
+  #           <li>luoda uusia ilmoituksia</li>
+  #           <li>lähettää viestejä muille käyttäjille</li>
+  #           <li>tarkastella muiden käyttäjien profiileja</li>
+  #         <ul>
+  #      </div>
+  #   HTML
+  #   html.html_safe
+  # end
 end
