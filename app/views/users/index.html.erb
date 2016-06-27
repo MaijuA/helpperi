@@ -38,7 +38,7 @@
           </thead>
           <tbody class="form-group">
           <% @user_performer_selling_posts.each do |post| %>
-          <% if Post.where(doer_id:current_user.id).valid.selling.rated.count < 2 %>
+          <% if post.ratings.count < 2 %>
               <tr>
                 <td>
                   <% if post.image_is_set? %>
@@ -150,7 +150,7 @@
 
           <tbody class="form-group">
           <% @user_performer_buying_posts.each do |post| %>
-              <% if Post.where(doer_id:current_user.id).valid.selling.rated.count < 2 %>
+              <% if post.ratings.count < 2 %>
               <tr>
                 <% if post.image_is_set? %>
                     <td>
