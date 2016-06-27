@@ -1,5 +1,5 @@
 <br>
-<% if @user_tasks.empty? %><br>
+<% if @user_tasks.nil? or @user_tasks.empty? %><br>
     Sinulla ei tällä hetkellä ole helpattavia. Voit löytää helpattavia etusivulta tai luomalla ilmoituksia!
     <br>
     <%= link_to('Luo ilmoitus', new_post_path, class:"black-button") if current_user && current_user.valid? %>
