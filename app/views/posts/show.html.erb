@@ -207,7 +207,7 @@
                   <p>
                     <% if c.sender_id == current_user.id %>
                         <%= link_to conversation_messages_path(c) do %>
-                            <td><p> <%= User.where(id:c.recipient_id).first.first_name class: "linkit" %>
+                            <td><p> <%= User.where(id:c.recipient_id).first.first_name %>
                     <%= render 'layouts/stars', :user => User.where(id:c.recipient_id).first %></p></td>
                             <td> <p align="center" style="color:black"><span class="glyphicon glyphicon-envelope black-glyph"></span>(määrä)</p>
                               <% if post_conversation_count(@post.id) > 0 %>
@@ -215,9 +215,9 @@
                               <% end %></td>
                         <% end %>
                     <% end %>
-                    <% if c.receiver_id == current_user.id %>
+                    <% if c.recipient_id == current_user.id %>
                         <%= link_to conversation_messages_path(c) do %>
-                            <td><p> <%= User.where(id:c.sender_id).first.first_name class: "linkit" %>
+                            <td><p> <%= User.where(id: c.sender_id).first.first_name %>
                               <%= render 'layouts/stars', :user => User.where(id:c.recipient_id).first %></p></td>
                             <td> <p align="center" style="color:black"><span class="glyphicon glyphicon-envelope black-glyph"></span></p>
                               <% if post_conversation_count(@post.id) > 0 %>
