@@ -71,5 +71,4 @@ describe 'New post' do
     expect(page).to have_content 'Postinumero ei voi olla sisällötön'
   end
 
-
 end
