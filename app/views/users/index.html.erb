@@ -17,12 +17,12 @@
 <%= link_to('Luo ilmoitus', new_post_path, class:"black-button") if current_user && current_user.valid? %>
 <%= link_to('Luo ilmoitus', edit_user_registration_path(current_user, :finishing => 1),
             class:"black-button") if current_user && !current_user.valid? %><br>
-<% if @user_performer_posts.empty? &&  @user_buying_posts.empty? %>
+<% if @user_performer_selling_posts.empty? &&  @user_buying_posts.empty? %>
 <% else %>
 
     <h3>Etsin helpperiä </h3>
 
-    <% unless @user_performer_posts.empty? %>
+    <% unless @user_performer_selling_posts.empty? %>
 
         <table class="table table-striped">
           <caption>Minut on hyväksytty (<%= @user_performer_selling_posts.count %>) </caption>
@@ -129,9 +129,9 @@
     <% end %>
 <% end %>
 
-<% unless @user_performer_posts.empty? && @user_selling_posts.empty? %>
+<% unless @user_performer_buying_posts.empty? && @user_selling_posts.empty? %>
     <h3>Haluan helpperiksi </h3>
-    <% unless @user_performer_posts.empty? %>
+    <% unless @user_performer_buying_posts.empty? %>
 
         <table class="table table-striped">
           <caption>Minut on hyväksytty (<%= @user_performer_posts.count %>) </caption>
@@ -145,7 +145,7 @@
           </thead>
 
           <tbody class="form-group">
-          <% @user_performer_posts.each do |post| %>
+          <% @user_performer_buying_posts.each do |post| %>
               <tr>
                 <% if post.image_is_set? %>
                     <td>
