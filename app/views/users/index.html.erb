@@ -1,5 +1,5 @@
 <br>
-<% if @user_posts.empty? %>
+<% if @user_posts.empty? && @user_performer_posts.empty? %>
 
     <div class="row">
       <div class="col-md-6 col-md-offset-3">
@@ -17,15 +17,20 @@
 <%= link_to('Luo ilmoitus', new_post_path, class:"black-button") if current_user && current_user.valid? %>
 <%= link_to('Luo ilmoitus', edit_user_registration_path(current_user, :finishing => 1),
             class:"black-button") if current_user && !current_user.valid? %><br>
-<% unless @user_performer_posts.empty? &&  @user_buying_posts.empty? %>
+
+<% if @user_performer_selling_posts.empty? &&  @user_buying_posts.empty? %>
+<% else %>
 
     <h3>Etsin helpperiä </h3>
-    <% unless @user_performer_posts.empty? %>
-
+    <% unless @user_performer_selling_posts.empty? %>
+    <% @user_performer_selling_posts.each do |post| %>
+        <% if post.ratings.count < 2 %>
 
 
         <table class="table table-striped">
-          <caption>Minut on hyväksytty (<%= @user_performer_selling_posts.count %>) (olen kiinnostunut)(huom ei erottele ostoja ja myyntejä)</caption>
+          <caption>Minut on hyväksytty (<%= @user_performer_selling_posts.count %>) </caption>
+          <!--(olen kiinnostunut)(huom ei erottele ostoja ja myyntejä)-->
+
           <thead>
           <tr>
             <th class="col-md-2"></th>
@@ -33,13 +38,11 @@
             <th class="col-md-2"></th>
           </tr>
           </thead>
-
           <tbody class="form-group">
-          <% @user_performer_selling_posts.each do |post| %>
+
               <tr>
                 <td>
                   <% if post.image_is_set? %>
-
                       <div class="wrapper">
                         <%= image_tag post.image_url(:list), align: 'left' %>
                         <div class="box">
@@ -50,9 +53,7 @@
                           <% end %>
                         </div>
                       </div>
-
                   <% else %>
-
                       <div class="wrapper">
                         <%= image_tag post.category_to_take_image_from.image_url(:list), align: 'left' %>
                         <div class="box">
@@ -63,11 +64,10 @@
                           <% end %>
                         </div>
                       </div>
-
                   <% end %>
                 </td>
                 <td>
-                  <p><b><%= link_to truncate(post.title, :length => 30), post, :class => "linkit" %></b></p>
+                  <p><b><%= link_to truncate(post.title, :length => 30), post, :class => "links" %></b></p>
                   <p><% if post.price %>
                       <div style="min-width:4em;"><%= post.price %> €</div>
                   <% end %>
@@ -79,10 +79,11 @@
                   </p>
                 </td>
                 <td>
-                  <%= link_to 'Arvioi ilmoittaja', user_review_path(:post_id => post.id), :class => "linkit" if post.ratings.count > 0 %>
+
+                  <p><%= link_to 'Arvioi ilmoittaja', user_review_path(:post_id => post.id), :class => "links" if post.ratings.count > 0 %></p>
                   <% if Candidate.where(post_id:post.id).unread_by(current_user).count > 0 %>
-                      <%= link_to post_path(post), :class => "linkit"  do %>
-                          <p><%= Candidate.where(post_id:post.id).unread_by(current_user).count %> uutta</p>
+                      <%= link_to post_path(post) do %>
+                          <p class="links"><%= Candidate.where(post_id:post.id).unread_by(current_user).count %> uutta</p>
                       <% end %>
                   <% end %>
 
@@ -90,17 +91,17 @@
                       <% Conversation.where(post_id:post.id).each do |c| %>
                           <% if c.sender_id == current_user.id %>
                               <%= link_to conversation_messages_path(c) do %>
-                                  <span class="label label-primary">määrä viestiä</span>
+                                  <p><span class="label label-primary">keskustelu</span></p>
                                   <% if conversation_user_count(c.recipient_id, post.id) > 0 %>
-                                      <p><% conversation_user_count(c.recipient_id, post.id) %> uutta</p>
+                                      <p class="links"><% conversation_user_count(c.recipient_id, post.id) %> uutta</p>
                                   <% end %>
                               <% end %>
                           <% end %>
                           <% if c.recipient_id == current_user.id %>
                               <%= link_to conversation_messages_path(c) do %>
-                                  <span class="label label-primary">määrä viestiä</span>
+                                  <p><span class="label label-primary">keskustelu</span></p>
                                   <% if conversation_user_count(c.sender_id, post.id) > 0 %>
-                                      <p><% conversation_user_count(c.sender_id, post.id) %> uutta</p>
+                                      <p class="links"><% conversation_user_count(c.sender_id, post.id) %> uutta</p>
                                   <% end %>
                               <% end %>
                           <% end %>
@@ -108,13 +109,14 @@
                   <% end %>
                 </td>
               </tr>
-          <% end %>
+
           </tbody>
         </table>
+              <% end %>
+          <% end %>
     <% end %>
 
     <% unless @user_buying_posts.empty? %>
-
         <table class="table table-striped">
           <caption>Luomani ilmoitukset (<%= @user_buying_posts.count %>)</caption>
           <thead>
@@ -124,7 +126,6 @@
             <th class="col-md-2"></th>
           </tr>
           </thead>
-
           <tbody class="form-group">
           <% @user_buying_posts.each do |post| %>
               <%= render 'user_post_row', :post => post %>
@@ -133,12 +134,14 @@
         </table><br>
     <% end %>
 <% end %>
-<% unless @user_performer_posts.empty? && @user_selling_posts.empty? %>
+
+<% unless @user_performer_buying_posts.empty? && @user_selling_posts.empty? %>
     <h3>Haluan helpperiksi </h3>
-    <% unless @user_performer_posts.empty? %>
+    <% unless @user_performer_buying_posts.empty? %>
 
         <table class="table table-striped">
-          <caption>Minut on hyväksytty (<%= @user_performer_posts.count %>) (olen kiinnostunut)(huom ei erottele ostoja ja myyntejä)</caption>
+          <caption>Minut on hyväksytty (<%= @user_performer_buying_posts.count %>) </caption>
+          <!--(olen kiinnostunut)(huom ei erottele ostoja ja myyntejä)-->
           <thead>
           <tr>
             <th class="col-md-2"></th>
@@ -148,7 +151,8 @@
           </thead>
 
           <tbody class="form-group">
-          <% @user_performer_posts.each do |post| %>
+          <% @user_performer_buying_posts.each do |post| %>
+              <% if post.ratings.count < 2 %>
               <tr>
                 <% if post.image_is_set? %>
                     <td>
@@ -179,7 +183,7 @@
                 <% end %>
 
                 <td>
-                  <p><b><%= link_to truncate(post.title, :length => 30), post, :class => "linkit" %></b></p>
+                  <p><b><%= link_to truncate(post.title, :length => 30), post, :class => "links" %></b></p>
                   <p><% if post.price %>
                       <div style="min-width:4em;"><%= post.price %> €</div>
                   <% end %>
@@ -191,10 +195,10 @@
                   </p>
                 </td>
                 <td>
-                  <%= link_to 'Arvioi ilmoittaja', user_review_path(:post_id => post.id), :class => "linkit" if post.ratings.count > 0 %>
+                  <%= link_to 'Arvioi ilmoittaja', user_review_path(:post_id => post.id), :class => "links" if post.ratings.count > 0 %>
                   <% if Candidate.where(post_id:post.id).unread_by(current_user).count > 0 %>
-                      <%= link_to post_path(post), :class => "linkit"  do %>
-                          <p style="color:black"><%= Candidate.where(post_id:post.id).unread_by(current_user).count %> uutta</p>
+                      <%= link_to post_path(post) do %>
+                          <p style="color:black" class="links"><%= Candidate.where(post_id:post.id).unread_by(current_user).count %> uutta</p>
                       <% end %>
                   <% end %>
 
@@ -202,17 +206,17 @@
                       <% Conversation.where(post_id:post.id).each do |c| %>
                           <% if c.sender_id == current_user.id %>
                               <%= link_to conversation_messages_path(c) do %>
-                                  <span class="label label-primary">määrä viestiä</span>
+                                  <span class="label label-primary">keskustelu</span>
                                   <% if conversation_user_count(c.recipient_id, post.id) > 0 %>
-                                      <p style="color:black"><% conversation_user_count(c.recipient_id, post.id) %> uutta</p>
+                                      <p style="color:black" class="links"><% conversation_user_count(c.recipient_id, post.id) %> uutta</p>
                                   <% end %>
                               <% end %>
                           <% end %>
                           <% if c.recipient_id == current_user.id %>
                               <%= link_to conversation_messages_path(c) do %>
-                                  <span class="label label-primary">määrä viestiä</span>
+                                  <span class="label label-primary">keskustelu</span>
                                   <% if conversation_user_count(c.sender_id, post.id) > 0 %>
-                                      <p style="color:black"><% conversation_user_count(c.sender_id, post.id) %> uutta</p>
+                                      <p style="color:black" class="links"><% conversation_user_count(c.sender_id, post.id) %> uutta</p>
                                   <% end %>
                               <% end %>
                           <% end %>
@@ -223,6 +227,7 @@
           <% end %>
           </tbody>
         </table>
+          <% end %>
     <% end %>
 
     <% unless @user_selling_posts.empty? %>

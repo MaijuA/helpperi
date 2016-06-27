@@ -78,7 +78,7 @@
         <% if current_user && @post.user.id != current_user.id %>
             <% if current_user.valid? %>
                 <% if @post.doer_id == current_user.id %>
-                    <a class='btn black-button disabled ' >Olet sitoutunut tähän ilmoitukseen.</a>
+                    <a class='btn black-button disabled ' >Sinut on hyväksytty</a>
                 <% elsif @post.helpers.include?(current_user) %>
                     <%= link_to('Peru kiinnostuksesi', post_remove_candidate_path(:post_id => @post.id), class:"black-button", method: :post) %>
                 <% elsif @post.denied_helpers.include?(current_user) %>
@@ -152,6 +152,7 @@
               <% else %>
                   <p><span class="glyphicon glyphicon-ok black-glyph"></span> = hyväksy</p>
                   <p><span class="glyphicon glyphicon-remove black-glyph"></span> = ei kiitos</p>
+                  <p><span class="glyphicon glyphicon-envelope black-glyph"> </span> = keskustelu</p>
                   <table class="table table-striped">
                     <thead>
                     <tr>
@@ -170,9 +171,9 @@
                           </td>
                           <td>
                             <%= link_to conversations_path(sender_id:current_user.id, recipient_id:helper.id, post_id:@post.id), method: :post do %>
-                                <p align="center" style="color:black"><span class="glyphicon glyphicon-envelope black-glyph"></span> (määrä)</p>
+                                <p align="center" style="color:black"><span class="glyphicon glyphicon-envelope black-glyph"></span></p>
                                 <% if post_conversation_count(@post.id) > 0 %>
-                                    <p class="links" align="center"><%= post_conversation_count(@post.id) %> uutta</p>
+                                    <p class="linkit" align="center"><%= post_conversation_count(@post.id) %> uutta</p>
                                 <% end %>
                             <% end %>
                           </td>
@@ -203,26 +204,26 @@
             </tr>
             </thead>
             <tbody class="form-group">
-            <% Conversation.where(post_id:@post.id).where.not(sender_id:@post.helpers.ids).where.not(recipient_id:@post.helpers.ids).each do |c| %>
+            <% Conversation.where(post_id:@post.id).where.not(sender_id:@post.helpers.ids).where.not(recipient_id:@post.helpers.ids).where.not(sender_id:@post.doer_id).where.not(recipient_id:@post.doer_id).each do |c| %>
                 <tr>
                   <p>
                     <% if c.sender_id == current_user.id %>
                         <%= link_to conversation_messages_path(c) do %>
-                            <td><p> <%= User.where(id:c.recipient_id).first.first_name class: "linkit" %>
+                            <td><p> <%= User.where(id:c.recipient_id).first.first_name %>
                     <%= render 'layouts/stars', :user => User.where(id:c.recipient_id).first %></p></td>
                             <td> <p align="center" style="color:black"><span class="glyphicon glyphicon-envelope black-glyph"></span>(määrä)</p>
                               <% if post_conversation_count(@post.id) > 0 %>
-                                  <p class="links" align="center">(<%= post_conversation_count(@post.id) %> uutta)</p>
+                                  <p class="linkit" align="center">(<%= post_conversation_count(@post.id) %> uutta)</p>
                               <% end %></td>
                         <% end %>
                     <% end %>
-                    <% if c.receiver_id == current_user.id %>
+                    <% if c.recipient_id == current_user.id %>
                         <%= link_to conversation_messages_path(c) do %>
-                            <td><p> <%= User.where(id:c.sender_id).first.first_name class: "linkit" %>
+                            <td><p> <%= User.where(id: c.sender_id).first.first_name %>
                               <%= render 'layouts/stars', :user => User.where(id:c.recipient_id).first %></p></td>
-                            <td> <p align="center" style="color:black"><span class="glyphicon glyphicon-envelope black-glyph"></span> (määrä)</p>
+                            <td> <p align="center" style="color:black"><span class="glyphicon glyphicon-envelope black-glyph"></span></p>
                               <% if post_conversation_count(@post.id) > 0 %>
-                                  <p class="links" align="center">(<%= post_conversation_count(@post.id) %> uutta)</p>
+                                  <p class="linkit" align="center">(<%= post_conversation_count(@post.id) %> uutta)</p>
                               <% end %></td>
                         <% end %>
                     <% end %>

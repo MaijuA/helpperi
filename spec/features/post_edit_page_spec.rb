@@ -75,16 +75,16 @@ describe 'Edit post' do
     expect(page).to have_content 'Kouvola'
   end
 
-  it 'edits radius' do
-    post = FactoryGirl.create(:post_with_category)
-
-    visit edit_post_path(post)
-    fill_in('post_radius', with:'20')
-
-    click_button('Päivitä')
-
-    expect(page).to have_content '20'
-  end
+  # it 'edits radius' do
+  #   post = FactoryGirl.create(:post_with_category)
+  #
+  #   visit edit_post_path(post)
+  #   fill_in('post_radius', with:'20')
+  #
+  #   click_button('Päivitä')
+  #
+  #   expect(page).to have_content '20'
+  # end
 
   it 'doesn´t edit if title empty' do
     post = FactoryGirl.create(:post_with_category)
