@@ -1,5 +1,5 @@
 <br>
-<% if @user_posts.empty? && @user_performer_posts.empty? %>
+<% if @user_posts.empty? && @user_performer_posts.empty? %> <!-- tähän performer_posteista vain ne joissa ratings < 2 -->
 
     <div class="row">
       <div class="col-md-6 col-md-offset-3">
@@ -18,7 +18,7 @@
 <%= link_to('Luo ilmoitus', edit_user_registration_path(current_user, :finishing => 1),
             class:"black-button") if current_user && !current_user.valid? %><br>
 
-<% if @user_performer_selling_posts.empty? &&  @user_buying_posts.empty? %>
+<% if @user_performer_selling_posts.empty? &&  @user_buying_posts.empty? %> <!-- tähän performer_posteista vain ne joissa ratings < 2 -->
 <% else %>
 
     <h3>Etsin helpperiä </h3>
@@ -29,8 +29,6 @@
 
         <table class="table table-striped">
           <caption>Minut on hyväksytty (<%= @user_performer_selling_posts.count %>) </caption>
-          <!--(olen kiinnostunut)(huom ei erottele ostoja ja myyntejä)-->
-
           <thead>
           <tr>
             <th class="col-md-2"></th>
@@ -131,13 +129,12 @@
     <% end %>
 <% end %>
 
-<% unless @user_performer_buying_posts.empty? && @user_selling_posts.empty? %>
+<% unless @user_performer_buying_posts.empty? && @user_selling_posts.empty? %> <!-- tähän performer_posteista vain ne joissa ratings < 2 -->
     <h3>Haluan helpperiksi </h3>
     <% unless @user_performer_buying_posts.empty? %>
 
         <table class="table table-striped">
           <caption>Minut on hyväksytty (<%= @user_performer_buying_posts.count %>) </caption>
-          <!--(olen kiinnostunut)(huom ei erottele ostoja ja myyntejä)-->
           <thead>
           <tr>
             <th class="col-md-2"></th>
