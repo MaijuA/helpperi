@@ -16,62 +16,68 @@
 <% end %>
 
 <%= form_tag search_path, id: "search", :method => 'get' do%>
+    <div class="row centerBlock">
+      <div class="column">
+        <% if params[:post_type_buying] == "true" %>
+            <%= button_tag "Haen helpperiksi", :type => 'button', :class => "grey-button", :onclick => "not_buying()"%>
+        <% else %>
+            <%= button_tag "Haen helpperiksi", :type => 'button', :class => "black-button", :onclick => "set_buying()"%>
+        <% end %>
+      </div>
+      <div class="column">
+        <% if params[:post_type_selling] == "true" %>
+            <%= button_tag "Haen helpperiä", :type => 'button', :class => "grey-button", :onclick => "not_selling()"%>
+        <% else %>
+            <%= button_tag "Haen helpperiä", :type => 'button', :class => "black-button", :onclick => "set_selling()"%>
+        <% end %>
+      </div>
+    </div>
     <div class="row">
       <div class="col-md-6 col-md-offset-3">
         <div class="account-wall">
-          <div id="short" <% if params[:size] == "long" %>class="hidden"<% end %> >
-            <div class="centerBlock">
-              <div class="form-group2">
-                Kaupunki<br>
-                <%= text_field_tag :city, params[:city], size: "11" %>
-              </div>
-              <div class="form-group2">
-                Postinumero<br>
-                <%= text_field_tag :zip_code, params[:zip_code], size: "8" %>
-              </div>
-              <div class="form-group2">
-                <%= submit_tag "Hae" %>
-                <%= button_tag "Tarkempi haku", :type => 'button', :class => "subBtn", :onclick => "long_search()" %>
-              </div>
+          <div class="centerBlock">
+            <div class="form-group2">
+              Kaupunki<br>
+              <%= text_field_tag :city, params[:city], size: "11" %>
             </div>
-          </div>
-          <div id="long" <% if params[:size] == "short" %>class="hidden"<% end %>  >
-            <div class="centerBlock">
-              <div class="form-group2">
-                Kaupunki<br>
-                <%= text_field_tag :city, params[:city], size: "11" %>
-              </div>
-              <div class="form-group2">
-                Postinumero<br>
-                <%= text_field_tag :zip_code, params[:zip_code], size: "8" %>
-              </div>
-              <div class="form-group2">
-                Hakusana<br>
-                <%= text_field_tag :word, params[:word], size: "11" %>
-              </div>
-              <div class="form-group2">
-                Palkkio (euroa)<br>
-                <%= number_field_tag :min, params[:min], min: 0, max: 999, placeholder: "min" %> -
-                <%= number_field_tag :max, params[:max], min: 0, max: 999, placeholder: "max" %>
-              </div>
-              <div class="form-group2">
-                Kategoria<br>
-                <%= select_tag :category_ids, options_for_select([["Kaikki", 0]] + Category.all.collect {|x| [x.name, x.id]}, params[:category_ids]), selected: 0, :multiple => true %>
-              </div><br><br>
-              <div class="form-group">
-                <%= submit_tag "Hae", :class => "black-button" %>
-                <%= button_tag "Yksinkertainen haku", :type => 'button', :class => "subBtn", :onclick => "short_search()" %>
-                <!--<= check_box_tag :remember, true, false %> Muista valintani-->
-              </div>
+            <div class="form-group2">
+              Postinumero<br>
+              <%= text_field_tag :zip_code, params[:zip_code], size: "8" %>
+            </div>
+            <div class="form-group2<% if params[:size] == "short" %> hidden<% end %>">
+              Hakusana<br>
+              <%= text_field_tag :word, params[:word], size: "11" %>
+            </div>
+            <div class="form-group2<% if params[:size] == "short" %> hidden<% end %>">
+              Palkkio (euroa)<br>
+              <%= number_field_tag :min, params[:min], min: 0, max: 999, placeholder: "min" %> -
+              <%= number_field_tag :max, params[:max], min: 0, max: 999, placeholder: "max" %>
+            </div>
+            <div class="form-group2<% if params[:size] == "short" %> hidden<% end %>">
+              Kategoria<br>
+              <%= select_tag :category_ids, options_for_select([["Kaikki", 0]] + Category.all.collect {|x| [x.name, x.id]}, params[:category_ids]), selected: 0, :multiple => true %>
+            </div><br><br>
+            <div class="form-group">
+              <%= submit_tag "Hae", :class => "black-button" %>
+              <% if params[:size] == "short" %>
+                  <%= button_tag "Tarkempi haku", :type => 'button', :class => "black-button", :onclick => "long_search()" %>
+              <% else %>
+                  <%= button_tag "Yksinkertainen haku", :type => 'button', :class => "black-button", :onclick => "short_search()" %>
+              <% end %>
+              <!--<= check_box_tag :remember, true, false %> Muista valintani-->
             </div>
           </div>
         </div>
       </div>
     </div>
-    <br><br>
     <div align="right">
-      <%= collection_select(:table, :id, ["Uusimmat", "Sulkeutumassa", "Pienin palkkio", "Suurin palkkio"], :to_s, :to_s, {:selected => params[:order]}, { :onchange => "changeOrder();return false;"}) %>
+      <% if current_user %>
+          <%= check_box_tag :only_interests, params[:only_interests], params[:only_interests], {:onchange => 'change_interests()'}%> Vain omat kiinnostukset &nbsp;
+      <% end %>
+      <%= collection_select(:table, :id, ["Uusimmat", "Sulkeutumassa", "Pienin palkkio", "Suurin palkkio"], :to_s, :to_s, {:selected => params[:order]}, { :onchange => "change_order()"}) %>
     </div>
+    <%= hidden_field_tag :post_type_buying, params[:post_type_buying] %>
+    <%= hidden_field_tag :post_type_selling, params[:post_type_selling] %>
     <%= hidden_field_tag :size, params[:size] %>
 <% end %>
 
@@ -89,22 +95,31 @@
                   <div class="wrapper">
                     <%= image_tag post.image_url(:list), align: 'left' %>
                     <div class="box">
-                      <span class="glyphicon glyphicon-search"></span>
+                      <% if post.buyer? %>
+                          <span class="glyphicon glyphicon-search"></span>
+                      <% else %>
+                          <span class="glyphicon glyphicon-header"></span>
+                      <% end %>
                     </div>
                   </div>
                 </td>
             <% else %>
-                <td >
+                <td>
                   <div class="wrapper">
                     <%= image_tag post.category_to_take_image_from.image_url(:list), align: 'left' %>
                     <div class="box">
-                      <span class="glyphicon glyphicon-search"></span>
+                      <% if post.buyer? %>
+                          <span class="glyphicon glyphicon-search"></span>
+                      <% else %>
+                          <span class="glyphicon glyphicon-header"></span>
+                      <% end %>
                     </div>
                   </div>
                 </td>
             <% end %>
+
             <td>
-              <p><b><%= link_to truncate(post.title, :length => 30), post %></b></p>
+              <p><b><%= link_to truncate(post.title, :length => 30), post, :class => "linkit" %></b></p>
               <p><% if post.price %>
                   <div style="min-width:4em;"><%= post.price %> €</div>
               <% end %>

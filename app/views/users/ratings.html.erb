@@ -1,6 +1,7 @@
 <div class="row">
   <div class="col-md-6 col-md-offset-3">
-    <h1 class="text-center login-title"> Arvioinnit (<%= @user.ratings_count %>)</h1>
+    <h1 class="text-center login-title"><%= @user.first_name %></h1>
+    <h2 class="text-center login-title"> Arvioinnit (<%= @user.ratings.count %>)</h2>
     <div class="account-wall">
       <table class="table table-striped">
         <thead>
@@ -11,21 +12,21 @@
         </thead>
 
         <tbody class="form-group">
-        <% @user.reviews.each do |review| %>
+        <% @user.ratings.each do |review| %>
           <tr>
             <td>
               <%= review.review %>
             </td>
             <td>
-              <p>
+              <ul style="list-style: none; padding-left: 0;">
               <% (1..3).each do |i| %>
                   <% if i <= review.score %>
-                      <p class="on"></p>
+                      <li class="on"></li>
                   <% else %>
-                      <p class="rating_star"></p>
+                      <li class="rating_star"></li>
                   <% end %>
               <% end %>
-              </p>
+              </ul>
             </td>
           </tr>
         <% end %>

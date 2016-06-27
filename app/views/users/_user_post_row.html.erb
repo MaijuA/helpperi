@@ -1,53 +1,86 @@
 <tr>
-<% if post.image_is_set? %>
-            <td><%= image_tag post.image_url(:list), align: 'left' %></td>
-        <% else %>
-            <td><%= image_tag post.category_to_take_image_from.image_url(:list), align: 'left' %></td>
-        <% end %>
-        <td><b><%= link_to truncate(post.title, :length => 30), post %></b>
-<% if post.buyer? %>
-              <p><span class="buying-badge">Helpattava</span></p>
-<% elsif post.seller? %>
-              <p><span class="selling-badge">Helppaaja</span></p>
-<% end %>
-<p>
-<% post.categories.each do |category| %>
-                <span class="category-badge"><%= "#{category.name}" %></span>
+  <% if post.image_is_set? %>
+      <td>
+        <div class="wrapper">
+          <%= image_tag post.image_url(:list), align: 'left' %>
+          <div class="box">
+            <% if post.buyer? %>
+                <span class="glyphicon glyphicon-search"></span>
+            <% else %>
+                <span class="glyphicon glyphicon-header"></span>
             <% end %>
-          </p></td>
-        <td>
-          <% if post.helpers.empty? %>
-              Ei kiinnostuneita
-          <% else %>
-              <p><%= link_to "#{post.helpers.count} kiinnostunutta", post_path(post), class:"label label-warning"%></p>
-              <% if Candidate.where(post_id:post.id).unread_by(current_user).count > 0 %>
-                  <%= link_to post_path(post)  do %>
-                      <p><%= Candidate.where(post_id:post.id).unread_by(current_user).count %> uutta</p>
-<% end %>
-<% end %>
-<% end %>
-    </td>
-        <td>
-          <% if Conversation.where(post_id:post.id) %>
-              <% Conversation.where(post_id:post.id).each do |c| %>
-                  <% if c.sender_id == current_user.id %>
-                      <%= link_to conversation_messages_path(c) do %>
-                          <%= User.where(id:c.recipient_id).first.first_name %> <span class="glyphicon glyphicon-envelope"></span>
-<%= content_tag :span, conversation_user_count(c.recipient_id, post.id),
-                                          class: 'badge', style:"background-color: blue" if conversation_user_count(c.recipient_id, post.id) > 0 %>
-                      <% end %>
-                  <% else %>
-                      <%= link_to conversation_messages_path(c) do %>
-                          <%= User.where(id:c.sender_id).first.first_name %> <span class="glyphicon glyphicon-envelope"></span>
-                          <%= content_tag :span, conversation_user_count(c.sender_id, post.id),
-                                          class: 'badge', style:"background-color: blue" if conversation_user_count(c.sender_id, post.id) > 0 %>
-                      <% end %><br>
-                  <% end %>
-              <% end %>
-          <% end %>
-        </td>
-<td><% if post.price %>
-              <%= post.price %> €
-<% end %>
-</td>
-      </tr>
+          </div>
+        </div>
+      </td>
+  <% else %>
+      <td>
+        <div class="wrapper">
+          <%= image_tag post.category_to_take_image_from.image_url(:list), align: 'left' %>
+          <div class="box">
+            <% if post.buyer? %>
+                <span class="glyphicon glyphicon-search"></span>
+            <% else %>
+                <span class="glyphicon glyphicon-header"></span>
+            <% end %>
+          </div>
+        </div>
+      </td>
+  <% end %>
+  <td>
+    <p><b><%= link_to truncate(post.title, :length => 30), post, :class => "linkit" %></b></p>
+    <p><% if post.price %>
+        <div style="min-width:4em;"><%= post.price %> €</div>
+    <% end %>
+    </p>
+    <p>
+      <% post.categories.each do |category| %>
+          <span class="category-badge"><%= "#{category.name}" %></span>
+      <% end %>
+    </p>
+  </td>
+  <td>
+    <% if post.performer && post.ratings.empty? %>
+        <%= link_to post.performer.first_name, user_path(post.performer) %><br>
+        <%= render 'layouts/stars', :user => post.performer %><br>
+        <%= link_to "Kuittaa suoritetuksi", user_review_path(:post_id => post.id), class:"label label-success" %>
+    <% elsif !post.helpers.empty? && post.helpers.count == 1 %>
+        <p><%= link_to "1 kiinnostunut", post_path(post), class:"label label-warning"%></p>
+    <% elsif !post.helpers.empty? && post.helpers.count > 1 %>
+        <p><%= link_to "#{post.helpers.count} kiinnostunutta", post_path(post), class:"label label-warning"%></p>
+    <% end %>
+    <% if Candidate.where(post_id:post.id).unread_by(current_user).count > 0 %>
+        <%= link_to post_path(post)  do %>
+            <p class="links"><%= Candidate.where(post_id:post.id).unread_by(current_user).count %> uutta</p>
+        <% end %>
+    <% end %>
+
+    <% if post.performer %>
+        <%= link_to conversations_path(current_user.id, post.performer.id, post.id) do %>
+            <span class="label label-primary">viestiä</span>
+            <% if conversation_user_count(post.performer, post.id) > 0 %>
+                <p class="links"><%= conversation_user_count(post.performer, post.id) %> uutta</p>
+            <% end %>
+        <% end %>
+    <% else %>
+        <% if Conversation.where(post_id:post.id) %>
+            <% Conversation.where(post_id:post.id).each do |c| %>
+                <% if c.sender_id == current_user.id %>
+                    <%= link_to conversation_messages_path(c) do %>
+                        <span class="label label-primary">viestiä</span>
+                        <% if conversation_user_count(c.recipient_id, post.id) > 0 %>
+                        <p class="links"><% conversation_user_count(c.recipient_id, post.id) %> uutta</p>
+                            <% end %>
+                    <% end %>
+                <% else %>
+                    <%= link_to conversation_messages_path(c) do %>
+                        <span class="label label-primary">viestiä</span>
+                        <% if conversation_user_count(c.sender_id, post.id) > 0 %>
+                            <p class="links"><%= conversation_user_count(c.sender_id, post.id) %> uutta</p>
+                       <% end %>
+                    <% end %>
+                <% end %>
+            <% end %>
+        <% end %>
+    <% end %>
+  </td>
+</tr>

@@ -152,7 +152,7 @@ input[type="number"] {
   margin: -16px auto 10px;
 }
 
-.linkit {
+.links {
   color: #000;
   text-decoration: underline;
 }
@@ -180,6 +180,10 @@ input[type="number"] {
     margin: -16px auto 10px;
     width: 100%;
   }
+}
+
+.padding {
+  padding:15px;
 }
 
 .login-title, .signup-title {
@@ -283,6 +287,26 @@ input[type="number"] {
 
 .black-button:hover {
   color: #d4d4d4;
+}
+
+.grey-button {
+  @extend .btn;
+  -webkit-border-radius: 15;
+  -moz-border-radius: 15;
+  border-radius: 15px;
+  -webkit-box-shadow: 0px 1px 3px #666666;
+  -moz-box-shadow: 0px 1px 3px #666666;
+  box-shadow: 0px 1px 3px #666666;
+  color: #d4d4d4;
+  font-size: 14px;
+  padding: 9px;
+  background: #808080;
+  text-decoration: none;
+  font-family: 'Open Sans', sans-serif;
+}
+
+.grey-button:hover {
+  color: #fff;
 }
 
 .white-button {
@@ -417,22 +441,22 @@ input[type="number"] {
   margin: 0 auto;
 
   textarea {
-   width: 100%
+    width: 100%
   }
 
   .rating_star {
     background: image-url('star-off-big.png');
-    width: 20px;
-    height: 20px;
-    display: block;
+    width: 48px;
+    height: 48px;
+    display: inline-block;
     float: left;
   }
 
   .on {
     background: image-url('star-on-big.png');
-    width: 20px;
-    height: 20px;
-    display: block;
+    width: 48px;
+    height: 48px;
+    display: inline-block;
     float: left;
   }
 }
@@ -442,7 +466,7 @@ input[type="number"] {
 }
 
 .box {
-background-color: #fff;
+  background-color: #fff;
   width: 25px;
   height: 25px;
   position: absolute;
@@ -455,4 +479,9 @@ background-color: #fff;
   top: 5px;
   left: 5px;
 
+}
+
+.black-glyph {
+  font-size:1.5em;
+  color:black;
 }

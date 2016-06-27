@@ -11,7 +11,7 @@ describe 'New post' do
 
   it 'creates new post' do
     visit new_post_path
-    choose('Haluan helppaajaksi')
+    choose('Haluan helpperiksi')
     fill_in('post_title', with:'kaupassa käynti')
     fill_in('post_price', with:12)
     fill_in('post_description', with:'kauppareissuun apua')
