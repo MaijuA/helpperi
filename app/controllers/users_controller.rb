@@ -47,6 +47,11 @@ class UsersController < ApplicationController
       params[:page2] = 1 if params[:page2] == ''
       params[:page3] = 1 if params[:page3] == ''
       @user_expired_posts = current_user.posts.active.expired.paginate(:page => params[:expired_page], :per_page => 5)
+      @user_performed_buying_tasks = current_user.posts.rated.buying
+      @user_performed_selling_tasks = current_user.posts.rated.selling
+      @user_performed_buying_posts = Post.where(doer_id:current_user.id).rated.buying
+      @user_performed_selling_posts = Post.where(doer_id:current_user.id).rated.selling
+
       @user_performed_posts = current_user.posts.rated.paginate(:page => params[:expired_page], :per_page => 5)
       @user_performed_tasks = Post.where(doer_id:current_user.id).rated.paginate(:page => params[:tasks_page], :per_page => 5)
     end
