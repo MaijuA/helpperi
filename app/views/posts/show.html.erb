@@ -150,7 +150,7 @@
                     </tbody>
                   </table>
               <% else %>
-                  <p><span class="glyphicon glyphicon-ok black-glyph"></span> = hyväksy  <span class="glyphicon glyphicon-remove black-glyph"></span> = ei kiitos</p>
+                  <p><span class="glyphicon glyphicon-ok black-glyph"></span> = hyväksy   <span class="glyphicon glyphicon-remove black-glyph"></span> = ei kiitos   <span class="glyphicon glyphicon-envelope black-glyph"> = keskustelu</span></p>
                   <table class="table table-striped">
                     <thead>
                     <tr>
@@ -169,7 +169,7 @@
                           </td>
                           <td>
                             <%= link_to conversations_path(sender_id:current_user.id, recipient_id:helper.id, post_id:@post.id), method: :post do %>
-                                <p align="center" style="color:black"><span class="glyphicon glyphicon-envelope black-glyph"></span> (määrä)</p>
+                                <p align="center" style="color:black"><span class="glyphicon glyphicon-envelope black-glyph"></span></p>
                                 <% if post_conversation_count(@post.id) > 0 %>
                                     <p class="linkit" align="center"><%= post_conversation_count(@post.id) %> uutta</p>
                                 <% end %>
@@ -219,7 +219,7 @@
                         <%= link_to conversation_messages_path(c) do %>
                             <td><p> <%= User.where(id:c.sender_id).first.first_name class: "linkit" %>
                               <%= render 'layouts/stars', :user => User.where(id:c.recipient_id).first %></p></td>
-                            <td> <p align="center" style="color:black"><span class="glyphicon glyphicon-envelope black-glyph"></span> (määrä)</p>
+                            <td> <p align="center" style="color:black"><span class="glyphicon glyphicon-envelope black-glyph"></span></p>
                               <% if post_conversation_count(@post.id) > 0 %>
                                   <p class="linkit" align="center">(<%= post_conversation_count(@post.id) %> uutta)</p>
                               <% end %></td>
