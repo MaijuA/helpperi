@@ -72,7 +72,7 @@ describe 'Post candidate' do
 
     visit post_path(post)
 
-    expect(page).to have_content 'Olet sitoutunut tähän ilmoitukseen.'
+    expect(page).to have_content 'Sinut on hyväksytty'
   end
 
   it 'user can remove himself from candidates' do
