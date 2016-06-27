@@ -18,7 +18,7 @@ describe 'New post' do
     fill_in('post_address', with:'Huuhaakatu 1')
     fill_in('post_zip_code', with:99999)
     fill_in('post_city', with:'Utsjoki')
-    fill_in('post_radius', with:3)
+    # fill_in('post_radius', with:3)
 
     click_button('Luo ilmoitus')
 
