@@ -22,8 +22,10 @@
 <% else %>
 
     <h3>Etsin helpperiä </h3>
-
     <% unless @user_performer_selling_posts.empty? %>
+    <% @user_performer_selling_posts.each do |post| %>
+        <% if post.ratings.count < 2 %>
+
 
         <table class="table table-striped">
           <caption>Minut on hyväksytty (<%= @user_performer_selling_posts.count %>) </caption>
@@ -37,8 +39,7 @@
           </tr>
           </thead>
           <tbody class="form-group">
-          <% @user_performer_selling_posts.each do |post| %>
-          <% if post.ratings.count < 2 %>
+
               <tr>
                 <td>
                   <% if post.image_is_set? %>
@@ -108,9 +109,10 @@
                   <% end %>
                 </td>
               </tr>
-          <% end %>
+
           </tbody>
         </table>
+              <% end %>
           <% end %>
     <% end %>
 
