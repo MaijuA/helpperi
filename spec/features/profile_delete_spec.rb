@@ -29,14 +29,13 @@ describe 'Delete profile' do
      user = FactoryGirl.create(:user)
      post = FactoryGirl.create(:post_with_category)
      user.posts << post
-     post_count = Post.active.count
 
      login_as(user)
      visit edit_user_registration_path
 
      click_button('Poista tilini')
 
-     expect(Post.active.count).to eq(post_count - 1)
+     expect(Post.active.count).to eq(0)
    end
 
 end

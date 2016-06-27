@@ -158,6 +158,18 @@ FactoryGirl.define do
       end
     end
 
+    factory :post_with_category_and_performer do
+      id 7
+      doer_id 2
+      title 'Koiran ulkoilutus'
+      transient do
+        category_count 1
+      end
+      after(:create) do |post, evaluator|
+        create_list(:category, evaluator.category_count, posts: [post])
+      end
+    end
+
     factory :deleted_post do
       id 7
       deleted true
@@ -188,6 +200,20 @@ FactoryGirl.define do
 
     factory :candidate3 do
       post_id 4
+    end
+  end
+
+  factory :rating do
+    reviewer_id 1
+    reviewed_id 2
+    post_id 1
+    score 1
+
+    factory :rating2 do
+      reviewer_id 2
+      reviewed_id 2
+      post_id 3
+      score 3
     end
   end
 end

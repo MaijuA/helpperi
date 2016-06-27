@@ -83,6 +83,10 @@ class User < ActiveRecord::Base
     (ratings.sum(:score) / ratings.size).round
   end
 
+  def average_rating_decimal
+    (ratings.sum(:score) / ratings.size).round(1)
+  end
+
   def ratings_count
     ratings.size
   end
