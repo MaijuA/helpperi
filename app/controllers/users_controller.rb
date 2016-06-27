@@ -72,17 +72,9 @@ class UsersController < ApplicationController
     @post = Post.find(params[:post_id])
     @rating = Rating.create reviewer_id:params[:reviewer_id], reviewed_id:params[:reviewed_id], review:params[:review], score:params[:score], post_id:params[:post_id]
     if @rating.save
-      if @post.user == current_user
         redirect_to users_path, notice: "Arviointi onnistui"
-      else
-        redirect_to user_interests_path, notice: "Arviointi onnistui"
-      end
     else
-      if @post.user == current_user
         redirect_to users_path, alert: "Arviointi epäonnistui"
-      else
-        redirect_to user_interests_path, notice: "Arviointi epäonnistui"
-      end
     end
   end
 end

@@ -31,6 +31,6 @@ describe 'Messages' do
 
     visit conversation_messages_path(Conversation.where(sender_id:user.id).first)
 
-    expect(page).to have_content('Muista valintani')
+    expect(page).to have_content('Hae')
   end
 end

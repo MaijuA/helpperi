@@ -4,7 +4,6 @@
   <div class="col-md-1 col-md-offset-4">
     <%= link_to(image_tag("logo.png", id: "logo"), root_path) %>
   </div>
-
   <div class="col-md-2">
     <h1 align="center" style="font-family: 'Amatic SC', cursive;font-size: 65px;">HELPPERI</h1>
   </div>
@@ -13,61 +12,75 @@
 </div>
 
 <% content_for(:head) do %>
-    <%= javascript_include_tag 'post.js', 'data-turbolinks-track' => true  %>
+    <%= javascript_include_tag 'search.js', 'data-turbolinks-track' => true  %>
 <% end %>
 
-
-<div class="row">
-  <div class="col-md-6 col-md-offset-3">
-    <div class="account-wall">
-      <%= form_tag search_path, id: "search", :method => 'get', :class => "lomake" do %>
-
-          <div class="form-group">
-            <%= check_box_tag :post_type_buying_value, 'Osto', params[:post_type_buying] %> Haluan helpperiksi
-            <%= check_box_tag :post_type_selling_value, 'Myynti', params[:post_type_selling] %> Etsin helpperiä
-          </div>
-          <div class="form-group2">
-            Kaupunki<br>
-            <%= text_field_tag :city, params[:city], size: "11" %>
-          </div>
-          <div class="form-group2">
-            Postinumero<br>
-            <%= text_field_tag :zip_code, params[:zip_code], size: "8" %>
-          </div>
-          <div class="form-group2">
-            Hakusana<br>
-            <%= text_field_tag :word, params[:word], size: "11" %>
-          </div>
-          <div class="form-group2">
-            Palkkio (euroa)<br>
-            <%= number_field_tag :min, params[:min], min: 0, max: 999, placeholder: "min" %> -
-            <%= number_field_tag :max, params[:max], min: 0, max: 999, placeholder: "max" %>
-          </div>
-          <div class="form-group2">
-            Kategoria<br>
-            <%= select_tag :category_ids, options_for_select([["Kaikki", 0]] + Category.all.collect { |x| [x.name, x.id] }, params[:category_ids]), selected: 0, :multiple => true %>
-          </div>
-          <br><br>
-          <div class="form-group">
-            <%= submit_tag "Hae", :class => "black-button" %>
-            <%= check_box_tag :remember, true, false %> Muista valintani
-          </div>
-          <div align="right">
-            <%= collection_select(:table, :id, ["Uusimmat", "Sulkeutumassa", "Pienin palkkio", "Suurin palkkio"], :to_s, :to_s, {:selected => params[:order]}, {:onchange => "changeOrder();return false;"}) %>
-          </div>
-      <% end %>
-    </div>
-  </div>
-</div>
-
-<div class="row">
-  <%= form_tag search_path, id: "sort", :method => 'get', :class => "lomake" do %>
-      <input name="tradie[tradie_category_ids][]" type="hidden" value="">
-      <div align="right">
-        <%= collection_select(:table, :id, ["Uusimmat", "Sulkeutumassa", "Pienin palkkio", "Suurin palkkio"], :to_s, :to_s, {:selected => params[:order]}, {:onchange => "changeOrder();return false;"}) %>
+<%= form_tag search_path, id: "search", :method => 'get' do%>
+    <div class="row centerBlock">
+      <div class="column">
+        <% if params[:post_type_buying] == "true" %>
+            <%= button_tag "Haen helpperiksi", :type => 'button', :class => "grey-button", :onclick => "not_buying()"%>
+        <% else %>
+            <%= button_tag "Haen helpperiksi", :type => 'button', :class => "black-button", :onclick => "set_buying()"%>
+        <% end %>
       </div>
-  <% end %>
-</div>
+      <div class="column">
+        <% if params[:post_type_selling] == "true" %>
+            <%= button_tag "Haen helpperiä", :type => 'button', :class => "grey-button", :onclick => "not_selling()"%>
+        <% else %>
+            <%= button_tag "Haen helpperiä", :type => 'button', :class => "black-button", :onclick => "set_selling()"%>
+        <% end %>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-6 col-md-offset-3">
+        <div class="account-wall">
+          <div class="centerBlock">
+            <div class="form-group2">
+              Kaupunki<br>
+              <%= text_field_tag :city, params[:city], size: "11" %>
+            </div>
+            <div class="form-group2">
+              Postinumero<br>
+              <%= text_field_tag :zip_code, params[:zip_code], size: "8" %>
+            </div>
+            <div class="form-group2<% if params[:size] == "short" %> hidden<% end %>">
+              Hakusana<br>
+              <%= text_field_tag :word, params[:word], size: "11" %>
+            </div>
+            <div class="form-group2<% if params[:size] == "short" %> hidden<% end %>">
+              Palkkio (euroa)<br>
+              <%= number_field_tag :min, params[:min], min: 0, max: 999, placeholder: "min" %> -
+              <%= number_field_tag :max, params[:max], min: 0, max: 999, placeholder: "max" %>
+            </div>
+            <div class="form-group2<% if params[:size] == "short" %> hidden<% end %>">
+              Kategoria<br>
+              <%= select_tag :category_ids, options_for_select([["Kaikki", 0]] + Category.all.collect {|x| [x.name, x.id]}, params[:category_ids]), selected: 0, :multiple => true %>
+            </div><br><br>
+            <div class="form-group">
+              <%= submit_tag "Hae", :class => "black-button" %>
+              <% if params[:size] == "short" %>
+                  <%= button_tag "Tarkempi haku", :type => 'button', :class => "black-button", :onclick => "long_search()" %>
+              <% else %>
+                  <%= button_tag "Yksinkertainen haku", :type => 'button', :class => "black-button", :onclick => "short_search()" %>
+              <% end %>
+              <!--<= check_box_tag :remember, true, false %> Muista valintani-->
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div align="right">
+      <% if current_user %>
+          <%= check_box_tag :only_interests, params[:only_interests], params[:only_interests], {:onchange => 'change_interests()'}%> Vain omat kiinnostukset &nbsp;
+      <% end %>
+      <%= collection_select(:table, :id, ["Uusimmat", "Sulkeutumassa", "Pienin palkkio", "Suurin palkkio"], :to_s, :to_s, {:selected => params[:order]}, { :onchange => "change_order()"}) %>
+    </div>
+    <%= hidden_field_tag :post_type_buying, params[:post_type_buying] %>
+    <%= hidden_field_tag :post_type_selling, params[:post_type_selling] %>
+    <%= hidden_field_tag :size, params[:size] %>
+<% end %>
+
 
 <% if @posts.empty? %>
     <p class="text-center"><b>Sovelluksessa ei tällä hetkellä ole avoimia ilmoituksia.</b></p>
@@ -83,7 +96,7 @@
                     <%= image_tag post.image_url(:list), align: 'left' %>
                     <div class="box">
                       <% if post.buyer? %>
-                        <span class="glyphicon glyphicon-search"></span>
+                          <span class="glyphicon glyphicon-search"></span>
                       <% else %>
                           <span class="glyphicon glyphicon-header"></span>
                       <% end %>
@@ -117,14 +130,14 @@
                 <% end %>
               </p>
             </td>
-        <td>
-          <div class="row"><%= render 'layouts/stars', :user => post.user %></div>
-          <div class="row"><%= post.city %></div>
-        </td>
-      </tr>
-  <% end %>
-  <% end %>
-  </tbody>
+            <td>
+              <div class="row"><%= render 'layouts/stars', :user => post.user %></div>
+              <div class="row"><%= post.city %></div>
+            </td>
+          </tr>
+      <% end %>
+<% end %>
+</tbody>
 </table>
 
 
