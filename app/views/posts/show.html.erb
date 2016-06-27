@@ -150,7 +150,9 @@
                     </tbody>
                   </table>
               <% else %>
-                  <p><span class="glyphicon glyphicon-ok black-glyph"></span> = hyväksy   <span class="glyphicon glyphicon-remove black-glyph"></span> = ei kiitos   <span class="glyphicon glyphicon-envelope black-glyph"> = keskustelu</span></p>
+                  <p><span class="glyphicon glyphicon-ok black-glyph"></span> = hyväksy</p>
+                  <p><span class="glyphicon glyphicon-remove black-glyph"></span> = ei kiitos</p>
+                  <p><span class="glyphicon glyphicon-envelope black-glyph"> </span> = keskustelu</p>
                   <table class="table table-striped">
                     <thead>
                     <tr>
@@ -202,7 +204,7 @@
             </tr>
             </thead>
             <tbody class="form-group">
-            <% Conversation.where(post_id:@post.id).where.not(sender_id:@post.helpers.ids).where.not(recipient_id:@post.helpers.ids).each do |c| %>
+            <% Conversation.where(post_id:@post.id).where.not(sender_id:@post.helpers.ids).where.not(recipient_id:@post.helpers.ids).where.not(sender_id:@post.doer_id).where.not(recipient_id:@post.doer_id).each do |c| %>
                 <tr>
                   <p>
                     <% if c.sender_id == current_user.id %>
