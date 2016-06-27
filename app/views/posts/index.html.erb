@@ -57,7 +57,7 @@
               Kategoria<br>
               <%= select_tag :category_ids, options_for_select([["Kaikki", 0]] + Category.all.collect {|x| [x.name, x.id]}, params[:category_ids]), selected: 0, :multiple => true %>
             </div><br><br>
-            <div class="form-group">
+            <div class="form-group" align="center">
               <%= submit_tag "Hae", :class => "black-button" %>
               <% if params[:size] == "short" %>
                   <%= button_tag "Tarkempi haku", :type => 'button', :class => "black-button", :onclick => "long_search()" %>
