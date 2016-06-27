@@ -81,11 +81,7 @@
                 <td>
 
                   <p><%= link_to 'Arvioi ilmoittaja', user_review_path(:post_id => post.id), :class => "links" if post.ratings.count > 0 %></p>
-                  <% if Candidate.where(post_id:post.id).unread_by(current_user).count > 0 %>
-                      <%= link_to post_path(post) do %>
-                          <p class="links"><%= Candidate.where(post_id:post.id).unread_by(current_user).count %> uutta</p>
-                      <% end %>
-                  <% end %>
+
 
                   <% if Conversation.where(post_id:post.id) %>
                       <% Conversation.where(post_id:post.id).each do |c| %>
@@ -196,11 +192,6 @@
                 </td>
                 <td>
                   <%= link_to 'Arvioi ilmoittaja', user_review_path(:post_id => post.id), :class => "links" if post.ratings.count > 0 %>
-                  <% if Candidate.where(post_id:post.id).unread_by(current_user).count > 0 %>
-                      <%= link_to post_path(post) do %>
-                          <p style="color:black" class="links"><%= Candidate.where(post_id:post.id).unread_by(current_user).count %> uutta</p>
-                      <% end %>
-                  <% end %>
 
                   <% if Conversation.where(post_id:post.id) %>
                       <% Conversation.where(post_id:post.id).each do |c| %>
