@@ -19,8 +19,8 @@ development:
 test:
   adapter: sqlite3
   database: db/test.sqlite3
-  pool: 50
-  timeout: 5000
+  pool: 100
+  timeout: 10000
 
 production:
   <<: *default

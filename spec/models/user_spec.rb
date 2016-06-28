@@ -2,11 +2,10 @@ require 'rails_helper'
 
 RSpec.describe User, type: :model do
   it 'validates the user' do
-    user_count = User.count
     user = FactoryGirl.create(:user)
 
     expect(user.valid?).to be(true)
-    expect(User.count).to eq(user_count + 1)
+    expect(User.count).to eq(1)
   end
 
   it 'doesn´t validate user if email is not valid' do
@@ -560,7 +559,6 @@ RSpec.describe User, type: :model do
   end
 
   it 'validates user if first name includes ääkköset' do
-    user_count = User.count
     user = User.create email: Faker::Internet.email,
                        first_name: 'Mätti',
                        last_name: 'Mallikas',
@@ -574,11 +572,10 @@ RSpec.describe User, type: :model do
                        password_confirmation: 'ihanmitavaan'
 
     expect(user.valid?).to be(true)
-    expect(User.count).to eq(user_count + 1)
+    expect(User.count).to eq(1)
   end
 
   it 'validates user if first name includes includes å' do
-    user_count = User.count
     user = User.create email: Faker::Internet.email,
                        first_name: 'Måtti',
                        last_name: 'Mallikas',
@@ -592,11 +589,10 @@ RSpec.describe User, type: :model do
                        password_confirmation: 'ihanmitavaan'
 
     expect(user.valid?).to be(true)
-    expect(User.count).to eq(user_count + 1)
+    expect(User.count).to eq(1)
   end
 
   it 'validates user if first name includes includes á' do
-    user_count = User.count
     user = User.create email: Faker::Internet.email,
                        first_name: 'Mátti',
                        last_name: 'Mallikas',
@@ -610,11 +606,10 @@ RSpec.describe User, type: :model do
                        password_confirmation: 'ihanmitavaan'
 
     expect(user.valid?).to be(true)
-    expect(User.count).to eq(user_count + 1)
+    expect(User.count).to eq(1)
   end
 
   it 'validates user if first name includes includes â' do
-    user_count = User.count
     user = User.create email: Faker::Internet.email,
                        first_name: 'Mätti',
                        last_name: 'Mallikas',
@@ -628,11 +623,10 @@ RSpec.describe User, type: :model do
                        password_confirmation: 'ihanmitavaan'
 
     expect(user.valid?).to be(true)
-    expect(User.count).to eq(user_count + 1)
+    expect(User.count).to eq(1)
   end
 
   it 'doesnt save user if language is too long' do
-    user_count = User.count
     a = 'a'
     user = User.create email: Faker::Internet.email,
                        first_name: 'Mätti',
@@ -648,7 +642,6 @@ RSpec.describe User, type: :model do
                        language: a*250
 
     expect(user.valid?).to be(false)
-    expect(User.count).to eq(user_count)
   end
 
 end

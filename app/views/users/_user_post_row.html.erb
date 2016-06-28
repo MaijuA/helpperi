@@ -41,14 +41,16 @@
   <td>
     <% if post.performer && post.ratings.empty? %>
         <p><%= link_to "Kuittaa suoritetuksi", user_review_path(:post_id => post.id), class:"label label-success" %></p>
+    <% elsif post.helpers.empty? %>
+
     <% elsif !post.helpers.empty? && post.helpers.count == 1 %>
         <p><%= link_to "1 kiinnostunut", post_path(post), class:"label label-warning"%></p>
     <% elsif !post.helpers.empty? && post.helpers.count > 1 %>
         <p><%= link_to "#{post.helpers.count} kiinnostunutta", post_path(post), class:"label label-warning"%></p>
     <% end %>
-    <% if Candidate.where(post_id:post.id).unread_by(current_user).count > 0 %>
+    <% if post_candidate_changes(post.id) > 0 %>
         <%= link_to post_path(post)  do %>
-            <p class="linkit"><%= Candidate.where(post_id:post.id).unread_by(current_user).count %> uutta</p>
+            <p class="links"><%= post_candidate_changes(post.id) %> uutta</p>
         <% end %>
     <% end %>
 
@@ -56,7 +58,7 @@
         <%= link_to conversations_path(current_user.id, post.performer.id, post.id) do %>
             <p><span class="label label-primary">keskustelu</span></p>
             <% if conversation_user_count(post.performer, post.id) > 0 %>
-                <p class="linkit"><%= conversation_user_count(post.performer, post.id) %> uutta</p>
+                <p class="links"><%= conversation_user_count(post.performer, post.id) %> uutta</p>
             <% end %>
         <% end %>
     <% else %>
@@ -66,14 +68,14 @@
                     <%= link_to conversation_messages_path(c) do %>
                         <p><span class="label label-primary">keskustelu</span></p>
                         <% if conversation_user_count(c.recipient_id, post.id) > 0 %>
-                        <p class="linkit"><% conversation_user_count(c.recipient_id, post.id) %> uutta</p>
+                        <p class="links"><% conversation_user_count(c.recipient_id, post.id) %> uutta</p>
                             <% end %>
                     <% end %>
                 <% else %>
                     <%= link_to conversation_messages_path(c) do %>
                         <span class="label label-primary">keskustelu</span>
                         <% if conversation_user_count(c.sender_id, post.id) > 0 %>
-                            <p class="linkit"><%= conversation_user_count(c.sender_id, post.id) %> uutta</p>
+                            <p class="links"><%= conversation_user_count(c.sender_id, post.id) %> uutta</p>
                        <% end %>
                     <% end %>
                 <% end %>
