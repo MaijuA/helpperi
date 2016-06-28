@@ -72,7 +72,6 @@ class Post < ActiveRecord::Base
   scope :expired, lambda{ where(deleted:false).where("ending_date < ?", Date.today) }
   scope :rated, -> { where(deleted:false).where(id:(Post.joins(:ratings).ids)) }
   scope :not_rated, -> { where(deleted:false).where.not(id:(Post.joins(:ratings).ids)) }
-  scope :not_rated, -> { where(deleted:false).where.not(id:(Post.joins(:ratings).ids)) }
 
   def category_to_take_image_from
     if self.categories != nil && self.categories.size == 1
