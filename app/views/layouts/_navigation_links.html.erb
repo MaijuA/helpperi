@@ -2,18 +2,18 @@
 <% if user_signed_in? %>
     <li><%= link_to users_path do %>
           Omat ilmoitukset
-          <%= content_tag :span, post_candidate_changes_count + users_candidate_changes_count,
-                          class: 'label label-warning' if post_candidate_changes_count + users_candidate_changes_count > 0 %>
-          <%= content_tag :span, posts_conversations_count + candidate_conversations_count,
-                          class: 'label label-primary' if posts_conversations_count + candidate_conversations_count > 0 %>
+          <%= content_tag :span, users_index_candidate_count,
+                          class: 'label label-warning' if users_index_candidate_count > 0 %>
+          <%= content_tag :span, users_index_message_count,
+                          class: 'label label-primary' if users_index_message_count > 0 %>
       <% end %>
     </li>
 
     <li>
       <%= link_to conversations_path, class: ""  do %>
           <span class="glyphicon glyphicon-envelope white"></span>
-          <%= content_tag :span, users_conversations_count,
-                          class: 'label label-primary' if users_conversations_count > 0 %>
+          <%= content_tag :span, users_mailbox_message_count,
+                          class: 'label label-primary' if users_mailbox_message_count > 0 %>
       <% end %>
     </li>
 

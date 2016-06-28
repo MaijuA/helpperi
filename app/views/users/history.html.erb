@@ -7,12 +7,12 @@
     <th class="col-md-2"></th>
     <th class="col-md-2"></th>
     <th class="col-md-2"></th>
+    <th class="col-md-2"></th>
   </tr>
   </thead>
 
   <tbody class="form-group">
-  <caption>Minun luomani ilmoitukset</caption>
-  <% @user_performed_selling_posts.each do |post| %>
+  <% @user_performed_selling_posts.each && @user_performed_selling_tasks.each do |post| %>
       <tr>
         <% if post.image_is_set? %>
             <td><%= image_tag post.image_url(:list), align: 'left' %></td>
@@ -34,66 +34,16 @@
             <% post.categories.each do |category| %>
                 <span class="category-badge"><%= "#{category.name}" %></span>
             <% end %>
-          </p>
-        </td>
-
+          </p></td>
         <td>
-          Annoit arvion:
-          <ul style="list-style: none; padding-left: 0">
-            <% (1..3).each do |i| %>
-                <% if i <= post.ratings.where(reviewer_id:post.user.id).first.score %>
-                    <li class="on"></li>
-                <% else %>
-                    <li class="rating_star"></li>
-                <% end %>
-            <% end %>
-          </ul><br>
-          <% if post.ratings.where(reviewer_id:post.performer.id).count > 0 %>
-              Sait arvion:
-              <ul style="list-style: none; padding-left: 0">
-                <% (1..3).each do |i| %>
-                    <% if i <= post.ratings.where(reviewer_id:post.performer.id).first.score %>
-                        <li class="on"></li>
-                    <% else %>
-                        <li class="rating_star"></li>
-                    <% end %>
-                <% end %>
-              </ul><br>
-          <% else %>
-              Et ole vielä saanut arviota
+          <%= link_to(post.performer.first_name, user_path(post.performer), :class => "links") %>
+          <%= render 'layouts/stars', :user => post.performer %>
+        </td>
+        <td>
+          <%= link_to conversations_path(post.performer.id, post.user.id, post.id), :class => "links" do %>
+              <span class="glyphicon glyphicon-envelope"></span>
           <% end %>
         </td>
-      </tr>
-  <% end %>
-  </tbody>
-
-  <tbody>
-  <caption>Muiden luomat ilmoitukset</caption>
-  <% @user_performed_selling_tasks.each do |post| %>
-      <tr>
-        <% if post.image_is_set? %>
-            <td><%= image_tag post.image_url(:list), align: 'left' %></td>
-        <% else %>
-            <td><%= image_tag post.category_to_take_image_from.image_url(:list), align: 'left' %></td>
-        <% end %>
-        <td><b><%= link_to truncate(post.title, :length => 50), post, :class => "links" %></b>
-          <p>
-            <% if post.price %>
-                <%= post.price %> €
-            <% end %>
-          </p>
-          <% if post.buyer? %>
-              <p><span class="selling-badge">Helppaaja</span></p>
-          <% elsif post.seller? %>
-              <p><span class="selling-badge">Helpattava</span></p>
-          <% end %>
-          <p>
-            <% post.categories.each do |category| %>
-                <span class="category-badge"><%= "#{category.name}" %></span>
-            <% end %>
-          </p>
-        </td>
-
         <td>
           Annoit arvion:
           <ul style="list-style: none; padding-left: 0">
@@ -135,12 +85,12 @@
     <th class="col-md-2"></th>
     <th class="col-md-2"></th>
     <th class="col-md-2"></th>
+    <th class="col-md-2"></th>
   </tr>
   </thead>
 
   <tbody class="form-group">
-  <caption>Minun luomani ilmoitukset</caption>
-  <% @user_performed_buying_posts.each do |post| %>
+  <% @user_performed_buying_posts.each && @user_performed_buying_tasks.each do |post| %>
       <tr>
         <% if post.image_is_set? %>
             <td><%= image_tag post.image_url(:list), align: 'left' %></td>
@@ -162,65 +112,16 @@
             <% post.categories.each do |category| %>
                 <span class="category-badge"><%= "#{category.name}" %></span>
             <% end %>
-          </p>
-        </td>
-
+          </p></td>
         <td>
-          Annoit arvion:
-          <ul style="list-style: none; padding-left: 0">
-            <% (1..3).each do |i| %>
-                <% if i <= post.ratings.where(reviewer_id:post.user.id).first.score %>
-                    <li class="on"></li>
-                <% else %>
-                    <li class="rating_star"></li>
-                <% end %>
-            <% end %>
-          </ul><br>
-          <% if post.ratings.where(reviewer_id:post.performer.id).count > 0 %>
-              Sait arvion:
-              <ul style="list-style: none; padding-left: 0">
-                <% (1..3).each do |i| %>
-                    <% if i <= post.ratings.where(reviewer_id:post.performer.id).first.score %>
-                        <li class="on"></li>
-                    <% else %>
-                        <li class="rating_star"></li>
-                    <% end %>
-                <% end %>
-              </ul><br>
-          <% else %>
-              Et ole vielä saanut arviota
+          <%= link_to(post.performer.first_name, user_path(post.performer), :class => "links") %>
+          <%= render 'layouts/stars', :user => post.performer %>
+        </td>
+        <td>
+          <%= link_to conversations_path(post.performer.id, post.user.id, post.id), :class => "links" do %>
+              <span class="glyphicon glyphicon-envelope"></span>
           <% end %>
         </td>
-      </tr>
-  <% end %>
-  </tbody>
-  <tbody class="form-group">
-  <caption>Muiden luomat ilmoitukset</caption>
-  <% @user_performed_buying_tasks.each do |post| %>
-      <tr>
-        <% if post.image_is_set? %>
-            <td><%= image_tag post.image_url(:list), align: 'left' %></td>
-        <% else %>
-            <td><%= image_tag post.category_to_take_image_from.image_url(:list), align: 'left' %></td>
-        <% end %>
-        <td><b><%= link_to truncate(post.title, :length => 50), post, :class => "links" %></b>
-          <p>
-            <% if post.price %>
-                <%= post.price %> €
-            <% end %>
-          </p>
-          <% if post.buyer? %>
-              <p><span class="selling-badge">Helppaaja</span></p>
-          <% elsif post.seller? %>
-              <p><span class="selling-badge">Helpattava</span></p>
-          <% end %>
-          <p>
-            <% post.categories.each do |category| %>
-                <span class="category-badge"><%= "#{category.name}" %></span>
-            <% end %>
-          </p>
-        </td>
-
         <td>
           Annoit arvion:
           <ul style="list-style: none; padding-left: 0">
@@ -262,6 +163,7 @@
     <th class="col-md-2"></th>
     <th class="col-md-2"></th>
     <th class="col-md-2"></th>
+    <th class="col-md-1"></th>
   </tr>
   </thead>
 
@@ -285,6 +187,19 @@
             <% end %>
           </p>
         </td>
+        <td>
+          <% if post.performer %>
+              <%= link_to(post.performer.first_name, user_path(post.performer)) %>
+              <%= render 'layouts/stars', :user => post.performer %>
+          <% end %>
+        </td>
+        <td>
+          <% if post.performer %>
+              <%= link_to conversations_path(current_user.id, post.performer.id, post.id), :class => "links" do %>
+                  <span class="glyphicon glyphicon-envelope black-glyph"></span>
+              <% end %>
+          <% end %>
+        </td>
       </tr>
   <% end %>
   </tbody>
@@ -296,78 +211,78 @@
 <!--<h3>Suljetut ilmoitukset (<%= @user_performed_posts.count %>)</h3>-->
 
 <!--<table class="table table-striped">-->
-  <!--<thead>-->
-  <!--<tr>-->
-    <!--<th class="col-md-2"></th>-->
-    <!--<th class="col-md-2"></th>-->
-    <!--<th class="col-md-2"></th>-->
-    <!--<th class="col-md-2"></th>-->
-    <!--<th class="col-md-2"></th>-->
-    <!--<th class="col-md-1"></th>-->
-  <!--</tr>-->
-  <!--</thead>-->
+<!--<thead>-->
+<!--<tr>-->
+<!--<th class="col-md-2"></th>-->
+<!--<th class="col-md-2"></th>-->
+<!--<th class="col-md-2"></th>-->
+<!--<th class="col-md-2"></th>-->
+<!--<th class="col-md-2"></th>-->
+<!--<th class="col-md-1"></th>-->
+<!--</tr>-->
+<!--</thead>-->
 
-  <!--<tbody class="form-group">-->
-  <!--<% @user_performed_posts.each do |post| %>-->
-      <!--<tr>-->
-        <!--<% if post.image_is_set? %>-->
-            <!--<td><%= image_tag post.image_url(:list), align: 'left' %></td>-->
+<!--<tbody class="form-group">-->
+<!--<% @user_performed_posts.each do |post| %>-->
+    <!--<tr>-->
+    <!--<% if post.image_is_set? %>-->
+        <!--<td><%= image_tag post.image_url(:list), align: 'left' %></td>-->
         <!--<% else %>-->
-            <!--<td><%= image_tag post.category_to_take_image_from.image_url(:list), align: 'left' %></td>-->
+        <!--<td><%= image_tag post.category_to_take_image_from.image_url(:list), align: 'left' %></td>-->
         <!--<% end %>-->
-        <!--<td><b><%= link_to truncate(post.title, :length => 30), post %></b>-->
-          <!--<% if post.buyer? %>-->
-              <!--<p><span class="selling-badge">Helppaaja</span></p>-->
-          <!--<% elsif post.seller? %>-->
-              <!--<p><span class="selling-badge">Helpattava</span></p>-->
-          <!--<% end %>-->
-          <!--<p>-->
-            <!--<% post.categories.each do |category| %>-->
-                <!--<span class="category-badge"><%= "#{category.name}" %></span>-->
+    <!--<td><b><%= link_to truncate(post.title, :length => 30), post %></b>-->
+    <!--<% if post.buyer? %>-->
+        <!--<p><span class="selling-badge">Helppaaja</span></p>-->
+        <!--<% elsif post.seller? %>-->
+        <!--<p><span class="selling-badge">Helpattava</span></p>-->
+        <!--<% end %>-->
+    <!--<p>-->
+    <!--<% post.categories.each do |category| %>-->
+        <!--<span class="category-badge"><%= "#{category.name}" %></span>-->
+        <!--<% end %>-->
+    <!--</p></td>-->
+    <!--<td>-->
+    <!--<%= link_to(post.performer.first_name, user_path(post.performer)) %>-->
+    <!--<%= render 'layouts/stars', :user => post.performer %>-->
+    <!--</td>-->
+    <!--<td>-->
+    <!--<%= link_to conversations_path(post.performer.id, post.user.id, post.id) do %>-->
+        <!--<span class="glyphicon glyphicon-envelope"></span>-->
+        <%= content_tag :span, conversation_user_count(post.performer.id, post.id),
+                        class: 'badge', style:"background-color: blue" if conversation_user_count(post.performer.id, post.id) > 0 %>
+        <!--<% end %>-->
+    <!--</td>-->
+    <!--<td>-->
+    <!--Annoit arvion:-->
+    <!--<ul style="list-style: none; padding-left: 0">-->
+    <!--<% (1..3).each do |i| %>-->
+        <!--<% if i <= post.ratings.where(reviewer_id:post.user.id).first.score %>-->
+            <!--<li class="on"></li>-->
+            <!--<% else %>-->
+            <!--<li class="rating_star"></li>-->
             <!--<% end %>-->
-          <!--</p></td>-->
-        <!--<td>-->
-          <!--<%= link_to(post.performer.first_name, user_path(post.performer)) %>-->
-          <!--<%= render 'layouts/stars', :user => post.performer %>-->
-        <!--</td>-->
-        <!--<td>-->
-          <!--<%= link_to conversations_path(post.performer.id, post.user.id, post.id) do %>-->
-              <!--<span class="glyphicon glyphicon-envelope"></span>-->
-              <%= content_tag :span, conversation_user_count(post.performer.id, post.id),
-                              class: 'badge', style:"background-color: blue" if conversation_user_count(post.performer.id, post.id) > 0 %>
-          <!--<% end %>-->
-        <!--</td>-->
-        <!--<td>-->
-          <!--Annoit arvion:-->
-          <!--<ul style="list-style: none; padding-left: 0">-->
-            <!--<% (1..3).each do |i| %>-->
-                <!--<% if i <= post.ratings.where(reviewer_id:post.user.id).first.score %>-->
-                    <!--<li class="on"></li>-->
+        <!--<% end %>-->
+    <!--</ul><br>-->
+    <!--<% if post.ratings.where(reviewer_id:post.performer.id).count > 0 %>-->
+        <!--Sait arvion:-->
+        <!--<ul style="list-style: none; padding-left: 0">-->
+        <!--<% (1..3).each do |i| %>-->
+            <!--<% if i <= post.ratings.where(reviewer_id:post.performer.id).first.score %>-->
+                <!--<li class="on"></li>-->
                 <!--<% else %>-->
-                    <!--<li class="rating_star"></li>-->
+                <!--<li class="rating_star"></li>-->
                 <!--<% end %>-->
             <!--<% end %>-->
-          <!--</ul><br>-->
-          <!--<% if post.ratings.where(reviewer_id:post.performer.id).count > 0 %>-->
-              <!--Sait arvion:-->
-              <!--<ul style="list-style: none; padding-left: 0">-->
-                <!--<% (1..3).each do |i| %>-->
-                    <!--<% if i <= post.ratings.where(reviewer_id:post.performer.id).first.score %>-->
-                        <!--<li class="on"></li>-->
-                    <!--<% else %>-->
-                        <!--<li class="rating_star"></li>-->
-                    <!--<% end %>-->
-                <!--<% end %>-->
-              <!--</ul><br>-->
+        <!--</ul><br>-->
+        <!--<% end %>-->
+    <!--</td>-->
+    <td><% if post.price %>
+          <%= post.price %> €
           <!--<% end %>-->
-        <!--</td>-->
-        <td><% if post.price %>
-              <%= post.price %> €
-          <!--<% end %>-->
-        <!--</td>-->
+      <!--</td>-->
       <!--</tr>-->
-  <!--<% end %>-->
-  <!--</tbody>-->
+      <!--<% end %>-->
+<!--</tbody>-->
 <!--</table>-->
 <!--<%= will_paginate @user_performed_posts, :param_name => 'performed_page' %>-->
 <!--<br>-->
@@ -378,78 +293,78 @@
 <!--<h3>Suoritetut ilmoitukset (<%= @user_performed_tasks.count %>)</h3>-->
 
 <!--<table class="table table-striped">-->
-  <!--<thead>-->
-  <!--<tr>-->
-    <!--<th class="col-md-2"></th>-->
-    <!--<th class="col-md-2"></th>-->
-    <!--<th class="col-md-2"></th>-->
-    <!--<th class="col-md-2"></th>-->
-    <!--<th class="col-md-2"></th>-->
-    <!--<th class="col-md-1"></th>-->
-  <!--</tr>-->
-  <!--</thead>-->
+<!--<thead>-->
+<!--<tr>-->
+<!--<th class="col-md-2"></th>-->
+<!--<th class="col-md-2"></th>-->
+<!--<th class="col-md-2"></th>-->
+<!--<th class="col-md-2"></th>-->
+<!--<th class="col-md-2"></th>-->
+<!--<th class="col-md-1"></th>-->
+<!--</tr>-->
+<!--</thead>-->
 
-  <!--<tbody class="form-group">-->
-  <!--<% @user_performed_tasks.each do |post| %>-->
-      <!--<tr>-->
-        <!--<% if post.image_is_set? %>-->
-            <!--<td><%= image_tag post.image_url(:list), align: 'left' %></td>-->
+<!--<tbody class="form-group">-->
+<!--<% @user_performed_tasks.each do |post| %>-->
+    <!--<tr>-->
+    <!--<% if post.image_is_set? %>-->
+        <!--<td><%= image_tag post.image_url(:list), align: 'left' %></td>-->
         <!--<% else %>-->
-            <!--<td><%= image_tag post.category_to_take_image_from.image_url(:list), align: 'left' %></td>-->
+        <!--<td><%= image_tag post.category_to_take_image_from.image_url(:list), align: 'left' %></td>-->
         <!--<% end %>-->
-        <!--<td><b><%= link_to truncate(post.title, :length => 30), post %></b>-->
-          <!--<% if post.buyer? %>-->
-              <!--<p><span class="selling-badge">Helpperi</span></p>-->
-          <!--<% end %>-->
-          <!--<p>-->
-            <!--<% post.categories.each do |category| %>-->
-                <!--<span class="category-badge"><%= "#{category.name}" %></span>-->
+    <!--<td><b><%= link_to truncate(post.title, :length => 30), post %></b>-->
+    <!--<% if post.buyer? %>-->
+        <!--<p><span class="selling-badge">Helpperi</span></p>-->
+        <!--<% end %>-->
+    <!--<p>-->
+    <!--<% post.categories.each do |category| %>-->
+        <!--<span class="category-badge"><%= "#{category.name}" %></span>-->
+        <!--<% end %>-->
+    <!--</p></td>-->
+    <!--<td>-->
+    <!--<%= link_to(post.user.first_name, user_path(post.user)) %>-->
+    <!--<%= render 'layouts/stars', :user => post.user %>-->
+    <!--</td>-->
+    <!--<td>-->
+    <!--<%= link_to conversations_path(current_user.id, post.user.id, post.id) do %>-->
+        <!--<span class="glyphicon glyphicon-envelope"></span>-->
+        <%= content_tag :span, post_conversation_count(post.id),
+                        class: 'badge', style:"background-color: blue" if post_conversation_count(post.id) > 0 %>
+        <!--<% end %>-->
+    <!--</td>-->
+    <!--<td>-->
+    <!--Sait arvion:-->
+    <!--<ul style="list-style: none; padding-left: 0">-->
+    <!--<% (1..3).each do |i| %>-->
+        <!--<% if i <= post.ratings.where(reviewer_id:post.user.id).first.score %>-->
+            <!--<li class="on"></li>-->
+            <!--<% else %>-->
+            <!--<li class="rating_star"></li>-->
             <!--<% end %>-->
-          <!--</p></td>-->
-        <!--<td>-->
-          <!--<%= link_to(post.user.first_name, user_path(post.user)) %>-->
-          <!--<%= render 'layouts/stars', :user => post.user %>-->
-        <!--</td>-->
-        <!--<td>-->
-          <!--<%= link_to conversations_path(current_user.id, post.user.id, post.id) do %>-->
-              <!--<span class="glyphicon glyphicon-envelope"></span>-->
-              <%= content_tag :span, post_conversation_count(post.id),
-                              class: 'badge', style:"background-color: blue" if post_conversation_count(post.id) > 0 %>
-          <!--<% end %>-->
-        <!--</td>-->
-        <!--<td>-->
-          <!--Sait arvion:-->
-          <!--<ul style="list-style: none; padding-left: 0">-->
-            <!--<% (1..3).each do |i| %>-->
-                <!--<% if i <= post.ratings.where(reviewer_id:post.user.id).first.score %>-->
-                    <!--<li class="on"></li>-->
+        <!--<% end %>-->
+    <!--</ul><br>-->
+    <!--<% if post.ratings.where(reviewer_id:post.performer.id).count > 0 %>-->
+        <!--Annoit arvion:-->
+        <!--<ul style="list-style: none; padding-left: 0">-->
+        <!--<% (1..3).each do |i| %>-->
+            <!--<% if i <= post.ratings.where(reviewer_id:post.performer.id).first.score %>-->
+                <!--<li class="on"></li>-->
                 <!--<% else %>-->
-                    <!--<li class="rating_star"></li>-->
+                <!--<li class="rating_star"></li>-->
                 <!--<% end %>-->
             <!--<% end %>-->
-          <!--</ul><br>-->
-          <!--<% if post.ratings.where(reviewer_id:post.performer.id).count > 0 %>-->
-              <!--Annoit arvion:-->
-              <!--<ul style="list-style: none; padding-left: 0">-->
-                <!--<% (1..3).each do |i| %>-->
-                    <!--<% if i <= post.ratings.where(reviewer_id:post.performer.id).first.score %>-->
-                        <!--<li class="on"></li>-->
-                    <!--<% else %>-->
-                        <!--<li class="rating_star"></li>-->
-                    <!--<% end %>-->
-                <!--<% end %>-->
-              <!--</ul><br>-->
-          <!--<% else %>-->
-              <!--<%= link_to 'Arvioi ilmoittaja', user_review_path(:post_id => post.id) %>-->
+        <!--</ul><br>-->
+        <!--<% else %>-->
+        <!--<%= link_to 'Arvioi ilmoittaja', user_review_path(:post_id => post.id) %>-->
+        <!--<% end %>-->
+    <!--</td>-->
+    <td><% if post.price %>
+          <%= post.price %> €
           <!--<% end %>-->
-        <!--</td>-->
-        <td><% if post.price %>
-              <%= post.price %> €
-          <!--<% end %>-->
-        <!--</td>-->
+      <!--</td>-->
       <!--</tr>-->
-  <!--<% end %>-->
-  <!--</tbody>-->
+      <!--<% end %>-->
+<!--</tbody>-->
 <!--</table>-->
 <!--<%= will_paginate @user_performed_tasks, :param_name => 'performed_page' %>-->
 <!--<br>-->

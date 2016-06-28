@@ -9,13 +9,12 @@ describe 'Delete Post' do
     user = FactoryGirl.create(:user)
     login_as(user)
     post = FactoryGirl.create(:post_with_category)
-    post_count = Post.count
     rack_test_session_wrapper = Capybara.current_session.driver
     rack_test_session_wrapper.submit :post, post_delete_post_path(post.id), nil
 
 
     expect(page).to have_content 'Ilmoitus on poistettu onnistuneesti.'
-    expect(post_count).to eq(post_count)
+    expect(Post.count).to eq(1)
   end
 
 

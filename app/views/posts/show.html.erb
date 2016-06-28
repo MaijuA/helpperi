@@ -47,7 +47,7 @@
 
         <p>
           <strong>Ilmoittaja</strong><br>
-        <div class="row" style="padding-left:15px"><%= link_to(@post.user.first_name, user_path(@post.user), :class => "linkit") %></div>
+        <div class="row" style="padding-left:15px"><%= link_to(@post.user.first_name, user_path(@post.user), :class => "links") %></div>
         <div class="row" style="padding:5px 0px 0px 15px"><%= render 'layouts/stars', :user => @post.user %><br></div>
         <!-- oma ilmoitus -->
         <div class="row" style="padding-left:15px"><%= @post.address if @post.user == current_user %></div>
@@ -140,11 +140,16 @@
                     <tr>
                       <td><span class="glyphicon glyphicon-ok black-glyph"></span></td>
                       <td>
-                        <p><%= link_to @post.performer.first_name, user_path(@post.performer), :class => "linkit" %></p>
+                        <p><%= link_to @post.performer.first_name, user_path(@post.performer), :class => "links" %></p>
                         <%= render 'layouts/stars', :user => @post.performer %>
                       </td>
                       <td>
-                        <%= link_to 'Lähetä viesti', conversations_path(sender_id: current_user.id, recipient_id: @post.performer.id, post_id:@post.id), method: 'post', class:"black-button" %>
+                        <%= link_to conversations_path(sender_id:current_user.id, recipient_id:@post.performer.id, post_id:@post.id), method: :post do %>
+                            <p align="center" style="color:black"><span class="glyphicon glyphicon-envelope black-glyph"></span></p>
+                            <% if conversation_user_count(@post.performer.id, @post.id) > 0 %>
+                                <p class="links" align="center"><%= conversation_user_count(@post.performer.id, @post.id) %> uutta</p>
+                            <% end %>
+                        <% end %>
                       </td>
                     </tr>
                     </tbody>
@@ -166,14 +171,14 @@
                     <% @post.helpers.each do |helper| %>
                         <tr>
                           <td>
-                            <p><%= link_to helper.first_name, user_path(helper), class: "linkit" %></p>
+                            <p><%= link_to helper.first_name, user_path(helper), class: "links" %></p>
                             <%= render 'layouts/stars', :user => helper %>
                           </td>
                           <td>
                             <%= link_to conversations_path(sender_id:current_user.id, recipient_id:helper.id, post_id:@post.id), method: :post do %>
                                 <p align="center" style="color:black"><span class="glyphicon glyphicon-envelope black-glyph"></span></p>
-                                <% if post_conversation_count(@post.id) > 0 %>
-                                    <p class="linkit" align="center"><%= post_conversation_count(@post.id) %> uutta</p>
+                                <% if conversation_user_count(helper.id, @post.id) > 0 %>
+                                    <p class="links" align="center"><%= conversation_user_count(helper.id, @post.id) %> uutta</p>
                                 <% end %>
                             <% end %>
                           </td>
@@ -212,8 +217,8 @@
                             <td><p> <%= User.where(id:c.recipient_id).first.first_name %>
                     <%= render 'layouts/stars', :user => User.where(id:c.recipient_id).first %></p></td>
                             <td> <p align="center" style="color:black"><span class="glyphicon glyphicon-envelope black-glyph"></span>(määrä)</p>
-                              <% if post_conversation_count(@post.id) > 0 %>
-                                  <p class="linkit" align="center">(<%= post_conversation_count(@post.id) %> uutta)</p>
+                              <% if conversation_user_count(c.recipient_id, @post.id) > 0 %>
+                                  <p class="links" align="center">(<%= conversation_user_count(c.recipient_id, @post.id) %> uutta)</p>
                               <% end %></td>
                         <% end %>
                     <% end %>
@@ -222,8 +227,8 @@
                             <td><p> <%= User.where(id: c.sender_id).first.first_name %>
                               <%= render 'layouts/stars', :user => User.where(id:c.recipient_id).first %></p></td>
                             <td> <p align="center" style="color:black"><span class="glyphicon glyphicon-envelope black-glyph"></span></p>
-                              <% if post_conversation_count(@post.id) > 0 %>
-                                  <p class="linkit" align="center">(<%= post_conversation_count(@post.id) %> uutta)</p>
+                              <% if conversation_user_count(c.sender_id, @post.id) > 0 %>
+                                  <p class="links" align="center">(<%= conversation_user_count(c.sender_id, @post.id) %> uutta)</p>
                               <% end %></td>
                         <% end %>
                     <% end %>

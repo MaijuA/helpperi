@@ -10,7 +10,6 @@
 
   <div class="col-md-6"></div>
 </div>
-
 <% content_for(:head) do %>
     <%= javascript_include_tag 'search.js', 'data-turbolinks-track' => true  %>
 <% end %>
@@ -23,7 +22,7 @@
         <% else %>
             <%= button_tag "Haen helpperiksi", :type => 'button', :class => "black-button", :onclick => "set_buying()"%>
         <% end %>
-      </div> &nbsp;
+      </div>
       <div class="column">
         <% if params[:post_type_selling] == "true" %>
             <%= button_tag "Haen helpperiä", :type => 'button', :class => "grey-button", :onclick => "not_selling()"%>
