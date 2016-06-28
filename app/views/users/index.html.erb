@@ -24,7 +24,7 @@
     <h3>Etsin helpperiä </h3>
     <% unless @user_performer_selling_posts.empty? %>
         <% @user_performer_selling_posts.each do |post| %>
-            <% if post.ratings.count < 2 %>
+            <!-- if post.ratings.count < 2 -->
 
 
                 <table class="table table-striped">
@@ -103,10 +103,9 @@
                       <% end %>
                     </td>
                   </tr>
-
                   </tbody>
                 </table>
-            <% end %>
+            <!-- % end % -->
         <% end %>
     <% end %>
 
