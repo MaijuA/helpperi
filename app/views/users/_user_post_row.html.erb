@@ -46,9 +46,9 @@
     <% elsif !post.helpers.empty? && post.helpers.count > 1 %>
         <p><%= link_to "#{post.helpers.count} kiinnostunutta", post_path(post), class:"label label-warning"%></p>
     <% end %>
-    <% if Candidate.where(post_id:post.id).unread_by(current_user).count > 0 %>
+    <% if post_candidate_changes(post.id) > 0 %>
         <%= link_to post_path(post)  do %>
-            <p class="links"><%= Candidate.where(post_id:post.id).unread_by(current_user).count %> uutta</p>
+            <p class="links"><%= post_candidate_changes(post.id) %> uutta</p>
         <% end %>
     <% end %>
 

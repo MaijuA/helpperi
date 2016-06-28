@@ -42,8 +42,6 @@
         <td>
           <%= link_to conversations_path(post.performer.id, post.user.id, post.id), :class => "links" do %>
               <span class="glyphicon glyphicon-envelope"></span>
-              <%= content_tag :span, conversation_user_count(post.performer.id, post.id),
-                              class: 'badge', style:"background-color: blue" if conversation_user_count(post.performer.id, post.id) > 0 %>
           <% end %>
         </td>
         <td>
@@ -122,8 +120,6 @@
         <td>
           <%= link_to conversations_path(post.performer.id, post.user.id, post.id), :class => "links" do %>
               <span class="glyphicon glyphicon-envelope"></span>
-              <%= content_tag :span, conversation_user_count(post.performer.id, post.id),
-                              class: 'badge', style:"background-color: blue" if conversation_user_count(post.performer.id, post.id) > 0 %>
           <% end %>
         </td>
         <td>
@@ -201,8 +197,6 @@
           <% if post.performer %>
               <%= link_to conversations_path(current_user.id, post.performer.id, post.id), :class => "links" do %>
                   <span class="glyphicon glyphicon-envelope black-glyph"></span>
-                  <%= content_tag :span, conversation_user_count(post.performer.id, post.id),
-                                  class: 'badge', style:"background-color: blue" if conversation_user_count(post.performer.id, post.id) > 0 %>
               <% end %>
           <% end %>
         </td>
