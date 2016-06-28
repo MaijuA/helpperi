@@ -15,21 +15,18 @@
 <% end %>
 
 <%= form_tag search_path, id: "search", :method => 'get' do%>
-    <div class="row centerBlock">
-      <div class="column">
-        <% if params[:post_type_buying] == "true" %>
-            <%= button_tag "Haen helpperiksi", :type => 'button', :class => "grey-button", :onclick => "not_buying()"%>
-        <% else %>
-            <%= button_tag "Haen helpperiksi", :type => 'button', :class => "black-button", :onclick => "set_buying()"%>
-        <% end %>
-      </div>
-      <div class="column">
-        <% if params[:post_type_selling] == "true" %>
-            <%= button_tag "Haen helpperiä", :type => 'button', :class => "grey-button", :onclick => "not_selling()"%>
-        <% else %>
-            <%= button_tag "Haen helpperiä", :type => 'button', :class => "black-button", :onclick => "set_selling()"%>
-        <% end %>
-      </div>
+    <div class="row centerBlock form-group2">
+      <% if params[:post_type_buying] == "true" %>
+          <%= button_tag "Haen helpperiksi", :type => 'button', :class => "grey-button", :onclick => "not_buying()"%>
+      <% else %>
+          <%= button_tag "Haen helpperiksi", :type => 'button', :class => "black-button", :onclick => "set_buying()"%>
+      <% end %>
+      &nbsp;
+      <% if params[:post_type_selling] == "true" %>
+          <%= button_tag "Haen helpperiä", :type => 'button', :class => "grey-button", :onclick => "not_selling()"%>
+      <% else %>
+          <%= button_tag "Haen helpperiä", :type => 'button', :class => "black-button", :onclick => "set_selling()"%>
+      <% end %>
     </div>
     <div class="row">
       <div class="col-md-6 col-md-offset-3">
