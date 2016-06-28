@@ -45,6 +45,7 @@ gem 'omniauth-linkedin'
 gem 'omniauth-google-oauth2'
 gem 'unread'
 gem 'public_activity'
+gem "rails-erd"
 
 group :development, :test do
   gem 'rspec-rails', '~> 3.0'
@@ -60,6 +61,7 @@ group :development, :test do
   gem 'simplecov', require: false, :group => :test
   gem 'coveralls', require: false, :group => :test
   gem 'selenium-webdriver', :group => :test
+  gem 'database_cleaner', :group => :test
 end
 
 group :development do

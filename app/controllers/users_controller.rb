@@ -70,11 +70,17 @@ class UsersController < ApplicationController
 
   def create_rating
     @post = Post.find(params[:post_id])
-    @rating = Rating.create reviewer_id:params[:reviewer_id], reviewed_id:params[:reviewed_id], review:params[:review], score:params[:score], post_id:params[:post_id]
+    if current_user == @post.user || current_user == @post.performer
+      @rating = Rating.create reviewer_id:params[:reviewer_id], reviewed_id:params[:reviewed_id], review:params[:review], score:params[:score], post_id:params[:post_id]
     if @rating.save
         redirect_to users_path, notice: "Arviointi onnistui"
     else
-        redirect_to users_path, alert: "Arviointi epäonnistui"
+      if params[:score].to_i < 1 || params[:score].to_i > 3
+        redirect_to :back, alert: "Sinun täytyy valita tähtien määrä"
+      else
+        redirect_to users_path, notice: "Arviointi epäonnistui"
+      end
+    end
     end
   end
 end
