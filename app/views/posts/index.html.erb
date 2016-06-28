@@ -15,6 +15,7 @@
 <% end %>
 
 <%= form_tag search_path, id: "search", :method => 'get' do%>
+
     <div class="row centerBlock form-group2">
       <% if params[:post_type_buying] == "true" %>
           <%= button_tag "Haen helpperiksi", :type => 'button', :class => "grey-button", :onclick => "not_buying()"%>
@@ -25,8 +26,9 @@
       <% if params[:post_type_selling] == "true" %>
           <%= button_tag "Haen helpperiä", :type => 'button', :class => "grey-button", :onclick => "not_selling()"%>
       <% else %>
-          <%= button_tag "Haen helpperiä", :type => 'button', :class => "black-button", :onclick => "set_selling()"%>
+          <%= button_tag "Haen helpperiä", :type => 'button', :class => "white-button", :onclick => "set_selling()"%>
       <% end %>
+
     </div>
     <div class="row">
       <div class="col-md-6 col-md-offset-3">
@@ -56,9 +58,9 @@
             <div class="form-group" align="center">
               <%= submit_tag "Hae", :class => "black-button" %>
               <% if params[:size] == "short" %>
-                  <%= button_tag "Tarkempi haku", :type => 'button', :class => "black-button", :onclick => "long_search()" %>
+                  <%= button_tag "Tarkempi haku", :type => 'button', :class => "white-button", :onclick => "long_search()" %>
               <% else %>
-                  <%= button_tag "Yksinkertainen haku", :type => 'button', :class => "black-button", :onclick => "short_search()" %>
+                  <%= button_tag "Yksinkertainen haku", :type => 'button', :class => "white-button", :onclick => "short_search()" %>
               <% end %>
               <!--<= check_box_tag :remember, true, false %> Muista valintani-->
             </div>
