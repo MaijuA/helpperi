@@ -338,8 +338,8 @@
         <td>
           <%= link_to conversations_path(current_user.id, post.user.id, post.id) do %>
               <span class="glyphicon glyphicon-envelope"></span>
-              <%= content_tag :span, post_conversation_count(post.id),
-                              class: 'badge', style:"background-color: blue" if post_conversation_count(post.id) > 0 %>
+              <%= content_tag :span, conversation_user_count(post.user.id, post.id),
+                              class: 'badge', style:"background-color: blue" if conversation_user_count(post.user.id, post.id) > 0 %>
           <% end %>
         </td>
         <td>
