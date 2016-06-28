@@ -41,6 +41,8 @@
   <td>
     <% if post.performer && post.ratings.empty? %>
         <p><%= link_to "Kuittaa suoritetuksi", user_review_path(:post_id => post.id), class:"label label-success" %></p>
+    <% elsif post.helpers.empty? %>
+    
     <% elsif !post.helpers.empty? && post.helpers.count == 1 %>
         <p><%= link_to "1 kiinnostunut", post_path(post), class:"label label-warning"%></p>
     <% elsif !post.helpers.empty? && post.helpers.count > 1 %>
