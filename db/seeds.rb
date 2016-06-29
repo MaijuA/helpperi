@@ -6,31 +6,31 @@
 #   cities = City.create([{ name: 'Chicago' }, { name: 'Copenhagen' }])
 #   Mayor.create(name: 'Emanuel', city: cities.first)
 
-test_user1 = User.find_or_create_by(email: 'mikko.meikalainen@testi.fi') do |user|
-  user.password = 10000000 + rand(10000000)
-  user.first_name = 'Mikko'
-  user.last_name = 'Meikäläinen'
-  user.personal_code = '060588-217L'
-  user.phone_number = '0501234567'
-  user.address = 'Nollakatu 0'
-  user.zip_code = '00000'
-  user.city = 'Helsinki'
-  user.passport_number = false
-  user.confirmed_at = DateTime.now
-end
-
-test_user2 = User.find_or_create_by(email: 'maija.meikalainen@testi.fi') do |user|
-  user.password = 10000000 + rand(10000000)
-  user.first_name = 'Maija'
-  user.last_name = 'Meikäläinen'
-  user.personal_code = '071287-186M'
-  user.phone_number = '0500000000'
-  user.address = 'Nollakatu 0'
-  user.zip_code = '00000'
-  user.city = 'Helsinki'
-  user.passport_number = false
-  user.confirmed_at = DateTime.now
-end
+# test_user1 = User.find_or_create_by(email: 'mikko.meikalainen@testi.fi') do |user|
+#   user.password = 10000000 + rand(10000000)
+#   user.first_name = 'Mikko'
+#   user.last_name = 'Meikäläinen'
+#   user.personal_code = '060588-217L'
+#   user.phone_number = '0501234567'
+#   user.address = 'Nollakatu 0'
+#   user.zip_code = '00000'
+#   user.city = 'Helsinki'
+#   user.passport_number = false
+#   user.confirmed_at = DateTime.now
+# end
+#
+# test_user2 = User.find_or_create_by(email: 'maija.meikalainen@testi.fi') do |user|
+#   user.password = 10000000 + rand(10000000)
+#   user.first_name = 'Maija'
+#   user.last_name = 'Meikäläinen'
+#   user.personal_code = '071287-186M'
+#   user.phone_number = '0500000000'
+#   user.address = 'Nollakatu 0'
+#   user.zip_code = '00000'
+#   user.city = 'Helsinki'
+#   user.passport_number = false
+#   user.confirmed_at = DateTime.now
+# end
 
 Category.find_or_create_by(name: 'Remontti') do |category|
   category.description =  'Teen kaikki kodin pienet korjausurakat'
