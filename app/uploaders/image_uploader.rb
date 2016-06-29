@@ -31,6 +31,7 @@ class ImageUploader < CarrierWave::Uploader::Base
   # process :scale => [200, 300]
   process :tags => ["helpperi"]
   process :convert => "jpg"
+  process :resize_to_fit => [1000, 1000]
   cloudinary_transformation :quality => 80
 
   #
