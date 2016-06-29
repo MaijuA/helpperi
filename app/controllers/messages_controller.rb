@@ -21,7 +21,7 @@ class MessagesController < ApplicationController
       @over_ten = false
       @messages = @conversation.messages
     end
-    @messages.unread_by(current_user).each do |m|
+    @messages.each do |m|
       m.mark_as_read! :for => current_user
     end
 
@@ -35,7 +35,7 @@ class MessagesController < ApplicationController
       @message.mark_as_read! :for => current_user
       redirect_to conversation_messages_path(@conversation)
     else
-      redirect_to :back, notice: 'Viestiä ei voitu lähettää.'
+      redirect_to :back, alert: 'Viestiä ei voitu lähettää.'
     end
   end
 
