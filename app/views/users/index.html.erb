@@ -246,7 +246,6 @@
                       <% end %>
                     </td>
                   </tr>
-
               </tbody>
               </table>
           <% end %>
@@ -261,7 +260,6 @@
             <th class="col-md-2"></th>
             <th class="col-md-2"></th>
             <th class="col-md-2"></th>
-
           </tr>
           </thead>
 
@@ -273,145 +271,3 @@
         </table><br>
     <% end %>
 <% end %>
-
-
-
-
-<!--<br><br>-->
-<!--<h3>Luomasi ilmoitukset (<%= @user_posts.count %>)</h3>-->
-<!--<table class="table table-striped">-->
-<!--<thead>-->
-<!--<tr>-->
-<!--<th class="col-md-2"></th>-->
-<!--<th class="col-md-2"></th>-->
-<!--<th class="col-md-2"></th>-->
-<!--<th class="col-md-2"></th>-->
-<!--<th class="col-md-1"></th>-->
-<!--</tr>-->
-<!--</thead>-->
-
-<!--<tbody class="form-group">-->
-<!--<% @user_posts.each do |post| %>-->
-    <!--<tr>-->
-    <!--<% if post.image_is_set? %>-->
-        <!--<td><%= image_tag post.image_url(:list), align: 'left' %></td>-->
-        <!--<% else %>-->
-        <!--<td><%= image_tag post.category_to_take_image_from.image_url(:list), align: 'left' %></td>-->
-        <!--<% end %>-->
-    <!--<td><b><%= link_to truncate(post.title, :length => 30), post %></b>-->
-    <!--<% if post.buyer? %>-->
-        <!--<p><span class="buying-badge">Helpattava</span></p>-->
-        <!--<% elsif post.seller? %>-->
-        <!--<p><span class="selling-badge">Helppaaja</span></p>-->
-        <!--<% end %>-->
-    <!--<p>-->
-    <!--<% post.categories.each do |category| %>-->
-        <!--<span class="category-badge"><%= "#{category.name}" %></span>-->
-        <!--<% end %>-->
-    <!--</p></td>-->
-    <!--<td>-->
-    <!--<% if post.helpers.empty? %>-->
-        <!--Ei kiinnostuneita-->
-        <!--<% else %>-->
-        <!--<p><%= link_to "#{post.helpers.count} kiinnostunutta", post_path(post), class:"label label-warning"%></p>-->
-        <!--<% if Candidate.where(post_id:post.id).unread_by(current_user).count > 0 %>-->
-            <!--<%= link_to post_path(post)  do %>-->
-                <!--<p><%= Candidate.where(post_id:post.id).unread_by(current_user).count %> uutta</p>-->
-                <!--<% end %>-->
-            <!--<% end %>-->
-        <!--<% end %>-->
-    <!--</td>-->
-    <!--<td>-->
-    <!--<% if Conversation.where(post_id:post.id) %>-->
-        <!--<% Conversation.where(post_id:post.id).each do |c| %>-->
-            <!--<% if c.sender_id == current_user.id %>-->
-                <!--<div class="row">-->
-                <!--<%= link_to conversation_messages_path(c) do %>-->
-                    <!--<%= User.where(id:c.recipient_id).first.first_name %> <span class="glyphicon glyphicon-envelope"></span>
-                    <!--<%= content_tag :span, conversation_user_count(c.recipient_id, post.id),
-                                        class: 'badge', style:"background-color: blue" if conversation_user_count(c.recipient_id, post.id) > 0 %>-->
-                    <!--</div>-->
-                    <!--<% end %>-->
-                <!--<%= render 'layouts/stars', :user => User.where(id:c.recipient_id).first %><br>-->
-                <!--<% else %>-->
-                <!--<div class="row">-->
-                <!--<%= link_to conversation_messages_path(c) do %>-->
-                    <!--<%= User.where(id:c.sender_id).first.first_name %> <span class="glyphicon glyphicon-envelope"></span>
-                    <!--<%= content_tag :span, conversation_user_count(c.sender_id, post.id),
-                                        class: 'badge', style:"background-color: blue" if conversation_user_count(c.sender_id, post.id) > 0 %>-->
-                    <!--<% end %>-->
-                <!--</div>-->
-                <!--<%= render 'layouts/stars', :user => User.where(id:c.sender_id).first %><br>-->
-                <!--<% end %>-->
-            <!--<% end %>-->
-        <!--<% end %>-->
-    <!--</td>-->
-    <!--<td><% if post.price %>-->
-        <!--<%= post.price %> €-->
-        <!--<% end %>-->
-    <!--</td>-->
-    <!--</tr>-->
-    <!--<% end %>-->
-<!--</tbody>-->
-<!--</table>-->
-<!--<%= will_paginate @user_posts, :param_name => 'post_page' %>-->
-<!--<br>-->
-
-
-<!--<h3>Ilmoitukset, joista olet kiinnostunut (<%= @user_accepted_posts.count %>)</h3>-->
-
-<!--<table class="table table-striped">-->
-<!--<thead>-->
-<!--<tr>-->
-<!--<th class="col-md-2"></th>-->
-<!--<th class="col-md-2"></th>-->
-<!--<th class="col-md-2"></th>-->
-<!--<th class="col-md-2"></th>-->
-<!--<th class="col-md-2"></th>-->
-<!--<th class="col-md-1"></th>-->
-<!--</tr>-->
-<!--</thead>-->
-
-<!--<tbody class="form-group">-->
-<!--<% @user_accepted_posts.each do |post| %>-->
-    <!--<tr>-->
-    <!--<% if post.image_is_set? %>-->
-        <!--<td><%= image_tag post.image_url(:list), align: 'left' %></td>-->
-        <!--<% else %>-->
-        <!--<td><%= image_tag post.category_to_take_image_from.image_url(:list), align: 'left' %></td>-->
-        <!--<% end %>-->
-    <!--<td><b><%= link_to truncate(post.title, :length => 30), post %></b>-->
-    <!--<% if post.buyer? %>-->
-        <!--<p><span class="selling-badge">Helpperi</span></p>-->
-        <!--<% end %>-->
-    <!--<p>-->
-    <!--<% post.categories.each do |category| %>-->
-        <!--<span class="category-badge"><%= "#{category.name}" %></span>-->
-        <!--<% end %>-->
-    <!--</p>-->
-    <!--</td>-->
-    <!--<td>-->
-    <!--<div class="row">-->
-    <!--<%= link_to(post.performer.first_name, user_path(post.performer)) %>-->
-    <!--</div>-->
-    <!--<%= render 'layouts/stars', :user => post.performer %>-->
-    <!--</td>-->
-    <!--<td>-->
-    <!--<%= link_to conversations_path(post.performer.id, post.user.id, post.id) do %>-->
-        <!--<span class="glyphicon glyphicon-envelope"></span>-->
-        <%= content_tag :span, conversation_user_count(post.performer.id, post.id),
-                        class: 'badge', style:"background-color: blue" if conversation_user_count(post.performer.id, post.id) > 0 %>
-        <!--<% end %>-->
-    <!--</td>-->
-    <!--<td>-->
-    <!--<%= link_to 'Kuittaa suoritetuksi', user_review_path(:post_id => post.id) %>-->
-    <!--</td>-->
-    <!--<td><% if post.price %>-->
-        <!--<%= post.price %> €-->
-        <!--<% end %>-->
-    <!--</td>-->
-    <!--</tr>-->
-    <!--<% end %>-->
-<!--</tbody>-->
-<!--</table>-->
-<!--<%= will_paginate @user_accepted_posts, :param_name => 'accepted_page' %>-->
