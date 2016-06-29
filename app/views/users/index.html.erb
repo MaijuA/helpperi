@@ -179,7 +179,7 @@
 
           <tbody class="form-group">
           <% @user_performer_buying_posts.each do |post| %>
-              <% if post.ratings.count < 2 %>
+
                   <tr>
                     <% if post.image_is_set? %>
                         <td>
@@ -267,7 +267,7 @@
                       <% end %>
                     </td>
                   </tr>
-              <% end %>
+
               </tbody>
               </table>
           <% end %>
