@@ -38,6 +38,7 @@ Rails.application.routes.draw do
   get '/info' => 'info#info', as: :info_info
   get '/contact' => 'info#contact', as: :info_contact
   get '/cooperation' => 'info#cooperation', as: :info_cooperation
+  get '/tos' => 'info#tos', as: :info_tos
 
   #resources :contact, only: [:index]
 

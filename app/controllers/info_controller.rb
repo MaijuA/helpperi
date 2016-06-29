@@ -9,4 +9,7 @@ class InfoController < ApplicationController
   def contact
   end
 
+  def tos
+  end
+
 end
