@@ -41,7 +41,7 @@
     <br>
     <div class='form-group'>
       <%= f.label :title %><br>
-      <%= f.text_field :title, class: 'form-control' %>
+      <%= f.text_field :title, class: 'form-control', maxlength: "100" %>
     </div>
     <br>
     <div class='form-group'>
@@ -56,8 +56,9 @@
     <br>
     <i>(max. 2000 merkkiä)</i>
     <br>
-    <div id='description' class=''><%= f.text_area :description, :rows => '5', class: 'form-control' %></div>
-    <br>
+    <div id='description' class=''>
+      <%= f.text_area :description, :rows => '5', class: 'form-control', maxlength: "2000" %>
+    </div><br>
 
     <div class="form-group">
       <%= f.label :image %>
@@ -80,7 +81,7 @@
     </br>
     <div class='field'>
       <%= f.label :price %> / €<br>
-      <%= f.number_field :price, value: f.object.price || 0, min: 0 %>
+      <%= f.number_field :price, value: f.object.price || 0, min: 0, max: 499 %>
     </div>
 
     <br>
