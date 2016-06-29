@@ -56,9 +56,11 @@
         </p><br>
 
         <!-- oma ilmoitus -->
-        <%= link_to('Muokkaa', edit_post_path(@post), class:"black-button") if @post.user == current_user %>
-        <%= link_to("Poista", post_delete_post_path(@post.id), class:"white-button", data:
-            { confirm: 'Haluatko varmasti poistaa ilmoituksen?' }, method: :post) if @post.user == current_user %>
+        <% if @post.deleted == false && @post.doer_id == nil %>
+            <%= link_to('Muokkaa', edit_post_path(@post), class:"black-button") if @post.user == current_user %>
+            <%= link_to("Poista", post_delete_post_path(@post.id), class:"white-button", data:
+                { confirm: 'Haluatko varmasti poistaa ilmoituksen?' }, method: :post) if @post.user == current_user %>
+        <% end %>
 
 
         <% if current_user && @post.user.id != current_user.id %>
@@ -66,7 +68,7 @@
                 <% if @post.doer_id == current_user.id %>
                     <a class='btn black-button disabled ' >Sinut on hyväksytty</a>
                 <% elsif @post.helpers.include?(current_user) %>
-                    <%= link_to('Peru kiinnostuksesi', post_remove_candidate_path(:post_id => @post.id), class:"black-button", method: :post) %>
+                    <%= link_to('Peru kiinnostuksesi', post_remove_candidate_path(:post_id => @post.id), class:"grey-button", method: :post) %>
                 <% elsif @post.denied_helpers.include?(current_user) %>
                     <a class='btn btn-danger disabled ' >Ilmoittaja ei valinnut sinua tällä kertaa.</a>
                 <% elsif !@post.denied_helpers.include?(current_user) %>
