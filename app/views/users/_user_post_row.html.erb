@@ -54,7 +54,7 @@
         <% end %>
     <% end %>
 
-    <% if Conversation.where(post_id:post.id) %>
+    <% unless Conversation.where(post_id:post.id).empty? %>
         <%= link_to post_path(post), class: "links" do %>
             <p><span class="label label-primary">keskustelu</span></p>
             <% if Conversation.where(post_id:post.id).user_messages(current_user.id).unread_by(current_user).count > 0 %>

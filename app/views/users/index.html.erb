@@ -118,13 +118,12 @@
                       </ul><br>
                   <% end %>
 
-                  <% if Conversation.where(post_id:post.id) %>
+                  <% unless Conversation.between(post.id, post.user.id, current_user.id).empty? %>
                       <%= link_to post_path(post), class: "links" do %>
                           <p><span class="label label-primary">keskustelu</span></p>
-                          <% if Conversation.where(post_id:post.id).user_messages(current_user.id).unread_by(current_user).count > 0 %>
+                          <% if conversation_user_count(post.user.id, post.id) > 0 %>
                               <p>Uusia viestejä</p>
                           <% end %>
-
                       <% end %>
                   <% end %>
                 </td>
@@ -158,6 +157,7 @@
 
 <% if !@user_performer_buying_posts.empty? && !@user_selling_posts.empty? %> <!-- tähän performer_posteista vain ne joissa ratings < 2 -->
     <h3>Haluan helpperiksi </h3>
+
     <% unless @user_performer_buying_posts.empty? %>
 
         <table class="table table-striped">
@@ -235,6 +235,7 @@
                             <% else %>
                                 <li class="rating_star"></li>
                             <% end %>
+                            <<<<<<< HEAD
                         <% end %>
                       </ul><br>
                   <% end %>
@@ -243,50 +244,50 @@
                           <p><span class="label label-primary">keskustelu</span></p>
                           <% if Conversation.where(post_id:post.id).user_messages(current_user.id).unread_by(current_user).count > 0 %>
                               <p>Uusia viestejä</p>
+
                           <% end %>
 
                       <% end %>
                   <% end %>
                 </td>
               </tr>
+              </tbody>
+              </table>
           <% end %>
+<% end %>
+          <% unless @user_selling_posts.empty? %>
 
-          </tbody>
-        </table>
-    <% end %>
+              <table class="table table-striped">
+                <caption>Luomani ilmoitukset (<%= @user_selling_posts.count %>)</caption>
+                <thead>
+                <tr>
+                  <th class="col-md-2"></th>
+                  <th class="col-md-2"></th>
+                  <th class="col-md-2"></th>
+                </tr>
+                </thead>
 
-    <% unless @user_selling_posts.empty? %>
-
-        <table class="table table-striped">
-          <caption>Luomani ilmoitukset (<%= @user_selling_posts.count %>)</caption>
-          <thead>
-          <tr>
-            <th class="col-md-2"></th>
-            <th class="col-md-2"></th>
-            <th class="col-md-2"></th>
-          </tr>
-          </thead>
-
-          <tbody class="form-group">
-          <% @user_selling_posts.each do |post| %>
-              <%= render 'user_post_row', :post => post %>
+                <tbody class="form-group">
+                <% @user_selling_posts.each do |post| %>
+                    <%= render 'user_post_row', :post => post %>
+                <% end %>
+                </tbody>
+              </table><br>
           <% end %>
-          </tbody>
-        </table><br>
-    <% end %>
 <% end %>
 
-<% if @user_performer_posts_rated %>
-    <div class="row">
-      <div class="col-md-6 col-md-offset-3">
-        <h1 class="text-center login-title"></h1>
-        <div class="account-wall">
 
-          <div class="padding">
-            Huom! Vain ilmoituksen luoja voi merkitä ilmoituksen suoritetuksi.
-            Suoritetut ilmoitukset löytyvät historia-sivulta, jossa myös ilmoituksen luojan arviointi tapahtuu.
+    <% if @user_performer_posts_rated %>
+        <div class="row">
+          <div class="col-md-6 col-md-offset-3">
+            <h1 class="text-center login-title"></h1>
+            <div class="account-wall">
+
+              <div class="padding">
+                Huom! Vain ilmoituksen luoja voi merkitä ilmoituksen suoritetuksi.
+                Suoritetut ilmoitukset löytyvät historia-sivulta, jossa myös ilmoituksen luojan arviointi tapahtuu.
+              </div>
+            </div>
           </div>
         </div>
-      </div>
-    </div>
-<% end %>
+    <% end %>

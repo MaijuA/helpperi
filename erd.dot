@@ -1,0 +1,111 @@
+digraph Helpperi {
+rankdir = "LR";
+ranksep = "0.5";
+nodesep = "0.4";
+pad = "0.4,0.4";
+margin = "0,0";
+concentrate = "true";
+labelloc = "t";
+fontsize = "13";
+fontname = "Arial Bold";
+node[ shape  =  "Mrecord" , fontsize  =  "10" , fontname  =  "Arial" , margin  =  "0.07,0.05" , penwidth  =  "1.0"];
+edge[ fontname  =  "Arial" , fontsize  =  "7" , dir  =  "both" , arrowsize  =  "0.9" , penwidth  =  "1.0" , labelangle  =  "32" , labeldistance  =  "1.8"];
+rankdir = "TB";
+label = "Helpperi domain model\n\n";
+m_Candidate [label = <<table border="0" align="center" cellspacing="0.5" cellpadding="0" width="134">
+  <tr><td align="center" valign="bottom" width="130"><font face="Arial Bold" point-size="11">Candidate</font></td></tr>
+</table>
+|
+<table border="0" align="left" cellspacing="2" cellpadding="0" width="134">
+  <tr><td align="left" width="130" port="post_id">post_id <font face="Arial Italic" color="grey60">integer FK</font></td></tr>
+  <tr><td align="left" width="130" port="user_id">user_id <font face="Arial Italic" color="grey60">integer FK</font></td></tr>
+</table>
+>];
+m_Category [label = <<table border="0" align="center" cellspacing="0.5" cellpadding="0" width="134">
+  <tr><td align="center" valign="bottom" width="130"><font face="Arial Bold" point-size="11">Category</font></td></tr>
+</table>
+>];
+m_Conversation [label = <<table border="0" align="center" cellspacing="0.5" cellpadding="0" width="134">
+  <tr><td align="center" valign="bottom" width="130"><font face="Arial Bold" point-size="11">Conversation</font></td></tr>
+</table>
+>];
+m_Message [label = <<table border="0" align="center" cellspacing="0.5" cellpadding="0" width="134">
+  <tr><td align="center" valign="bottom" width="130"><font face="Arial Bold" point-size="11">Message</font></td></tr>
+</table>
+|
+<table border="0" align="left" cellspacing="2" cellpadding="0" width="134">
+  <tr><td align="left" width="130" port="conversation_id">conversation_id <font face="Arial Italic" color="grey60">integer ∗ FK</font></td></tr>
+  <tr><td align="left" width="130" port="user_id">user_id <font face="Arial Italic" color="grey60">integer ∗ FK</font></td></tr>
+</table>
+>];
+m_Post [label = <<table border="0" align="center" cellspacing="0.5" cellpadding="0" width="134">
+  <tr><td align="center" valign="bottom" width="130"><font face="Arial Bold" point-size="11">Post</font></td></tr>
+</table>
+|
+<table border="0" align="left" cellspacing="2" cellpadding="0" width="134">
+  <tr><td align="left" width="130" port="user_id">user_id <font face="Arial Italic" color="grey60">integer ∗ FK</font></td></tr>
+</table>
+>];
+m_PostCategory [label = <<table border="0" align="center" cellspacing="0.5" cellpadding="0" width="134">
+  <tr><td align="center" valign="bottom" width="130"><font face="Arial Bold" point-size="11">PostCategory</font></td></tr>
+</table>
+|
+<table border="0" align="left" cellspacing="2" cellpadding="0" width="134">
+  <tr><td align="left" width="130" port="category_id">category_id <font face="Arial Italic" color="grey60">integer FK</font></td></tr>
+  <tr><td align="left" width="130" port="post_id">post_id <font face="Arial Italic" color="grey60">integer FK</font></td></tr>
+</table>
+>];
+"m_PublicActivity::ORM::ActiveRecord::Activity" [label = <<table border="0" align="center" cellspacing="0.5" cellpadding="0" width="134">
+  <tr><td align="center" valign="bottom" width="130"><font face="Arial Bold" point-size="11">PublicActivity::ORM::ActiveRecord::Activity</font></td></tr>
+</table>
+|
+<table border="0" align="left" cellspacing="2" cellpadding="0" width="134">
+  <tr><td align="left" width="130" port="trackable_id">trackable_id <font face="Arial Italic" color="grey60">integer FK</font></td></tr>
+</table>
+>];
+m_Rating [label = <<table border="0" align="center" cellspacing="0.5" cellpadding="0" width="134">
+  <tr><td align="center" valign="bottom" width="130"><font face="Arial Bold" point-size="11">Rating</font></td></tr>
+</table>
+|
+<table border="0" align="left" cellspacing="2" cellpadding="0" width="134">
+  <tr><td align="left" width="130" port="post_id">post_id <font face="Arial Italic" color="grey60">integer ∗ FK</font></td></tr>
+  <tr><td align="left" width="130" port="reviewed_id">reviewed_id <font face="Arial Italic" color="grey60">integer ∗ FK</font></td></tr>
+  <tr><td align="left" width="130" port="reviewer_id">reviewer_id <font face="Arial Italic" color="grey60">integer ∗ FK</font></td></tr>
+</table>
+>];
+m_ReadMark [label = <<table border="0" align="center" cellspacing="0.5" cellpadding="0" width="134">
+  <tr><td align="center" valign="bottom" width="130"><font face="Arial Bold" point-size="11">ReadMark</font></td></tr>
+</table>
+|
+<table border="0" align="left" cellspacing="2" cellpadding="0" width="134">
+  <tr><td align="left" width="130" port="readable_id">readable_id <font face="Arial Italic" color="grey60">integer FK</font></td></tr>
+  <tr><td align="left" width="130" port="reader_id">reader_id <font face="Arial Italic" color="grey60">integer ∗ FK</font></td></tr>
+</table>
+>];
+m_User [label = <<table border="0" align="center" cellspacing="0.5" cellpadding="0" width="134">
+  <tr><td align="center" valign="bottom" width="130"><font face="Arial Bold" point-size="11">User</font></td></tr>
+</table>
+>];
+  m_Candidate -> m_ReadMark [arrowhead = "normal", arrowtail = "none", weight = "1"];
+  m_Message -> m_ReadMark [arrowhead = "normal", arrowtail = "none", weight = "1"];
+  m_Post -> m_ReadMark [arrowhead = "normal", arrowtail = "none", weight = "1"];
+  m_User -> m_ReadMark [arrowhead = "normal", arrowtail = "none", weight = "1"];
+  m_User -> m_Post [arrowhead = "normal", arrowtail = "none", weight = "2"];
+  m_User -> m_Candidate [arrowhead = "normal", arrowtail = "none", weight = "2"];
+  m_User -> m_Post [style = "dotted", arrowhead = "normal", arrowtail = "none", weight = "1", constraint = "false"];
+  m_User -> m_Rating [arrowhead = "normal", arrowtail = "none", weight = "2"];
+  m_User -> m_Rating [arrowhead = "normal", arrowtail = "none", weight = "2"];
+  m_Post -> m_Candidate [arrowhead = "normal", arrowtail = "none", weight = "3"];
+  m_Candidate -> "m_PublicActivity::ORM::ActiveRecord::Activity" [arrowhead = "normal", arrowtail = "none", weight = "1"];
+  m_Message -> "m_PublicActivity::ORM::ActiveRecord::Activity" [arrowhead = "normal", arrowtail = "none", weight = "1"];
+  m_Category -> m_PostCategory [arrowhead = "normal", arrowtail = "none", weight = "2"];
+  m_Category -> m_Post [style = "dotted", arrowhead = "normal", arrowtail = "none", weight = "2", constraint = "false"];
+  m_User -> m_Conversation [arrowhead = "normal", arrowtail = "none", weight = "1"];
+  m_User -> m_Conversation [arrowhead = "normal", arrowtail = "none", weight = "1"];
+  m_Conversation -> m_Message [arrowhead = "normal", arrowtail = "none", weight = "2"];
+  m_User -> m_Message [arrowhead = "normal", arrowtail = "none", weight = "1"];
+  m_Post -> m_PostCategory [arrowhead = "normal", arrowtail = "none", weight = "2"];
+  m_Post -> m_User [style = "dotted", arrowhead = "normal", arrowtail = "none", weight = "1", constraint = "false"];
+  m_Post -> m_User [style = "dotted", arrowhead = "normal", arrowtail = "none", weight = "1", constraint = "false"];
+  m_Post -> m_Rating [arrowhead = "normal", arrowtail = "none", weight = "2"];
+}
