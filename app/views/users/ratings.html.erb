@@ -2,6 +2,11 @@
   <div class="col-md-6 col-md-offset-3">
     <h1 class="text-center login-title">Käyttäjän <%= @user.first_name %> arvioinnit (<%= @user.ratings.count %>)</h1>
     <div class="account-wall">
+      <div class="padding" >
+      <% if @user.ratings.empty? %>
+      Käyttäjällä ei ole vielä arviointeja.
+          <% end %>
+      </div>
       <table class="table table-striped">
         <thead>
         <tr>
