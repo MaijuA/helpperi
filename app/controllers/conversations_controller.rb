@@ -1,5 +1,6 @@
 class ConversationsController < ApplicationController
   before_action :authenticate_user!
+  before_action :check_conversation_creator, only: :create
 
   def index
     @users = User.all
@@ -16,6 +17,11 @@ class ConversationsController < ApplicationController
   end
 
   private
+
+  def check_conversation_creator
+    redirect_to root_path unless params[:sender_id].to_i == current_user.id
+  end
+
   def conversation_params
     params.permit(:sender_id, :recipient_id, :post_id)
   end

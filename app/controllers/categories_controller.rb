@@ -55,8 +55,8 @@ class CategoriesController < ApplicationController
   private
 
   def authenticate
-    if Rails.env.production? && ENV['CATEGORIES_PASSWORD']
-      admin_account = { "admin" => ENV['CATEGORIES_PASSWORD'] }
+    if Rails.env.production?
+      admin_account = { "admin" => ENV['CATEGORIES_PASSWORD'] || 'admin' }
       authenticate_or_request_with_http_basic do |username, password|
         admin_account[username] == password
       end
