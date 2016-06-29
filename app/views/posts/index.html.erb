@@ -35,7 +35,7 @@
         <% end %>
 
       </div>
-      <div class="row">
+      <div class="row" style="padding:15px;">
         <div class="col-md-6 col-md-offset-3">
           <div class="account-wall">
             <div class="centerBlock">
@@ -63,6 +63,7 @@
               <div class="form-group" align="center">
                 <%= submit_tag "Hae", :class => "black-button" %>
                 <% if params[:size] == "short" %>
+
                     <%= button_tag "Tarkempi haku", :type => 'button', :class => "white-button", :onclick => "long_search()" %>
                 <% else %>
                     <%= button_tag "Yksinkertainen haku", :type => 'button', :class => "white-button", :onclick => "short_search()" %>
@@ -73,9 +74,10 @@
           </div>
         </div>
       </div>
-      <div align="right">
+
+      <div style="padding-right:15px;" align="right">
         <% if current_user %>
-            <%= check_box_tag :only_interests, params[:only_interests], params[:only_interests], {:onchange => 'change_interests()'}%> Vain omat kiinnostukset &nbsp;
+            <%= check_box_tag :only_interests, params[:only_interests], params[:only_interests], {:onchange => 'change_interests()'}%> Vain omat ilmoittautumiset &nbsp;
         <% end %>
         <%= collection_select(:table, :id, ["Uusimmat", "Sulkeutumassa", "Pienin palkkio", "Suurin palkkio"], :to_s, :to_s, {:selected => params[:order]}, { :onchange => "change_order()"}) %>
       </div>
@@ -84,6 +86,7 @@
       <%= hidden_field_tag :size, params[:size] %>
   <% end %>
 </div>
+&nbsp;
 
 <% if @posts.empty? %>
 
