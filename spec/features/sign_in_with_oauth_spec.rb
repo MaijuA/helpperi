@@ -6,10 +6,19 @@ describe 'OAuth' do
     Rails.application.env_config["omniauth.auth"] = OmniAuth.config.mock_auth[:linkedin]
   end
 
-  it 'should signs in' do
+  it 'should sign in with LinkedIn' do
     visit new_user_session_path
 
     click_link 'Kirjaudu LinkedIn-tunnuksilla'
+
+    expect(page).to have_content 'Onnistuneesti valtuutettu käyttäen palvelua'
+  end
+
+  it 'should sign in with Google' do
+    Rails.application.env_config["omniauth.auth"] = OmniAuth.config.mock_auth[:google_oauth2]
+    visit new_user_session_path
+
+    click_link 'Kirjaudu Google-tunnuksilla'
 
     expect(page).to have_content 'Onnistuneesti valtuutettu käyttäen palvelua'
   end
