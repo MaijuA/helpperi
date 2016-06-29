@@ -6,7 +6,7 @@ describe 'Users history page' do
 
   it 'should show expired post' do
     login_as(user)
-    post.update_attribute(:ending_date, Date.yesterday)
+    post.update_attribute(:ending_date, 2.days.ago)
 
     visit user_history_path
 
