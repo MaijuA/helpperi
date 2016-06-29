@@ -70,7 +70,7 @@ class Post < ActiveRecord::Base
   scope :valid, lambda{ where(deleted:false).where("ending_date >= ?", Date.today) }
   scope :others, -> (current_user) { where("user_id != ?", current_user)}
   scope :expired, lambda{ where(deleted:false).where("ending_date < ?", Date.today).where(doer_id:nil) }
-  scope :rated, -> { where(deleted:false).where(id:(Post.joins(:ratings).select('posts.id, post_id').having('COUNT(post_id) > 1').group('posts.id, post_id').ids)) }
+  scope :rated, -> { where(deleted:false).where(id:(Post.joins(:ratings).select('posts.id, ratings.post_id').having('COUNT(ratings.post_id) > 1').group('posts.id, ratings.post_id').ids)) }
   scope :not_rated, -> { where(deleted:false).where.not(id:(Post.all.rated.ids)) }
 
   def category_to_take_image_from
