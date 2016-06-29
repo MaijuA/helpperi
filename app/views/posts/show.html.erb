@@ -92,7 +92,7 @@
                     <% end %>
                     <% end %>
                 <!-- ilmoituksen keskustelu -->
-                <%= link_to 'Lähetä viesti ilmoittajalle', conversations_path(sender_id: current_user.id, recipient_id: @post.user.id, post_id:@post.id), method: 'post', class:"white-button" %>
+                <%= link_to 'Lähetä viesti', conversations_path(sender_id: current_user.id, recipient_id: @post.user.id, post_id:@post.id), method: 'post', class:"white-button" %>
                 <!-- /ilmoituksen keskustelu -->
             <% else %>
                 <i>Täytäthän puuttuvat tiedot profiilistasi, jotta voit ilmoittautua kiinnostuneeksi tai lähettää viestin ilmoittajalle.</i></p>
