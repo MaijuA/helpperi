@@ -34,3 +34,4 @@ describe 'Messages' do
     expect(page).to have_content('Hae')
   end
 end
+
