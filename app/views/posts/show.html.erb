@@ -111,7 +111,7 @@
 
           <%= form_for(@post, :html => {:class => "lomake"}) do |f| %>
 
-              <% if @post.helpers.empty? && !@post.performer && !Post.all.expired.include?(@post) %>
+              <% if @post.helpers.empty? && !@post.performer %>
 
                   <p>Tässä näet ilmoituksestasi kiinnostuneet henkilöt</p>
               <% elsif @post.performer %>
@@ -222,10 +222,10 @@
                         <% end %>
                     <% end %>
                     </tr>
-                </tbody>
-                </table>
             <% end %>
-            </div>
+            </tbody>
+          </table>
+        </div>
       </div>
     </div>
 <% end %>
