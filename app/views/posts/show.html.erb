@@ -59,21 +59,7 @@
         <%= link_to('Muokkaa', edit_post_path(@post), class:"black-button") if @post.user == current_user %>
         <%= link_to("Poista", post_delete_post_path(@post.id), class:"white-button", data:
             { confirm: 'Haluatko varmasti poistaa ilmoituksen?' }, method: :post) if @post.user == current_user %>
-        <!-- /oma ilmoitus -->
 
-        <!--
-        (on kiinnostunut)
-        1. käyttäjä on sitoutunut (valittu)
-        2. käyttäjä on ilmoittautunut kiinnostuneeksi (kiinnostunut)
-        3. käyttäjä on hylätty (ei valittu)
-        tai
-        (ei kiinnostunut)
-        1. käyttäjä voi ilmoittautua kiinnostuneeksi
-        1. viestit
-        tai
-        1. viivästetty rekisteröinti ilmoitus (kirjautunut)
-        2. suorita rekisteröinti (ei kirjautunut)
-        -->
 
         <% if current_user && @post.user.id != current_user.id %>
             <% if current_user.valid? %>
@@ -85,12 +71,12 @@
                     <a class='btn btn-danger disabled ' >Ilmoittaja ei valinnut sinua tällä kertaa.</a>
                 <% elsif !@post.denied_helpers.include?(current_user) %>
                     <% if @post.buyer? %>
-                    <%= link_to('Haluan helpperiksi', post_add_candidate_path(@post.id), class:"black-button", method: :post) %>
+                        <%= link_to('Haluan helpperiksi', post_add_candidate_path(@post.id), class:"black-button", method: :post) %>
                     <% end %>
                     <% if @post.seller? %>
                         <%= link_to('Haluan helpperin', post_add_candidate_path(@post.id), class:"black-button", method: :post) %>
                     <% end %>
-                    <% end %>
+                <% end %>
                 <!-- ilmoituksen keskustelu -->
                 <%= link_to 'Lähetä viesti', conversations_path(sender_id: current_user.id, recipient_id: @post.user.id, post_id:@post.id), method: 'post', class:"white-button" %>
                 <!-- /ilmoituksen keskustelu -->
@@ -213,10 +199,11 @@
                 <tr>
                   <p>
                     <% if c.sender_id == current_user.id %>
-                        <%= link_to conversation_messages_path(c) do %>
+
                             <td><p> <%= User.where(id:c.recipient_id).first.first_name %>
                     <%= render 'layouts/stars', :user => User.where(id:c.recipient_id).first %></p></td>
-                            <td> <p align="center" style="color:black"><span class="glyphicon glyphicon-envelope black-glyph"></span>(määrä)</p>
+                        <%= link_to conversation_messages_path(c) do %>
+                            <td> <p align="center" style="color:black"><span class="glyphicon glyphicon-envelope black-glyph"></span></p>
                               <% if conversation_user_count(c.recipient_id, @post.id) > 0 %>
                                   <p class="links" align="center">(<%= conversation_user_count(c.recipient_id, @post.id) %> uutta)</p>
                               <% end %></td>

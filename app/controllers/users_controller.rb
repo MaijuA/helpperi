@@ -27,11 +27,11 @@ class UsersController < ApplicationController
       params[:page4] = 1 if params[:page2] == ''
 
       @user_posts = current_user.posts.active.valid
-      @user_selling_posts = current_user.posts.valid.not_rated.selling.paginate(:page => params[:selling_page], :per_page => 5)
-      @user_buying_posts = current_user.posts.valid.not_rated.buying.paginate(:page => params[:buying_page], :per_page => 5)
+      @user_selling_posts = current_user.posts.valid.not_rated.selling#.paginate(:page => params[:selling_page], :per_page => 5)
+      @user_buying_posts = current_user.posts.valid.not_rated.buying#.paginate(:page => params[:buying_page], :per_page => 5)
       @user_performer_posts = Post.where(doer_id:current_user.id)
-      @user_performer_buying_posts = Post.where(doer_id:current_user.id).buying.paginate(:page => params[:performer_buying_page], :per_page => 5) # ne joissa ratings.count < 2
-      @user_performer_selling_posts = Post.where(doer_id:current_user.id).selling.paginate(:page => params[:performer_selling_page], :per_page => 5) # ne joissa ratings.count < 2
+      @user_performer_buying_posts = Post.where(doer_id:current_user.id).buying#.paginate(:page => params[:performer_buying_page], :per_page => 5) # ne joissa ratings.count < 2
+      @user_performer_selling_posts = Post.where(doer_id:current_user.id).selling#.paginate(:page => params[:performer_selling_page], :per_page => 5) # ne joissa ratings.count < 2
     end
   end
 

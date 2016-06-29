@@ -33,11 +33,12 @@ class User < ActiveRecord::Base
   }, :on => :update
 
   validates :personal_code, hetu: true, :unless => :passport_number_is_used?, :on => :update
+  validates :personal_code, uniqueness: true
 
   validates_processing_of :image, if: :image_is_set?
   validates_integrity_of :image, if: :image_is_set?
   validates :image, :file_size => {
-      :maximum => 5.megabytes.to_i
+      :maximum => 10.megabytes.to_i
   }, if: :image_is_set?
 
   has_many :posts, dependent: :destroy
