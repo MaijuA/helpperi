@@ -67,17 +67,17 @@
           </div>
         </div>
       </div>
-    </div>
+    </div> &nbsp;
     <div align="right">
       <% if current_user %>
-          <%= check_box_tag :only_interests, params[:only_interests], params[:only_interests], {:onchange => 'change_interests()'}%> Vain omat kiinnostukset &nbsp;
+          <%= check_box_tag :only_interests, params[:only_interests], params[:only_interests], {:onchange => 'change_interests()'}%> Vain omat ilmoittautumiseni &nbsp; &nbsp;
       <% end %>
       <%= collection_select(:table, :id, ["Uusimmat", "Sulkeutumassa", "Pienin palkkio", "Suurin palkkio"], :to_s, :to_s, {:selected => params[:order]}, { :onchange => "change_order()"}) %>
     </div>
     <%= hidden_field_tag :post_type_buying, params[:post_type_buying] %>
     <%= hidden_field_tag :post_type_selling, params[:post_type_selling] %>
     <%= hidden_field_tag :size, params[:size] %>
-<% end %>
+<% end %> &nbsp;
 
 
 <% if @posts.empty? %>
