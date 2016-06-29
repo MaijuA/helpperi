@@ -254,7 +254,7 @@ RSpec.describe Post, type: :model do
   end
 
   it 'doesn´t save the post if title is too long' do
-    post = Post.create title: Array.new(51){rand(36).to_s(36)}.join,
+    post = Post.create title: Array.new(101){rand(36).to_s(36)}.join,
                        description: 'kuvaus',
                        price: 10,
                        post_type: 'Osto',

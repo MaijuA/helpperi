@@ -1,188 +1,229 @@
-<h3>Olen ollut helpperinä (<%= @user_performed_selling.count %>)</h3>
+<% if @user_performed_selling.empty? && @user_performed_buying.empty? && @user_expired_posts.empty? %>
 
-<table class="table table-striped">
-  <thead>
-  <tr>
-    <th class="col-md-2"></th>
-    <th class="col-md-2"></th>
-    <th class="col-md-2"></th>
-    <th class="col-md-2"></th>
-  </tr>
-  </thead>
+    <div class="row">
+      <div class="col-md-6 col-md-offset-3">
+        <h1 class="text-center login-title">Historia</h1>
+        <div class="account-wall">
 
-  <tbody class="form-group">
-  <% @user_performed_selling.each do |post| %>
+          <div class="padding">
+            Sinulla ei vielä ole historiaa Helpperissä. Tälle sivulle tulee näkyviin suorituksesi ja vanhentuneet ilmoituksesi.<br>
+          </div>
+        </div>
+      </div>
+    </div>
+    <br>
+<% end %>
+
+<% unless @user_performed_selling.empty? %>
+
+    <h3>Olen ollut helpperinä (<%= @user_performed_selling.count %>)</h3>
+
+    <table class="table table-striped">
+      <thead>
       <tr>
-        <% if post.image_is_set? %>
-            <td><%= image_tag post.image_url(:list), align: 'left' %></td>
-        <% else %>
-            <td><%= image_tag post.category_to_take_image_from.image_url(:list), align: 'left' %></td>
-        <% end %>
-        <td><b><%= link_to truncate(post.title, :length => 50), post, :class => "links" %></b>
-          <p>
-            <% if post.price %>
-                <%= post.price %> €
-            <% end %>
-          </p>
-          <p>
-            <% post.categories.each do |category| %>
-                <span class="category-badge"><%= "#{category.name}" %></span>
-            <% end %>
-          </p></td>
-        <td>
-          <%= link_to(post.performer.first_name, user_path(post.performer), :class => "links") %>
-          <%= render 'layouts/stars', :user => post.performer %><br>
-          <%= link_to conversations_path(post.performer.id, post.user.id, post.id), :class => "links" do %>
-              <span class="glyphicon glyphicon-envelope"></span>
-          <% end %>
-        </td>
-        <td>
-          Annoit arvion:
-          <ul style="list-style: none; padding-left: 0">
-            <% (1..3).each do |i| %>
-                <% if i <= post.ratings.where(reviewer_id:post.user.id).first.score %>
-                    <li class="on"></li>
+        <th class="col-md-2"></th>
+        <th class="col-md-2"></th>
+        <th class="col-md-2"></th>
+      </tr>
+      </thead>
+
+      <tbody class="form-group">
+      <% @user_performed_selling.each do |post| %>
+          <tr>
+            <td>
+              <div class="wrapper">
+                <% if post.image_is_set? %>
+                    <%= image_tag post.image_url(:list), align: 'left' %>
                 <% else %>
-                    <li class="rating_star"></li>
+                    <%= image_tag post.category_to_take_image_from.image_url(:list), align: 'left' %>
                 <% end %>
-            <% end %>
-          </ul><br>
-          <% if post.ratings.where(reviewer_id:post.performer.id).count > 0 %>
-              Sait arvion:
+                <div class="box">
+                  <% if post.buyer? %>
+                      <span class="glyphicon glyphicon-search"></span>
+                  <% else %>
+                      <span class="glyphicon glyphicon-header"></span>
+                  <% end %>
+                </div>
+              </div>
+            </td>
+            <td><b><%= link_to truncate(post.title, :length => 50), post, :class => "links" %></b>
+              <p>
+                <% if post.price %>
+                    <%= post.price %> €
+                <% end %>
+              </p>
+              <p>
+                <% post.categories.each do |category| %>
+                    <span class="category-badge"><%= "#{category.name}" %></span>
+                <% end %>
+              </p>
+            </td>
+            <td>
+              Annoit arvion:
               <ul style="list-style: none; padding-left: 0">
                 <% (1..3).each do |i| %>
-                    <% if i <= post.ratings.where(reviewer_id:post.performer.id).first.score %>
+                    <% if i <= post.ratings.where(reviewer_id:post.user.id).first.score %>
                         <li class="on"></li>
                     <% else %>
                         <li class="rating_star"></li>
                     <% end %>
                 <% end %>
               </ul><br>
-          <% else %>
-              Et ole vielä saanut arviota
-          <% end %>
-        </td>
-      </tr>
-  <% end %>
-  </tbody>
-</table>
-<br>
-
-
-
-<h3>Minulla on ollut helpperi (<%= @user_performed_buying.count %>)</h3>
-
-<table class="table table-striped">
-  <thead>
-  <tr>
-    <th class="col-md-2"></th>
-    <th class="col-md-2"></th>
-    <th class="col-md-2"></th>
-    <th class="col-md-2"></th>
-  </tr>
-  </thead>
-
-  <tbody class="form-group">
-  <% @user_performed_buying.each do |post| %>
-      <tr>
-        <% if post.image_is_set? %>
-            <td><%= image_tag post.image_url(:list), align: 'left' %></td>
-        <% else %>
-            <td><%= image_tag post.category_to_take_image_from.image_url(:list), align: 'left' %></td>
-        <% end %>
-        <td><b><%= link_to truncate(post.title, :length => 50), post, :class => "links" %></b>
-          <p>
-            <% if post.price %>
-                <%= post.price %> €
-            <% end %>
-          </p>
-          <p>
-            <% post.categories.each do |category| %>
-                <span class="category-badge"><%= "#{category.name}" %></span>
-            <% end %>
-          </p></td>
-        <td>
-          <%= link_to(post.performer.first_name, user_path(post.performer), :class => "links") %>
-          <%= render 'layouts/stars', :user => post.performer %><br>
-          <%= link_to conversations_path(post.performer.id, post.user.id, post.id), :class => "links" do %>
-              <span class="glyphicon glyphicon-envelope"></span>
-          <% end %>
-        </td>
-        <td>
-          Annoit arvion:
-          <ul style="list-style: none; padding-left: 0">
-            <% (1..3).each do |i| %>
-                <% if i <= post.ratings.where(reviewer_id:post.user.id).first.score %>
-                    <li class="on"></li>
-                <% else %>
-                    <li class="rating_star"></li>
-                <% end %>
-            <% end %>
-          </ul><br>
-          <% if post.ratings.where(reviewer_id:post.performer.id).count > 0 %>
-              Sait arvion:
-              <ul style="list-style: none; padding-left: 0">
-                <% (1..3).each do |i| %>
-                    <% if i <= post.ratings.where(reviewer_id:post.performer.id).first.score %>
-                        <li class="on"></li>
-                    <% else %>
-                        <li class="rating_star"></li>
+              <% if post.ratings.where(reviewer_id:post.performer.id).count > 0 %>
+                  Sait arvion:
+                  <ul style="list-style: none; padding-left: 0">
+                    <% (1..3).each do |i| %>
+                        <% if i <= post.ratings.where(reviewer_id:post.performer.id).first.score %>
+                            <li class="on"></li>
+                        <% else %>
+                            <li class="rating_star"></li>
+                        <% end %>
                     <% end %>
-                <% end %>
-              </ul><br>
-          <% else %>
-              Et ole vielä saanut arviota
-          <% end %>
-        </td>
-      </tr>
-  <% end %>
-  </tbody>
-</table>
-<br>
-
-<h3>Vanhentuneet ilmoitukseni (<%= @user_expired_posts.count %>)</h3>
-
-<table class="table table-striped">
-  <thead>
-  <tr>
-    <th class="col-md-2"></th>
-    <th class="col-md-2"></th>
-    <th class="col-md-2"></th>
-    <th class="col-md-2"></th>
-  </tr>
-  </thead>
-
-  <tbody class="form-group">
-  <% @user_expired_posts.each do |post| %>
-      <tr>
-        <% if post.image_is_set? %>
-            <td><%= image_tag post.image_url(:list), align: 'left' %></td>
-        <% else %>
-            <td><%= image_tag post.category_to_take_image_from.image_url(:list), align: 'left' %></td>
-        <% end %>
-        <td><b><%= link_to truncate(post.title, :length => 50), post, :class => "links" %></b>
-          <p>
-            <% if post.price %>
-                <%= post.price %> €
-            <% end %>
-          </p>
-          <p>
-            <% post.categories.each do |category| %>
-                <span class="category-badge"><%= "#{category.name}" %></span>
-            <% end %>
-          </p>
-        </td>
-        <td>
-          <% if post.performer %>
-              <%= link_to(post.performer.first_name, user_path(post.performer)) %>
-              <%= render 'layouts/stars', :user => post.performer %><br>
-              <%= link_to conversations_path(current_user.id, post.performer.id, post.id), :class => "links" do %>
-                  <span class="glyphicon glyphicon-envelope black-glyph"></span>
+                  </ul><br>
+              <% else %>
+                  Et ole vielä saanut arviota
               <% end %>
-          <% end %>
-        </td>
+            </td>
+          </tr>
+      <% end %>
+      </tbody>
+    </table>
+    <%= will_paginate @user_performed_selling, :param_name => 'selling_page' %>
+    <br>
+<% end %>
+
+<% unless @user_performed_buying.empty? %>
+    <h3>Minulla on ollut helpperi (<%= @user_performed_buying.count %>)</h3>
+
+    <table class="table table-striped">
+      <thead>
+      <tr>
+        <th class="col-md-2"></th>
+        <th class="col-md-2"></th>
+        <th class="col-md-2"></th>
       </tr>
-  <% end %>
-  </tbody>
-</table>
-<%= will_paginate @user_expired_posts, :param_name => 'expired_page' %>
+      </thead>
+
+      <tbody class="form-group">
+      <% @user_performed_buying.each do |post| %>
+          <tr>
+            <td>
+              <div class="wrapper">
+                <% if post.image_is_set? %>
+                    <%= image_tag post.image_url(:list), align: 'left' %>
+                <% else %>
+                    <%= image_tag post.category_to_take_image_from.image_url(:list), align: 'left' %>
+                <% end %>
+                <div class="box">
+                  <% if post.buyer? %>
+                      <span class="glyphicon glyphicon-search"></span>
+                  <% else %>
+                      <span class="glyphicon glyphicon-header"></span>
+                  <% end %>
+                </div>
+              </div>
+            </td>
+            <td><b><%= link_to truncate(post.title, :length => 50), post, :class => "links" %></b>
+              <p>
+                <% if post.price %>
+                    <%= post.price %> €
+                <% end %>
+              </p>
+              <p>
+                <% post.categories.each do |category| %>
+                    <span class="category-badge"><%= "#{category.name}" %></span>
+                <% end %>
+              </p>
+            </td>
+            <td>
+              Annoit arvion:
+              <ul style="list-style: none; padding-left: 0">
+                <% (1..3).each do |i| %>
+                    <% if i <= post.ratings.where(reviewer_id:post.user.id).first.score %>
+                        <li class="on"></li>
+                    <% else %>
+                        <li class="rating_star"></li>
+                    <% end %>
+                <% end %>
+              </ul><br>
+              <% if post.ratings.where(reviewer_id:post.performer.id).count > 0 %>
+                  Sait arvion:
+                  <ul style="list-style: none; padding-left: 0">
+                    <% (1..3).each do |i| %>
+                        <% if i <= post.ratings.where(reviewer_id:post.performer.id).first.score %>
+                            <li class="on"></li>
+                        <% else %>
+                            <li class="rating_star"></li>
+                        <% end %>
+                    <% end %>
+                  </ul><br>
+              <% else %>
+                  Et ole vielä saanut arviota
+              <% end %>
+            </td>
+          </tr>
+      <% end %>
+      </tbody>
+    </table>
+    <%= will_paginate @user_performed_buying, :param_name => 'buying_page' %>
+    <br>
+<% end %>
+
+<% unless @user_expired_posts.empty? %>
+    <h3>Vanhentuneet ilmoitukseni (<%= @user_expired_posts.count %>)</h3>
+
+    <table class="table table-striped">
+      <thead>
+      <tr>
+        <th class="col-md-2"></th>
+        <th class="col-md-2"></th>
+        <th class="col-md-2"></th>
+      </tr>
+      </thead>
+
+      <tbody class="form-group">
+      <% @user_expired_posts.each do |post| %>
+          <tr>
+            <td>
+              <div class="wrapper">
+                <% if post.image_is_set? %>
+                    <%= image_tag post.image_url(:list), align: 'left' %>
+                <% else %>
+                    <%= image_tag post.category_to_take_image_from.image_url(:list), align: 'left' %>
+                <% end %>
+                <div class="box">
+                  <% if post.buyer? %>
+                      <span class="glyphicon glyphicon-search"></span>
+                  <% else %>
+                      <span class="glyphicon glyphicon-header"></span>
+                  <% end %>
+                </div>
+              </div>
+            </td>
+            <td><b><%= link_to truncate(post.title, :length => 50), post, :class => "links" %></b>
+              <p>
+                <% if post.price %>
+                    <%= post.price %> €
+                <% end %>
+              </p>
+              <p>
+                <% post.categories.each do |category| %>
+                    <span class="category-badge"><%= "#{category.name}" %></span>
+                <% end %>
+              </p>
+            </td>
+            <!--<td>-->
+            <!--<% if post.performer %>-->
+                <!--<%= link_to(post.performer.first_name, user_path(post.performer)) %>-->
+                <%= render 'layouts/stars', :user => post.performer %><br>
+                <!--<%= link_to conversations_path(current_user.id, post.performer.id, post.id), :class => "links" do %>-->
+                    <!--<span class="glyphicon glyphicon-envelope black-glyph"></span>-->
+                    <!--<% end %>-->
+                <!--<% end %>-->
+            <!--</td>-->
+          </tr>
+      <% end %>
+      </tbody>
+    </table>
+    <%= will_paginate @user_expired_posts, :param_name => 'expired_page' %>
+<% end %>
