@@ -25,7 +25,7 @@ describe 'User rating' do
     login_as(user2)
     visit user_path(user2)
 
-    expect(page).to have_content '(2.0 / 2 arvostelua)'
+    expect(page).to have_content '2.0 (2 arvostelua)'
   end
 
   it 'doesn´t add rating if stars not selected' do
