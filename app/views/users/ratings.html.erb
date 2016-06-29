@@ -29,7 +29,7 @@
                 </ul>
               </td>
               <td>
-                <%= link_to "#{review.post.title}", post_path(review.post) %>
+                <%= link_to "#{review.post.title}", post_path(review.post) unless review.post.nil?  %>
               </td>
             </tr>
         <% end %>
