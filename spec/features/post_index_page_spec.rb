@@ -17,7 +17,7 @@ describe 'Posts page' do
 
   it 'shouldn´t show expired posts' do
     post = FactoryGirl.create(:post_with_category3)
-    post.update_attribute(:ending_date, Date.yesterday)
+    post.update_attribute(:ending_date, 2.days.ago)
 
     visit posts_path
 
