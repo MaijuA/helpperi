@@ -89,6 +89,15 @@ class PostsController < ApplicationController
 
 # GET /posts/1/edit
   def edit
+    if @post.deleted != false && @post.doer_id != nil
+      redirect_to "/posts/#{@post.id}", alert: 'Poistettua ilmoitusta ei voi muokata.'
+    elsif @post.doer_id != nil
+      redirect_to "/posts/#{@post.id}", alert: 'Suorituksessa olevaa ilmoitusta tai jo suoritettua ilmoitusta ei voi muokata.'
+    elsif @post.ending_date < Date.today
+      redirect_to "/posts/#{@post.id}", alert: 'Vanhentunutta ilmoitusta ei voi muokata.'
+    elsif current_user && current_user.valid? && @post.user_id != current_user.id
+      redirect_to "/posts/#{@post.id}"
+    end
     @edit = true
     # Kuvaukset editointilomakkeen "Hae kategorian kuvausehdotus" -toiminnallisuutta varten
     gon.clear
