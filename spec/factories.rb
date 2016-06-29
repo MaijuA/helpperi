@@ -23,16 +23,19 @@ FactoryGirl.define do
 
     factory :user2 do
       id 2
+      personal_code '300491-7486'
     end
 
     factory :user3 do
       id 3
       first_name 'Maija'
+      personal_code '300491-854L'
     end
 
     factory :user4 do
       id 4
       first_name 'Keijo'
+      personal_code '300491-446E'
     end
 
     factory :soft_user do
@@ -40,6 +43,7 @@ FactoryGirl.define do
       address ''
       zip_code ''
       city ''
+      personal_code '300491-578P'
     end
 
   end
