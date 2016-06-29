@@ -51,4 +51,9 @@ Rails.application.configure do
                                    :last_name => 'sukunimi',
                                    :email => 'joku@joku.com'}
                                                                 })
+  OmniAuth.config.mock_auth[:google_oauth2] = OmniAuth::AuthHash.new({
+                               :provider => 'google',
+                               :info => {
+                                   :email => 'joku@joku.fi' }
+                                                                })
 end

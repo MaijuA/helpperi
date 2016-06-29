@@ -1,5 +1,6 @@
 class CategoriesController < ApplicationController
   before_action :set_category, only: [:show, :edit, :update, :destroy]
+  before_action :authenticate
 
   # GET /categories
   # GET /categories.json
@@ -52,6 +53,16 @@ class CategoriesController < ApplicationController
   end
 
   private
+
+  def authenticate
+    if Rails.env.production? && ENV['CATEGORIES_PASSWORD']
+      admin_account = { "admin" => ENV['CATEGORIES_PASSWORD'] }
+      authenticate_or_request_with_http_basic do |username, password|
+        admin_account[username] == password
+      end
+    end
+  end
+
     # Use callbacks to share common setup or constraints between actions.
     def set_category
       @category = Category.find(params[:id])
