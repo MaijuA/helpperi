@@ -115,23 +115,12 @@
                   <% end %>
 
                   <% if Conversation.where(post_id:post.id) %>
-                      <% Conversation.where(post_id:post.id).each do |c| %>
-                          <% if c.sender_id == current_user.id %>
-                              <%= link_to conversation_messages_path(c) do %>
-                                  <p><span class="label label-primary">keskustelu</span></p>
-                                  <% if conversation_user_count(c.recipient_id, post.id) > 0 %>
-                                      <p class="links"><% conversation_user_count(c.recipient_id, post.id) %> uutta</p>
-                                  <% end %>
-                              <% end %>
+                      <%= link_to post_path(post), class: "links" do %>
+                          <p><span class="label label-primary">keskustelu</span></p>
+                          <% if Conversation.where(post_id:post.id).user_messages(current_user.id).unread_by(current_user).count > 0 %>
+                              <p>Uusia viestejä</p>
                           <% end %>
-                          <% if c.recipient_id == current_user.id %>
-                              <%= link_to conversation_messages_path(c) do %>
-                                  <p><span class="label label-primary">keskustelu</span></p>
-                                  <% if conversation_user_count(c.sender_id, post.id) > 0 %>
-                                      <p class="links"><% conversation_user_count(c.sender_id, post.id) %> uutta</p>
-                                  <% end %>
-                              <% end %>
-                          <% end %>
+
                       <% end %>
                   <% end %>
                 </td>
@@ -163,7 +152,7 @@
     <% end %>
 <% end %>
 
-<% unless @user_performer_buying_posts.empty? && @user_selling_posts.empty? %> <!-- tähän performer_posteista vain ne joissa ratings < 2 -->
+<% if !@user_performer_buying_posts.empty? && !@user_selling_posts.empty? %> <!-- tähän performer_posteista vain ne joissa ratings < 2 -->
     <h3>Haluan helpperiksi </h3>
     <% unless @user_performer_buying_posts.empty? %>
 
@@ -246,23 +235,12 @@
                           </ul><br>
                       <% end %>
                       <% if Conversation.where(post_id:post.id) %>
-                          <% Conversation.where(post_id:post.id).each do |c| %>
-                              <% if c.sender_id == current_user.id %>
-                                  <%= link_to conversation_messages_path(c) do %>
-                                      <p><span class="label label-primary">keskustelu</span></p>
-                                      <% if conversation_user_count(c.recipient_id, post.id) > 0 %>
-                                          <p class="links"><%= conversation_user_count(c.recipient_id, post.id) %> uutta</p>
-                                      <% end %>
-                                  <% end %>
+                          <%= link_to post_path(post), class: "links" do %>
+                              <p><span class="label label-primary">keskustelu</span></p>
+                              <% if Conversation.where(post_id:post.id).user_messages(current_user.id).unread_by(current_user).count > 0 %>
+                                  <p>Uusia viestejä</p>
                               <% end %>
-                              <% if c.recipient_id == current_user.id %>
-                                  <%= link_to conversation_messages_path(c) do %>
-                                      <p><span class="label label-primary">keskustelu</span></p>
-                                      <% if conversation_user_count(c.sender_id, post.id) > 0 %>
-                                          <p class="links"><%= conversation_user_count(c.sender_id, post.id) %> uutta</p>
-                                      <% end %>
-                                  <% end %>
-                              <% end %>
+
                           <% end %>
                       <% end %>
                     </td>
