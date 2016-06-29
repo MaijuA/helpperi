@@ -56,7 +56,7 @@
         </p><br>
 
         <!-- oma ilmoitus -->
-        <% if @post.deleted == false && @post.doer_id == nil %>
+        <% if @post.deleted == false && @post.doer_id == nil  && !Post.all.expired.include?(@post) %>
             <%= link_to('Muokkaa', edit_post_path(@post), class:"black-button") if @post.user == current_user %>
             <%= link_to("Poista", post_delete_post_path(@post.id), class:"white-button", data:
                 { confirm: 'Haluatko varmasti poistaa ilmoituksen?' }, method: :post) if @post.user == current_user %>
@@ -98,7 +98,7 @@
   </div>
 </div>
 
-<% if current_user == @post.user %>
+<% if current_user == @post.user && !Post.all.expired.include?(@post) %>
     <div class="row">
       <div class="col-md-6 col-md-offset-3">
         <% if @post.performer %>
@@ -202,7 +202,7 @@
                   <p>
                     <% if c.sender_id == current_user.id %>
 
-                            <td><p> <%= User.where(id:c.recipient_id).first.first_name %>
+                        <td><p> <%= User.where(id:c.recipient_id).first.first_name %>
                     <%= render 'layouts/stars', :user => User.where(id:c.recipient_id).first %></p></td>
                         <%= link_to conversation_messages_path(c) do %>
                             <td> <p align="center" style="color:black"><span class="glyphicon glyphicon-envelope black-glyph"></span></p>

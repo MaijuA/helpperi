@@ -10,7 +10,9 @@ describe 'Messages' do
     login_as(user)
     visit user_path(user3)
 
-    click_link 'Lähetä viesti käyttäjälle'
+
+    click_link 'Lähetä viesti'
+
     find('body').set('heipähei')
 
     click_button 'Lähetä viesti'
@@ -22,7 +24,8 @@ describe 'Messages' do
     login_as(user)
     visit user_path(user3)
 
-    click_link 'Lähetä viesti käyttäjälle'
+    click_link 'Lähetä viesti'
+
     find('body').set('heipähei')
 
     click_button 'Lähetä viesti'
@@ -33,4 +36,5 @@ describe 'Messages' do
 
     expect(page).to have_content('Hae')
   end
+
 end
