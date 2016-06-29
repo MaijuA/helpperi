@@ -23,12 +23,13 @@
 
     <h3>Etsin helpperiä </h3>
     <% unless @user_performer_selling_posts.empty? %>
-        <% @user_performer_selling_posts.each do |post| %>
+
             <!-- if post.ratings.count < 2 -->
 
 
             <table class="table table-striped">
               <caption>Minut on hyväksytty (<%= @user_performer_selling_posts.count %>) </caption>
+              <% @user_performer_selling_posts.each do |post| %>
               <thead>
               <tr>
                 <th class="col-md-2"></th>
@@ -136,9 +137,10 @@
                 </td>
               </tr>
               </tbody>
+        <% end %>
             </table>
             <!-- % end % -->
-        <% end %>
+
     <% end %>
 
     <% unless @user_buying_posts.empty? %>
