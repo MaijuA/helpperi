@@ -254,40 +254,40 @@
               </tbody>
               </table>
           <% end %>
-<% end %>
-          <% unless @user_selling_posts.empty? %>
+    <% end %>
+    <% unless @user_selling_posts.empty? %>
 
-              <table class="table table-striped">
-                <caption>Luomani ilmoitukset (<%= @user_selling_posts.count %>)</caption>
-                <thead>
-                <tr>
-                  <th class="col-md-2"></th>
-                  <th class="col-md-2"></th>
-                  <th class="col-md-2"></th>
-                </tr>
-                </thead>
+        <table class="table table-striped">
+          <caption>Luomani ilmoitukset (<%= @user_selling_posts.count %>)</caption>
+          <thead>
+          <tr>
+            <th class="col-md-2"></th>
+            <th class="col-md-2"></th>
+            <th class="col-md-2"></th>
+          </tr>
+          </thead>
 
-                <tbody class="form-group">
-                <% @user_selling_posts.each do |post| %>
-                    <%= render 'user_post_row', :post => post %>
-                <% end %>
-                </tbody>
-              </table><br>
+          <tbody class="form-group">
+          <% @user_selling_posts.each do |post| %>
+              <%= render 'user_post_row', :post => post %>
           <% end %>
+          </tbody>
+        </table><br>
+    <% end %>
 <% end %>
 
 
-    <% if @user_performer_posts_rated %>
-        <div class="row">
-          <div class="col-md-6 col-md-offset-3">
-            <h1 class="text-center login-title"></h1>
-            <div class="account-wall">
+<% if @user_performer_posts_rated %>
+    <div class="row">
+      <div class="col-md-6 col-md-offset-3">
+        <h1 class="text-center login-title"></h1>
+        <div class="account-wall">
 
-              <div class="padding">
-                Huom! Vain ilmoituksen luoja voi merkitä ilmoituksen suoritetuksi.
-                Suoritetut ilmoitukset löytyvät historia-sivulta, jossa myös ilmoituksen luojan arviointi tapahtuu.
-              </div>
-            </div>
+          <div class="padding">
+            Huom! Vain ilmoituksen luoja voi merkitä ilmoituksen suoritetuksi.
+            Suoritetut ilmoitukset löytyvät historia-sivulta, jossa myös ilmoituksen luojan arviointi tapahtuu.
           </div>
         </div>
-    <% end %>
+      </div>
+    </div>
+<% end %>
