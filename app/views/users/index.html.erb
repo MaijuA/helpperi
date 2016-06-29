@@ -29,7 +29,7 @@
 
             <table class="table table-striped">
               <caption>Minut on hyväksytty (<%= @user_performer_selling_posts.count %>) </caption>
-              <% @user_performer_selling_posts.each do |post| %>
+
               <thead>
               <tr>
                 <th class="col-md-2"></th>
@@ -38,7 +38,7 @@
               </tr>
               </thead>
               <tbody class="form-group">
-
+              <% @user_performer_selling_posts.each do |post| %>
               <tr>
                 <td>
                   <% if post.image_is_set? %>
@@ -136,8 +136,9 @@
                   <% end %>
                 </td>
               </tr>
+              <% end %>
               </tbody>
-        <% end %>
+
             </table>
             <!-- % end % -->
 
