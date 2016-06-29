@@ -188,7 +188,7 @@
                 </td>
                 <td>
                   <% if post.ratings.count == 1 %>
-                  <%= link_to 'Arvioi ilmoittaja', user_review_path(:post_id => post.id), :class => "links" if post.ratings.count == 1 %>
+                  <p><%= link_to 'Arvioi ilmoittaja', user_review_path(:post_id => post.id), :class => "links" if post.ratings.count == 1 %></p>
                       Sait arvion:
                       <ul style="list-style: none; padding-left: 0">
                         <% (1..3).each do |i| %>
