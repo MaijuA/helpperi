@@ -69,16 +69,16 @@
                     <% end %>
                 <% end %>
               </ul><br>
-                  Sait arvion:
-                  <ul style="list-style: none; padding-left: 0">
-                    <% (1..3).each do |i| %>
-                        <% if i <= post.ratings.where(reviewed_id:current_user.id).first.score %>
-                            <li class="on"></li>
-                        <% else %>
-                            <li class="rating_star"></li>
-                        <% end %>
+              Sait arvion:
+              <ul style="list-style: none; padding-left: 0">
+                <% (1..3).each do |i| %>
+                    <% if i <= post.ratings.where(reviewed_id:current_user.id).first.score %>
+                        <li class="on"></li>
+                    <% else %>
+                        <li class="rating_star"></li>
                     <% end %>
-                  </ul><br>
+                <% end %>
+              </ul><br>
             </td>
           </tr>
       <% end %>
@@ -142,16 +142,16 @@
                     <% end %>
                 <% end %>
               </ul><br>
-                  Sait arvion:
-                  <ul style="list-style: none; padding-left: 0">
-                    <% (1..3).each do |i| %>
-                        <% if i <= post.ratings.where(reviewed_id:current_user.id).first.score %>
-                            <li class="on"></li>
-                        <% else %>
-                            <li class="rating_star"></li>
-                        <% end %>
+              Sait arvion:
+              <ul style="list-style: none; padding-left: 0">
+                <% (1..3).each do |i| %>
+                    <% if i <= post.ratings.where(reviewed_id:current_user.id).first.score %>
+                        <li class="on"></li>
+                    <% else %>
+                        <li class="rating_star"></li>
                     <% end %>
-                  </ul><br>
+                <% end %>
+              </ul><br>
             </td>
           </tr>
       <% end %>

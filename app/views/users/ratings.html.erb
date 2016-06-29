@@ -13,25 +13,25 @@
 
         <tbody class="form-group">
         <% @user.ratings.each do |review| %>
-          <tr>
-            <td>
-              <%= review.review %>
-            </td>
-            <td>
-              <ul style="list-style: none; padding-left: 0;">
-              <% (1..3).each do |i| %>
-                  <% if i <= review.score %>
-                      <li class="on"></li>
-                  <% else %>
-                      <li class="rating_star"></li>
+            <tr>
+              <td>
+                <%= review.review %>
+              </td>
+              <td>
+                <ul style="list-style: none; padding-left: 0;">
+                  <% (1..3).each do |i| %>
+                      <% if i <= review.score %>
+                          <li class="on"></li>
+                      <% else %>
+                          <li class="rating_star"></li>
+                      <% end %>
                   <% end %>
-              <% end %>
-              </ul>
-            </td>
-            <td>
-              <%= link_to "#{review.post.title}", post_path(review.post) %>
-            </td>
-          </tr>
+                </ul>
+              </td>
+              <td>
+                <%= link_to "#{review.post.title}", post_path(review.post) %>
+              </td>
+            </tr>
         <% end %>
         </tbody>
       </table>

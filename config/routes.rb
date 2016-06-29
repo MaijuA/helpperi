@@ -30,10 +30,6 @@ Rails.application.routes.draw do
   get '/ratings', to:'users#ratings', as: :user_ratings
   get '/history', to:'users#history', as: :user_history
 
-  # resources :users do
-  #   post 'create_rating'
-  # end
-
   post 'users/create_rating', to:'users#create_rating', as: :users_create_rating
 
   get '/interests' => 'users#interests', as: :user_interests

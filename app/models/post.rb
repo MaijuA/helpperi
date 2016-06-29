@@ -69,7 +69,7 @@ class Post < ActiveRecord::Base
   scope :selling, -> { where post_type:'Myynti'}
   scope :valid, lambda{ where(deleted:false).where("ending_date >= ?", Date.today) }
   scope :others, -> (current_user) { where("user_id != ?", current_user)}
-  scope :expired, lambda{ where(deleted:false).where("ending_date < ?", Date.today) }
+  scope :expired, lambda{ where(deleted:false).where("ending_date < ?", Date.today).where(doer_id:nil) }
   scope :rated, -> { where(deleted:false).where(id:(Post.joins(:ratings).having('COUNT(post_id) > 1').group('post_id'))) }
   scope :not_rated, -> { where(deleted:false).where.not(id:(Post.joins(:ratings).ids)) }
 
