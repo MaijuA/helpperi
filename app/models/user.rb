@@ -33,7 +33,7 @@ class User < ActiveRecord::Base
   }, :on => :update
 
   validates :personal_code, hetu: true, :unless => :passport_number_is_used?, :on => :update
-  validates :personal_code, uniqueness: true
+  validates :personal_code, uniqueness: true, :on => :update
 
   validates_processing_of :image, if: :image_is_set?
   validates_integrity_of :image, if: :image_is_set?
