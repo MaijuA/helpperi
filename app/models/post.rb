@@ -21,7 +21,7 @@ class Post < ActiveRecord::Base
   validates :user_id, :post_type, :zip_code, :city, :price, :ending_date, presence: true
   validates :price, numericality: {greater_than_or_equal_to: 0, less_than: 500 }
   validates :post_type, :inclusion=> { :in => ['Myynti', 'Osto'] }
-  validates :title, length: { in: 4..30 }
+  validates :title, length: { in: 4..100 }
   validates :address, length: { in: 3..200 }, if: :buyer?
   # validates :categories, length: { maximum: 5 }
 

@@ -6,7 +6,6 @@
     <th class="col-md-2"></th>
     <th class="col-md-2"></th>
     <th class="col-md-2"></th>
-    <th class="col-md-2"></th>
   </tr>
   </thead>
 
@@ -28,13 +27,7 @@
             <% post.categories.each do |category| %>
                 <span class="category-badge"><%= "#{category.name}" %></span>
             <% end %>
-          </p></td>
-        <td>
-          <%= link_to(post.performer.first_name, user_path(post.performer), :class => "links") %>
-          <%= render 'layouts/stars', :user => post.performer %><br>
-          <%= link_to conversations_path(post.performer.id, post.user.id, post.id), :class => "links" do %>
-              <span class="glyphicon glyphicon-envelope"></span>
-          <% end %>
+          </p>
         </td>
         <td>
           Annoit arvion:
@@ -78,7 +71,6 @@
     <th class="col-md-2"></th>
     <th class="col-md-2"></th>
     <th class="col-md-2"></th>
-    <th class="col-md-2"></th>
   </tr>
   </thead>
 
@@ -100,13 +92,7 @@
             <% post.categories.each do |category| %>
                 <span class="category-badge"><%= "#{category.name}" %></span>
             <% end %>
-          </p></td>
-        <td>
-          <%= link_to(post.performer.first_name, user_path(post.performer), :class => "links") %>
-          <%= render 'layouts/stars', :user => post.performer %><br>
-          <%= link_to conversations_path(post.performer.id, post.user.id, post.id), :class => "links" do %>
-              <span class="glyphicon glyphicon-envelope"></span>
-          <% end %>
+          </p>
         </td>
         <td>
           Annoit arvion:
@@ -148,7 +134,6 @@
     <th class="col-md-2"></th>
     <th class="col-md-2"></th>
     <th class="col-md-2"></th>
-    <th class="col-md-2"></th>
   </tr>
   </thead>
 
@@ -172,15 +157,15 @@
             <% end %>
           </p>
         </td>
-        <td>
-          <% if post.performer %>
-              <%= link_to(post.performer.first_name, user_path(post.performer)) %>
+        <!--<td>-->
+          <!--<% if post.performer %>-->
+              <!--<%= link_to(post.performer.first_name, user_path(post.performer)) %>-->
               <%= render 'layouts/stars', :user => post.performer %><br>
-              <%= link_to conversations_path(current_user.id, post.performer.id, post.id), :class => "links" do %>
-                  <span class="glyphicon glyphicon-envelope black-glyph"></span>
-              <% end %>
-          <% end %>
-        </td>
+              <!--<%= link_to conversations_path(current_user.id, post.performer.id, post.id), :class => "links" do %>-->
+                  <!--<span class="glyphicon glyphicon-envelope black-glyph"></span>-->
+              <!--<% end %>-->
+          <!--<% end %>-->
+        <!--</td>-->
       </tr>
   <% end %>
   </tbody>
