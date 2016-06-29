@@ -8,7 +8,7 @@ describe 'Messages' do
   it 'should send message' do
     c = Conversation.where(sender_id:user.id).count
     login_as(user)
-    visit user_path(user15)
+    visit user_path(user3)
 
     click_link 'Lähetä viesti käyttäjälle'
     find('body').set('heipähei')
@@ -20,14 +20,14 @@ describe 'Messages' do
 
   it 'should redirect to root page if user not part of conversation' do
     login_as(user)
-    visit user_path(user15)
+    visit user_path(user3)
 
     click_link 'Lähetä viesti käyttäjälle'
     find('body').set('heipähei')
 
     click_button 'Lähetä viesti'
 
-    login_as(user15)
+    login_as(user4)
 
     visit conversation_messages_path(Conversation.where(sender_id:user.id).first)
 
