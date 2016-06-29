@@ -37,6 +37,7 @@
                 <th class="col-md-2"></th>
               </tr>
               </thead>
+
               <tbody class="form-group">
               <% @user_performer_selling_posts.each do |post| %>
               <tr>
@@ -66,7 +67,7 @@
                   <% end %>
                 </td>
                 <td>
-                  <p><b><%= link_to truncate(post.title, :length => 30), post, :class => "links" %></b></p>
+                  <p><b><%= link_to truncate(post.title, :length => 50), post, :class => "links" %></b></p>
                   <p><% if post.price %>
                       <div style="min-width:4em;"><%= post.price %> €</div>
                   <% end %>
@@ -199,7 +200,7 @@
                     <% end %>
 
                     <td>
-                      <p><b><%= link_to truncate(post.title, :length => 30), post, :class => "links" %></b></p>
+                      <p><b><%= link_to truncate(post.title, :length => 50), post, :class => "links" %></b></p>
                       <p><% if post.price %>
                           <div style="min-width:4em;"><%= post.price %> €</div>
                       <% end %>
@@ -353,7 +354,7 @@
     <!--<% end %>-->
 <!--</tbody>-->
 <!--</table>-->
-<!--<%= will_paginate @user_accepted_posts, :param_name => 'post_page' %>-->
+<!--<%= will_paginate @user_posts, :param_name => 'post_page' %>-->
 <!--<br>-->
 
 

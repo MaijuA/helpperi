@@ -23,11 +23,8 @@ class UsersController < ApplicationController
     if current_user
       params[:page1] = 1 if params[:page1] == ''
       params[:page2] = 1 if params[:page2] == ''
-      params[:page3] = 1 if params[:page3] == ''
-      params[:page4] = 1 if params[:page4] == ''
 
       @user_posts = current_user.posts.active.valid.paginate(:page => params[:post_page], :per_page => 5)
-
       @user_selling_posts = current_user.posts.valid.not_rated.selling
       @user_buying_posts = current_user.posts.valid.not_rated.buying
       @user_performer_posts = Post.where(doer_id:current_user.id)
@@ -35,9 +32,6 @@ class UsersController < ApplicationController
       @user_performer_selling_posts = Post.where(doer_id:current_user.id).selling # ne joissa ratings.count < 2
 
       @user_accepted_posts = current_user.posts.valid.accepted.not_rated.paginate(:page => params[:accepted_page], :per_page => 5)
-      @user_expired_posts = current_user.posts.active.expired.paginate(:page => params[:expired_page], :per_page => 5)
-      @user_performed_posts = current_user.posts.rated.paginate(:page => params[:expired_page], :per_page => 5)
-
     end
   end
 
@@ -46,9 +40,9 @@ class UsersController < ApplicationController
       params[:page1] = 1 if params[:page1] == ''
       params[:page2] = 1 if params[:page2] == ''
       params[:page3] = 1 if params[:page3] == ''
-      @user_expired_posts = current_user.posts.active.expired.paginate(:page => params[:expired_page], :per_page => 5)
-      @user_performed_buying = Post.where("doer_id = ? OR user_id = ?", current_user.id, current_user.id).rated.buying.paginate(:page => params[:expired_page], :per_page => 5)
-      @user_performed_selling = Post.where("doer_id = ? OR user_id = ?", current_user.id, current_user.id).rated.selling.paginate(:page => params[:expired_page], :per_page => 5)
+      @user_expired_posts = current_user.posts.active.expired.paginate(:page => params[:expired_page], :per_page => 5).paginate(:page => params[:expired_page], :per_page => 5)
+      @user_performed_buying = Post.where("doer_id = ? OR user_id = ?", current_user.id, current_user.id).rated.buying.paginate(:page => params[:buying_page], :per_page => 5)
+      @user_performed_selling = Post.where("doer_id = ? OR user_id = ?", current_user.id, current_user.id).rated.selling.paginate(:page => params[:selling_page], :per_page => 5)
     end
   end
 
