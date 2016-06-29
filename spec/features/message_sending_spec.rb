@@ -9,8 +9,12 @@ describe 'Messages' do
     login_as(user)
     visit user_path(user3)
 
+
     click_link 'Lähetä viesti'
-    fill_in('message_body', :with =>'heipähei')
+
+
+    find('body').set('heipähei')
+
 
     click_button 'Lähetä viesti'
 
@@ -22,7 +26,10 @@ describe 'Messages' do
     visit user_path(user3)
 
     click_link 'Lähetä viesti'
-    fill_in('message_body', :with =>'heipähei')
+
+
+    find('body').set('heipähei')
+
 
     click_button 'Lähetä viesti'
 
@@ -32,6 +39,7 @@ describe 'Messages' do
 
     expect(page).to have_content('Hae')
   end
+
 
   it 'should send several messages and mark messages as read for user' do
     login_as(user)

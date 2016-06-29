@@ -90,12 +90,13 @@
                       </ul><br>
                   <% end %>
 
-                  <% unless Conversation.between(post.id, post.user.id, current_user.id).empty? %>
-                      <%= link_to conversation_messages_path(Conversation.between(post.id, post.user.id, current_user.id).first), class: "links" do %>
+                  <% if Conversation.where(post_id:post.id) %>
+                      <%= link_to post_path(post), class: "links" do %>
                           <p><span class="label label-primary">keskustelu</span></p>
-                          <% if conversation_user_count(post.user.id, post.id) > 0 %>
+                          <% if Conversation.where(post_id:post.id).user_messages(current_user.id).unread_by(current_user).count > 0 %>
                               <p>Uusia viestejä</p>
                           <% end %>
+
                       <% end %>
                   <% end %>
                 </td>
@@ -127,7 +128,7 @@
     <% end %>
 <% end %>
 
-<% if !@user_performer_buying_posts.empty? && !@user_selling_posts.empty? %> <!-- tähän performer_posteista vain ne joissa ratings < 2 -->
+<% if !@user_performer_buying_posts.empty? || !@user_selling_posts.empty? %> <!-- tähän performer_posteista vain ne joissa ratings < 2 -->
     <h3>Haluan helpperiksi </h3>
 
     <% unless @user_performer_buying_posts.empty? %>
@@ -201,11 +202,10 @@
                       </ul><br>
                   <% end %>
                   <% if Conversation.where(post_id:post.id) %>
-                      <%= link_to conversation_messages_path(Conversation.between(post.id, post.user.id, current_user.id).first), class: "links" do %>
+                      <%= link_to post_path(post), class: "links" do %>
                           <p><span class="label label-primary">keskustelu</span></p>
                           <% if Conversation.where(post_id:post.id).user_messages(current_user.id).unread_by(current_user).count > 0 %>
                               <p>Uusia viestejä</p>
-
                           <% end %>
 
                       <% end %>
@@ -238,17 +238,18 @@
 <% end %>
 
 
-<!--<% if @user_performer_posts_rated %>-->
-    <!--<div class="row">-->
-      <!--<div class="col-md-6 col-md-offset-3">-->
-        <!--<h1 class="text-center login-title"></h1>-->
-        <!--<div class="account-wall">-->
+<% if @user_performer_posts_rated %>
+    <div class="row">
+      <div class="col-md-6 col-md-offset-3">
+        <h1 class="text-center login-title"></h1>
+        <div class="account-wall">
 
-          <!--<div class="padding">-->
-            <!--Huom! Vain ilmoituksen luoja voi merkitä ilmoituksen suoritetuksi.-->
-            <!--Suoritetut ilmoitukset löytyvät historia-sivulta, jossa myös ilmoituksen luojan arviointi tapahtuu.-->
-          <!--</div>-->
-        <!--</div>-->
-      <!--</div>-->
-    <!--</div>-->
-    <!--<% end %>-->
+          <div class="padding">
+            Huom! Vain ilmoituksen luoja voi merkitä ilmoituksen suoritetuksi.
+            Suoritetut ilmoitukset löytyvät historia-sivulta, jossa myös ilmoituksen luojan arviointi tapahtuu.
+          </div>
+        </div>
+      </div>
+    </div>
+<% end %>
+
