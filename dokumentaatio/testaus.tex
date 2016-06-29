@@ -33,7 +33,7 @@ Testejä ajoimme jatkuvasti lokaalisti uusien ominaisuuksien lisäämisen jälke
 
 \section{Testikattavuus}
 
-Tavoitteenamme oli alusta lähtien pitää testien rivikattavuus korkealla, joten testejä on kirjoitettu sitä mukaa, kun uusia ominaisuuksia lisättiin. Alussa testejä kirjoitettiin huomattavasti laajemmin, mutta huomasimme pian, että koodin muuttuessa jouduimme jatkuvasti korjaamaan jo olemassa olevia testejä. Testejä tuli myös kirjoitettua päällekkäin eli yksikkö ja käyttöliittymätestit testasivat samoja asioita. Näiden huomioiden jälkeen vähensimme testien kirjoittamista pitäen rivikattavuuden kuitenkin korkealla. Myös sprinttien lyhyt kesto vaikutti testaamisen laajuuteen, koska aika tuntui jatkuvasti loppuvan kesken. Definition of Donin mukaan testikattavuuden tavoitteemme oli 90\%. Projektin puolessa välissä testikattavuus laahasi 70\%:n tuntumassa, koska lisäsimme Scaffoldilla luokan Category, mutta tämän luokan kontrolleria ei testattu, koska sillä ei ollut käyttöä sovelluksessa. Kategoriat luotiin seedillä ja niiden poistaminen täytyi olla mahdotonta. Jätimme kuitenkin varsinaisen sovelluksen ulkopuoliseksi ominaisuudeksi mahdollisuuden muokata kategorioita muutenkin kuin konsolin kautta. Myöhemmässä vaiheessa ignoroimme kyseessä olevan kontrollerin testikattavuuden ulkopuolelle .simplecov-tiedostossa. Samassa tiedossa ignoressa ovat myös admin- ja info-kontrollerit. Admin- ominaisutta emme ehtineet toteuttamaan ollenkaan ja info-kontrollerin metodeilla ei ole mitään sisältöä. Näiden tiedostojen ignoroimisen jälkeen testikattavuus pysyi jatkuvasti tavoitteessa tai hyvin lähellä sitä. Lopullinen testikattavuus oli noin 93\%:a.
+Tavoitteenamme oli alusta lähtien pitää testien rivikattavuus korkealla, joten testejä on kirjoitettu sitä mukaa, kun uusia ominaisuuksia lisättiin. Alussa testejä kirjoitettiin huomattavasti laajemmin, mutta huomasimme pian, että koodin muuttuessa jouduimme jatkuvasti korjaamaan jo olemassa olevia testejä. Testejä tuli myös kirjoitettua päällekkäin eli yksikkö ja käyttöliittymätestit testasivat samoja asioita. Näiden huomioiden jälkeen vähensimme testien kirjoittamista pitäen rivikattavuuden kuitenkin korkealla. Myös sprinttien lyhyt kesto vaikutti testaamisen laajuuteen, koska aika tuntui jatkuvasti loppuvan kesken. Definition of Donin mukaan testikattavuuden tavoitteemme oli 90\%. Projektin puolessa välissä testikattavuus laahasi 70\%:n tuntumassa, koska lisäsimme Scaffoldilla luokan Category, mutta tämän luokan kontrolleria ei testattu, koska sillä ei ollut käyttöä sovelluksessa. Kategoriat luotiin seedillä ja niiden poistaminen täytyi olla mahdotonta. Jätimme kuitenkin varsinaisen sovelluksen ulkopuoliseksi ominaisuudeksi mahdollisuuden muokata kategorioita muutenkin kuin konsolin kautta. Myöhemmässä vaiheessa ignoroimme kyseessä olevan kontrollerin testikattavuuden ulkopuolelle .simplecov-tiedostossa. Samassa tiedostossa ignoressa ovat myös admin- ja info-kontrollerit. Admin- ominaisutta emme ehtineet toteuttamaan ollenkaan ja info-kontrollerin metodeilla ei ole mitään sisältöä. Näiden tiedostojen ignoroimisen jälkeen testikattavuus pysyi jatkuvasti tavoitteessa tai hyvin lähellä sitä. Lopullinen testikattavuus oli noin 93\%:a.
 Testikattavuuden tarkasteluun käytimme lokaalisti Simplecov:ia. Jos testit menivät palvelintasolla läpi Travisista, niin lähetettiin kattavuusraportti Coverallsiin.
 
 \section{Liitteet}
@@ -50,9 +50,9 @@ Simplecovin kattavuusraportti:
 \newline
 \noindent\makebox[\textwidth]{%
 \begin{tabularx}{1.5\textwidth}{XX}
-  \includegraphics[width=200mm]{kattavuus} 
+  \includegraphics[width=200mm]{kattavuus}
 \end{tabularx}}
-      
+
 
 
 
