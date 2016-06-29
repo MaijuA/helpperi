@@ -22,6 +22,10 @@
 <% else %>
 
     <h3>Etsin helpperiä </h3>
+    <% if @user_performer_posts %>
+        <p></p>
+        <% end %>
+
     <% unless @user_performer_selling_posts.empty? %>
 
             <!-- if post.ratings.count < 2 -->
