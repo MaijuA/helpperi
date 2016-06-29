@@ -88,7 +88,7 @@ RSpec.describe Post, type: :model do
                        description: 'kuvaus',
                        price: 10,
                        post_type: 'Osto',
-                       ending_date: DateTime.yesterday,
+                       ending_date: 2.days.ago,
                        address: 'Kumpulanmäki 1',
                        zip_code: 99999,
                        city: 'Helsinki',
