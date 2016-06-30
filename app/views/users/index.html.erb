@@ -105,7 +105,9 @@
 
         </table>
         <!-- % end % -->
-        <%= will_paginate @user_performer_selling_posts, :param_name => 'performer_selling_page' %>
+        <div class="helpperi_pagination">
+          <%= will_paginate @user_performer_selling_posts, :param_name => 'performer_selling_page' %>
+        </div>
     <% end %>
 
     <% unless @user_buying_posts.empty? %>
@@ -124,7 +126,9 @@
           <% end %>
           </tbody>
         </table><br>
-        <%= will_paginate @user_buying_posts, :param_name => 'buying_page' %>
+        <div class="helpperi_pagination">
+          <%= will_paginate @user_buying_posts, :param_name => 'buying_page' %>
+        </div>
     <% end %>
 <% end %>
 
@@ -214,7 +218,9 @@
           <% end %>
           </tbody>
         </table>
-        <%= will_paginate @user_performer_buying_posts, :param_name => 'performer_buying_page' %>
+        <div class="helpperi_pagination">
+          <%= will_paginate @user_performer_buying_posts, :param_name => 'performer_buying_page' %>
+        </div>
     <% end %>
 
     <% unless @user_selling_posts.empty? %>
@@ -235,7 +241,9 @@
           <% end %>
           </tbody>
         </table>
-        <%= will_paginate @user_selling_posts, :param_name => 'selling_page' %>
+        <div class="helpperi_pagination">
+          <%= will_paginate @user_selling_posts, :param_name => 'selling_page' %>
+        </div>
     <% end %>
 <% end %>
 
