@@ -48,12 +48,13 @@
 
         <p>
           <strong>Ilmoittaja</strong><br>
-        <div class="row" style="padding-left:15px"><%= link_to(@post.user.first_name, user_path(@post.user), :class => "links") %></div>
+        <div class="row" style="padding-left:15px"><%= link_to(@post.user.first_name, user_path(@post.user), :class => "links") %>
         <div class="row" style="padding:5px 0px 0px 15px"><%= render 'layouts/stars', :user => @post.user %><br></div>
         <!-- oma ilmoitus -->
         <div class="row" style="padding-left:15px"><%= @post.address if @post.user == current_user %></div>
         <!-- /oma ilmoitus -->
         <div class="row" style="padding-left:15px"><%= @post.zip_code %> <%= @post.city %></div>
+        </div>
         </p><br>
 
         <!-- oma ilmoitus -->
@@ -246,7 +247,7 @@
       </div>
     </div>
 <% end %>
-<% if current_user == @post.performer && !Post.all.expired.include?(@post) %>
+<% if user_signed_in? && current_user == @post.performer && !Post.all.expired.include?(@post) %>
     <div class="row">
       <div class="col-md-6 col-md-offset-3">
         <h3 class="text-center title">Olet sitoutunut tähän ilmoitukseen</h3>

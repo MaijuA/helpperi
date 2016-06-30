@@ -89,7 +89,6 @@ class PostsController < ApplicationController
 
 # GET /posts/1/edit
   def edit
-    @edit = true
     if @post.deleted != false && @post.doer_id != nil
       redirect_to "/posts/#{@post.id}", alert: 'Poistettua ilmoitusta ei voi muokata.'
     elsif @post.doer_id != nil
