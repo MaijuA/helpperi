@@ -41,12 +41,6 @@
   <td>
     <% if post.performer && post.ratings.empty? %>
         <p><%= link_to "Kuittaa suoritetuksi", user_review_path(:post_id => post.id), class:"label label-success" %></p>
-    <% elsif post.helpers.empty? %>
-
-    <% elsif !post.helpers.empty? && post.helpers.count == 1 %>
-        <p><%= link_to "1 kiinnostunut", post_path(post), class:"label label-warning"%></p>
-    <% elsif !post.helpers.empty? && post.helpers.count > 1 %>
-        <p><%= link_to "#{post.helpers.count} kiinnostunutta", post_path(post), class:"label label-warning"%></p>
     <% elsif post.ratings.count == 1 %>
         Annoit arvion:
         <ul style="list-style: none; padding-left: 0">
@@ -58,6 +52,13 @@
               <% end %>
           <% end %>
         </ul><br>
+    <% elsif post.helpers.empty? %>
+
+    <% elsif !post.helpers.empty? && post.helpers.count == 1 %>
+        <p><%= link_to "1 kiinnostunut", post_path(post), class:"label label-warning"%></p>
+    <% elsif !post.helpers.empty? && post.helpers.count > 1 %>
+        <p><%= link_to "#{post.helpers.count} kiinnostunutta", post_path(post), class:"label label-warning"%></p>
+
     <% end %>
     <% if post_candidate_changes(post.id) > 0 %>
         <%= link_to post_path(post)  do %>
