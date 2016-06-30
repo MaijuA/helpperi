@@ -141,7 +141,8 @@ class PostsController < ApplicationController
   end
 
   def delete_post
-    if !current_user || !current_user.valid? || @post.user_id != current_user.id
+    post = Post.find(params[:post_id])
+    if !current_user || !current_user.valid? || post.user_id != current_user.id
       redirect_to "/posts/#{@post.id}", alert: 'Käyttöoikeudet puuttuvat.'
     elsif @post.deleted != false || @post.doer_id != nil
       redirect_to "/posts/#{@post.id}", alert: 'Ilmoitus on jo poistettu.'
@@ -150,7 +151,6 @@ class PostsController < ApplicationController
     elsif @post.ending_date < Date.today
       redirect_to "/posts/#{@post.id}", alert: 'Vanhentunutta ilmoitusta ei voi poistaa.'
     end
-    post = Post.find(params[:post_id])
     if current_user && post.user.id == current_user.id
       post.update_attribute(:deleted, true)
     end
@@ -162,9 +162,6 @@ class PostsController < ApplicationController
   end
 
   def add_candidate
-    if !current_user || !current_user.valid? || @post.user_id != current_user.id
-      redirect_to "/posts/#{@post.id}", alert: 'Käyttöoikeudet puuttuvat.'
-    end
     post = Post.find(params[:post_id])
     if current_user && !post.helpers.include?(current_user) && current_user != post.user
       candi = Candidate.create post_id:post.id, user_id:current_user.id, denied:false
@@ -179,9 +176,6 @@ class PostsController < ApplicationController
   end
 
   def deny_candidate
-    if !current_user || !current_user.valid? || @post.user_id != current_user.id
-      redirect_to "/posts/#{@post.id}", alert: 'Käyttöoikeudet puuttuvat.'
-    end
     post = Post.find(params[:post_id])
     if current_user && current_user == post.user
       candi = Candidate.find_by post_id:post.id, user_id:params[:user_id]
@@ -198,9 +192,6 @@ class PostsController < ApplicationController
   end
 
   def accept_candidate
-    if !current_user || !current_user.valid? || @post.user_id != current_user.id
-      redirect_to "/posts/#{@post.id}", alert: 'Käyttöoikeudet puuttuvat.'
-    end
     post = Post.find(params[:post_id])
     if current_user && current_user == post.user
       post.accepted_candidates.each do |c|
@@ -221,9 +212,6 @@ class PostsController < ApplicationController
   end
 
   def remove_candidate
-    if !current_user || !current_user.valid? || @post.user_id != current_user.id
-      redirect_to "/posts/#{@post.id}", alert: 'Käyttöoikeudet puuttuvat.'
-    end
     post = Post.find(params[:post_id])
     if current_user && post.helpers.include?(current_user)
       candi = Candidate.find_by(post_id:post.id, user_id:current_user.id)
