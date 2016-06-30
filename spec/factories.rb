@@ -219,5 +219,12 @@ FactoryGirl.define do
       post_id 3
       score 3
     end
+
+    factory :rating3 do
+      reviewer_id 1
+      reviewed_id 1
+      post_id 3
+      score 3
+    end
   end
 end
