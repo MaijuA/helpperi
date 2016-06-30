@@ -89,6 +89,7 @@ class PostsController < ApplicationController
 
 # GET /posts/1/edit
   def edit
+    @edit = true
     if @post.deleted != false && @post.doer_id != nil
       redirect_to "/posts/#{@post.id}", alert: 'Poistettua ilmoitusta ei voi muokata.'
     elsif @post.doer_id != nil
@@ -98,7 +99,6 @@ class PostsController < ApplicationController
     elsif current_user && current_user.valid? && @post.user_id != current_user.id
       redirect_to "/posts/#{@post.id}"
     end
-    @edit = true
     # Kuvaukset editointilomakkeen "Hae kategorian kuvausehdotus" -toiminnallisuutta varten
     gon.clear
     gon.default_description = ""
@@ -135,7 +135,7 @@ class PostsController < ApplicationController
         format.html { redirect_to @post, notice: 'Ilmoitus muokattu onnistuneesti.' }
         format.json { render :show, status: :ok, location: @post }
       else
-        format.html { render :edit }
+        format.html { render :edit, :locals => { :edit => true } }
         format.json { render json: @post.errors, status: :unprocessable_entity }
       end
     end

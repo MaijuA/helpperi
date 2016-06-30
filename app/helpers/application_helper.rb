@@ -2,7 +2,8 @@ module ApplicationHelper
   def users_index_message_count  # counts all unread messages in users/index
     Conversation.where(post_id:current_user.posts.valid.not_rated.ids).user_messages(current_user.id).unread_by(current_user).count +
       Conversation.where(post_id:(current_user.tasks.valid.not_rated.ids)).user_messages(current_user.id).unread_by(current_user).count +
-        Conversation.where(post_id:(Candidate.where(denied:false).where(user_id:current_user.id))).user_messages(current_user.id).unread_by(current_user).count
+        Conversation.where(post_id:(Candidate.where(denied:false).where(user_id:current_user.id))).user_messages(current_user.id).unread_by(current_user).count +
+          Conversation.where(post_id:(Post.where(doer_id:current_user.id).not_rated.ids)).user_messages(current_user.id).unread_by(current_user).count
   end
 
   def users_mailbox_message_count # counts all messages which aren´t related to own posts or interests or performed posts

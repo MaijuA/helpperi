@@ -91,7 +91,7 @@
                   <% end %>
 
                   <% unless Conversation.between(post.id, post.user.id, current_user.id).empty? %>
-                      <%= link_to conversation_messages_path(Conversation.between(post.id, post.user.id, current_user.id).first), class: "links" do %>
+                      <%= link_to post_path(post), class: "links" do %>
                           <p><span class="label label-primary">keskustelu</span></p>
                           <% if conversation_user_count(post.user.id, post.id) > 0 %>
                               <p>Uusia viestejä</p>
@@ -200,7 +200,7 @@
                       </ul><br>
                   <% end %>
                   <% unless Conversation.between(post.id, post.user.id, current_user.id).empty? %>
-                      <%= link_to conversation_messages_path(Conversation.between(post.id, post.user.id, current_user.id).first), class: "links" do %>
+                      <%= link_to post_path(post), class: "links" do %>
                           <p><span class="label label-primary">keskustelu</span></p>
                           <% if conversation_user_count(post.user.id, post.id) > 0 %>
                               <p>Uusia viestejä</p>
