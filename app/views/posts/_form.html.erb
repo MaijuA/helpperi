@@ -117,7 +117,7 @@
     <!--</div><br>-->
     <!--<br>-->
 
-    <% if @edit %>
+    <% if params[:action] == 'update' || params[:action] == 'edit' %>
         <div class='actions'>
           <%= f.submit 'Päivitä', class: 'black-button' %>
           <%= link_to 'Peruuta', post_path, class: 'white-button' %>

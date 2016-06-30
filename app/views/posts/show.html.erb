@@ -10,6 +10,7 @@
         <% else %>
             <%= image_tag @post.category_to_take_image_from.image_url(:display), align: 'right' %>
         <% end %>
+
         <p>
           <% if @post.seller? %>
               HALUAN HELPPERIKSI
@@ -47,12 +48,13 @@
 
         <p>
           <strong>Ilmoittaja</strong><br>
-        <div class="row" style="padding-left:15px"><%= link_to(@post.user.first_name, user_path(@post.user), :class => "links") %></div>
+        <div class="row" style="padding-left:15px"><%= link_to(@post.user.first_name, user_path(@post.user), :class => "links") %>
         <div class="row" style="padding:5px 0px 0px 15px"><%= render 'layouts/stars', :user => @post.user %><br></div>
         <!-- oma ilmoitus -->
         <div class="row" style="padding-left:15px"><%= @post.address if @post.user == current_user %></div>
         <!-- /oma ilmoitus -->
         <div class="row" style="padding-left:15px"><%= @post.zip_code %> <%= @post.city %></div>
+        </div>
         </p><br>
 
         <!-- oma ilmoitus -->
@@ -241,6 +243,37 @@
             <% end %>
             </tbody>
           </table>
+        </div>
+      </div>
+    </div>
+<% end %>
+<% if user_signed_in? && current_user == @post.performer && !Post.all.expired.include?(@post) %>
+    <div class="row">
+      <div class="col-md-6 col-md-offset-3">
+        <h3 class="text-center title">Olet sitoutunut tähän ilmoitukseen</h3>
+        <div class="account-wall">
+          <h4 class="text-center title">Viestit</h4>
+          <%= form_for(@post, :html => {:class => "lomake"}) do |f| %>
+              <table class="table table-striped">
+                <thead>
+                <tr>
+                  <th class="col-md-3"></th>
+                </tr>
+                </thead>
+                <tbody class="form-group">
+                <tr>
+                  <td>
+                    <%= link_to conversations_path(sender_id:current_user.id, recipient_id:@post.user.id, post_id:@post.id), method: :post do %>
+                        <p align="center" style="color:black"><span class="glyphicon glyphicon-envelope black-glyph"></span></p>
+                        <% if conversation_user_count(@post.user.id, @post.id) > 0 %>
+                            <p class="links" align="center"><%= conversation_user_count(@post.user.id, @post.id) %> uutta</p>
+                        <% end %>
+                    <% end %>
+                  </td>
+                </tr>
+                </tbody>
+              </table>
+          <% end %>
         </div>
       </div>
     </div>

@@ -98,7 +98,6 @@ class PostsController < ApplicationController
     elsif @post.ending_date < Date.today
       redirect_to "/posts/#{@post.id}", alert: 'Vanhentunutta ilmoitusta ei voi muokata.'
     end
-    @edit = true
     # Kuvaukset editointilomakkeen "Hae kategorian kuvausehdotus" -toiminnallisuutta varten
     gon.clear
     gon.default_description = ""
@@ -135,7 +134,7 @@ class PostsController < ApplicationController
         format.html { redirect_to @post, notice: 'Ilmoitus muokattu onnistuneesti.' }
         format.json { render :show, status: :ok, location: @post }
       else
-        format.html { render :edit }
+        format.html { render :edit, :locals => { :edit => true } }
         format.json { render json: @post.errors, status: :unprocessable_entity }
       end
     end
