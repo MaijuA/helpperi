@@ -105,7 +105,7 @@
 
         </table>
         <!-- % end % -->
-
+        <%= will_paginate @user_performer_selling_posts, :param_name => 'performer_selling_page' %>
     <% end %>
 
     <% unless @user_buying_posts.empty? %>
@@ -124,6 +124,7 @@
           <% end %>
           </tbody>
         </table><br>
+        <%= will_paginate @user_buying_posts, :param_name => 'buying_page' %>
     <% end %>
 <% end %>
 
@@ -213,8 +214,9 @@
           <% end %>
           </tbody>
         </table>
-
+        <%= will_paginate @user_performer_buying_posts, :param_name => 'performer_buying_page' %>
     <% end %>
+
     <% unless @user_selling_posts.empty? %>
 
         <table class="table table-striped">
@@ -232,7 +234,8 @@
               <%= render 'user_post_row', :post => post %>
           <% end %>
           </tbody>
-        </table><br>
+        </table>
+        <%= will_paginate @user_selling_posts, :param_name => 'selling_page' %>
     <% end %>
 <% end %>
 

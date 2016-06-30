@@ -27,12 +27,12 @@ class UsersController < ApplicationController
       params[:page4] = 1 if params[:page2] == ''
 
       @user_posts = current_user.posts.valid.not_rated
-      @user_selling_posts = current_user.posts.valid.not_rated.selling#.paginate(:page => params[:selling_page], :per_page => 5)
-      @user_buying_posts = current_user.posts.valid.not_rated.buying#.paginate(:page => params[:buying_page], :per_page => 5)
+      @user_selling_posts = current_user.posts.valid.not_rated.selling.paginate(:page => params[:selling_page], :per_page => 15)
+      @user_buying_posts = current_user.posts.valid.not_rated.buying.paginate(:page => params[:buying_page], :per_page => 15)
 
       @user_performer_posts = Post.where(doer_id:current_user.id).valid.not_rated
-      @user_performer_buying_posts = Post.where(doer_id:current_user.id).valid.not_rated.buying#.paginate(:page => params[:performer_buying_page], :per_page => 5) # ne joissa ratings.count < 2
-      @user_performer_selling_posts = Post.where(doer_id:current_user.id).valid.not_rated.selling#.paginate(:page => params[:performer_selling_page], :per_page => 5) # ne joissa ratings.count < 2
+      @user_performer_buying_posts = Post.where(doer_id:current_user.id).valid.not_rated.buying.paginate(:page => params[:performer_buying_page], :per_page => 15) # ne joissa ratings.count < 2
+      @user_performer_selling_posts = Post.where(doer_id:current_user.id).valid.not_rated.selling.paginate(:page => params[:performer_selling_page], :per_page => 15) # ne joissa ratings.count < 2
     end
   end
 
@@ -41,9 +41,9 @@ class UsersController < ApplicationController
       params[:page1] = 1 if params[:page1] == ''
       params[:page2] = 1 if params[:page2] == ''
       params[:page3] = 1 if params[:page3] == ''
-      @user_expired_posts = current_user.posts.active.expired.paginate(:page => params[:expired_page], :per_page => 5).paginate(:page => params[:expired_page], :per_page => 5)
-      @user_performed_buying = Post.where("(doer_id = ? AND post_type = 'Myynti') OR (user_id = ? AND post_type = 'Osto')", current_user.id, current_user.id).rated.paginate(:page => params[:buying_page], :per_page => 5)
-      @user_performed_selling = Post.where("(doer_id = ? AND post_type = 'Osto') OR (user_id = ? AND post_type = 'Myynti')", current_user.id, current_user.id).rated.paginate(:page => params[:selling_page], :per_page => 5)
+      @user_expired_posts = current_user.posts.active.expired.paginate(:page => params[:expired_page], :per_page => 15)
+      @user_performed_buying = Post.where("(doer_id = ? AND post_type = 'Myynti') OR (user_id = ? AND post_type = 'Osto')", current_user.id, current_user.id).rated.paginate(:page => params[:buying_page], :per_page => 15)
+      @user_performed_selling = Post.where("(doer_id = ? AND post_type = 'Osto') OR (user_id = ? AND post_type = 'Myynti')", current_user.id, current_user.id).rated.paginate(:page => params[:selling_page], :per_page => 15)
     end
   end
 
