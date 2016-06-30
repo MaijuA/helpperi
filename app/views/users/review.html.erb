@@ -5,7 +5,13 @@
     <% end %>
     <div class="row">
       <div class="col-md-6 col-md-offset-3">
-        <h1 class="text-center login-title">Arvioi </h1>
+        <h1 class="text-center login-title">Arvioi
+          <% if @post.user == current_user %>
+              <%= @post.performer.first_name %>
+          <% else %>
+              <%= @post.user.first_name %>
+          <% end %>
+        </h1>
         <div class="account-wall">
           <% form_id = "user_#{@post.user.id}_rating" %>
           <%= form_tag users_create_rating_path, :id => "new_rating" do %>
