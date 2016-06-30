@@ -103,7 +103,9 @@
           <% end %>
           </tbody>
         </table>
-        <%= will_paginate @user_performer_selling_posts, :param_name => 'performer_selling_page' %>
+        <div class="helpperi_pagination">
+          <%= will_paginate @user_performer_selling_posts, :param_name => 'performer_selling_page' %>
+        </div>
     <% end %>
 
     <% unless @user_buying_posts.empty? %>
@@ -121,8 +123,10 @@
               <%= render 'user_post_row', :post => post %>
           <% end %>
           </tbody>
-        </table>
-        <%= will_paginate @user_buying_posts, :param_name => 'buying_page' %>
+        </table><br>
+        <div class="helpperi_pagination">
+          <%= will_paginate @user_buying_posts, :param_name => 'buying_page' %>
+        </div>
     <% end %>
 <% end %>
 
@@ -199,6 +203,7 @@
                         <% end %>
                       </ul><br>
                   <% end %>
+                  
                   <% unless Conversation.between(post.id, post.user.id, current_user.id).empty? %>
                       <%= link_to post_path(post), class: "links" do %>
                           <p><span class="label label-primary">keskustelu</span></p>
@@ -212,11 +217,12 @@
           <% end %>
           </tbody>
         </table>
-        <%= will_paginate @user_performer_buying_posts, :param_name => 'performer_buying_page' %>
+        <div class="helpperi_pagination">
+          <%= will_paginate @user_performer_buying_posts, :param_name => 'performer_buying_page' %>
+        </div>
     <% end %>
 
     <% unless @user_selling_posts.empty? %>
-
         <table class="table table-striped">
           <caption>Luomani ilmoitukset (<%= @user_selling_posts.count %>)</caption>
           <thead>
@@ -233,7 +239,9 @@
           <% end %>
           </tbody>
         </table>
-        <%= will_paginate @user_selling_posts, :param_name => 'selling_page' %>
+        <div class="helpperi_pagination">
+          <%= will_paginate @user_selling_posts, :param_name => 'selling_page' %>
+        </div>
     <% end %>
 <% end %>
 
