@@ -91,7 +91,7 @@ class PostsController < ApplicationController
   def edit
     if !current_user || !current_user.valid? || @post.user_id != current_user.id
       redirect_to post_path(@post), alert: 'Käyttöoikeudet puuttuvat.'
-    elsif @post.deleted != false || @post.doer_id != nil
+    elsif @post.deleted != false
       redirect_to post_path(@post), alert: 'Poistettua ilmoitusta ei voi muokata.'
     elsif @post.doer_id != nil
       redirect_to post_path(@post), alert: 'Suorituksessa olevaa ilmoitusta tai jo suoritettua ilmoitusta ei voi muokata.'
@@ -143,7 +143,7 @@ class PostsController < ApplicationController
 
   def delete_post
     post = Post.find(params[:post_id])
-    if post.deleted != false || post.doer_id != nil
+    if post.deleted != false
       redirect_to post_path(post), alert: 'Ilmoitus on jo poistettu.'
     elsif post.doer_id != nil
       redirect_to post_path(post), alert: 'Suorituksessa olevaa ilmoitusta tai jo suoritettua ilmoitusta ei voi poistaa.'
