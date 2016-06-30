@@ -47,14 +47,15 @@
         </p>
 
         <p>
+          <div>
           <strong>Ilmoittaja</strong><br>
-        <div class="row" style="padding-left:15px"><%= link_to(@post.user.first_name, user_path(@post.user), :class => "links") %>
-        <div class="row" style="padding:5px 0px 0px 15px"><%= render 'layouts/stars', :user => @post.user %><br></div>
+        <div class="row" style="padding-left:15px; max-height:25px"><%= link_to(@post.user.first_name, user_path(@post.user), :class => "links") %> </div>
+        <div class="row" style="padding-left:15px; max-height:25px"><%= render 'layouts/stars', :user => @post.user %><br></div>
         <!-- oma ilmoitus -->
-        <div class="row" style="padding-left:15px"><%= @post.address if @post.user == current_user %></div>
+        <div class="row" style="padding-left:15px; max-height:20px"><%= @post.address if @post.user == current_user %></div>
         <!-- /oma ilmoitus -->
-        <div class="row" style="padding-left:15px"><%= @post.zip_code %> <%= @post.city %></div>
-        </div>
+        <div class="row" style="padding-left:15px; max-height:20px"><%= @post.zip_code %> <%= @post.city %></div>
+          </div>
         </p><br>
 
         <!-- oma ilmoitus -->
