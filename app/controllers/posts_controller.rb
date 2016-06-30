@@ -90,20 +90,21 @@ class PostsController < ApplicationController
 # GET /posts/1/edit
   def edit
     if !current_user || !current_user.valid? || @post.user_id != current_user.id
-      redirect_to "/posts/#{@post.id}", alert: 'Käyttöoikeudet puuttuvat.'
+      redirect_to post_path(@post), alert: 'Käyttöoikeudet puuttuvat.'
     elsif @post.deleted != false || @post.doer_id != nil
-      redirect_to "/posts/#{@post.id}", alert: 'Poistettua ilmoitusta ei voi muokata.'
+      redirect_to post_path(@post), alert: 'Poistettua ilmoitusta ei voi muokata.'
     elsif @post.doer_id != nil
-      redirect_to "/posts/#{@post.id}", alert: 'Suorituksessa olevaa ilmoitusta tai jo suoritettua ilmoitusta ei voi muokata.'
+      redirect_to post_path(@post), alert: 'Suorituksessa olevaa ilmoitusta tai jo suoritettua ilmoitusta ei voi muokata.'
     elsif @post.ending_date < Date.today
-      redirect_to "/posts/#{@post.id}", alert: 'Vanhentunutta ilmoitusta ei voi muokata.'
+      redirect_to post_path(@post), alert: 'Vanhentunutta ilmoitusta ei voi muokata.'
+    else
+      # Kuvaukset editointilomakkeen "Hae kategorian kuvausehdotus" -toiminnallisuutta varten
+      gon.clear
+      gon.default_description = ""
+      misc = Category.select { |category| category.name == 'Muu' }
+      gon.default_description = misc[0].description unless misc.empty?
+      gon.descriptions = Hash[Category.all.map {|a| [a.id, a.description]}]
     end
-    # Kuvaukset editointilomakkeen "Hae kategorian kuvausehdotus" -toiminnallisuutta varten
-    gon.clear
-    gon.default_description = ""
-    misc = Category.select { |category| category.name == 'Muu' }
-    gon.default_description = misc[0].description unless misc.empty?
-    gon.descriptions = Hash[Category.all.map {|a| [a.id, a.description]}]
   end
 
 # POST /posts
@@ -142,22 +143,21 @@ class PostsController < ApplicationController
 
   def delete_post
     post = Post.find(params[:post_id])
-    if !current_user || !current_user.valid? || post.user_id != current_user.id
-      redirect_to "/posts/#{@post.id}", alert: 'Käyttöoikeudet puuttuvat.'
-    elsif @post.deleted != false || @post.doer_id != nil
-      redirect_to "/posts/#{@post.id}", alert: 'Ilmoitus on jo poistettu.'
-    elsif @post.doer_id != nil
-      redirect_to "/posts/#{@post.id}", alert: 'Suorituksessa olevaa ilmoitusta tai jo suoritettua ilmoitusta ei voi poistaa.'
-    elsif @post.ending_date < Date.today
-      redirect_to "/posts/#{@post.id}", alert: 'Vanhentunutta ilmoitusta ei voi poistaa.'
-    end
-    if current_user && post.user.id == current_user.id
-      post.update_attribute(:deleted, true)
-    end
-    if post.deleted
-      redirect_to posts_url, notice: 'Ilmoitus on poistettu onnistuneesti.'
+    if post.deleted != false || post.doer_id != nil
+      redirect_to post_path(post), alert: 'Ilmoitus on jo poistettu.'
+    elsif post.doer_id != nil
+      redirect_to post_path(post), alert: 'Suorituksessa olevaa ilmoitusta tai jo suoritettua ilmoitusta ei voi poistaa.'
+    elsif post.ending_date < Date.today
+      redirect_to post_path(post), alert: 'Vanhentunutta ilmoitusta ei voi poistaa.'
     else
-      redirect_to post_path(post), notice: 'Ilmoitusta ei voitu poistaa. Ole yhteydessä asiakaspalveluun.'
+      if current_user && post.user.id == current_user.id
+        post.update_attribute(:deleted, true)
+      end
+      if post.deleted
+        redirect_to posts_url, notice: 'Ilmoitus on poistettu onnistuneesti.'
+      else
+        redirect_to post_path(post), notice: 'Ilmoitusta ei voitu poistaa. Ole yhteydessä asiakaspalveluun.'
+      end
     end
   end
 
