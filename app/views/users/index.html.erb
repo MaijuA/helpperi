@@ -102,9 +102,7 @@
               </tr>
           <% end %>
           </tbody>
-
         </table>
-        <!-- % end % -->
         <div class="helpperi_pagination">
           <%= will_paginate @user_performer_selling_posts, :param_name => 'performer_selling_page' %>
         </div>
@@ -205,6 +203,7 @@
                         <% end %>
                       </ul><br>
                   <% end %>
+                  
                   <% unless Conversation.between(post.id, post.user.id, current_user.id).empty? %>
                       <%= link_to post_path(post), class: "links" do %>
                           <p><span class="label label-primary">keskustelu</span></p>
@@ -224,7 +223,6 @@
     <% end %>
 
     <% unless @user_selling_posts.empty? %>
-
         <table class="table table-striped">
           <caption>Luomani ilmoitukset (<%= @user_selling_posts.count %>)</caption>
           <thead>
