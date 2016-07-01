@@ -75,7 +75,10 @@
                   </p>
                 </td>
                 <td>
-                  <% if post.ratings.count == 1 %>
+                  <% if user_candidate_changes(post.id) > 0 %>
+                      <p><span class="label label-warning">uusi</span></p>
+                  <% end %>
+                       <% if post.ratings.count == 1 %>
                       <p><%= link_to 'Arvioi ilmoittaja', user_review_path(:post_id => post.id), :class => "links" %></p>
                       Sait arvion:
                       <ul style="list-style: none; padding-left: 0">

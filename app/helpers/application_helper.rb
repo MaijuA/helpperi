@@ -27,4 +27,8 @@ module ApplicationHelper
   def post_candidate_changes(post_id) # counts candidate changes in users own post
     Candidate.where(post_id:post_id).where(denied:false).unread_by(current_user).count
   end
+
+  def user_candidate_changes(post_id) # counts candidate changes if user accepted as performer
+    Candidate.where(post_id:post_id).where(user_id:current_user.id).unread_by(current_user).count
+  end
 end
