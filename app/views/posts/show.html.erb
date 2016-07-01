@@ -41,10 +41,12 @@
           <% end %>
         </p>
 
+        <% if @post.performer.nil? %>
         <p>
           <strong>Ilmoitus voimassa</strong><br>
           <%= l(@post.ending_date, format: '%A %e. %Bta %Y') %>
         </p>
+        <% end %>
 
         <p>
           <div>
