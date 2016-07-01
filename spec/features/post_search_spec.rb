@@ -96,13 +96,14 @@ describe 'Search method' do
     expect(page).not_to have_content 'Koiran ulkoilutus'
   end
 
-  # it 'shows right posts with type', js: true do
-  #   click_button('Haen helpperiksi')
-  #
-  #   expect(page).to have_content 'Kattejaa'
-  #   expect(page).not_to have_content 'Hehehe'
-  #   expect(page).to have_content 'Koiran ulkoilutus'
-  # end
+  it 'shows right posts with type' do
+    first('input#post_type_buying', visible: false).set("true")
+    click_button('Hae')
+
+    expect(page).to have_content 'Kattejaa'
+    expect(page).not_to have_content 'Hehehe'
+    expect(page).to have_content 'Koiran ulkoilutus'
+  end
 
   it 'shows right posts with category' do
     post4 = FactoryGirl.create(:post_with_category3)
@@ -116,13 +117,14 @@ describe 'Search method' do
   end
 
 
-  # it 'shows right posts with type', js: true do
-  #   click_button('Haen helpperiä')
-  #
-  #   expect(page).not_to have_content 'Kattejaa'
-  #   expect(page).to have_content 'Hehehe'
-  #   expect(page).not_to have_content 'Koiran ulkoilutus'
-  # end
+  it 'shows right posts with type' do
+    first('input#post_type_selling', visible: false).set("true")
+    click_button('Hae')
+
+    expect(page).not_to have_content 'Kattejaa'
+    expect(page).to have_content 'Hehehe'
+    expect(page).not_to have_content 'Koiran ulkoilutus'
+  end
 
   it 'shows posts in min price order' do
     select "Pienin palkkio", :from => "table_id"
