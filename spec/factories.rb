@@ -175,8 +175,17 @@ FactoryGirl.define do
     end
 
     factory :deleted_post do
-      id 7
+      id 8
+      title 'Tämä on poistettu'
       deleted true
+    end
+
+    factory :expired_post do
+      to_create { |instance| instance.save(validate: false) }
+      id 9
+      title 'Tämä on vanhentunut'
+      ending_date Date.today - 1.month
+      created_at DateTime.now - 2.months
     end
   end
 

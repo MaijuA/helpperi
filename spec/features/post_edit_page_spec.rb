@@ -109,4 +109,33 @@ describe 'Edit post' do
     expect(page).to have_content 'Palkkio ei voi olla sisällötön'
   end
 
+  it 'doesn´t edit deleted post' do
+    post = FactoryGirl.create(:deleted_post)
+    visit edit_post_path(post)
+    expect(page).to have_content 'Poistettua ilmoitusta ei voi muokata'
+  end
+
+  it 'doesn´t edit post with performer' do
+    FactoryGirl.create(:user2)
+    post = FactoryGirl.create(:post_with_category_and_performer)
+    visit edit_post_path(post)
+    expect(page).to have_content 'Suorituksessa olevaa ilmoitusta tai jo suoritettua ilmoitusta ei voi muokata'
+  end
+
+  it 'doesn´t edit expired post' do
+    post = FactoryGirl.create(:expired_post)
+    post.created_at
+    visit edit_post_path(post)
+    expect(page).to have_content 'Vanhentunutta ilmoitusta ei voi muokata'
+  end
+
+  it 'doesn´t edit other users post' do
+    logout
+    user2 = FactoryGirl.create(:user2)
+    login_as(user2)
+    post = FactoryGirl.create(:post)
+    visit edit_post_path(post)
+    expect(page).to have_content 'Käyttöoikeudet puuttuvat'
+  end
+
 end
