@@ -1,4 +1,0 @@
-\select@language {finnish}
-\contentsline {section}{\numberline {1}J\IeC {\"a}rjestelm\IeC {\"a}n yleiskuvaus ja rakenne}{2}{section.1}
-\contentsline {section}{\numberline {2}Relaatiotietokantakaavio}{2}{section.2}
-\contentsline {section}{\numberline {3}Liitteet}{3}{section.3}
