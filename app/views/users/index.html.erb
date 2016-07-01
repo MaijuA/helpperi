@@ -1,11 +1,12 @@
 <br>
+<%= link_to('Luo ilmoitus', new_post_path, class:"black-button") if current_user && current_user.valid? %>
+<%= link_to('Luo ilmoitus', edit_user_registration_path(current_user, :finishing => 1),
+            class:"black-button") if current_user && !current_user.valid? %><br>
 <% if @user_posts.empty? && @user_performer_posts.empty? %> <!-- tähän performer_posteista vain ne joissa ratings < 2 -->
 
     <div class="row">
       <div class="col-md-6 col-md-offset-3">
-        <h1 class="text-center login-title">Omat ilmoitukset</h1>
         <div class="account-wall">
-
           <div class="padding">
             Sinulla ei tällä hetkellä ole aktiivisia ilmoituksia. Voit selata ilmoituksia etusivulla tai luoda uusia klikkaamalla 'Luo ilmoitus' -painiketta!<br>
           </div>
@@ -14,9 +15,7 @@
     </div>
     <br>
 <% end %>
-<%= link_to('Luo ilmoitus', new_post_path, class:"black-button") if current_user && current_user.valid? %>
-<%= link_to('Luo ilmoitus', edit_user_registration_path(current_user, :finishing => 1),
-            class:"black-button") if current_user && !current_user.valid? %><br>
+
 
 <% unless @user_performer_selling_posts.empty? &&  @user_buying_posts.empty? %> <!-- tähän performer_posteista vain ne joissa ratings < 2 -->
 
