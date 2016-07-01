@@ -8,7 +8,7 @@ module ApplicationHelper
   def users_mailbox_message_count # counts all messages which aren´t related to own posts or interests or performed posts
     Conversation.where(post_id:nil).user_messages(current_user.id).unread_by(current_user).count +
         Conversation.where(post_id:(Candidate.where(denied:true).where(user_id:current_user.id))).where.not(post_id:(Post.where(doer_id:current_user.id))).user_messages(current_user.id).unread_by(current_user).count +
-        Conversation.where.not(post_id:(Post.where(user_id:current_user.id))).where.not(post_id:(Post.where(doer_id:current_user.id))).where.not(post_id:(Candidate.where(user_id:current_user.id))).user_messages(current_user.id).unread_by(current_user).count
+        Conversation.where.not(post_id:(Post.where(user_id:current_user.id))).where.not(post_id:(Post.where(doer_id:current_user.id))).where.not(post_id:(current_user.tasks.ids)).user_messages(current_user.id).unread_by(current_user).count
   end
 
   def post_message_count(post_id) # counts all messages related to post
