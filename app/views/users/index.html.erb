@@ -79,7 +79,9 @@
                       <p><span class="label label-warning">uusi</span></p>
                   <% end %>
                        <% if post.ratings.count == 1 %>
-                      <p><%= link_to 'Arvioi ilmoittaja', user_review_path(:post_id => post.id), :class => "links" %></p>
+                      <%= link_to user_review_path(:post_id => post.id), class: "links" do %>
+                          <p><span class="label label-success">Arvioi ilmoittaja</span></p>
+                      <% end %>
                       Sait arvion:
                       <ul style="list-style: none; padding-left: 0">
                         <% (1..3).each do |i| %>
@@ -193,7 +195,9 @@
                 </td>
                 <td>
                   <% if post.ratings.count == 1 %>
-                      <p><%= link_to 'Arvioi ilmoittaja', user_review_path(:post_id => post.id), :class => "links" if post.ratings.count == 1 %></p>
+                      <%= link_to user_review_path(:post_id => post.id), class: "links" do %>
+                          <p><span class="label label-success">Arvioi ilmoittaja</span></p>
+                      <% end %>
                       Sait arvion:
                       <ul style="list-style: none; padding-left: 0">
                         <% (1..3).each do |i| %>
