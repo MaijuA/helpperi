@@ -3,3 +3,7 @@
 # [helpperi](http://helpperi.herokuapp.com/)
 
 [Burndown chart](https://docs.google.com/spreadsheets/d/1h3LncD2UB7XuhtZ3nXzjOzSb2t9CoDokUFSik3Ow91A/edit#gid=1496424636)
+
+A web app where users can register, log in and ask for help and provide help by making announcements, react to announcements, have private chats with each other and rate other users. Ruby on Rails, HTML, CSS, Bootstrap, Scrum, GIT, Travis CI, Heroku. 
+
+Created as a team work in 2016.
