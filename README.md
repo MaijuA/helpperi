@@ -6,6 +6,6 @@
 
 A web app where users can register, log in and ask for help and provide help by making announcements, react to announcements, have private chats with each other and rate other users. 
 
-Ruby on Rails, HTML, CSS, Bootstrap, Scrum, GIT, Travis CI, Heroku. 
+Ruby on Rails, HTML, CSS, Bootstrap, GIT, Travis CI, Heroku, Scrum. 
 
 Created as a team work in 2016.
